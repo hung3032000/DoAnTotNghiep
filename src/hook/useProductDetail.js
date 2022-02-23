@@ -1,0 +1,23 @@
+import { unwrapResult } from '@reduxjs/toolkit';
+import { getProductDetail } from 'components/web/product/ProductSlice';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+export default function useProductDetail(productId) {
+  const dispatch = useDispatch();
+  const dataProducts = useSelector((state) => state.product.product);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const action = getProductDetail(productId);
+        const resultAction = await dispatch(action);
+        console.log(resultAction);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log('Failed to fetch product', error);
+      }
+    })();
+  }, [dispatch, productId]);
+  return dataProducts;
+}

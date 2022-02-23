@@ -1,0 +1,14 @@
+<svg width="160" height="30" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="32" width="162" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text font-weight="bold" stroke="#000" transform="matrix(1.396284818649292,0,0,1.3402971082960846,-157.12693059444427,-93.20533723595113) " stroke-dasharray="5,5" xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="13" id="svg_1" y="84.35441" x="113.44806" stroke-width="0" fill="#000000">Homie Familia Shop</text>
+ </g>
+</svg>

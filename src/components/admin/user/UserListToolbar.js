@@ -1,0 +1,64 @@
+import { Box, Card, CardContent, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
+import { Search as SearchIcon } from 'react-feather';
+import UserNewForm from 'components/admin/form/User/UserNewForm';
+import adminAPI from 'api/adminAPI';
+import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import { addUser } from 'components/web/auth/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+
+function UserListToolbar() {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+
+  const handleNewUFormSubmit = async (values) => {
+    try {
+      const action = addUser(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      window.location.reload();
+      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+      adminAPI.addUser(values);
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+      <UserNewForm onSubmit={handleNewUFormSubmit} />
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Card>
+          <CardContent>
+            <Box sx={{ maxWidth: 500 }}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SvgIcon fontSize="small" color="action">
+                        <SearchIcon />
+                      </SvgIcon>
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Search customer"
+                variant="outlined"
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
+  );
+}
+
+export default UserListToolbar;
