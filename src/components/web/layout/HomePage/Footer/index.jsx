@@ -10,26 +10,26 @@ const Footer = function (props) {
             <div className="row ">
               <div className="col-xs-6 col-sm-6 col-lg-6 advantage-part">
                 <div>
-                  <h2>E-boutique advantages</h2>
+                  <h2>Lợi ích của E-boutique</h2>
                 </div>
                 <div className="content-asset">
                   <div className="row">
                     <p className="col-xs-2 col-sm-4 col-lg-4">
                       <i className="icon_freeDelivery" />
-                      Free
+                      Miễn phí
                       <br />
-                      delivery
+                      vận chuyển
                     </p>
                     <p className="col-xs-2 col-sm-4 col-lg-4">
                       <i className="icon_collect-in-store" />
-                      Collect
+                      Mua
                       <br />
-                      in store
+                      tại cửa hàng
                     </p>
                     <p className="col-xs-2 col-sm-4 col-lg-4">
                       <i className="icon_complimentaryGiftWrapping" />
-                      COMPLEMENTARY <br />
-                      GIFT WRAPPING
+                      hỗ trợ <br />
+                      gói quà
                     </p>
                   </div>
                 </div>
@@ -37,13 +37,13 @@ const Footer = function (props) {
               <div className="col-xs-6 col-sm-6 col-lg-6 newsletter-part">
                 <form action="/#Newsletter-Edit" method="POST" className="newsletter-form">
                   <div>
-                    <h2>Subscribe to the Newsletter and to Homie communications</h2>
-                    <p>Be the first to know about new collections and events.</p>
+                    <h2>Đăng kí để nhận những tin tức mới nhất và kết nối đến cộng đồng Hermes</h2>
+                    <p>Trở thành người đầu tiên biết đến những bộ collections và event mới nhất.</p>
                   </div>
                   <div>
                     <div className="content-asset">
                       <p className="terms-conditions">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Null<a href="/#">Privacy Policy</a> Lorem ipsum dolor sit amet, consectetur adip
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="/#">Privacy Policy</a> Lorem ipsum dolor sit amet, consectetur adip
                       </p>
                     </div>
                   </div>
@@ -52,7 +52,7 @@ const Footer = function (props) {
                       <div className="form-row  required focus" data-requiredtext data-regexinvalidmessage>
                         <div className="form-field-wrapper">
                           <label className="form-label" htmlFor="dwfrm_newsletter_email">
-                            E-mail address *
+                          Địa chỉ E-mail *
                           </label>
                           <div className="form-field">
                             <input
@@ -72,7 +72,7 @@ const Footer = function (props) {
                     <div className="col-xs-2 col-sm-4 col-lg-4 input-container">
                       <div className="form-row submit">
                         <button type="submit" value="Subscribe" name="dwfrm_newsletter_subscribe">
-                          Subscribe
+                          Đăng kí
                         </button>
                       </div>
                     </div>
@@ -86,18 +86,18 @@ const Footer = function (props) {
           <div className="container">
             <div className="row">
               <div className="col col-md-2 col-sm-6">
-                <span className="footer-title">Customer services</span>
+                <span className="footer-title">Dịch vụ khách hàng</span>
                 <ul>
                   <li>
                     <a href="/#">FAQ</a>
                   </li>
                   <li>
-                    <a href="/#">FAQ COVID 19</a>
+                    <a href="/#">FAQ COVID </a>
                   </li>
                 </ul>
               </div>
               <div className="col col-md-2 col-sm-6">
-                <span className="footer-title">About</span>
+                <span className="footer-title">Về chúng tôi</span>
                 <ul>
                   <li>
                     <a href="/#">Careers</a>
@@ -108,13 +108,13 @@ const Footer = function (props) {
                 </ul>
               </div>
               <div className="col col-md-5 col-sm-6">
-                <span className="footer-title">Legal</span>
+                <span className="footer-title">Pháp lý</span>
                 <ul>
                   <li>
-                    <a href="/#">Privacy Policy</a>
+                    <a href="/#">Chính sách bảo mật</a>
                   </li>
                   <li>
-                    <a href="/#">Cookie Policy</a>
+                    <a href="/#">Chính sách Cookie</a>
                   </li>
                 </ul>
               </div>

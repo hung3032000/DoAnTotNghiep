@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 const Home = function (props) {
   return (
     <div>
+    
       <Helmet>
         <title>Trang chủ</title>
       </Helmet>

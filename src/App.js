@@ -9,6 +9,9 @@ import NotFoundA from 'features/admin/NotFound';
 import theme2 from './theme';
 import pageAdmin from 'features/admin/page';
 import { useSelector } from 'react-redux';
+//loading
+import FullPageLoading from 'components/fullPageLoading';
+
 //User
 import PrivateRoute from 'components/PrivateRoute';
 import DefaultLayout from 'components/web/layout/HomePage/DefaultLayout';
@@ -88,6 +91,7 @@ function App() {
   return (
     <Router>
       <Suspense fallback>
+      <FullPageLoading/>
         {user.role !== 'admin' && (
           <DefaultLayout>
             <Switch>

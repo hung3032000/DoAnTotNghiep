@@ -6712,6 +6712,7 @@ html.animate #js-overlay {
 .footer .services a {
   display: inline-block;
   margin-top: 16px;
+  margin-bottom: 16px;
 }
 .footer .services ul {
   margin: 32px 0 0 0;

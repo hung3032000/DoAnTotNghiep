@@ -21,6 +21,7 @@ const Header = function (props) {
   const isLoggedIn = !!loggedInUser._id;
 
   //data
+
   // list category
   const dataCategoryList = useSelector((state) => state.categoryList.data);
   useEffect(() => {
@@ -57,7 +58,7 @@ const Header = function (props) {
   return (
     <div>
       <Cart actionDeleteCart={actionDeleteCart} cartTotal={cartTotal} countProduct={countProduct} dataCart={dataCart} />
-
+      
       {/* header */}
       <header className="header" id="header">
         <div id="js-overlay"></div>
@@ -66,19 +67,19 @@ const Header = function (props) {
           <ul className="header-links">
             <li className="level-1 country-selector">
               <a href="/#" className="country-selector-link navigation-hasSubMenu level-1" title="Location : US $ (Select a Country/Region)">
-                Location<span>:</span>
-                <strong>VN $</strong>
+                Địa điểm<span>:</span>
+                <strong>VN(VNĐ)</strong>
               </a>
             </li>
             <li className="language language-container desktop">
               <a className="language-selector-link" href="/#">
-                Language
-                <span className="current">(English)</span>
+                Ngôn ngữ
+                <span className="current">(VN)</span>
               </a>
             </li>
             <li className="level-1">
               <a className="level-1" href="/#">
-                Contact
+                Liên lạc
               </a>
             </li>
           </ul>
@@ -94,11 +95,11 @@ const Header = function (props) {
               <ul className="header-links" role="presentation">
                 <li className={`level-1 account-nav header-link ${hovered ? 'hover' : ''}`} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
                   <a className={`level-1 ${hovered ? 'hover' : ''}`} href="/Login">
-                    Sign in
+                    Đăng nhập
                   </a>
                   <div className="level-2" style={{ height: 'auto', overflow: 'visible' }}>
                     <a href className="level-2 back" wfd-invisible="true">
-                      Sign in
+                      Đăng nhập
                     </a>
                     <LoginFormHeader />
                     {/* onSubmit={handleLoginFormSubmit} */}
@@ -112,7 +113,7 @@ const Header = function (props) {
                   <ul className="header-links" role="presentation">
                     <li className="level-1 account-nav header-link">
                       <a className="level-1 authenticated navigation-hasSubMenu" href="/myaccount">
-                        My account<span>:</span>
+                        Tài khoản<span>:</span>
                         <span className="name">
                           <strong>
                             {loggedInUser.gender === "Male" && "Ông"}
@@ -123,28 +124,28 @@ const Header = function (props) {
                       </a>
                       <div className="level-2 authenticated">
                         <a href="/myaccount" className="level-2 back">
-                          My account
+                          Tài khoản
                         </a>
                         <ul>
                           <li>
-                            <a href="/myaccount">Account overview </a>
+                            <a href="/myaccount">Tổng quan</a>
                           </li>
                           <li className="order-history ">
-                            <a href="/order">Orders </a>
+                            <a href="/order">Đơn hàng</a>
                           </li>
                           <li className="wishlist-menu-item">
-                            <a href="/wishlist">Wishlist (5)</a>
+                            <a href="/wishlist">Mục yêu thích(5)</a>
                           </li>
                           <li>
-                            <a href="/editaccount">Personal details </a>
+                            <a href="/editaccount">Thông tin cá nhân</a>
                           </li>
                           <li>
-                            <a href="/addresses">Addresses</a>
+                            <a href="/addresses">Địa chỉ</a>
                           </li>
 
                           <li>
                             <a className="cursor" href onClick={handleLogout}>
-                              Logout
+                              Thoát
                             </a>
                           </li>
                         </ul>
@@ -183,7 +184,7 @@ const Header = function (props) {
                 <div className="miniwishlist-buttons">
                   <div className="form-row-button">
                     <a href className="form-button">
-                      See my wishlist
+                      Xem mục yêu thích
                     </a>
                   </div>
                 </div>
@@ -206,14 +207,14 @@ const Header = function (props) {
               </button>
               {countProduct === 0 && (
                 <div className="minicart-content">
-                  <p>Your cart is empty</p>
+                  <p>Giỏ hàng đang trống</p>
                 </div>
               )}
             </div>
             <div className="search-link-container" role="search">
               <Link className="search-link">
                 <span className="icon icon_Search" />
-                <span className="visually-hidden">Search</span>
+                <span className="visually-hidden">Tìm kiếm</span>
               </Link>
             </div>
           </div>

@@ -4,11 +4,13 @@ import productReducer from 'components/web/product/ProductSlice';
 import categoryListReducer from 'components/web/category/CategorySlice';
 import categoryChildListReducer from 'components/web/category/CategoryChildSlice';
 import orderReducer from 'components/admin/order/OrderSlice';
-
+import loaderReducer from 'components/fullPageLoading/loaderSlice'
 import cartReducer from 'components/web/cart/CartSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
+  //loader
+  loader: loaderReducer,
   //user
   user: userReducer,
   productList: productListReducer,
