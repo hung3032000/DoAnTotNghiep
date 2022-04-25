@@ -18,7 +18,7 @@ function UserEmail(props) {
         {/* form-row--valid */}
         {/* form-row--error */}
         <label className="form-label" htmlFor={name}>
-          E-mail address *
+          Địa chỉ E-mail *
         </label>
         <div className="form-field">
           <Controller

@@ -4,18 +4,22 @@ import { login, loginGoogle } from 'components/web/auth/userSlice';
 import LoginForm from 'components/web/form/LoginForm';
 import Google from 'icons/Google';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import CustomerSp from 'components/web/customerSupport/CustomerSp'
+import CustomerSp from 'components/web/customerSupport/CustomerSp';
+import Loader from 'components/fullPageLoading';
+
 const Login = function () {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleLoginFormSubmit = async (values) => {
     try {
+      setLoading(true);
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -23,13 +27,15 @@ const Login = function () {
       window.location.reload();
     } catch (error) {
       console.log('Failed to login:', error);
-      enqueueSnackbar("Mật khẩu hoặc tài khoản không chính xác", { variant: 'error' });
+      enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
       // history.push('/login');
-      // localStorage.clear();
       // window.location.reload();
+    } finally {
+      setLoading(false);
     }
   };
   const responseGoogleSuccess = async (response) => {
+    setLoading(true);
     const data = { tokenId: response.tokenId };
     const action = loginGoogle(data);
     const resultAction = await dispatch(action);
@@ -38,11 +44,11 @@ const Login = function () {
     window.location.reload();
   };
   const responseGoogle = (response) => {
-    console.log(response);
+    enqueueSnackbar(response.error, { variant: 'error' });
   };
   return (
     <div>
-      {/* Body */}
+      <Loader showLoader={loading} />
       <div className="pt_storefront" id="wrapper">
         <div id="minicart-container" aria-hidden="true" />
         <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
@@ -56,13 +62,13 @@ const Login = function () {
               </div> */}
               <div className="page-header">
                 <h1>
-                  <span className="subtitle">My account</span> <span className="title">Login</span>
+                  <span className="subtitle">Tài khoản</span> <span className="title">Đăng nhập</span>
                 </h1>
               </div>
               <div className="row">
                 <div className="col-xs-6">
                   <div className="login-box">
-                    <h2>Homie Family Member</h2>
+                    <h2>Thành viên của Hermes</h2>
                     <GoogleLogin
                       clientId="907790633444-0fnqh5mpf12k1jfes1pal08gv51vhnsh.apps.googleusercontent.com"
                       buttonText="Login"
@@ -75,7 +81,7 @@ const Login = function () {
                       onFailure={responseGoogle}
                       cookiePolicy={'single_host_origin'}
                     />
-                    <p className="intro">If you are already a Homie Family member, please enter your login information.</p>
+                    <p className="intro">Nếu bạn là một thành viên của Hermes, hãy đăng nhập với thông tin của bạn.</p>
                     {/* <div className="error">
                       ${click}
                     </div> */}
@@ -84,24 +90,24 @@ const Login = function () {
                 </div>
                 <div className="col-xs-6">
                   <div className="register-box">
-                    <h2>New member</h2>
-                    <p className="intro">Create your personal account to join our Homie family.</p>
+                    <h2>Thành viên mới</h2>
+                    <p className="intro">Tạo một tài khoản cho riêng mình để tham gia cùng hermes.</p>
                     <a href="/register" className="form-row">
                       <button type="submit" value="Create an account" name="dwfrm_login_register">
-                        Create an account
+                        Tạo tài khoản mới
                       </button>
                     </a>
                     <div className="create-account-benefits">
-                      <h3>Benefits</h3>
+                      <h3>Lợi ích</h3>
                       <div className="content-asset">
                         <p className="title">Wishlist</p>
                         <p className="text">Create a wish list and share it with loved ones or in-store consultants</p>
-                        <p className="title">Customization</p>
+                        <p className="title">Cá nhân hoá</p>
                         <p className="text">Take advantage of suggestions for customized products and exclusive content</p>
-                        <p className="title">Preferences</p>
-                        <p className="text">Manage your newsletter subscription preferences</p>
-                        <p className="title">Personal details</p>
-                        <p className="text">Update your personal information</p>
+                        <p className="title">Yêu thích</p>
+                        <p className="text">Quản lý những tin tức mới nhất mà mình yêu thích</p>
+                        <p className="title">Thông tin cá nhân</p>
+                        <p className="text">Cập nhập thông tin cá nhân</p>
                       </div>
                     </div>
                   </div>
@@ -112,7 +118,6 @@ const Login = function () {
           </div>
         </main>
       </div>
-      {/* end body */}
     </div>
   );
 };

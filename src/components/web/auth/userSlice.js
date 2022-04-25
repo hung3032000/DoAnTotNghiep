@@ -14,6 +14,10 @@ export const register = createAsyncThunk('user/register', async (payload) => {
 
 export const login = createAsyncThunk('user/login', async (payload) => {
   const data = await userApi.login(payload, { status: true });
+  console.log(data)
+  if (data.error) {
+    return null;
+  }
   // save data to local storage
   localStorage.setItem(StorageKeys.TOKEN, data.jwt);
   localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));

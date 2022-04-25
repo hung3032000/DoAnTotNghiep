@@ -1,57 +1,27 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import Slice from 'components/web/slice/Slice'
+import Loader from 'components/fullPageLoading';
 const Home = function (props) {
   return (
     <div>
-    
+      <Loader showLoader={false}/>
       <Helmet>
         <title>Trang chủ</title>
       </Helmet>
-      {/* Body */}
       <main id="main">
-        {/* test */}
         <section aria-roledescription="carousel" className="home-carousel-container content-slot">
           <div className="swiper-container swiper-container-horizontal swiper-container-autoheight swiper-container-fade">
-            <div className="swiper-wrapper" style={{ height: '760px', transitionDuration: '0ms' }}>
-              <div aria-roledescription="slide" className="swiper-slide">
-                <div className="image-content">
-                  <div className="background">
-                    <img src="/image/Homepage_Carousel_Holiday_ForHer_Desktop.jpg" alt="" />
-                  </div>
-                  <a className="content" href="/#">
-                    <div className="primary">
-                      <div className="primary">
-                        <span style={{ color: '/#FFFFFF' }}>Bag For Her</span>
-                      </div>
-                      <div className="cta-container">
-                        <p className="form-button look-button">SHOP NOW</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div aria-roledescription="slide" className="swiper-slide">
-                <div className="image-content">
-                  <div className="background">
-                    <img src="/image/1700X85013.jpg" alt="" />
-                  </div>
-                  <a className="content" href="/#">
-                    <div className="primary">
-                      <div className="primary">
-                        <span style={{ color: '/#FFFFFF' }}>Bag For Him</span>
-                      </div>
-                      <div className="cta-container">
-                        <p className="form-button look-button">SHOP NOW</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
+            <div className="swiper-wrapper" style={{ transitionDuration: '0ms' }}>
+              <Slice 
+              imageUrl="/image/Homepage_Carousel_Holiday_ForHer_Desktop.jpg"
+              title= "Bag For Test"
+              />
             </div>
           </div>
         </section>
         <div className="content-slot image-content-slot image-content-half container">
-          <h2 className="slot-header">SHOP ONLINE</h2>
+          <h2 className="slot-header">Cửa hàng trực tuyến</h2>
           <div className="row">
             <div className="image-content col-xs-6">
               <div className="background">
@@ -72,7 +42,7 @@ const Home = function (props) {
                     <span style={{ color: '/#FFFFFF', fontFamily: '"Roboto Condensed"', fontSize: '24px' }}>Antigona bags for her </span>
                   </div>
                   <div className="cta-container">
-                    <p className="form-button look-button">Shop now</p>
+                    <p className="form-button look-button">Mua ngay</p>
                   </div>
                 </div>
               </a>
@@ -98,7 +68,7 @@ const Home = function (props) {
                     </span>
                   </div>
                   <div className="cta-container">
-                    <p className="form-button look-button">Shop now</p>
+                    <p className="form-button look-button">Mua ngay</p>
                   </div>
                 </div>
               </a>
@@ -114,27 +84,7 @@ const Home = function (props) {
               <ul>
                 <li>
                   <a href="/#" className="tag-link">
-                    New Arrivals
-                  </a>
-                </li>
-                <li>
-                  <a href="/#" className="tag-link">
-                    Ready-to-wear
-                  </a>
-                </li>
-                <li>
-                  <a href="/#" className="tag-link">
-                    Bags
-                  </a>
-                </li>
-                <li>
-                  <a href="/#" className="tag-link">
-                    Shoes
-                  </a>
-                </li>
-                <li>
-                  <a href="/#" className="tag-link">
-                    Accessories
+                    New Arrivalsss
                   </a>
                 </li>
               </ul>
@@ -174,13 +124,13 @@ const Home = function (props) {
           </div>
         </div>
         <div className="category-slot container flatshot-3">
-          <h2 className="slot-header">shop now</h2>
+          <h2 className="slot-header">Mua ngay</h2>
           <div className="row">
             <div className="swiper-container">
               <div className="swiper-wrapper">
                 <div className="grid-tile col-xs-5 col-sm-4 col-lg-4 double flatshot-3 category" aria-roledescription="slide">
                   <a href="/#men/shoes/boots-derbies/">
-                    <span className="text">Shop Boots &amp; Derbies </span>
+                    <span className="text">Cửa hàng Boots &amp; Derbies </span>
                     <picture className>
                       <img src="/image/BH601ZH0NN001-01-01.jpg" alt="Boots & Derbies" srcSet />
                     </picture>
@@ -188,7 +138,7 @@ const Home = function (props) {
                 </div>
                 <div className="grid-tile col-xs-5 col-sm-4 col-lg-4 double flatshot-3 category " aria-roledescription="slide">
                   <a href="/#men/ready-to-wear/sweatshirts/">
-                    <span className="text">Shop Sweatshirts </span>
+                    <span className="text">Cửa hàng Sweatshirts </span>
                     <picture className>
                       <img src="/image/BH601ZH0NN001-01-01.jpg" alt="Sweatshirts" />
                     </picture>
@@ -197,7 +147,7 @@ const Home = function (props) {
                 {/* category swiper-slide */}
                 <div className="grid-tile col-xs-5 col-sm-4 col-lg-4 double flatshot-3 category" aria-roledescription="slide">
                   <a href="/#">
-                    <span className="text"> Shop Sneakers </span>
+                    <span className="text"> Cửa hàng Sneakers </span>
                     <picture className>
                       <img src="/image/BH601ZH0NN001-01-01.jpg" alt="Sneakers" />
                     </picture>
@@ -232,7 +182,6 @@ const Home = function (props) {
           </div>
         </div>
       </main>
-      {/* end body */}
     </div>
   );
 };

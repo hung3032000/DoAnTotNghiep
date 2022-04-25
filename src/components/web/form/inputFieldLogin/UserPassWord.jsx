@@ -15,8 +15,8 @@ function UserPassWord(props) {
   return (
     <div className="form-group">
       <div className={`form-row password form-auto required  empty ${hasErrors ? 'form-row--error' : ''}`}>
-        <label className="form-label" htmlFor={name}>
-          Password *
+        <label className="form-label">
+          Mật khẩu *
         </label>
         <div className="form-field">
           <Controller

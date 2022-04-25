@@ -9,7 +9,6 @@ import { Controller } from 'react-hook-form';
 QuantityField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };
@@ -18,7 +17,6 @@ QuantityField.propTypes = {
 function QuantityField(props) {
   const { form, name, disabled } = props;
   const { setValue } = form;
-
   return (
     <FormControl>
       <Controller
@@ -29,7 +27,6 @@ function QuantityField(props) {
             <IconButton onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)}>
               <RemoveCircleOutline />
             </IconButton>
-
             <OutlinedInput
               id={name}
               type="number"

@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./loader.css";
-import {connect} from "react-redux";
-// import { useStateValue } from "../../../StateProvider";
-
+Loader.propTypes = {
+    showLoader: PropTypes.bool.isRequired
+};
 function Loader(props) {
-    // let [{ showLoader }, dispatch] = useStateValue();
-    let showLoader = false;
+    const showLoader = props.showLoader;
     return (
         <div className={showLoader ? 'd-block' : 'd-none'}>
             <div className="loaders-container">
@@ -17,7 +17,4 @@ function Loader(props) {
         </div>
     )
 }
-const map =  state => ({
-    loading: state.loading,
-})
-export default connect(map)(Loader);
+export default Loader;

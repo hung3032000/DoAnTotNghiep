@@ -8,6 +8,7 @@ import RUserPassword from './inputFieldRegister/RUserPassword';
 import UserFName from './inputFieldRegister/RUserFName';
 import UserLName from './inputFieldRegister/RUserLName';
 import UserTitle from './inputFieldRegister/RUserTitle';
+import Input from './inputCommon';
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -32,9 +33,10 @@ function RegisterForm(props) {
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
-    if (onSubmit) {
-      await onSubmit(values);
-    }
+    console.log(values)
+    // if (onSubmit) {
+    //   await onSubmit(values);
+    // }
   };
 
   return (
@@ -46,9 +48,9 @@ function RegisterForm(props) {
         <fieldset>
           <legend className="visually-hidden">Personal information</legend>
           <UserTitle name="gender" formRUserTitle={registerForm}/>
-          <UserFName name="fistname" formRUserFName={registerForm}/>
-          <UserLName name="lastname" formRUserLName={registerForm}/>
-          <RUserEmail name="email" formRUserEmail={registerForm}/>
+          <Input name="fistname" form={registerForm} label="Họ *"/>
+          <Input name="lastname" form={registerForm} label="Tên *"/>
+          <Input name="email" form={registerForm} label="Địa chỉ E-mail *"/>
           <RUserPassword name="password" formRUserPassword={registerForm}/>
           <div className="form-row form-secondaryCheckbox form-customCheckbox" data-requiredtext data-regexinvalidmessage>
             <div className="form-field-wrapper">

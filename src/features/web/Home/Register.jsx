@@ -1,20 +1,22 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { register } from 'components/web/auth/userSlice';
 import RegisterForm from 'components/web/form/RegisterForm';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
+import Loader from 'components/fullPageLoading';
 
 const Register = function (props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const handleResFormSubmit = async (values) => {
     try {
-      // values.username = values.email;
-      console.log(values)
+      setLoading(true);
+
       const action = register(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -24,12 +26,13 @@ const Register = function (props) {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
-
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <div>
-      {/* Body */}
+      <Loader showLoader={loading} />
 
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
@@ -41,10 +44,6 @@ const Register = function (props) {
               </h1>
               <p className="text">Be the first to know about new collections and exclusive events through your personal account.</p>
             </div>
-
-            {/* <div className="error">
-              ${'{'}message{'}'}
-            </div> */}
             <div className="row">
               <div className="col-xs-6 col-sm-offset-3">
                 <RegisterForm onSubmit={handleResFormSubmit} />
@@ -54,7 +53,6 @@ const Register = function (props) {
         </div>
         <CustomerSp/>
       </main>
-      {/* end body */}
     </div>
   );
 };

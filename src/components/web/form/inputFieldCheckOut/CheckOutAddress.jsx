@@ -17,7 +17,7 @@ function CheckOutAddress(props) {
         data-regexinvalidmessage=""
         aria-required="true"
       >
-        <label className="form-label" htmlFor="dwfrm_singleshipping_shippingAddress_shippingAddressFields_lastname">
+        <label className="form-label">
           Start typing your address*
         </label>
         <div className="form-field">
@@ -33,7 +33,6 @@ function CheckOutAddress(props) {
           data-dwname="lastname"
           autoComplete="family-name"
           aria-required="true"
-
         />
         </div>
       </div>

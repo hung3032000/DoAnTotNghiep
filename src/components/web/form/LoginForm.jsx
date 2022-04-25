@@ -18,7 +18,6 @@ function LoginForm(props) {
   const loginForm = useForm({
     defaultValues: {
       email: '',
-
       password: '',
     },
     resolver: yupResolver(schema),
@@ -32,8 +31,6 @@ function LoginForm(props) {
     }
   };
 
-
-
   return (
     <div>
       <form className="clearfix " onSubmit={loginForm.handleSubmit(handleSubmit)}>
@@ -43,23 +40,22 @@ function LoginForm(props) {
           <UserPassWord name="password" formPassword={loginForm} />
           <div className="form-row form-row-button">
             <button type="submit" className="form-button" name="dwfrm_login_login">
-              Login
+              Đăng nhập
             </button>
           </div>
           <div className="login-actions">
             <a className="password-reset" href>
-              Forgotten password?
+              Quên mật khẩu?
             </a>
             <div className="form-row form-customCheckbox remember-me">
               <input type="checkbox" id="remember-me" className="form-checkbox" />
               <label htmlFor="remember-me" className="form-label">
-                Remember me
+                Duy trì đăng nhập
               </label>
             </div>
           </div>
         </fieldset>
       </form>
-    
     </div>
   );
 }
