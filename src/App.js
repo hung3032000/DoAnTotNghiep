@@ -63,7 +63,7 @@ function App() {
   const user = useSelector((state) => state.user.current);
   // const state = useContext(UserContext);
   // const isAdmin = useSelector((state) => state.user.isAdmin);
-  const token = useSelector((state) => state.user.jwt);
+  // const token = useSelector((state) => state.user.jwt);
   // function
   const showPageGuest = (page) => {
     if (page.length > 0) {
@@ -138,7 +138,6 @@ function App() {
             </ThemeProvider>
           </StyledEngineProvider>
         )}
-
       </Suspense>
     </Router>
   );

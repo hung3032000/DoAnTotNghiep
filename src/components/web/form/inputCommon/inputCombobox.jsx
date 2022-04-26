@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-UserTitle.propTypes = {
+InputCombobox.propTypes = {
   formRUserTitle: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-function UserTitle(props) {
+function InputCombobox(props) {
   const { formRUserTitle, name } = props;
   // const { errors, formState } = formRUserTitle;
   // const hasErrors = formState.touched[name] && errors[name];
@@ -56,4 +56,4 @@ function UserTitle(props) {
   );
 }
 
-export default UserTitle;
+export default InputCombobox;

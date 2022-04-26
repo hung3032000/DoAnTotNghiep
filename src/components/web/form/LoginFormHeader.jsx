@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import UserEmail from './inputFieldLogin/UserEmail';
-import UserPassWord from './inputFieldLogin/UserPassWord';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Input from './inputCommon/inputText';
 
 LoginFormHeader.propTypes = {
   onSubmit: PropTypes.func,
@@ -33,11 +32,8 @@ function LoginFormHeader(props) {
     <form className="clearfix " name="login-form" onSubmit={form.handleSubmit(handleSubmit)} id="form-3">
       <fieldset>
         <legend className="visually-hidden">Login</legend>
-
-        <UserEmail name="email_header" formEmail={form} />
-
-        <UserPassWord name="password_header" formPassword={form} />
-
+        <Input name="email_header" form={form} label="Địa chỉ email *"/>
+        <Input name="password_header" form={form} isPassword={true} label="Mật khẩu *"/>
         <div className="form-row form-row-button">
           <button type="submit" className="form-button" value="Login" name="dwfrm_login_login">
             Login
@@ -52,10 +48,10 @@ function LoginFormHeader(props) {
             <input className=" rememberme" type="hidden" name="dwfrm_login_rememberme" defaultValue="true" data-dwname="rememberme" />
           </div>
           <a className="password-reset" href>
-            Forgotten password?
+            Quên mật khẩU?
           </a>
           <a className="create-account" href="/register">
-            Don't have an account?
+            Chưa có tài khoản?
           </a>
         </div>
       </fieldset>

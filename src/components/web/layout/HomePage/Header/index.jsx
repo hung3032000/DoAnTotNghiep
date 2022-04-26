@@ -9,6 +9,7 @@ import LoginFormHeader from 'components/web/form/LoginFormHeader';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import Loader from 'components/fullPageLoading';
 
 const Header = function (props) {
   //hover animation
@@ -21,6 +22,7 @@ const Header = function (props) {
   const isLoggedIn = !!loggedInUser._id;
 
   //data
+  const [loading, setLoading] = useState(false);
 
   // list category
   const dataCategoryList = useSelector((state) => state.categoryList.data);
@@ -28,6 +30,7 @@ const Header = function (props) {
     (async () => {
       try {
         if (dataCategoryList.length === 0) {
+          setLoading(true);
           const action = getListCategory({
             limit: 20,
             status: true,
@@ -37,6 +40,9 @@ const Header = function (props) {
         }
       } catch (error) {
         console.log(error);
+      }
+      finally {
+        setLoading(false);
       }
     })();
   }, [dataCategoryList.length, dispatch]);
@@ -57,12 +63,10 @@ const Header = function (props) {
 
   return (
     <div>
+      <Loader showLoader={loading}/>
       <Cart actionDeleteCart={actionDeleteCart} cartTotal={cartTotal} countProduct={countProduct} dataCart={dataCart} />
-      
-      {/* header */}
       <header className="header" id="header">
         <div id="js-overlay"></div>
-        {/* phần 1 của header */}
         <div className="header-container">
           <ul className="header-links">
             <li className="level-1 country-selector">

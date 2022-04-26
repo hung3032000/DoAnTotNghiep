@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import RUserEmail from './inputFieldRegister/RUserEmail';
-import RUserPassword from './inputFieldRegister/RUserPassword';
-import UserFName from './inputFieldRegister/RUserFName';
-import UserLName from './inputFieldRegister/RUserLName';
-import UserTitle from './inputFieldRegister/RUserTitle';
-import Input from './inputCommon';
+import InputCombobox from './inputCommon/inputCombobox';
+import Input from './inputCommon/inputText';
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -33,25 +29,24 @@ function RegisterForm(props) {
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
-    console.log(values)
-    // if (onSubmit) {
-    //   await onSubmit(values);
-    // }
+    if (onSubmit) {
+      await onSubmit(values);
+    }
   };
 
   return (
     <div>
       <form className="form-horizontal edit-account-form"  onSubmit={registerForm.handleSubmit(handleSubmit)}>
       {/* id="form-register" */}
-        <p className="required-msg">Please fill out all fields</p>
+        <p className="required-msg">Hãy điền đầy đủ các thông tin bên dưới</p>
         <div className="error-form global-error form-row" aria-live="polite" />
         <fieldset>
-          <legend className="visually-hidden">Personal information</legend>
-          <UserTitle name="gender" formRUserTitle={registerForm}/>
+          <legend className="visually-hidden">Thông tin cá nhân</legend>
+          <InputCombobox name="gender" formRUserTitle={registerForm}/>
           <Input name="fistname" form={registerForm} label="Họ *"/>
           <Input name="lastname" form={registerForm} label="Tên *"/>
           <Input name="email" form={registerForm} label="Địa chỉ E-mail *"/>
-          <RUserPassword name="password" formRUserPassword={registerForm}/>
+          <Input name="password" form={registerForm} isPassword={true} label="Mật khẩu *"/>
           <div className="form-row form-secondaryCheckbox form-customCheckbox" data-requiredtext data-regexinvalidmessage>
             <div className="form-field-wrapper">
               <input
@@ -62,18 +57,18 @@ function RegisterForm(props) {
                 defaultValue="true"
               />
               <label className="form-label" htmlFor="dwfrm_profile_customer_addtoemaillist">
-                I Agree
+                Tôi đồng ý
               </label>
             </div>
           </div>
           <div className="form-row form-row-button">
             <input type="hidden" defaultValue="new" name="action" />
             <button type="submit" value="Apply" name="dwfrm_profile_confirm">
-              Create an account
+              Tạo tài khoản
             </button>
           </div>
           <div className="form-row form-row-button">
-            <a href="/login"> Have Account? To Sign In Page </a>
+            <a href="/login"> Đã có tài khoản? Tới đăng nhập </a>
           </div>
         </fieldset>
       </form>

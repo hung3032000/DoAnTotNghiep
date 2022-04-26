@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import UserEmail from './inputFieldLogin/UserEmail';
-import UserPassWord from './inputFieldLogin/UserPassWord';
+import Input from './inputCommon/inputText';
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -36,8 +35,8 @@ function LoginForm(props) {
       <form className="clearfix " onSubmit={loginForm.handleSubmit(handleSubmit)}>
         <fieldset>
           <legend className="visually-hidden">Login</legend>
-          <UserEmail name="email" formEmail={loginForm} />
-          <UserPassWord name="password" formPassword={loginForm} />
+          <Input name="email" form={loginForm} label="Địa chỉ email *"/>
+          <Input name="password" form={loginForm} isPassword={true} label="Mật khẩu *"/>
           <div className="form-row form-row-button">
             <button type="submit" className="form-button" name="dwfrm_login_login">
               Đăng nhập
