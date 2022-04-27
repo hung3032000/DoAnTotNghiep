@@ -9,17 +9,14 @@ UserPhone.propTypes = {
 };
 
 function UserPhone(props) {
-  const { formUserPhone,userPhone, name } = props;
+  const { formUserPhone, userPhone, name } = props;
   // const { errors, formState } = formUserPhone;
-    return (
-      <div
-      className={`form-row lastname required empty ${userPhone ? 'focus' : ''}`}
-      data-requiredtext="Please enter your last name (A-Z, a-z, dash, apostrophe and space accepted)"
-    >
-      <label className="form-label" htmlFor="dwfrm_profile_customer_lastname_d0nvjfwfdkjp">
+  return (
+    <div className={`form-row lastname required empty ${userPhone ? 'focus' : ''}`} data-requiredtext="Please enter your last name (A-Z, a-z, dash, apostrophe and space accepted)">
+      <label className="form-label" >
         Telephone
       </label>
-        <div className="form-field">
+      <div className="form-field">
         <Controller
           name={name}
           id={name}
@@ -29,11 +26,10 @@ function UserPhone(props) {
           type="text"
           defaultValue={userPhone}
           maxLength={13}
-
         />
-
-      </div>  </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default UserPhone;

@@ -21,12 +21,12 @@ function UserCart() {
             {countProduct === 0 && (
               <div className="page-header">
                 <h1>
-                  <span className="title">Your cart</span>
+                  <span className="title">Giỏ hàng</span>
                 </h1>
-                <p className="text">Your cart is empty</p>
+                <p className="text">Giỏ hàng hiện tại đang trống</p>
                 <div className="form-row">
-                  <a href="/" className="button-text" type="submit" value="global.continueshopping" name="dwfrm_cart_continueShopping">
-                    CONTINUE SHOPPING
+                  <a href="/" className="button-text" type="submit">
+                    Tiếp tục mua sắm
                   </a>
                 </div>
               </div>
@@ -36,10 +36,10 @@ function UserCart() {
               <div>
                 <div className="page-header">
                   <h1>
-                    <span className="title">Your cart</span>
+                    <span className="title">Giỏ hàng</span>
                   </h1>
                   <p className="text">
-                    Items in your cart are not yet reserved. Please proceed with your purchase to secure your items. Standard delivery and returns are complimentary.
+                  Các mặt hàng trong giỏ hàng của bạn chưa được đặt trước. Vui lòng tiến hành mua hàng của bạn để đảm bảo các mặt hàng của bạn. Giao hàng tiêu chuẩn và miễn phí trả lại.
                   </p>
                 </div>
                 <UserDetailCart 

@@ -7,10 +7,10 @@ function CustomerSp(props) {
   return (
     <div className="customer-support">
       <div className="content-asset">
-        <div className="title">Cần giúp hôm?</div>
+        <div className="title">Cần giúp đỡ?</div>
         <div className="container">
           <div className="text">
-            <p className="subtitle">Client Services</p>
+            <p className="subtitle">Tổng đài dịch vụ</p>
             lorem ipsum dolor sit amet, consectetur adipiscing elit
           </div>
           <div className="links">
@@ -20,7 +20,7 @@ function CustomerSp(props) {
             </a>
             <a href="tel:0929363511" className="call-to-button">
               <i className="icon_Call" />
-              Call
+              Điện thoại
             </a>
           </div>
         </div>

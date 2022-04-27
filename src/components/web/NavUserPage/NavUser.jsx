@@ -19,17 +19,17 @@ function NavUser(props) {
         <ul>
           <li className>
             {/* "active" */}
-            <Link to="/myaccount">Account overview</Link>
+            <Link to="/myaccount">Tổng quan tài khoản</Link>
           </li>
           <li className="order-history ">
-            <Link to="/order">Orders</Link>
+            <Link to="/order">Đơn hàng</Link>
           </li>
           {/* <li className=" wishlist-menu-item">
             <Link to="/wishlist">Wishlist (5)</Link>
           </li> */}
           <li className>
             <a href="/editaccount" title="Personal details (Active page)">
-              Personal details
+              Thông tin cá nhân
             </a>
           </li>
           {/* <li className>
@@ -37,7 +37,7 @@ function NavUser(props) {
           </li> */}
           <li>
             <a className="cursor" href onClick={handleLogout}>
-              Logout
+              Đăng xuất
             </a>
           </li>
         </ul>

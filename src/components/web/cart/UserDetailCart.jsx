@@ -39,24 +39,24 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
               </li>
               <li className="product-infos-table">
                 <div className="info-table-row">
-                  <span className="label">Price:</span>
+                  <span className="label">Giá:</span>
                   <span className="value product-price">{formatPrice(card.product.price)}</span>
                 </div>
                 <div className="info-table-row">
-                  <span className="label">Product code:</span>
+                  <span className="label">Mã sản phẩm:</span>
                   <span className="value">{card.product._id}</span>
                 </div>
                 <div className="info-table-row">
-                  <span className="label">Color:</span>
+                  <span className="label">Màu:</span>
                   <span className="value">{card.product.Color}</span>
                 </div>
                 <div className="info-table-row">
-                  <span className="label">Size:</span>
+                  <span className="label">Kích cỡ:</span>
                   <span className="value">{card.product._id}</span>
                 </div>
                 <div className="info-table-row lineitem-quantity">
                   <span className="label">
-                    <span className="no-mobile">Quantity:</span>
+                    <span className="no-mobile">Số lượng:</span>
                     <span className="mobile-only">Qty:</span>
                   </span>
                   <span className="value">
@@ -92,7 +92,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
               </li>
               <li className="item-user-actions">
                 <a href className="add-to-wishlist cursor">
-                  <span>Add to your wishlist </span>
+                  <span>Thêm vào wishlist </span>
                 </a>
                 <a
                   className="remove-product cursor"
@@ -102,7 +102,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
                   }}
                 >
                   <span>
-                    Remove<span className="no-mobile"> product</span>
+                    Xoá<span className="no-mobile"> sản phẩm</span>
                   </span>
                 </a>
               </li>
@@ -111,18 +111,18 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
         ))}
         <div className="form-row-button form-row-button-cart" align="center">
           <a className="form-button secondary" id="add-coupon" href="!#">
-            Enter code
+            Nhập mã
           </a>
         </div>
         <div className="form-row-button form-row-button-cart" align="center">
           <a className="form-button secondary" id="share-basket" href="!#">
-            Share my basket
+            Chia sẻ giỏ hàng
           </a>
         </div>
         <div className="form-row-button form-row-button-cart" align="center" />
       </div>
       <div className="col-sm-6" id="cart-summary-fixed" style={{ marginTop: '0px' }}>
-        <h2 className="summary-title">Summary</h2>
+        <h2 className="summary-title">Tổng kết</h2>
         <div className="cart-summary">
           <div className="cart-footer">
             <input type="hidden" name="dwfrm_cart_updateCart" defaultValue="dwfrm_cart_updateCart" />
@@ -130,11 +130,11 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
               <table className="order-totals-table">
                 <tbody>
                   <tr className="order-subtotal">
-                    <th scope="row">Subtotal</th>
+                    <th scope="row">Tổng phụ</th>
                     <td>{formatPrice(cartTotal)}</td>
                   </tr>
                   <tr className="order-estimate-tax">
-                    <th scope="row">Estimated tax by zipcode:</th>
+                    <th scope="row">Thuế:</th>
                     <td>$0.00</td>
                   </tr>
 
@@ -143,16 +143,16 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
                     <td>$0.00</td>
                   </tr>
                   <tr className="order-total">
-                    <th scope="row">Total</th>
+                    <th scope="row">Tổng cộng</th>
                     <td className="order-value">{formatPrice(cartTotal)}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <legend className="visually-hidden">Order</legend>
+          <legend className="visually-hidden">Đặt hàng</legend>
           <a href="/checkout" className="form-button" type="submit" value="Order" name="dwfrm_cart_checkoutCart">
-            Order
+            Đặt hàng
           </a>
           <div className="payment-icons-list">
             <div className="payment-icons">

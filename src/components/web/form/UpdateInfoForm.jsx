@@ -10,6 +10,8 @@ import UserFName from './inputFieldUpdateInfo/UserFName';
 import UserLName from './inputFieldUpdateInfo/UserLName';
 import UserPhone from './inputFieldUpdateInfo/UserPhone';
 import UserTiltle from './inputFieldUpdateInfo/UserTiltle';
+// import Input from './inputCommon/inputText';
+
 UpdateInfoForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -48,12 +50,12 @@ function UpdateInfoForm(props) {
   return (
     <div>
       <form className="form-horizontal edit-account-form" id="RegistrationForm" onSubmit={updateForm.handleSubmit(handleSubmit)}>
-        <p className="required-msg">All fields marked with an * are mandatory</p>
+        <p className="required-msg">Tất cả các trường có dấu * là bắt buộc</p>
         <div className="error-form global-error form-row" aria-live="polite" />
         <fieldset>
           <legend className="visually-hidden">Personal information</legend>
           <UserTiltle userTiltle={dataUser.gender} name="gender" formUserTitle={updateForm} />
-          <UserFName userFName={dataUser.fistname} name="fistname" formUserFName={updateForm} />
+          <UserFName userFName={dataUser.fistname} name="fistname" formUserFName={updateForm}/>
           <UserLName userLName={dataUser.lastname} name="lastname" formUserLName={updateForm} />
           {/* <UserAddress userAddress={dataUser.addresses[0].city} name="address" formUserAddress={updateForm} /> */}
           <UserBirthday userDate={dataUser.date} userMonth={dataUser.month} date="date" month="month" formUserBirthday={updateForm} />
@@ -61,14 +63,14 @@ function UpdateInfoForm(props) {
           <UserPhone userPhone={dataUser.phonenumber} name="phonenumber" formUserPhone={updateForm} />
           <div className="form-row form-row-button">
             <button type="submit" value="Apply" name="dwfrm_profile_confirm">
-              Save changes
+              Lưu thay đổi
             </button>
           </div>
-          <div className="form-row form-row-button">
+          {/* <div className="form-row form-row-button">
             <button type="button" className="delete-account" value="Delete account" name="dwfrm_profile_deleteaccount">
-              Delete account
+              Xoá tài khoản
             </button>
-          </div>
+          </div> */}
         </fieldset>
       </form>
     </div>

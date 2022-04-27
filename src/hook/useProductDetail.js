@@ -10,6 +10,7 @@ export default function useProductDetail(productId) {
   useEffect(() => {
     (async () => {
       try {
+        
         const action = getProductDetail(productId);
         const resultAction = await dispatch(action);
         console.log(resultAction);

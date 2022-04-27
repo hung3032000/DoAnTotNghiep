@@ -42,7 +42,7 @@ function RegisterForm(props) {
         <div className="error-form global-error form-row" aria-live="polite" />
         <fieldset>
           <legend className="visually-hidden">Thông tin cá nhân</legend>
-          <InputCombobox name="gender" formRUserTitle={registerForm}/>
+          <InputCombobox name="gender" form={registerForm}/>
           <Input name="fistname" form={registerForm} label="Họ *"/>
           <Input name="lastname" form={registerForm} label="Tên *"/>
           <Input name="email" form={registerForm} label="Địa chỉ E-mail *"/>

@@ -2,9 +2,11 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { categoryCDetail } from 'components/web/category/CategoryChildSlice';
 import { getListProduct } from 'components/web/product/ProductListSlice';
 import ProductsList from 'components/web/product/ProductsList';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
+import Loader from 'components/fullPageLoading';
+
 const ShowProduct = function () {
   const {
     params: { catechildId },
@@ -14,11 +16,13 @@ const ShowProduct = function () {
   const dataProductsList = useSelector((state) => state.productList.data);
   const totalProductsList = useSelector((state) => state.productList.length);
   const dataCategoryCDetail = useSelector((state) => state.categoryChildList.categoryChildDetail);
+  const [loading, setLoading] = useState(false);
 
   //useEffect
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const action = getListProduct({
           page: 1,
           limit: 9,
@@ -26,18 +30,20 @@ const ShowProduct = function () {
         });
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
-
         const actionChild = categoryCDetail(catechildId, { substatus: true });
         const resultActionChild = await dispatch(actionChild);
         unwrapResult(resultActionChild);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [catechildId, dispatch]);
 
   return (
     <div>
+      <Loader showLoader={loading} />
       <main id="main" className="clearfix" style={{ marginTop: '128px' }}>
         <div className="content-slot slot-grid-header" />
         <div id="primary" className="primary-content">
@@ -63,7 +69,7 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-Category"
                     >
-                      <span>Category</span>
+                      <span>Danh mục</span>
                     </a>
                     <a
                       href="/#"
@@ -76,7 +82,7 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-sort-by"
                     >
-                      <span>Sort by</span>
+                      <span>Sắp xếp theo</span>
                     </a>
                     <a
                       href="/#"
@@ -88,7 +94,7 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-tag"
                     >
-                      <span>Filters</span>
+                      <span>Lọc</span>
                     </a>
                     {/* <span className="swiper-slide">
                         
@@ -105,7 +111,7 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-Color"
                     >
-                      <span>Color</span>
+                      <span>Màu</span>
                     </a>
                     <a
                       href="/#"
@@ -118,7 +124,7 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-Size"
                     >
-                      <span>Size</span>
+                      <span>Kích cỡ</span>
                     </a>
                     <a
                       href="/#"
@@ -144,9 +150,9 @@ const ShowProduct = function () {
                       aria-expanded="false"
                       aria-controls="filter-same-day"
                     >
-                      <span>Same Day Delivery</span>
+                      <span>Giao hàng trong ngày</span>
                     </a>
-                    <a
+                    {/* <a
                       href="/#"
                       className="swiper-slide browse-by-store-link"
                       role="button"
@@ -158,7 +164,7 @@ const ShowProduct = function () {
                       aria-controls="filter-browse-by-store"
                     >
                       <span>Browse by store</span>
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
@@ -169,7 +175,7 @@ const ShowProduct = function () {
             <div className="category-box">
               <div className="search-result-content productgrid">
                 <div className="inf-scroll-products">
-                  <p>{totalProductsList} Products</p>
+                  <p>{totalProductsList} Sản phẩm</p>
                 </div>
                 <div className="productListInfos hidden" />
               </div>
@@ -180,7 +186,7 @@ const ShowProduct = function () {
                 <ul className="pagination cursor">
                   <li className="page-item">
                     <a className="page-link" href>
-                      Previous
+                      Trước
                     </a>
                   </li>
                   <li className="page-item">
@@ -200,7 +206,7 @@ const ShowProduct = function () {
                   </li>
                   <li className="page-item">
                     <a className="page-link" href>
-                      Next
+                      Sau
                     </a>
                   </li>
                 </ul>

@@ -121,9 +121,9 @@ const Footer = function (props) {
               <div className="col col-md-3 col-sm-3">
                 <a className="HomieBeauty promotion-impression" data-promotion-creative="footer" href="/#" target="_blank">
                   <img alt="" src="/image/Parfum_Linterdit.jpg" title />
-                  <span style={{ position: 'absolute', color: 'white', top: '50%', left: 0, width: '100%', textAlign: 'center', transform: 'translateY(-50%)' }}>
+                  {/* <span style={{ position: 'absolute', color: 'white', top: '50%', left: 0, width: '100%', textAlign: 'center', transform: 'translateY(-50%)' }}>
                     Chỉ là cái tiêu đề dưới cái ảnh thôi
-                  </span>
+                  </span> */}
                 </a>
               </div>
             </div>

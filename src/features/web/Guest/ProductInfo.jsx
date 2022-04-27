@@ -1,11 +1,13 @@
 import AddToCart from 'components/web/cart/AddToCart';
 import { addToCart } from 'components/web/cart/CartSlice';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
-import useProductDetail from 'hook/useProductDetail';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import { formatPrice } from 'utils/common';
+import Loader from 'components/fullPageLoading';
+import { getProductDetail } from 'components/web/product/ProductSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 function ProductInfo() {
   const dispatch = useDispatch();
@@ -14,7 +16,26 @@ function ProductInfo() {
     params: { productId },
   } = useRouteMatch();
   const [click, setClick] = useState(false);
-  const product = useProductDetail(productId);
+  const product = useSelector((state) => state.product.product);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+
+        const action = getProductDetail(productId);
+        const resultAction = await dispatch(action);
+        console.log(resultAction);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log('Failed to fetch product', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch, productId]);
+
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
   const handleAddToCartSubmit = (values) => {
     try {
@@ -32,7 +53,8 @@ function ProductInfo() {
 
   return (
     <div>
-      {/* Body */}
+      <Loader showLoader={loading} />
+
       <div id="wrapper" className="pt_product-details">
         <main id="main" role="main" className="full-width clearfix" style={{ marginTop: '128px' }}>
           <div id="primary" className="primary-content">
@@ -57,7 +79,6 @@ function ProductInfo() {
                         <>
                           <span className="money-saved"> (-50&nbsp;%) </span>
 
-                        
                           <span className="price-sales"> {formatPrice(product.price)} </span>
                         </>
                         {/* )} */}
@@ -73,7 +94,7 @@ function ProductInfo() {
                               aria-expanded="false"
                               onClick={() => setClick(true)}
                             >
-                              <h2>More details</h2>
+                              <h2>Chi tiết</h2>
                               <i className="icon_PlusS" />
                             </button>
                             <button
@@ -83,7 +104,7 @@ function ProductInfo() {
                               aria-expanded="false"
                               onClick={() => setClick(false)}
                             >
-                              <h2>Less details</h2>
+                              <h2>Rút gọn</h2>
                               <i className="icon_MinusS" />
                             </button>
                           </div>
@@ -102,13 +123,14 @@ function ProductInfo() {
                         <div id="description-tab" className="long-description">
                           <div className="short-description">{product.description}</div>
                           <p className="sku">
-                            Product code:
+                            Mã sản phẩm:
                             <span className="pid" itemProp="sku">
                               {product._id}
                             </span>
                           </p>
-                          Composition: {product.material}.<div className="product-description-subtitle">Other</div>
-                          <p>Country of origin: {product.orgin}.</p>
+                          <p>Chất liệu: {product.material}.</p>
+                          <div className="product-description-subtitle">Khác</div>
+                          <p>Nguồn gốc: {product.orgin}.</p>
                         </div>
                       </div>
                       <div className="product-add-to-cart">

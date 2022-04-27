@@ -39,7 +39,7 @@ const Home = function (props) {
               >
                 <div className="primary">
                   <div className="primary">
-                    <span style={{ color: '/#FFFFFF', fontFamily: '"Roboto Condensed"', fontSize: '24px' }}>Antigona bags for her </span>
+                    <span style={{ color: '/#FFFFFF', fontFamily: '"Roboto Condensed"', fontSize: '24px' }}>Túi xách cho em </span>
                   </div>
                   <div className="cta-container">
                     <p className="form-button look-button">Mua ngay</p>
@@ -64,7 +64,7 @@ const Home = function (props) {
                 <div className="primary">
                   <div className="primary">
                     <span style={{ color: '/#FFFFFF', fontFamily: '"Roboto Condensed"', fontSize: '24px' }}>
-                      Antigona Bags for him <br />
+                      Túi sách cho anh <br />
                     </span>
                   </div>
                   <div className="cta-container">
@@ -79,19 +79,19 @@ const Home = function (props) {
           <div className="category-browse row tags-area">
             <div className="col col-xs-6">
               <a className="browse-header" href="/#">
-                <h2>browse WOMEN</h2>
+                <h2>DÀNH CHO NỮ</h2>
               </a>
               <ul>
                 <li>
                   <a href="/#" className="tag-link">
-                    New Arrivalsss
+                    New Arrivals
                   </a>
                 </li>
               </ul>
             </div>
             <div className="col col-xs-6">
               <a className="browse-header" href="/#">
-                <h2>BROWSE MEN</h2>
+                <h2>DÀNH CHO NAM</h2>
               </a>
               <ul>
                 <li>
@@ -169,12 +169,12 @@ const Home = function (props) {
               <div className="primary">
                 <div className="primary">
                   <span style={{ color: '#FFFFFF' }}>
-                   BIG GIFT FOR HER <br />
+                   MÓN QUÀ LỚN CHO EM <br />
                   </span>
                 </div>
                 <div className="cta-container">
                   <a className="form-button look-button" href>
-                    Discover
+                    Khám phá ngay
                   </a>
                 </div>
               </div>

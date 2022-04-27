@@ -1,3 +1,4 @@
+import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import React from 'react';
 
 OrderDetail.propTypes = {};
@@ -145,27 +146,7 @@ function OrderDetail(props) {
             </div>
           </div>
         </div>
-        <div className="customer-support">
-          <div className="content-asset">
-            <div className="title">Cần giúp hôm?</div>
-            <div className="container">
-              <div className="text">
-                <p className="subtitle">Client Services</p>
-                Phục vụ từ 10h sáng đến 3h đêm nha mấy cưng
-              </div>
-              <div className="links">
-                <a href="!#" className="contact-popin">
-                  <i className="icon_Email" />
-                  Email
-                </a>
-                <a href="tel:0929363511" className="call-to-button">
-                  <i className="icon_Call" />
-                  Call
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CustomerSp/>
       </main>
     </div>
   );

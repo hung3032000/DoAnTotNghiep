@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 NotFound.propTypes = {};
 
@@ -19,7 +19,7 @@ function NotFound(props) {
               </div>
             </div>
           </div>
-          <div className="error-page-slot-1">
+          {/* <div className="error-page-slot-1">
             <div className="content-slot image-content-slot image-content-half container">
               <h2 className="slot-header">Browse</h2>
               <div className="row">
@@ -83,8 +83,8 @@ function NotFound(props) {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="error-page-slot-2">
+          </div> */}
+          {/* <div className="error-page-slot-2">
             <div className="content-slot image-content-slot image-content-half container">
               <h2 className="slot-header">Explore</h2>
               <div className="row">
@@ -148,7 +148,7 @@ function NotFound(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="error-page-slot-3">
             <div className="content-slot image-content-slot image-content-half container">
               <div className="row"></div>

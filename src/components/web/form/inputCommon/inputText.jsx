@@ -7,10 +7,12 @@ InputText.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isPassword: PropTypes.bool,
+  defaultValue: PropTypes.string,
+  isDisable : PropTypes.bool
 };
 
 function InputText(props) {
-  const { form, name, label, isPassword } = props;
+  const { form, name, label, isPassword,defaultValue } = props;
   const { errors, formState } = form;
   const hasErrors = formState.touched[name] && errors[name];
   const [passwordShown, setPasswordShown] = useState(false);
@@ -28,8 +30,7 @@ function InputText(props) {
       <div className={`form-row required empty ${hasErrors ? 'form-row--error' : ''}`}>
         <label className="form-label">{label}</label>
         <div className="form-field">
-          <Controller name={name} id={name} control={form.control} as={<input />} className="form-input form-field required" type={showPassword(isPassword)} maxLength={50} />
-
+          <Controller name={name} id={name} control={form.control} as={<input />} className="form-input form-field required" type={showPassword(isPassword)} maxLength={50} defaultValue={defaultValue}/>
           <span className="error"></span>
           {isPassword ? (
             <i className="password-show" onClick={togglePasswordVisiblity}>

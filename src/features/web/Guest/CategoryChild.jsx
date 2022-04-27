@@ -2,14 +2,16 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import CateC from 'components/web/category/CateC';
 import { getListCategoryChild } from 'components/web/category/CategoryChildSlice';
 import { categoryDetail } from 'components/web/category/CategorySlice';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
+import Loader from 'components/fullPageLoading';
 
 function CategoryChild() {
   const {
     params: { id },
   } = useRouteMatch();
+  const [loading, setLoading] = useState(false);
 
   // list category
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ function CategoryChild() {
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const action = categoryDetail(id);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -27,12 +30,16 @@ function CategoryChild() {
         unwrapResult(resultActionChild);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
   return (
     <div>
       {/* Body */}
+      <Loader showLoader={loading} />
+      
       <main id="main" className="clearfix" style={{ marginTop: '128px' }}>
         <div className="content-slot slot-grid-header" />
         <div id="primary" className="primary-content">

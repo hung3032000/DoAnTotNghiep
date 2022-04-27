@@ -1,10 +1,7 @@
 import React from 'react';
-import CheckOutAddress from './inputFieldCheckOut/CheckOutAddress';
-import CheckOutEmail from './inputFieldCheckOut/CheckOutEmail';
-import CheckOutFName from './inputFieldCheckOut/CheckOutFName';
-import CheckOutLName from './inputFieldCheckOut/CheckOutLName';
-import CheckOutPhone from './inputFieldCheckOut/CheckOutPhone';
-import CheckOutTiltle from './inputFieldCheckOut/CheckOutTiltle';
+import Input from './inputCommon/inputText';
+import InputCombobox from './inputCommon/inputCombobox';
+import InputDisabled from './inputCommon/inputDisable';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -39,20 +36,20 @@ function CheckOutForm(props) {
         className="shipping-address-select-form"
       >
         <div className="checkout-box shipping-address-box">
-          <h3 className="info-perso">Personal information</h3>
-          <CheckOutEmail name="email" userEmail={dataUser}/>
-          <h3>Delivery Address</h3>
-          <CheckOutTiltle name="Title" formCheckOutTitle={checkOutForm}/>
-          <CheckOutLName name="LName" formCheckOutLName={checkOutForm}/>
-          <CheckOutFName name="FName" formCheckOutFName={checkOutForm}/>
-          <CheckOutAddress name="Address" formCheckOutAddress={checkOutForm}/>
-          <CheckOutPhone name="Phone" formCheckOutPhone={checkOutForm}/>
+          <h3 className="info-perso">Thông tin cá nhân</h3>
+          <InputDisabled name="email" defaultValue={dataUser.email} label="Địa chỉ Email"/>
+          <h3>Địa chỉ giao hàng</h3>
+          <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà"/>
+          <Input name="LName" form={checkOutForm} label="Họ"/>
+          <Input name="FName" form={checkOutForm} label="Tên"/>
+          <Input name="Address" form={checkOutForm} label="Địa chỉ"/>
+          <Input name="Phone" form={checkOutForm} label="Số điện thoại"/>
           <div className="billing-address">
             <button className="form-button shipping-address-save" name="dwfrm_singleshipping_shippingAddress_save">
-              Check Out
+              Thanh toán
             </button>
             <a className="checkout-back-to-cart" href="/usercart">
-              Return to your cart
+              Quay lại giỏ hàng
             </a>
           </div>
         </div>
