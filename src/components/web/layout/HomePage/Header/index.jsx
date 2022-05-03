@@ -40,8 +40,7 @@ const Header = function (props) {
         }
       } catch (error) {
         console.log(error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     })();
@@ -63,7 +62,7 @@ const Header = function (props) {
 
   return (
     <div>
-      <Loader showLoader={loading}/>
+      <Loader showLoader={loading} />
       <Cart actionDeleteCart={actionDeleteCart} cartTotal={cartTotal} countProduct={countProduct} dataCart={dataCart} />
       <header className="header" id="header">
         <div id="js-overlay"></div>
@@ -120,8 +119,8 @@ const Header = function (props) {
                         Tài khoản<span>:</span>
                         <span className="name">
                           <strong>
-                            {loggedInUser.gender === "Male" && "Ông"}
-                            {loggedInUser.gender === "Female" && "Bà"}.
+                            {loggedInUser.gender === 'Male' && 'Ông'}
+                            {loggedInUser.gender === 'Female' && 'Bà'}.
                           </strong>
                           <strong>{loggedInUser.fistname + ' ' + loggedInUser.lastname} </strong>
                         </span>
@@ -198,6 +197,8 @@ const Header = function (props) {
             <div className="mobile-minicart-added" wfd-invisible="true">
               1 item has been added to your cart
             </div>
+
+
             <div
               className={`minicart empty-cart ${hoveredcart ? 'hover' : ''}`}
               id="minicartnotempty"

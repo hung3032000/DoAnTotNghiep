@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-Slice.propTypes = {
+Slide.propTypes = {
   imageUrl: PropTypes.string,
   title: PropTypes.string
 
 };
 
-function Slice(props) {
+function Slide(props) {
   const { imageUrl, title } = props;
   return (
     <div aria-roledescription="slide" className="swiper-slide">
@@ -30,4 +30,4 @@ function Slice(props) {
   );
 }
 
-export default Slice;
+export default Slide;

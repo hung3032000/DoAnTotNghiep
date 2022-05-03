@@ -2376,7 +2376,7 @@ a.filters-validate-bt {
   text-align: center;
   transition: all 0.2s linear, transform 0.1s ease-in-out;
 }
-.form-button:focus,
+
 .form-button:hover,
 .form-row button:focus,
 .form-row button:hover,
@@ -2411,7 +2411,7 @@ a.secondary.filters-validate-bt {
   border-color: #fff;
   color: #000 !important;
 }
-.form-button.secondary:focus,
+
 .form-button.secondary:hover,
 .form-row button.secondary:focus,
 .form-row button.secondary:hover,
@@ -14819,4 +14819,9 @@ table tr th:first-child {
 }
 .datacart-ul{
   padding: 0px 0 30px 32px !important;
+}
+.product-add-to-cart{
+  
+  margin: 2.5rem 0;
+
 }

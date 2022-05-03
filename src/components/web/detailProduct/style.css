@@ -1,0 +1,125 @@
+.test3 {
+  width: auto;
+  min-height: 0px;
+  max-height: none;
+  height: auto;
+  padding: 10rem 5rem 5rem;
+  position: absolute;
+  color: #000;
+  z-index: 1060 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100% !important;
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  background: none;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.025em;
+  font-family: 'Vectora LT Std', sans-serif;
+}
+.ui-dialog .ui-dialog-content {
+  position: absolute;
+  color: #000;
+  z-index: 1060 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 8.125rem;
+  padding-right: 1.563rem;
+  padding-bottom: 2.5rem;
+  padding-left: 1.563rem;
+  height: 100% !important;
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+}
+.ui-widget-content {
+  border: 1px solid #ddd;
+  color: #333;
+}
+.short-description > ul {
+  margin: 0 0 0 1rem;
+  padding: 0;
+}
+.short-description > ul li {
+  margin-bottom: 0.625rem;
+}
+ul {
+  list-style-type: square;
+}
+.size-guide-panel-btn {
+  padding-top: 1.25rem;
+}
+.btn.btn-link-secondary {
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #737373;
+  padding: 0;
+}
+
+dl.table-brand,
+ul.table-brand {
+  border-bottom: 1px solid #d9d9d9;
+  padding: 0;
+  margin: 5.625rem 0 7.5rem;
+}
+dl.table-brand > .product-dl-item,
+dl.table-brand > li,
+ul.table-brand > .product-dl-item,
+ul.table-brand > li {
+  margin: 0;
+  padding: 1.25rem 0;
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px solid #d9d9d9;
+}
+dl.table-brand > .product-dl-item > dt {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+}
+dl.table-brand > .product-dl-item .color-value {
+  text-transform: lowercase;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+dl.table-brand > .product-dl-item > dd {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+}
+dl.table-brand > .product-dl-item ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.links {
+  margin-top: 1.25rem;
+}
+.links a {
+  text-decoration: none;
+  margin-right: 1.25rem;
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #737373;
+  padding: 0;
+}

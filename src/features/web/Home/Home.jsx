@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import Slice from 'components/web/slice/Slice'
+import Slide from 'components/web/slide/Slide'
 import Loader from 'components/fullPageLoading';
 const Home = function (props) {
   return (
@@ -13,7 +13,7 @@ const Home = function (props) {
         <section aria-roledescription="carousel" className="home-carousel-container content-slot">
           <div className="swiper-container swiper-container-horizontal swiper-container-autoheight swiper-container-fade">
             <div className="swiper-wrapper" style={{ transitionDuration: '0ms' }}>
-              <Slice 
+              <Slide 
               imageUrl="/image/Homepage_Carousel_Holiday_ForHer_Desktop.jpg"
               title= "Bag For Test"
               />
