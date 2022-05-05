@@ -1,18 +1,6 @@
 $(document).ready(function () {
 
 	// click
-	$(".search-link-container").click(function () {
-		if ($("#search").hasClass("open")) {
-			$("#search").removeClass("open");
-		} else {
-			$("#search").addClass("open");
-		}
-	});
-
-
-	$(".close-search").click(function () {
-		$("#search").removeClass("open");
-	});
 
 
 	$("#minicartnotempty").click(function (e) {

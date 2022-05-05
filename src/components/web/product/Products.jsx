@@ -25,7 +25,7 @@ function Products({ product }) {
             <div className="product-infos">
               <div className="product-name">{product.name}</div>
               <div className="product-pricing">
-                <div className="product-price" itemProp="offers" itemScope itemType="/#">
+                <div className="product-price">
                   <span className="price-sales">{formatPrice(product.price)}</span>
                 </div>
               </div>

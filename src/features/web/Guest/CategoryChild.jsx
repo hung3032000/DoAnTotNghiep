@@ -24,7 +24,6 @@ function CategoryChild() {
         const action = categoryDetail(id);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
-
         const actionChild = getListCategoryChild(id, { substatus: true });
         const resultActionChild = await dispatch(actionChild);
         unwrapResult(resultActionChild);
@@ -37,9 +36,7 @@ function CategoryChild() {
   }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
   return (
     <div>
-      {/* Body */}
       <Loader showLoader={loading} />
-      
       <main id="main" className="clearfix" style={{ marginTop: '128px' }}>
         <div className="content-slot slot-grid-header" />
         <div id="primary" className="primary-content">
@@ -51,7 +48,6 @@ function CategoryChild() {
           <CateC data={dataCategoryCList.subcategories} />
         </div>
       </main>
-      {/* end body */}
     </div>
   );
 }

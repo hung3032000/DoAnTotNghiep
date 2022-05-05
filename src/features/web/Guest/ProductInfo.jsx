@@ -10,6 +10,7 @@ import { getProductDetail } from 'components/web/product/ProductSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Modal from 'components/web/modal/modal';
 import Detailproduct from 'components/web/detailProduct';
+import Colorproduct from 'components/web/colorProduct';
 function ProductInfo() {
   const dispatch = useDispatch();
   const actionAddToCart = (cart) => dispatch(addToCart(cart));
@@ -62,14 +63,14 @@ function ProductInfo() {
               <div className="row">
                 <div className="product-col-image col-sm-6">
                   <section className="product-image-container" aria-roledescription="carousel">
-                    <img className="img-productinfo" itemProp="image" src={thumnailUrl} alt="Homie Schematics oversized T-shirt" />
+                    <img className="img-productinfo" src={thumnailUrl} alt="Homie Schematics oversized T-shirt" />
                   </section>
                 </div>
                 <div className="product-col-details col-md-4 col-md-offset-1 col-sm-6">
                   <div className="product-detail">
                     <div className="product-label">{product.content}</div>
-                    <div id="product-content" className="not-downgraded">
-                      <h1 className="product-name" itemProp="name">
+                    <div>
+                      <h1 className="product-name">
                         {product.name}
                       </h1>
                       <div className="product-price">
@@ -81,13 +82,12 @@ function ProductInfo() {
 
                           <span className="price-sales"> {formatPrice(product.price)} </span>
                         </>
-          
                       </div>
 
                       <div className="product-description">
                         <div className="double-form-button">
                           <div className="left">
-                            <Modal>
+                            <Modal classNameModal={'form-button secondary'} label={'Thông tin món hàng'}>
                               <Detailproduct />
                             </Modal>
                           </div>
@@ -104,6 +104,45 @@ function ProductInfo() {
                           </div>
                         </div>
                       </div>
+                      {/*  */}
+                      <div className="variation-attribute variation-color">
+                        <h2 className="attribute-header">
+                          <span className="label">
+                            <span className="attribute-name">BEIGE CAPPUCCINO</span>
+                          </span>
+                        </h2>
+                        <Modal classNameModal={'btn btn-link-secondary button-text'} label={'Chọn Màu'}>
+                        <Colorproduct/>
+                        </Modal>
+                      </div>
+                      {/*  */}
+                      <div className="variation-attribute ">
+                        <div className="size-popin">
+                          <div className="size-popin-container">
+                            <ul>
+                              <li className="selectable attrvalue">
+                                <button className="swatchanchor anchor">
+                                  <span className="" title="Select Size: XS">
+                                    XS
+                                  </span>
+                                </button>
+                              </li>
+
+                              <li className="selectable attrvalue">
+                                <button className="swatchanchor anchor">
+                                  <span className="unavailable-size" title="Select Size: XXL (Unavailable)">
+                                    XXL
+                                  </span>
+                                </button>
+                              </li>
+                            </ul>
+                            <Modal classNameModal={'btn btn-link-secondary button-text'} label={'Size guide'}>
+                              Hello
+                            </Modal>
+                          </div>
+                        </div>
+                      </div>
+                      {/*  */}
                       <div className="product-add-to-cart">
                         <AddToCart onSubmit={handleAddToCartSubmit} />
                       </div>

@@ -1,0 +1,114 @@
+.color-variation-swiper h2 {
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  text-align: left;
+}
+.color-variation-swiper .swiper-container {
+  overflow: visible;
+}
+@media (min-width: 1024px) {
+  .color-variation-swiper .swiper-wrapper {
+    --giv-gutter-x: 1.5rem;
+    --giv-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--giv-gutter-y) * -1);
+    margin-right: calc(var(--giv-gutter-x) * -0.5);
+    margin-left: calc(var(--giv-gutter-x) * -0.5);
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .color-variation-swiper .swiper-wrapper {
+    --giv-gutter-x: 3.125rem;
+  }
+}
+
+@media (min-width: 1024px) and (min-width: 768px) {
+  .color-variation-swiper .swiper-wrapper {
+    --giv-gutter-x: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (min-width: 375px) {
+  .color-variation-swiper .swiper-wrapper {
+    --giv-gutter-x: 1.5rem;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1440px) {
+  .color-variation-swiper .swiper-wrapper {
+    --giv-gutter-x: 5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .swiper-container .swiper-wrapper {
+    flex-wrap: wrap;
+  }
+}
+.swiper-wrapper .swiper-slide {
+  padding-right: 25px;
+}
+@media (min-width: 1024px) {
+  .color-variation-swiper .swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--giv-gutter-x) * 0.5);
+    padding-left: calc(var(--giv-gutter-x) * 0.5);
+    margin-top: var(--giv-gutter-y);
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+@media (min-width: 1024px) {
+  .swiper-wrapper .swiper-slide {
+    padding-right: calc(var(--giv-gutter-x) * 0.5);
+    height: auto;
+  }
+}
+@media (min-width: 1024px) {
+  .color-variation-swiper .swatchanchor {
+    margin-bottom: 3.125rem;
+  }
+}
+
+.color-variation-swiper .swatchanchor {
+  display: block;
+  text-decoration: none;
+}
+
+@media (min-width: 1440px) {
+  .color-variation-swiper .swatchanchor {
+    margin-bottom: 5rem;
+  }
+}
+.swiper-wrapper .swiper-slide a {
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+.swiper-wrapper .swiper-slide img {
+  width: 100%;
+  margin-bottom: 0;
+}
+.color-variation-swiper .swatchanchor img {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .swiper-wrapper .swiper-slide img {
+    width: 100%;
+    margin-bottom: 0;
+  }
+}
+.color-variation-swiper .swatchanchor .variation-name {
+  margin-top: 0.9375rem;
+  text-transform: lowercase;
+  
+}
+@media (min-width: 1024px) {
+  .color-variation-swiper .variation-name {
+    margin-top: 1.25rem;
+  }
+}

@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import "./style.css"
+import PropTypes from 'prop-types';
+
+Modal.propTypes = {
+  classNameModal: PropTypes.string,
+  label: PropTypes.string
+};
 function Modal(props) {
+  const {label,classNameModal} = props;
   const [state, setState] = useState({
     left: false,
   });
@@ -19,23 +26,26 @@ function Modal(props) {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div class="ui-dialog test1">
-        <div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle">
-          <button type="button" class="test2" title="Close" onClick={toggleDrawer(anchor, false)}>
+      <div className="ui-dialog test1">
+        <div className="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle">
+          <button type="button" className="test2" title="Close" onClick={toggleDrawer(anchor, false)}>
             <span>
-              <i class="icon_Close"></i>
+              <i className="icon_Close"></i>
             </span>
           </button>
         </div>
-        {props.children}
+        <div className="dialog-content ui-dialog-content ui-widget-content test3">
+          {props.children}
+        </div>
+        
       </div>
     </div>
   );
   const anchor = 'right';
   return (
     <>
-      <button className="form-button secondary" onClick={toggleDrawer(anchor, true)}>
-      <h2>Thông tin món hàng</h2>
+      <button className={classNameModal} onClick={toggleDrawer(anchor, true)}>
+      {label}
       </button>
       <SwipeableDrawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} onOpen={toggleDrawer(anchor, true)}>
         {list(anchor)}
