@@ -9,5 +9,11 @@ const productApi = {
     const url = `/products/${id}`; 
     return axiosClient.get(url);
   },
+  getsize(id){
+    const url = 
+    // `/sizes/${id}`;
+    '/sizes';
+    return axiosClient.get(url);
+  }
 };
 export default productApi;

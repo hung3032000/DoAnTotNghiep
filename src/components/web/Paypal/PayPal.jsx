@@ -115,7 +115,7 @@ export default function Paypal() {
   return (
     <div>
       <main id="main">
-        <div class="centered paypal-button-container" ref={paypal}></div>
+        <div className="centered paypal-button-container" ref={paypal}></div>
       </main>
     </div>
   );

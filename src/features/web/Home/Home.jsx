@@ -32,10 +32,6 @@ const Home = function (props) {
               <a
                 className="content promotion-impression"
                 href="/#"
-                data-promotion-id="null"
-                data-promotion-name="null"
-                data-promotion-creative="null"
-                data-promotion-position="null"
               >
                 <div className="primary">
                   <div className="primary">
@@ -56,10 +52,6 @@ const Home = function (props) {
               <a
                 className="content promotion-impression"
                 href="/#"
-                data-promotion-id="null"
-                data-promotion-name="null"
-                data-promotion-creative="null"
-                data-promotion-position="null"
               >
                 <div className="primary">
                   <div className="primary">

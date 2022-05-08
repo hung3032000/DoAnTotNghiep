@@ -9,8 +9,10 @@ import Loader from 'components/fullPageLoading';
 import { getProductDetail } from 'components/web/product/ProductSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Modal from 'components/web/modal/modal';
+import SizeProduct from 'components/web/sizeProduct';
 import Detailproduct from 'components/web/detailProduct';
 import Colorproduct from 'components/web/colorProduct';
+import { getListSize } from 'components/web/product/ProductListSlice';
 function ProductInfo() {
   const dispatch = useDispatch();
   const actionAddToCart = (cart) => dispatch(addToCart(cart));
@@ -18,8 +20,11 @@ function ProductInfo() {
     params: { productId },
   } = useRouteMatch();
   const product = useSelector((state) => state.product.product);
+  //
+  const size = useSelector((state) => state.productList.size);
+  console.log(size);
+  //
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     (async () => {
       try {
@@ -29,6 +34,10 @@ function ProductInfo() {
         const resultAction = await dispatch(action);
         console.log(resultAction);
         unwrapResult(resultAction);
+
+        const actionChild2 = getListSize();
+        const resultActionChild2 = await dispatch(actionChild2);
+        unwrapResult(resultActionChild2);
       } catch (error) {
         console.log('Failed to fetch product', error);
       } finally {
@@ -70,9 +79,7 @@ function ProductInfo() {
                   <div className="product-detail">
                     <div className="product-label">{product.content}</div>
                     <div>
-                      <h1 className="product-name">
-                        {product.name}
-                      </h1>
+                      <h1 className="product-name">{product.name}</h1>
                       <div className="product-price">
                         <span className="price-standard">{formatPrice(product.price)}</span>
 
@@ -105,43 +112,14 @@ function ProductInfo() {
                         </div>
                       </div>
                       {/*  */}
-                      <div className="variation-attribute variation-color">
-                        <h2 className="attribute-header">
-                          <span className="label">
-                            <span className="attribute-name">BEIGE CAPPUCCINO</span>
-                          </span>
-                        </h2>
-                        <Modal classNameModal={'btn btn-link-secondary button-text'} label={'Chọn Màu'}>
-                        <Colorproduct/>
-                        </Modal>
-                      </div>
-                      {/*  */}
-                      <div className="variation-attribute ">
-                        <div className="size-popin">
-                          <div className="size-popin-container">
-                            <ul>
-                              <li className="selectable attrvalue">
-                                <button className="swatchanchor anchor">
-                                  <span className="" title="Select Size: XS">
-                                    XS
-                                  </span>
-                                </button>
-                              </li>
 
-                              <li className="selectable attrvalue">
-                                <button className="swatchanchor anchor">
-                                  <span className="unavailable-size" title="Select Size: XXL (Unavailable)">
-                                    XXL
-                                  </span>
-                                </button>
-                              </li>
-                            </ul>
-                            <Modal classNameModal={'btn btn-link-secondary button-text'} label={'Size guide'}>
-                              Hello
-                            </Modal>
-                          </div>
-                        </div>
-                      </div>
+                      {/* {size.map((i) => ( */}
+                      <Colorproduct color={size} />
+                      {/* ))} */}
+
+                      {/*  */}
+                      <SizeProduct size={size}></SizeProduct>
+
                       {/*  */}
                       <div className="product-add-to-cart">
                         <AddToCart onSubmit={handleAddToCartSubmit} />

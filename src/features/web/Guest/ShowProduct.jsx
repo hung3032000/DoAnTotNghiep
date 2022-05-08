@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import Loader from 'components/fullPageLoading';
+import Modal from 'components/web/modal/modal';
 
 const ShowProduct = function () {
   const {
@@ -52,136 +53,34 @@ const ShowProduct = function () {
               <span className="title">{dataCategoryCDetail.namesubCategory}</span>
             </h1>
           </div>
-          <div className="search-results-container">
-            <div className="refinements">
-              <h2 className="visually-hidden">Refine Your Results By:</h2>
-              <div className="refinements-tabs">
-                <div className="filters-tabs" id="filters-tabs">
-                  <div className="container">
-                    <a
-                      href="/#"
-                      className="filter-link"
-                      role="button"
-                      data-filter-name="Category"
-                      data-filter-name-active="Category (Active filter)"
-                      data-filter-id={1}
-                      title="Refine Your Results By: Category"
-                      aria-expanded="false"
-                      aria-controls="filter-Category"
-                    >
-                      <span>Danh mục</span>
-                    </a>
-                    <a
-                      href="/#"
-                      className="filter-link sort-by"
-                      role="button"
-                      data-filter-name="Sort by"
-                      data-filter-name-active="Sort by (Active filter)"
-                      data-filter-id={98}
-                      title="Sort by"
-                      aria-expanded="false"
-                      aria-controls="filter-sort-by"
-                    >
-                      <span>Sắp xếp theo</span>
-                    </a>
-                    <a
-                      href="/#"
-                      className="filter-link"
-                      id="filter-link"
-                      role="button"
-                      data-filter-name="Filters"
-                      data-filter-name-active="Filters (Active filter)"
-                      aria-expanded="false"
-                      aria-controls="filter-tag"
-                    >
-                      <span>Lọc</span>
-                    </a>
-                    {/* <span className="swiper-slide">
-                        
-                        <span> Filters </span>
-                      </span> */}
-                    <a
-                      href="/#"
-                      className="swiper-slide"
-                      role="button"
-                      data-filter-name="Color"
-                      data-filter-name-active="Color (Active filter)"
-                      data-filter-id={2}
-                      title="Refine Your Results By: Color"
-                      aria-expanded="false"
-                      aria-controls="filter-Color"
-                    >
-                      <span>Màu</span>
-                    </a>
-                    <a
-                      href="/#"
-                      className="swiper-slide"
-                      role="button"
-                      data-filter-name="Size"
-                      data-filter-name-active="Size (Active filter)"
-                      data-filter-id={3}
-                      title="Refine Your Results By: Size"
-                      aria-expanded="false"
-                      aria-controls="filter-Size"
-                    >
-                      <span>Kích cỡ</span>
-                    </a>
-                    <a
-                      href="/#"
-                      className="swiper-slide"
-                      role="button"
-                      data-filter-name="Season"
-                      data-filter-name-active="Season (Active filter)"
-                      data-filter-id={4}
-                      title="Refine Your Results By: Season"
-                      aria-expanded="false"
-                      aria-controls="filter-Season"
-                    >
-                      <span>Season</span>
-                    </a>
-                    <a
-                      href="/#"
-                      className="swiper-slide same-day-link"
-                      role="button"
-                      data-filter-id={101}
-                      data-filter-name="Same Day Delivery"
-                      data-filter-name-active="Same Day Delivery (Active filter)"
-                      title="Same Day Delivery"
-                      aria-expanded="false"
-                      aria-controls="filter-same-day"
-                    >
-                      <span>Giao hàng trong ngày</span>
-                    </a>
-                    {/* <a
-                      href="/#"
-                      className="swiper-slide browse-by-store-link"
-                      role="button"
-                      data-filter-id={99}
-                      data-filter-name="Browse by store"
-                      data-filter-name-active="Browse by store (Active filter)"
-                      title="Browse by store"
-                      aria-expanded="false"
-                      aria-controls="filter-browse-by-store"
-                    >
-                      <span>Browse by store</span>
-                    </a> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="filters-overlay" />
+
           <div className="container">
             <div className="category-box">
-              <div className="search-result-content productgrid">
-                <div className="inf-scroll-products">
-                  <p>{totalProductsList} Sản phẩm</p>
-                </div>
-                <div className="productListInfos hidden" />
+              <div className="row-title">
+                  <div className="col-md-6 col-md-4">
+                    <h1 className="title-filter">{totalProductsList} Sản phẩm</h1>
+                  </div>
+                  <div className="refine-buttons col-md-6 col-md-4 order-md-3">
+                    <div className="filters-tabs">
+                    <Modal classNameModal={'btn btn-link filters-tab'} label={"Filters"}>
+
+                    </Modal>
+                      {/* <button className="btn btn-link filters-tab" type="button" aria-expanded="false" aria-controls="filters">
+                        <span className="label">Filters</span>
+                        <span className="label-count"></span>
+                      </button> */}
+                      <a href className="reset-refinements btn btn-link-secondary d-none">
+                        Clear all
+                      </a>
+                    </div>
+                  </div>
+                  <div className="col-md-12 col-md-4 order-md-2"></div>
               </div>
+
               <ul className="search-result-items tiles-container js-slv-product-grid row" data-columns>
                 <ProductsList data={dataProductsList} />
               </ul>
+              
               <div className="centered">
                 <ul className="pagination cursor">
                   <li className="page-item">

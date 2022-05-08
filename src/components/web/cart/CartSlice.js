@@ -23,22 +23,11 @@ const cartSlice = createSlice({
       };
       const index = fileIndex(dataCart, product._id);
       if (index !== -1) {
-        if (dataCart[index].quantity < 5) {
-          if (quantity > 5) {
-            dataCart[index].quantity = 5;
-          } else {
-            let newQuantity = dataCart[index].quantity + quantity;
-            if (newQuantity > 5) {
-              dataCart[index].quantity = 5;
-            } else {
-              dataCart[index].quantity += quantity;
-            }
-          }
-        }
+        dataCart[index].quantity += quantity;
       } else {
         dataCart.unshift({
           product,
-          quantity: quantity > 5 ? 5 : quantity,
+          quantity: quantity,
         });
       }
       localStorage.setItem(StorageKeys.CART, JSON.stringify(dataCart));
@@ -61,7 +50,7 @@ const cartSlice = createSlice({
       if (indexState !== -1) {
         dataCart.splice(indexState, 1);
       }
-   
+
       localStorage.setItem(StorageKeys.CART, JSON.stringify(dataCart));
     },
     emptyCart(state) {
@@ -72,5 +61,5 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const { showMiniCart, hideMiniCart, addToCart, updateCartProduct, removeFromCart,emptyCart } = actions; // named export
+export const { showMiniCart, hideMiniCart, addToCart, updateCartProduct, removeFromCart, emptyCart } = actions; // named export
 export default reducer; // default export

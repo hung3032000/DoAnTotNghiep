@@ -30,7 +30,6 @@ function CategoryParent({ data }) {
           <Subcategory />
         </li>
       ))}
-      {/* current */}
     </div>
   );
 }

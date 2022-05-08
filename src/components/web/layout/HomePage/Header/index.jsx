@@ -8,14 +8,15 @@ import { getListCategory } from 'components/web/category/CategorySlice';
 import LoginFormHeader from 'components/web/form/LoginFormHeader';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Loader from 'components/fullPageLoading';
+import Modal from 'components/web/modal/modal';
+import Search from 'components/web/search/Search';
 
 const Header = function (props) {
   //hover animation
   const [hovered, setHovered] = useState(false);
   const [hoveredcart, setHoveredcart] = useState(false);
-  const [hoveredwish, setHoveredwish] = useState(false);
   const [hoverUser, setHoveredUser] = useState(false); //check login
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.current);
@@ -158,46 +159,10 @@ const Header = function (props) {
                 </li>
               </ul>
             )}
-
-            <div className={`miniwishlist ${hoveredwish ? 'hover' : ''}`} onMouseEnter={() => setHoveredwish(true)} onMouseLeave={() => setHoveredwish(false)}>
-              <a className="miniwishlist-link" href="/#" aria-label="See your wishlist (1)">
-                <i className="icon icon_Wishlist" />
-                <i className="icon icon_Wishlist_Active" title="See your wishlist (1)" />
-                <span className="miniwishlist-quantity" data-quantity={1}>
-                  1
-                </span>
-              </a>
-              <div className="miniwishlist-content">
-                <ul className="miniwishlist-products">
-                  <li className="wishlistlineitem">
-                    <a href="/#" title="Discover your future Dress in 4G jacquard " className="miniwishlist-product">
-                      <div className="miniwishlist-product-image">
-                        <picture className>
-                          <source srcSet="" media="(min-width: 1800px)" />
-                          <img srcSet="http://placehold.it/800x1200" alt="đang phát triển" />
-                        </picture>
-                      </div>
-                      <div className="miniwishlist-product-details">
-                        <div className="miniwishlist-product-name">Áo 1</div>
-                        <div className="miniwishlist-product-date">Thêm vào 08/18/21</div>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-                <div className="miniwishlist-buttons">
-                  <div className="form-row-button">
-                    <a href className="form-button">
-                      Xem mục yêu thích
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
             {/* cart */}
             <div className="mobile-minicart-added" wfd-invisible="true">
               1 item has been added to your cart
             </div>
-
 
             <div
               className={`minicart empty-cart ${hoveredcart ? 'hover' : ''}`}
@@ -217,14 +182,15 @@ const Header = function (props) {
               )}
             </div>
             <div className="search-link-container" role="search">
-              <Link className="search-link">
-                <span className="icon icon_Search" />
-                <span className="visually-hidden">Tìm kiếm</span>
-              </Link>
+              <a href className="search-link">
+                <Modal classNameModal={'icon icon_Search anchor'}>
+                  <Search />
+                </Modal>
+              </a>
             </div>
           </div>
         </div>
-        <button className="header-burgerMenu js-header-burgerMenu" data-current-category="null" data-category-path="null" wfd-invisible="true">
+        <button className="header-burgerMenu js-header-burgerMenu">
           <span className="icon icon_Menu" />
           <span className="sr-only visually-hidden">Menu</span>
         </button>
@@ -235,15 +201,6 @@ const Header = function (props) {
           </ul>
         </nav>
       </header>
-      {/* <div className="notification-live-region" aria-live="polite" role="status">
-        <div className="wishlist-action-confirm success search notification-banner" style={{ display: 'block' }}>
-          <div className="added" aria-live="polite" role="status">
-            <span>Added to wishlist</span>
-            <a href="">View</a>
-          </div>
-        </div>
-      </div> */}
-      {/* end header */}
     </div>
   );
 };
