@@ -6,6 +6,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
   const deleteCart = (index) => {
     actionDeleteCart(index);
   };
+  console.log(dataCart);
   return (
     <div>
       <div id="minicart-container" aria-hidden="false">
@@ -42,7 +43,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
                     {card.product.name}
                   </a>
                   <div className="minicart-product-color">
-                    <span className="label">Color:</span> <span className="value">{card.product.Color}</span>
+                    <span className="label">Color:</span> <span className="value">{card.color}</span>
                   </div>
                   <div className="minicart-product-size">
                     <span className="label">Size:</span> <span className="value">{card.product._id}</span>

@@ -11,25 +11,30 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const { dataCart } = state;
-      const { product, quantity } = action.payload;
-      const fileIndex = (product, id) => {
+      console.log(action);
+      const { product, quantity, color } = action.payload;
+      console.log(color);
+      const fileIndex = (dataCart, id, colors) => {
         let result = -1;
-        product.forEach((productCart, index) => {
-          if (productCart.product._id === id) {
+        dataCart.forEach((productCart, index) => {
+          if (productCart.product._id === id && productCart.color === colors) {
             result = index;
           }
         });
         return result;
       };
-      const index = fileIndex(dataCart, product._id);
+
+      const index = fileIndex(dataCart, product._id, color);
       if (index !== -1) {
         dataCart[index].quantity += quantity;
       } else {
         dataCart.unshift({
+          color: color,
           product,
           quantity: quantity,
         });
       }
+
       localStorage.setItem(StorageKeys.CART, JSON.stringify(dataCart));
     },
 

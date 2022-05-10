@@ -6,7 +6,6 @@ import { useHistory } from 'react-router';
 import { emptyCart } from '../cart/CartSlice';
 export default function Paypal() {
   const cartTotal = useSelector(cartTotalSelector);
-  console.log(cartTotal.toFixed(2))
   const dataCart = useSelector((state) => state.cart.dataCart);
   const userId = useSelector((state) => state.user.current._id);
   const paypal = useRef();
@@ -22,7 +21,6 @@ export default function Paypal() {
           label: 'paypal',
         },
         createOrder: (data, actions, err) => {
-          console.log(dataCart);
           let item = {
             unit_amount: {
               currency_code: 'USD',

@@ -18,7 +18,6 @@ function CustomerList() {
     }
   })();
   },[]);
-  console.log(CustomerList);
   return (
     <>
     <Helmet>

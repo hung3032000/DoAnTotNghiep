@@ -22,7 +22,6 @@ function UserInfor(props) {
       unwrapResult(resultAction);
       enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
     } catch (error) {
-      console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
@@ -33,7 +32,6 @@ function UserInfor(props) {
       unwrapResult(resultAction);
       enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
     } catch (error) {
-      console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };

@@ -24,7 +24,6 @@ const Register = function (props) {
       history.push('/myaccount');
       window.location.reload();
     } catch (error) {
-      console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);

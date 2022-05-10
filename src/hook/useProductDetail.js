@@ -10,10 +10,8 @@ export default function useProductDetail(productId) {
   useEffect(() => {
     (async () => {
       try {
-        
         const action = getProductDetail(productId);
         const resultAction = await dispatch(action);
-        console.log(resultAction);
         unwrapResult(resultAction);
       } catch (error) {
         console.log('Failed to fetch product', error);

@@ -14,7 +14,8 @@ function Index(props) {
         <div className="size-popin-container">
           <ul>
           {size.map((i) => (
-            <li key={i._id} className="selectable attrvalue">
+            <li key={i._id} className="selectable attrvalue" onClick={()=>{
+                  console.log("Helloo"+ i.nameSize)}}>
               <button className="swatchanchor anchor">
                 <span className="" title="Select Size: XS">
                   {i.nameSize}
@@ -22,7 +23,9 @@ function Index(props) {
               </button>
             </li>
           ))}
-            <li className="selectable attrvalue">
+            <li className="selectable attrvalue" onClick={()=>{
+                  console.log("Helloo")
+              }}>
               <button className="swatchanchor anchor">
                 <span className="unavailable-size" title="Select Size: XXL (Unavailable)">
                   XXL

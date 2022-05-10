@@ -8,7 +8,6 @@ export default function useUserDetail(userId) {
       try {
         const result = await adminAPI.getAllUser(userId);
         setUser(result);
-        console.log(result);
       } catch (error) {
         console.log('Failed to fetch product', error);
       }

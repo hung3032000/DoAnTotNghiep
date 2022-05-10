@@ -20,21 +20,17 @@ function ProductInfo() {
     params: { productId },
   } = useRouteMatch();
   const product = useSelector((state) => state.product.product);
-  //
   const size = useSelector((state) => state.productList.size);
-  console.log(size);
-  //
   const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("Chọn màu");
+
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
-
         const action = getProductDetail(productId);
         const resultAction = await dispatch(action);
-        console.log(resultAction);
         unwrapResult(resultAction);
-
         const actionChild2 = getListSize();
         const resultActionChild2 = await dispatch(actionChild2);
         unwrapResult(resultActionChild2);
@@ -47,10 +43,15 @@ function ProductInfo() {
   }, [dispatch, productId]);
 
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
+  const handleSubmit = (data) => {
+    setColor(data);
+  }
+
   const handleAddToCartSubmit = (values) => {
     try {
       if (values) {
         const dataCart = {
+          color: color,
           product,
           quantity: 1,
         };
@@ -111,16 +112,8 @@ function ProductInfo() {
                           </div>
                         </div>
                       </div>
-                      {/*  */}
-
-                      {/* {size.map((i) => ( */}
-                      <Colorproduct color={size} />
-                      {/* ))} */}
-
-                      {/*  */}
-                      <SizeProduct size={size}></SizeProduct>
-
-                      {/*  */}
+                      <Colorproduct color={size} onSubmit={handleSubmit}/>
+                      <SizeProduct size={size}/>
                       <div className="product-add-to-cart">
                         <AddToCart onSubmit={handleAddToCartSubmit} />
                       </div>
