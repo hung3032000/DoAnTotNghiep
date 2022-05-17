@@ -5830,7 +5830,8 @@ a.search-link:hover {
 .minicart .minicart-link.minicart-disable,
 .minicart .miniwishlist-link.minicart-disable,
 .miniwishlist .minicart-link.minicart-disable,
-.miniwishlist .miniwishlist-link.minicart-disable {
+.miniwishlist .miniwishlist-link.minicart-disable,
+.size-disable {
   pointer-events: none;
 }
 
@@ -9122,13 +9123,6 @@ a.filters-validate-bt {
 @media (max-width: 768px) {
   .addtowhishlist-btn .add-to-wishlist {
     padding: 15px 0;
-    background: #d8d8d8;
-  }
-
-  .addtowhishlist-btn .add-to-wishlist .heart-icon {
-    position: absolute;
-    right: 17px;
-    top: 15px;
   }
 }
 

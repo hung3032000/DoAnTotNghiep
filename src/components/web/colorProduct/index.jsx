@@ -25,9 +25,7 @@ function Index(props) {
     setState({ ...state, [anchor]: action });
   };
 
-  const Test = () => {
-    
-  }
+
 
 
   const form = useForm({

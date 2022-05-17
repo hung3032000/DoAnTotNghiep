@@ -6,7 +6,6 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
   const deleteCart = (index) => {
     actionDeleteCart(index);
   };
-  console.log(dataCart);
   return (
     <div>
       <div id="minicart-container" aria-hidden="false">
@@ -21,13 +20,13 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
           </div>
           <div className="minicart-title">
             <p>
-              <span className="title"> Your cart </span>
+              <span className="title"> Giỏ hàng </span>
               <span className="bag-quantity">
                 <i className="icon_Bag" /> ({countProduct})
               </span>
             </p>
           </div>
-          {countProduct === 0 && <p className="centered">Your cart is empty</p>}
+          {countProduct === 0 && <p className="centered">Giỏ hàng của bạn đang trống</p>}
           <ul className="minicart-products">
             {dataCart.map((card, index) => (
               <li key={card.id} className="minicart-product" data-qty="Quantity: value=1, unit=">
@@ -43,17 +42,17 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
                     {card.product.name}
                   </a>
                   <div className="minicart-product-color">
-                    <span className="label">Color:</span> <span className="value">{card.color}</span>
+                    <span className="label">Màu:</span> <span className="value">{card.color}</span>
                   </div>
                   <div className="minicart-product-size">
-                    <span className="label">Size:</span> <span className="value">{card.product._id}</span>
+                    <span className="label">Size:</span> <span className="value">{card.size}</span>
                   </div>
                   <div className="minicart-product-qty">
-                    <span className="label">Qty:</span>
+                    <span className="label">Số lượng:</span>
                     <span className="value">{card.quantity}</span>
                   </div>
                   <div className="minicart-product-pricing">
-                    <span className="label"> Price: </span> <span className="value">{formatPrice(card.product.price)}</span>
+                    <span className="label">Giá: </span> <span className="value">{formatPrice(card.product.price)}</span>
                   </div>
                   <a
                     className="remove-product cursor"
@@ -62,7 +61,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
                       deleteCart(index);
                     }}
                   >
-                    <span> Remove Item </span>
+                    <span> Xoá khỏi giỏ hàng </span>
                   </a>
                 </div>
               </li>
@@ -71,22 +70,22 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
           {countProduct !== 0 && (
             <div className="minicart-summary">
               <div className="minicart-total">
-                <span className="label">Total</span> <span className="value"> {formatPrice(cartTotal)}</span>
+                <span className="label">Tổng cộng:</span> <span className="value"> {formatPrice(cartTotal)}</span>
               </div>
               <div className="minicart-buttons">
                 <div className="form-row-button">
                   <a className="form-button checkout-start" href="/checkout" title="Order" tabIndex={0}>
-                    Order
+                    Đặt hàng
                   </a>
                 </div>
               </div>
               <div className="other-payment">
-                <span>or</span>
+                <span>hoặc</span>
               </div>
               <div className="minicart-buttons">
                 <div className="form-row-button">
-                  <a className="form-button checkout-start" href="/paypal" title="Order" tabIndex={0}>PayPal
-                    {/* <div class="centered" ref={paypal}></div> */}
+                  <a className="form-button checkout-start" href="/paypal" title="Paypal" tabIndex={0}> Thanh toán PayPal
+  
                   </a>
                 </div>
               </div>
@@ -94,7 +93,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
               <div className="minicart-buttons">
                 <div className="form-row-button">
                   <a className="form-button checkout-start" href="/usercart" title="Order" tabIndex={0}>
-                    Edit Your Cart
+                    Chỉnh sửa giỏ hàng
                   </a>
                 </div>
               </div>
