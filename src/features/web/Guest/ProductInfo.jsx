@@ -24,6 +24,7 @@ function ProductInfo() {
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState('Chọn màu');
   const [sizes, setSize] = useState();
+  const [totalProductState, setTotalProductState] = useState();
 
   useEffect(() => {
     (async () => {
@@ -32,9 +33,9 @@ function ProductInfo() {
         const action = getProductDetail(productId);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
-        const actionChild2 = getListSize();
-        const resultActionChild2 = await dispatch(actionChild2);
-        unwrapResult(resultActionChild2);
+        const getListSizeAPI = getListSize();
+        const resultActiongetListSizeAPI = await dispatch(getListSizeAPI);
+        unwrapResult(resultActiongetListSizeAPI);
       } catch (error) {
         console.log('Failed to fetch product', error);
       } finally {
@@ -43,6 +44,39 @@ function ProductInfo() {
     })();
   }, [dispatch, productId]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        let allProduct = 0;
+        if (color === 'Chọn màu' && sizes === undefined) {
+          for (let index = 0; index < size.length; index++) {
+            const element = size[index];
+            for (let index = 0; index < element.colors.length; index++) {
+              const element2 = element.colors[index];
+              allProduct += element2.quantity;
+            }
+          }
+          setTotalProductState(allProduct);
+        }
+        else if (color !== 'Chọn màu' && sizes !== undefined) {
+          size.forEach((i) => {
+            if (sizes === i.nameSize) {
+              i.colors.forEach((i2) => {
+                if (color === i2.colorName) {
+                  allProduct = i2.quantity;
+                }
+              });
+            }
+          });;
+          setTotalProductState(allProduct);
+        }
+      } catch (error) {
+        console.log('Failed to fetch product', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [size, color, sizes]);
 
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
   const handleSubmit = (data) => {
@@ -51,35 +85,7 @@ function ProductInfo() {
   const handleSubmitSize = (data) => {
     setSize(data);
   };
-  let a=0;
-  const checkQuantity = (color, sizes, size) => {
-    
-    size.forEach((i) => {
-      if (sizes === i.nameSize) {
-        i.colors.forEach((i2) => {
-          if (color === i2.colorName) {
-           console.log(i2.quantity);
-           a = i2.quantity;
-          }
-        });
-      }
-    });
-  };
 
-  checkQuantity(color, sizes, size);
-  const totalProduct = (allProduct) => {
-    if (allProduct === 0) {
-      for (let index = 0; index < size.length; index++) {
-        const element = size[index];
-        for (let index = 0; index < element.colors.length; index++) {
-          const element2 = element.colors[index];
-          allProduct += element2.quantity;
-        }
-      }
-      return allProduct;
-    }
-    return allProduct;
-  };
 
   const handleAddToCartSubmit = (values) => {
     try {
@@ -136,15 +142,15 @@ function ProductInfo() {
                           <div className="right">
                             <div className="form-button secondary addtowhishlist-btn">
                               <a href className="add-to-wishlist">
-                                <span className="visible-xs-block">{totalProduct(a)} sản phẩm</span>
-                                <span className="hidden-xs">{totalProduct(a)} sản phẩm</span>
+                                <span className="visible-xs-block">{totalProductState} sản phẩm</span>
+                                <span className="hidden-xs">{totalProductState} sản phẩm</span>
                               </a>
                             </div>
                           </div>
                         </div>
                       </div>
                       <Colorproduct color={size} onSubmit={handleSubmit} />
-                      <SizeProduct size={size} onSubmit={handleSubmitSize} />
+                      <SizeProduct size={size} onSubmit={handleSubmitSize} color={color} />
                       <div className="product-add-to-cart">
                         <AddToCart onSubmit={handleAddToCartSubmit} />
                       </div>
@@ -170,7 +176,6 @@ function ProductInfo() {
           </div>
         </main>
       </div>
-      {/* end body */}
     </div>
   );
 }

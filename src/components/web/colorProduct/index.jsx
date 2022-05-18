@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { useForm } from 'react-hook-form';
-// import Loader from 'components/fullPageLoading';
 
 Index.propTypes = {
   classNameModal: PropTypes.string,
@@ -15,8 +14,7 @@ function Index(props) {
   const { color } = props;
   const [state, setState] = useState({});
   const anchor = 'right';
-  // const [loading, setLoading] = useState(false);
-  const [colors, setColors] = useState("Chọn Màu");
+  const [colors, setColors] = useState('Chọn Màu');
 
   const toggleDrawer = (anchor, action) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -25,12 +23,24 @@ function Index(props) {
     setState({ ...state, [anchor]: action });
   };
 
-
-
+  const filterColor = () => {
+    let colorTemp = [];
+    let finalColor = [];
+    color.forEach((i) => {
+      i.colors.forEach((i2) => {
+        colorTemp.push(i2.colorName);
+      });
+    });
+    colorTemp = colorTemp.filter((item, index) => colorTemp.indexOf(item) === index);
+    for (let index = 0; index < colorTemp.length; index++) {
+      finalColor.push({ _id: index, colorName: colorTemp[index] });
+    }
+    return finalColor;
+  };
 
   const form = useForm({
     defaultValues: {
-      colors: "",
+      colors: '',
     },
   });
   const handleSubmit = async () => {
@@ -56,26 +66,22 @@ function Index(props) {
             <section className="attribute color-variation-swiper-container" aria-roledescription="carousel">
               <div className="value swiper-container">
                 <div className="swatches color swiper-wrapper">
-                  {color.map((i) => (
-                    <>
-                      {i.colors.map((i2) => (
-                        <div key={i2._id} className="selectable attrvalue swiper-slide" aria-roledescription="slide">
-                          <form onSubmit={form.handleSubmit(handleSubmit)}>
-                            <button
-                              className="swatchanchor anchor"
-                              onClick={() => {
-                                setColors(i2.colorName);
-                              }}
-                            >
-                              <img src="/image/imgBag.jpg" alt="HomieReal" onClick={toggleDrawer(anchor, false)} />
-                              <div className="variation-infos" onClick={toggleDrawer(anchor, false)}>
-                                <p className="variation-name">{i2.colorName}</p>
-                              </div>
-                            </button>
-                          </form>
-                        </div>
-                      ))}
-                    </>
+                  {filterColor().map((i) => (
+                    <div key={i._id} className="selectable attrvalue swiper-slide" aria-roledescription="slide">
+                      <form onSubmit={form.handleSubmit(handleSubmit)}>
+                        <button
+                          className="swatchanchor anchor"
+                          onClick={() => {
+                            setColors(i.colorName);
+                          }}
+                        >
+                          <img src="/image/imgBag.jpg" alt="HomieReal" onClick={toggleDrawer(anchor, false)} />
+                          <div className="variation-infos" onClick={toggleDrawer(anchor, false)}>
+                            <p className="variation-name">{i.colorName}</p>
+                          </div>
+                        </button>
+                      </form>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -88,23 +94,19 @@ function Index(props) {
   );
 
   return (
-    <>
-      {/* <Loader showLoader={loading} /> */}
-
-      <div className="variation-attribute variation-color">
-        <h2 className="attribute-header">
-          <span className="label">
-            <span className="attribute-name">{colors}</span>
-          </span>
-        </h2>
-        <button className="btn btn-link-secondary button-text" onClick={toggleDrawer(anchor, true)}>
-          Chọn Màu
-        </button>
-        <SwipeableDrawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} onOpen={toggleDrawer(anchor, true)}>
-          {list(anchor)}
-        </SwipeableDrawer>
-      </div>
-    </>
+    <div className="variation-attribute variation-color">
+      <h2 className="attribute-header">
+        <span className="label">
+          <span className="attribute-name">{colors}</span>
+        </span>
+      </h2>
+      <button className="btn btn-link-secondary button-text" onClick={toggleDrawer(anchor, true)}>
+        Chọn Màu
+      </button>
+      <SwipeableDrawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} onOpen={toggleDrawer(anchor, true)}>
+        {list(anchor)}
+      </SwipeableDrawer>
+    </div>
   );
 }
 

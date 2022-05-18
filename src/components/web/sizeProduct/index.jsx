@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 
 Index.propTypes = {
   size: PropTypes.array,
+  color: PropTypes.string,
 };
 
 function Index(props) {
-  const { size } = props;
+  const { size, color } = props;
   const categoryOptions = [
     { label: 'XXS', value: 'XXS', _id: 0 },
     { label: 'XS', value: 'XS', _id: 1 },
@@ -20,6 +21,18 @@ function Index(props) {
   ];
   const [sizes, setSizes] = useState();
   const [choosers, setChoosers] = useState(-1);
+
+  const arrayFilter = () => {
+    let array = [];
+    size.forEach((i) => {
+      i.colors.forEach((i2) => {
+        if (color === i2.colorName) {
+          array.push({ _id: i._id, nameSize: i.nameSize, quantity: i2.quantity });
+        }
+      });
+    });
+    return array;
+  };
 
   const form = useForm({
     defaultValues: {
@@ -34,7 +47,7 @@ function Index(props) {
   };
 
   const clasSize = (i) => {
-    if (size.some((item) => i.value === item.nameSize)) {
+    if (arrayFilter().some((item) => i.value === item.nameSize)) {
       return '';
     }
     return 'size-disable';
@@ -48,17 +61,14 @@ function Index(props) {
               <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <li
                   key={i._id}
-                  className={ `${choosers === i._id ? 'selected attrvalue' : 'selectable attrvalue'} ` + clasSize(i)}
+                  className={`${choosers === i._id ? 'selected attrvalue' : 'selectable attrvalue'} ` + clasSize(i)}
                   onClick={() => {
                     setChoosers(i._id);
                     setSizes(i.value);
                   }}
                 >
-                  <button
-                    className="swatchanchor anchor"
-                  >
-                    <span className={(size.some((item) => i.value === item.nameSize) ? "" :
-                    "unavailable-size" )} title={'Chọn Size: ' + i.label}>
+                  <button className="swatchanchor anchor">
+                    <span className={arrayFilter().some((item) => i.value === item.nameSize) ? '' : 'unavailable-size'} title={'Chọn Size: ' + i.label}>
                       {i.label}
                     </span>
                   </button>
