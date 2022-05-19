@@ -5,17 +5,17 @@ import ChangePassForm from 'components/web/form/ChangePassForm';
 import UpdateInfoForm from 'components/web/form/UpdateInfoForm';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-UserInfor.propTypes = {};
-
-function UserInfor(props) {
+import { Helmet } from 'react-helmet';
+import Loader from 'components/fullPageLoading';
+function UserInfor() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  const [loading, setLoading] = useState(false);
   const handleResFormSubmit = async (values) => {
     try {
+      setLoading(true);
       values.password = '123456';
       const action = update(values);
       const resultAction = await dispatch(action);
@@ -23,22 +23,31 @@ function UserInfor(props) {
       enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
   const handleResFormSubmitPass = async (values) => {
     try {
+      setLoading(true);
       const action = ChangePassword(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div>
+    <>
+      <Loader showLoader={loading} />
+      <Helmet>
+        <title>Quản lý thông tin cá nhân</title>
+      </Helmet>
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
-        {/* <a id="mainContent" tabIndex={-1} /> */}
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div className="container">
           <NavUser />
@@ -57,10 +66,10 @@ function UserInfor(props) {
               </div>
             </div>
           </div>
-          <CustomerSp/>
+          <CustomerSp />
         </div>
       </main>
-    </div>
+    </>
   );
 }
 

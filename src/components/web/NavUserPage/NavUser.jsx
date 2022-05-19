@@ -17,28 +17,24 @@ function NavUser(props) {
     <div>
       <nav className="account-navigation" aria-label="My account">
         <ul>
-          <li className>
-            {/* "active" */}
+          <li className="active">
             <Link to="/myaccount">Tổng quan tài khoản</Link>
           </li>
           <li className="order-history ">
             <Link to="/order">Đơn hàng</Link>
           </li>
-          {/* <li className=" wishlist-menu-item">
-            <Link to="/wishlist">Wishlist (5)</Link>
-          </li> */}
           <li className>
-            <a href="/editaccount" title="Personal details (Active page)">
+            <Link to="/editaccount">
               Thông tin cá nhân
-            </a>
+            </Link>
           </li>
-          {/* <li className>
-            <Link to="/addresses">Addresses</Link>
-          </li> */}
+          <li className>
+            <Link href="/addresses">Địa chỉ</Link>
+          </li>
           <li>
-            <a className="cursor" href onClick={handleLogout}>
+            <Link className="cursor" onClick={handleLogout}>
               Đăng xuất
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

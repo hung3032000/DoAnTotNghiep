@@ -3,14 +3,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 // import * as yup from 'yup';
-// import UserAddress from './inputFieldUpdateInfo/UserAddress';
-import UserBirthday from './inputFieldUpdateInfo/UserBirthday';
-import UserEmail from './inputFieldUpdateInfo/UserEmail';
-import UserFName from './inputFieldUpdateInfo/UserFName';
-import UserLName from './inputFieldUpdateInfo/UserLName';
-import UserPhone from './inputFieldUpdateInfo/UserPhone';
-import UserTiltle from './inputFieldUpdateInfo/UserTiltle';
-// import Input from './inputCommon/inputText';
+import Input from './inputCommon/inputText';
+import InputCombobox from './inputCommon/inputCombobox';
+import InputData from './inputCommon/inputData';
+import DateTimePicker from './inputCommon/dateTimePicker';
+
 
 UpdateInfoForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -36,8 +33,8 @@ function UpdateInfoForm(props) {
       fistname: dataUser.fistname,
       // address: dataUser.addresses[0].city,
       phoneNumber: dataUser.phonenumber,
-      date: dataUser.date,
-      month: dataUser.month,
+      date: dataUser.date ? dataUser.date : 0,
+      month: dataUser.month ? dataUser.month : 0,
     },
     // resolver: yupResolver(schema),
   });
@@ -48,19 +45,18 @@ function UpdateInfoForm(props) {
     }
   };
   return (
-    <div>
+    <>
       <form className="form-horizontal edit-account-form" id="RegistrationForm" onSubmit={updateForm.handleSubmit(handleSubmit)}>
         <p className="required-msg">Tất cả các trường có dấu * là bắt buộc</p>
         <div className="error-form global-error form-row" aria-live="polite" />
         <fieldset>
-          <legend className="visually-hidden">Personal information</legend>
-          <UserTiltle userTiltle={dataUser.gender} name="gender" formUserTitle={updateForm} />
-          <UserFName userFName={dataUser.fistname} name="fistname" formUserFName={updateForm}/>
-          <UserLName userLName={dataUser.lastname} name="lastname" formUserLName={updateForm} />
-          {/* <UserAddress userAddress={dataUser.addresses[0].city} name="address" formUserAddress={updateForm} /> */}
-          <UserBirthday userDate={dataUser.date} userMonth={dataUser.month} date="date" month="month" formUserBirthday={updateForm} />
-          <UserEmail name="email" userEmail={dataUser} formUserEmail={updateForm}/>
-          <UserPhone userPhone={dataUser.phonenumber} name="phonenumber" formUserPhone={updateForm} />
+          <legend className="visually-hidden">Thông tin cá nhân</legend>
+          <InputCombobox name="gender" form={updateForm}/>
+          <Input defaultValue={dataUser.fistname} name="fistname" form={updateForm} label="Họ *"/>
+          <Input defaultValue={dataUser.lastname} name="lastname" form={updateForm} label="Tên *"/>
+          <DateTimePicker userDate={dataUser.date} userMonth={dataUser.month} form={updateForm} />
+          <Input defaultValue={dataUser.phonenumber} name="phonenumber" form={updateForm} label="Số điện thoại"/>
+          <InputData name="email" defaultValue={dataUser.email} form={updateForm}/>
           <div className="form-row form-row-button">
             <button type="submit" value="Apply" name="dwfrm_profile_confirm">
               Lưu thay đổi
@@ -73,7 +69,7 @@ function UpdateInfoForm(props) {
           </div> */}
         </fieldset>
       </form>
-    </div>
+    </>
   );
 }
 

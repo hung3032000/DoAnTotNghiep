@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
-UserBirthday.propTypes = {
-  userDate: PropTypes.string.isRequired,
-  userMonth: PropTypes.string.isRequired,
-  formUserBirthday: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-
-  month: PropTypes.string.isRequired,
+DateTimePicker.propTypes = {
+  userDate: PropTypes.string,
+  userMonth: PropTypes.string,
+  form: PropTypes.object.isRequired,
 };
 
-function UserBirthday(props) {
-  const { formUserBirthday, date, userDate, userMonth, month } = props;
+function DateTimePicker(props) {
+  const { form, userDate, userMonth } = props;
   const dayOptions = [
-    { label: 'Day', value: '' },
     { label: '01', value: '01' },
     { label: '02', value: '02' },
     { label: '03', value: '03' },
@@ -48,7 +44,6 @@ function UserBirthday(props) {
     { label: '31', value: '31' },
   ];
   const monthOptions = [
-    { label: 'Month', value: '' },
     { label: '01', value: '01' },
     { label: '02', value: '02' },
     { label: '03', value: '03' },
@@ -72,19 +67,16 @@ function UserBirthday(props) {
   };
   return (
     <>
-      <label className="form-label">Birthday</label>
+      <label className="form-label">Ngày sinh</label>
       <div className="selectbirthday">
         <div className="form-row  form-row-select" data-requiredtext data-regexinvalidmessage>
           <div className="form-field-wrapper">
-            <label className="visually-hidden" htmlFor="dwfrm_profile_customer_daybirthday">
-              Birthday Day
-            </label>
             <div className="form-field">
               <div className="form-select-wrapper">
                 <Controller
                   defaultValue
-                  name={date}
-                  control={formUserBirthday.control}
+                  name="date"
+                  control={form.control}
                   as={
                     <select
                       className="form-select daybirthday"
@@ -94,6 +86,7 @@ function UserBirthday(props) {
                       onChange={handleOnChangeDate}
                       value={valueDate}
                     >
+                      <option className="hidden">Ngày</option>
                       {dayOptions.map((tc, index) => (
                         <option className="form-selectOption" key={index} value={tc.value}>
                           {tc.label}
@@ -109,13 +102,13 @@ function UserBirthday(props) {
         <div className="form-row  form-row-select" data-requiredtext data-regexinvalidmessage>
           <div className="form-field-wrapper">
             <label className="visually-hidden" htmlFor="dwfrm_profile_customer_monthbirthday">
-              Month
+              Tháng
             </label>
             <div className="form-field">
               <div className="form-select-wrapper">
                 <Controller
-                  name={month}
-                  control={formUserBirthday.control}
+                  name="month"
+                  control={form.control}
                   defaultValue
                   as={
                     <select
@@ -129,6 +122,7 @@ function UserBirthday(props) {
                       onChange={handleOnChangeMonth}
                       value={valueMonth}
                     >
+                      <option className="hidden">Tháng</option>
                       {monthOptions.map((tc, index) => (
                         <option className="form-selectOption" key={index} value={tc.value}>
                           {tc.label}
@@ -146,4 +140,4 @@ function UserBirthday(props) {
   );
 }
 
-export default UserBirthday;
+export default DateTimePicker;

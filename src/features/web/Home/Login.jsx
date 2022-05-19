@@ -11,10 +11,13 @@ import { useHistory } from 'react-router-dom';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import Loader from 'components/fullPageLoading';
 
+import { Helmet } from 'react-helmet';
 const Login = function () {
   const history = useHistory();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+
+
   const { enqueueSnackbar } = useSnackbar();
 
   const handleLoginFormSubmit = async (values) => {
@@ -48,6 +51,9 @@ const Login = function () {
   };
   return (
     <div>
+      <Helmet>
+        <title>Đăng nhập</title>
+      </Helmet>
       <Loader showLoader={loading} />
       <div className="pt_storefront" id="wrapper">
         <div id="minicart-container" aria-hidden="true" />

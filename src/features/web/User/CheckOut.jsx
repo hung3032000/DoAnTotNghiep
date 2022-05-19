@@ -1,26 +1,26 @@
 import { cartTotalSelector } from 'components/web/cart/Selectors';
 import CheckOutForm from 'components/web/form/CheckOutForm';
-import React from 'react';
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { THUMNAIL_URL_PRODUCTLIST } from 'constants/index';
-import { useHistory } from "react-router-dom";
-import { addOrderUser,checkout } from 'components/admin/order/OrderSlice';
+import { useHistory } from 'react-router-dom';
+import { addOrderUser, checkout } from 'components/admin/order/OrderSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { emptyCart } from 'components/web/cart/CartSlice';
 // import { checkout } from 'components/admin/order/OrderSlice';
-
+import { Helmet } from 'react-helmet';
+import Loader from 'components/fullPageLoading';
 const CheckOut = function (props) {
   const history = useHistory();
   const dataUser = useSelector((state) => state.user.current);
   const dataCart = useSelector((state) => state.cart.dataCart);
   const cartTotal = useSelector(cartTotalSelector);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleCheckOutFormSubmit = async (values) => {
     try {
+      setLoading(true);
       values.addressrecevie = {
         name: values.FName,
         phonenumber: values.Phone,
@@ -46,7 +46,7 @@ const CheckOut = function (props) {
       values.userId = dataUser._id;
       values.items = items;
       values.totalPrice = cartTotal;
-      
+
       values.isPaypal = false;
       const action = addOrderUser(values);
       const resultAction = await dispatch(action);
@@ -58,14 +58,19 @@ const CheckOut = function (props) {
       dispatch(action3);
       history.push('/order');
       window.location.reload();
-      
     } catch (error) {
       console.log('Failed to login:', error);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div>
-      {/* Body */}
+    <>
+      <Helmet>
+        <title>Thanh toán</title>
+      </Helmet>
+      <Loader showLoader={loading} />
       <main id="main" role="main" className="primary-focus clearfix" style={{ marginTop: '128px' }}>
         <div id="primary" className="primary-content">
           <div className="container">
@@ -230,7 +235,7 @@ const CheckOut = function (props) {
         </div>
       </main>
       {/* end body */}
-    </div>
+    </>
   );
 };
 

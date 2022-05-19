@@ -26,8 +26,8 @@ function InputText(props) {
     return isPassword ? 'password' : 'text';
   }
   return (
-    <div className="form-group">
-      <div className={`form-row required empty ${hasErrors ? 'form-row--error' : ''}`}>
+    <>
+      <div className={`form-row required empty ${defaultValue ? 'focus' : ''} ${hasErrors ? 'form-row--error' : ''}`}>
         <label className="form-label">{label}</label>
         <div className="form-field">
           <Controller name={name} id={name} control={form.control} as={<input />} className="form-input form-field required" type={showPassword(isPassword)} maxLength={50} defaultValue={defaultValue}/>
@@ -42,7 +42,7 @@ function InputText(props) {
           {hasErrors && <span className="error">{errors[name]?.message}</span>}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

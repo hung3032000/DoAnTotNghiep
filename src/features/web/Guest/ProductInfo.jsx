@@ -13,6 +13,8 @@ import SizeProduct from 'components/web/sizeProduct';
 import Detailproduct from 'components/web/detailProduct';
 import Colorproduct from 'components/web/colorProduct';
 import { getListSize } from 'components/web/product/ProductListSlice';
+import { Helmet } from 'react-helmet';
+
 function ProductInfo() {
   const dispatch = useDispatch();
   const actionAddToCart = (cart) => dispatch(addToCart(cart));
@@ -25,7 +27,7 @@ function ProductInfo() {
   const [color, setColor] = useState('Chọn màu');
   const [sizes, setSize] = useState();
   const [totalProductState, setTotalProductState] = useState();
-
+ 
   useEffect(() => {
     (async () => {
       try {
@@ -47,6 +49,7 @@ function ProductInfo() {
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         let allProduct = 0;
         if (color === 'Chọn màu' && sizes === undefined) {
           for (let index = 0; index < size.length; index++) {
@@ -105,6 +108,9 @@ function ProductInfo() {
 
   return (
     <div>
+      <Helmet>
+        <title>Thông tin sản phẩm</title>
+      </Helmet>
       <Loader showLoader={loading} />
       <div id="wrapper" className="pt_product-details">
         <main id="main" role="main" className="full-width clearfix">

@@ -1,15 +1,21 @@
 import React from 'react';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
-
+import { Helmet } from 'react-helmet';
+import Loader from 'components/fullPageLoading';
 const AccountOverView = function (props) {
+  // const [loading, setLoading] = useState(false);
   return (
-    <div>
-      {/* Body */}
+    <>
+      <Helmet>
+        <title>Tổng quan tài khoản</title>
+      </Helmet>
+
+      <Loader showLoader={false} />
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div className="container">
-        <NavUser />
+          <NavUser />
         </div>
         <div id="primary" className="primary-content">
           <div className="account-overview">
@@ -30,11 +36,11 @@ const AccountOverView = function (props) {
               </div>
             </div>
           </div>
-          <CustomerSp/>
+          <CustomerSp />
         </div>
       </main>
       {/* end body */}
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { emptyCart } from '../cart/CartSlice';
+import { Helmet } from 'react-helmet';
+
 export default function Paypal() {
   const cartTotal = useSelector(cartTotalSelector);
   const dataCart = useSelector((state) => state.cart.dataCart);
@@ -111,10 +113,13 @@ export default function Paypal() {
   }, [cartTotal, dataCart, dispatch, history, userId]);
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Thanh toán paypal</title>
+      </Helmet>
       <main id="main">
         <div className="centered paypal-button-container" ref={paypal}></div>
       </main>
-    </div>
+    </>
   );
 }

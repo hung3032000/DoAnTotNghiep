@@ -14,27 +14,37 @@ import { getOrder } from 'components/admin/order/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { Helmet } from 'react-helmet';
-
+import Loader from 'components/fullPageLoading';
 const Order = function (props) {
   const dataOrderList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     (async () => {
-      const action = getOrder({
-        page: 1,
-        limit: 20,
-        status: 'Pending',
-      });
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
+      try {
+        setLoading(true);
+        const action = getOrder({
+          page: 1,
+          limit: 20,
+          status: 'Pending',
+        });
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, [dispatch]);
+
   return (
-    <div>
+    <>
+      <Loader showLoader={loading} />
       <Helmet>
         <title>Đơn hàng</title>
       </Helmet>
@@ -50,7 +60,7 @@ const Order = function (props) {
                 <span className="subtitle">Tài khoản của tôi</span> <span className="title">Đơn hàng</span>
               </h1>
             </div>
-            {dataOrderList.length === 0 && <div className="container no-orders">No order at this time</div>}
+            {dataOrderList.length === 0 && <div className="container no-orders">Hiện tại chưa có đơn hàng</div>}
             {dataOrderList.length > 0 && (
               <div className="container" style={{ marginBottom: '30px' }}>
                 <TableContainer component={Paper}>
@@ -119,7 +129,7 @@ const Order = function (props) {
           <CustomerSp />
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

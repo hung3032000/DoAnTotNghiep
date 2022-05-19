@@ -4,7 +4,7 @@ import Slide from 'components/web/slide/Slide'
 import Loader from 'components/fullPageLoading';
 const Home = function (props) {
   return (
-    <div>
+    <>
       <Loader showLoader={false}/>
       <Helmet>
         <title>Trang chủ</title>
@@ -174,7 +174,7 @@ const Home = function (props) {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

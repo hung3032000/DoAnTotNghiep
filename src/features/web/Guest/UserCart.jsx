@@ -3,6 +3,7 @@ import { cartItemsCountSelector } from 'components/web/cart/Selectors';
 import UserDetailCart from 'components/web/cart/UserDetailCart';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 function UserCart() {
   // const dataCart = useSelector((state) => state.cart.dataCart);
@@ -13,7 +14,10 @@ function UserCart() {
   const actionDeleteCart = (index) => dispatch(removeFromCart(index));
   const actionUpdateCartProduct = (dataCart) => dispatch(updateCartProduct(dataCart));
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Giỏ hàng</title>
+      </Helmet>
       <main id="main" role="main" className="full-width clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div id="primary" className="primary-content">
@@ -39,18 +43,17 @@ function UserCart() {
                     <span className="title">Giỏ hàng</span>
                   </h1>
                   <p className="text">
-                  Các mặt hàng trong giỏ hàng của bạn chưa được đặt trước. Vui lòng tiến hành mua hàng của bạn để đảm bảo các mặt hàng của bạn. Giao hàng tiêu chuẩn và miễn phí trả lại.
+                    Các mặt hàng trong giỏ hàng của bạn chưa được đặt trước. Vui lòng tiến hành mua hàng của bạn để đảm bảo các mặt hàng của bạn. Giao hàng tiêu chuẩn và miễn phí
+                    trả lại.
                   </p>
                 </div>
-                <UserDetailCart 
-                  actionUpdateCartProduct={actionUpdateCartProduct} 
-                  actionDeleteCart={actionDeleteCart}/>
+                <UserDetailCart actionUpdateCartProduct={actionUpdateCartProduct} actionDeleteCart={actionDeleteCart} />
               </div>
             )}
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 

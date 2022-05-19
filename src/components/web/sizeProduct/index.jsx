@@ -77,7 +77,7 @@ function Index(props) {
             ))}
           </ul>
           <Modal classNameModal={'btn btn-link-secondary button-text'} label={'Size guide'}>
-            Hello
+            <img src="/image/size-guild.jpg" alt="HomieReal" />
           </Modal>
         </div>
       </div>

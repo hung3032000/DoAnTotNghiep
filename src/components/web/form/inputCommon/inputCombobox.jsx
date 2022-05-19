@@ -15,7 +15,7 @@ function InputCombobox(props) {
     { label: 'Ông', value: 'Male' },
     { label: 'Bà', value: 'Female' },
   ];
-  const [value, setValue] = useState("Male");
+  const [value, setValue] = useState();
   const handleOnChange = (event) => {
     setValue(event.target.value);
   };
@@ -24,17 +24,15 @@ function InputCombobox(props) {
       {/* ${hasErrors ? 'form-row--error' : ''} */}
 
       <div className="form-field-wrapper">
-        <label className="visually-hidden" htmlFor="dwfrm_profile_customer_title">
-          Title *
-        </label>
+        <label className="form-label">Ông/Bà</label>
         <div className="form-field">
           <div className="form-select-wrapper">
             <Controller
               name={name}
               control={form.control}
               as={
-                <select className="form-select  form-field required" id={name} name={name} title={'Tissstle'} defaultValue={value} onChange={handleOnChange} value={value}>
-                  <option className="hidden" >Ông/Bà</option>
+                <select className="form-select  form-field required" id={name} name={name} title={name} onChange={handleOnChange} value={value}>
+                  <option className="hidden">Ông/Bà</option>
                   {categoryOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}

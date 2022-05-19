@@ -137,16 +137,12 @@ const Header = function (props) {
                           <li className="order-history ">
                             <a href="/order">Đơn hàng</a>
                           </li>
-                          <li className="wishlist-menu-item">
-                            <a href="/wishlist">Mục yêu thích(5)</a>
-                          </li>
                           <li>
                             <a href="/editaccount">Thông tin cá nhân</a>
                           </li>
                           <li>
                             <a href="/addresses">Địa chỉ</a>
                           </li>
-
                           <li>
                             <a className="cursor" href onClick={handleLogout}>
                               Thoát

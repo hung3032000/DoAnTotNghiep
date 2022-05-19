@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
+import { Helmet } from 'react-helmet';
 
 const ShowProduct = function () {
   const {
@@ -44,6 +45,9 @@ const ShowProduct = function () {
 
   return (
     <div>
+      <Helmet>
+        <title>Sản phẩm</title>
+      </Helmet>
       <Loader showLoader={loading} />
       <main id="main" className="clearfix" style={{ marginTop: '128px' }}>
         <div className="content-slot slot-grid-header" />
@@ -57,30 +61,28 @@ const ShowProduct = function () {
           <div className="container">
             <div className="category-box">
               <div className="row-title">
-                  <div className="col-md-6 col-md-4">
-                    <h1 className="title-filter">{totalProductsList} Sản phẩm</h1>
-                  </div>
-                  <div className="refine-buttons col-md-6 col-md-4 order-md-3">
-                    <div className="filters-tabs">
-                    <Modal classNameModal={'btn btn-link filters-tab'} label={"Filters"}>
-
-                    </Modal>
-                      {/* <button className="btn btn-link filters-tab" type="button" aria-expanded="false" aria-controls="filters">
+                <div className="col-md-6 col-md-4">
+                  <h1 className="title-filter">{totalProductsList} Sản phẩm</h1>
+                </div>
+                <div className="refine-buttons col-md-6 col-md-4 order-md-3">
+                  <div className="filters-tabs">
+                    <Modal classNameModal={'btn btn-link filters-tab'} label={'Filters'}></Modal>
+                    {/* <button className="btn btn-link filters-tab" type="button" aria-expanded="false" aria-controls="filters">
                         <span className="label">Filters</span>
                         <span className="label-count"></span>
                       </button> */}
-                      <a href className="reset-refinements btn btn-link-secondary d-none">
-                        Clear all
-                      </a>
-                    </div>
+                    <a href className="reset-refinements btn btn-link-secondary d-none">
+                      Clear all
+                    </a>
                   </div>
-                  <div className="col-md-12 col-md-4 order-md-2"></div>
+                </div>
+                <div className="col-md-12 col-md-4 order-md-2"></div>
               </div>
 
               <ul className="search-result-items tiles-container js-slv-product-grid row" data-columns>
                 <ProductsList data={dataProductsList} />
               </ul>
-              
+
               <div className="centered">
                 <ul className="pagination cursor">
                   <li className="page-item">

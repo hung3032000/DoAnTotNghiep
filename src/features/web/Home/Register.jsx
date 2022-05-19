@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import Loader from 'components/fullPageLoading';
+import { Helmet } from 'react-helmet';
 
 const Register = function (props) {
   const dispatch = useDispatch();
@@ -31,8 +32,10 @@ const Register = function (props) {
   };
   return (
     <div>
+      <Helmet>
+        <title>Đăng ký</title>
+      </Helmet>
       <Loader showLoader={loading} />
-
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div id="primary" className="primary-content">
@@ -50,7 +53,7 @@ const Register = function (props) {
             </div>
           </div>
         </div>
-        <CustomerSp/>
+        <CustomerSp />
       </main>
     </div>
   );

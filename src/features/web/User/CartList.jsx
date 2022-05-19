@@ -1,10 +1,14 @@
 import React from 'react';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
+import { Helmet } from 'react-helmet';
+
 const Cartlist = function (props) {
   return (
-    <div>
-      {/* Body */}
+    <>
+      <Helmet>
+        <title>Quản lý địa chỉ</title>
+      </Helmet>
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div className="container">
@@ -29,11 +33,11 @@ const Cartlist = function (props) {
               </div>
             </div>
           </div>
-          <CustomerSp/>
+          <CustomerSp />
         </div>
       </main>
       {/* end body */}
-    </div>
+    </>
   );
 };
 
