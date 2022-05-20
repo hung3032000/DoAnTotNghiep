@@ -17,9 +17,9 @@ function NavUser(props) {
     <div>
       <nav className="account-navigation" aria-label="My account">
         <ul>
-          <li className="active">
+          {/* <li className="active">
             <Link to="/myaccount">Tổng quan tài khoản</Link>
-          </li>
+          </li> */}
           <li className="order-history ">
             <Link to="/order">Đơn hàng</Link>
           </li>
@@ -29,7 +29,7 @@ function NavUser(props) {
             </Link>
           </li>
           <li className>
-            <Link href="/addresses">Địa chỉ</Link>
+            <Link to="/addresses">Địa chỉ</Link>
           </li>
           <li>
             <Link className="cursor" onClick={handleLogout}>

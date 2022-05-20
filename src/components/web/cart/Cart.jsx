@@ -12,7 +12,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
         <div id="js-overlay"></div>
         <div className="minicart-content">
           <div className="minicart-close">
-            <button title="Close" tabIndex={0}>
+            <button title="Close">
               <span>
                 <i className="icon_Close" />
               </span>
@@ -37,8 +37,8 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
                   <a className="minicart-product-name cursor"
                    href
                   //  ={`productinf/${card.product._id}`} 
-                   title="Discover your future {0}" 
-                   tabIndex={0}>
+                   title={card.product.name} 
+                  >
                     {card.product.name}
                   </a>
                   <div className="minicart-product-color">
@@ -52,7 +52,7 @@ function Cart({ actionDeleteCart,cartTotal,countProduct,dataCart }) {
                     <span className="value">{card.quantity}</span>
                   </div>
                   <div className="minicart-product-pricing">
-                    <span className="label">Giá: </span> <span className="value">{formatPrice(card.product.price)}</span>
+                    <span className="label">Giá: </span> <span className="value">{formatPrice(card.price)}</span>
                   </div>
                   <a
                     className="remove-product cursor"

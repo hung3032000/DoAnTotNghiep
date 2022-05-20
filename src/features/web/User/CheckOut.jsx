@@ -46,12 +46,10 @@ const CheckOut = function (props) {
       values.userId = dataUser._id;
       values.items = items;
       values.totalPrice = cartTotal;
-
       values.isPaypal = false;
       const action = addOrderUser(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
       const action2 = checkout();
       dispatch(action2);
       const action3 = emptyCart();

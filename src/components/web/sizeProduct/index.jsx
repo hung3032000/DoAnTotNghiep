@@ -63,8 +63,8 @@ function Index(props) {
                   key={i._id}
                   className={`${choosers === i._id ? 'selected attrvalue' : 'selectable attrvalue'} ` + clasSize(i)}
                   onClick={() => {
-                    setChoosers(i._id);
                     setSizes(i.value);
+                    setChoosers(i._id);
                   }}
                 >
                   <button className="swatchanchor anchor">

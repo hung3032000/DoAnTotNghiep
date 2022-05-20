@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 function UserCart() {
-  // const dataCart = useSelector((state) => state.cart.dataCart);
   const countProduct = useSelector(cartItemsCountSelector);
-  // const cartTotal = useSelector(cartTotalSelector);
-
   const dispatch = useDispatch();
   const actionDeleteCart = (index) => dispatch(removeFromCart(index));
   const actionUpdateCartProduct = (dataCart) => dispatch(updateCartProduct(dataCart));
@@ -18,7 +15,7 @@ function UserCart() {
       <Helmet>
         <title>Giỏ hàng</title>
       </Helmet>
-      <main id="main" role="main" className="full-width clearfix" style={{ marginTop: '128px' }}>
+      <main id="main" role="main" className="full-width clearfix">
         <div className="cart-live-region" aria-live="polite" role="status"></div>
         <div id="primary" className="primary-content">
           <div className="container">

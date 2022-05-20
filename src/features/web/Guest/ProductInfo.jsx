@@ -27,7 +27,7 @@ function ProductInfo() {
   const [color, setColor] = useState('Chọn màu');
   const [sizes, setSize] = useState();
   const [totalProductState, setTotalProductState] = useState();
- 
+
   useEffect(() => {
     (async () => {
       try {
@@ -60,8 +60,7 @@ function ProductInfo() {
             }
           }
           setTotalProductState(allProduct);
-        }
-        else if (color !== 'Chọn màu' && sizes !== undefined) {
+        } else if (color !== 'Chọn màu' && sizes !== undefined) {
           size.forEach((i) => {
             if (sizes === i.nameSize) {
               i.colors.forEach((i2) => {
@@ -70,7 +69,7 @@ function ProductInfo() {
                 }
               });
             }
-          });;
+          });
           setTotalProductState(allProduct);
         }
       } catch (error) {
@@ -82,36 +81,50 @@ function ProductInfo() {
   }, [size, color, sizes]);
 
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
+
+  let a = 0;
+  const priceTotal = () => {
+    if (product.saleId) {
+      a = product.price - (product.price*product.saleId.percentSale/100) ;
+    } else {
+      a = product.price;
+    }
+    return a;
+  };
+  console.log(a);
   const handleSubmit = (data) => {
     setColor(data);
   };
   const handleSubmitSize = (data) => {
     setSize(data);
   };
-
-
+ 
   const handleAddToCartSubmit = (values) => {
     try {
+      setLoading(true);
       if (values) {
         const dataCart = {
           color: color,
           size: sizes,
           product,
+          price : priceTotal(),
           quantity: 1,
         };
         actionAddToCart(dataCart);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
+      <Loader showLoader={loading} />
       <Helmet>
         <title>Thông tin sản phẩm</title>
       </Helmet>
-      <Loader showLoader={loading} />
       <div id="wrapper" className="pt_product-details">
         <main id="main" role="main" className="full-width clearfix">
           <div id="primary" className="primary-content">
@@ -124,18 +137,19 @@ function ProductInfo() {
                 </div>
                 <div className="product-col-details col-md-4 col-md-offset-1 col-sm-6">
                   <div className="product-detail">
-                    <div className="product-label">{product.content}</div>
+                    <div className="product-label">{product.saleId ? 'Sale' : product.content}</div>
                     <div>
                       <h1 className="product-name">{product.name}</h1>
                       <div className="product-price">
-                        <span className="price-standard">{formatPrice(product.price)}</span>
-
-                        {/* {product.promotionPercent > 0 && ( */}
-                        <>
-                          <span className="money-saved"> (-50&nbsp;%) </span>
-
-                          <span className="price-sales"> {formatPrice(product.price)} </span>
-                        </>
+                        {product.saleId ? (
+                          <>
+                            <span className="price-standard">{formatPrice(product.price)}</span>
+                            <span className="money-saved"> ({product.saleId.percentSale}%) </span>
+                            <span className="price-sales"> {formatPrice(priceTotal())} </span>
+                          </>
+                        ) : (
+                          <span className="price-sales"> {formatPrice(priceTotal())}  </span>
+                        )}
                       </div>
 
                       <div className="product-description">

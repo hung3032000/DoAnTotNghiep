@@ -181,7 +181,6 @@
 .customer-support .tab .tab-header,
 .products-title,
 .summary-title,
-.address-element h4,
 .customer-support .tab .tab-header,
 .step-content h3,
 .store-item h4,
@@ -333,7 +332,6 @@ a.checkout-previous-step,
 .cart-summary .order-totals-table .order-total th,
 .dw-apple-pay-button,
 .global-error-container .no-stock--error span,
-.address-element button,
 .cart-general-error .no-stock--error span,
 .global-error-container .no-stock--error span,
 .step-content h3.country,
@@ -444,7 +442,6 @@ header.checkout-header .secured,
 }
 
 #cookies-container a,
-.address-content .distance,
 .checkoutlogin .register-box .create-account-benefits .title,
 .content-asset a,
 .content-asset a:hover,
@@ -484,7 +481,6 @@ header.checkout-header .secured,
 #header-banner-info .customer-support .tab-content p,
 #header-banner-info .customer-support .tab-content p,
 #header-banner-info .subcategory-container p,
-.address-content,
 .content-asset h3.line--separator,
 .content-asset p,
 .content-slot-swiper-container #header-banner-info .swiper-container p,
@@ -507,10 +503,8 @@ header.checkout-header .secured,
 .order-confirm-page .register-newsletter .infos,
 #cart-items-form .line-item .product-infos .promo-adjustment,
 .customer-support #header-banner-info .tab-content p,
-.address-element .address,
 .customer-support #header-banner-info .tab-content p,
 .intro,
-.store-item .address,
 .custom-message,
 .product-actions .error-message,
 .product-add-to-cart .error-message,
@@ -8983,7 +8977,7 @@ a.filters-validate-bt {
 
 .product-price .srp {
   color: #000;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
 }
 
 .product-description {
@@ -12300,9 +12294,7 @@ legend {
   margin: 0 0 20px;
 }
 
-.step-content h3.with-address-list {
-  margin-top: 35px;
-}
+
 
 .step-content .form-row {
   max-width: none;
@@ -12322,24 +12314,6 @@ legend {
 
 .step-content .form-row.checkout-legal-links {
   margin-top: 30px;
-}
-
-.step-content .shipping-address-box h3 {
-  margin: 35px 0 -10px;
-}
-
-.step-content .shipping-address-box h3.with-address-list {
-  margin-top: 7px;
-  margin-bottom: 10px;
-}
-
-.step-content .shipping-address-box h3.info-perso {
-  margin: 15px 0 -10px;
-}
-
-.step-content .shipping-address-box .billing-address h3,
-.step-content .shipping-address-box .form-row+h3 {
-  margin-top: 40px;
 }
 
 .summary .line-item {
@@ -12445,7 +12419,6 @@ legend {
   padding: 16px 0 0;
 }
 
-.address-element,
 .store-item {
   background: #f6f6f6;
   padding: 20px;
@@ -12453,7 +12426,6 @@ legend {
   margin-bottom: 16px;
 }
 
-.address-element button,
 .store-item button {
   background: 0 0;
   color: #000;
@@ -12463,24 +12435,17 @@ legend {
   border: 0;
 }
 
-.address-element h4,
 .store-item h4 {
   display: block;
   text-transform: uppercase;
   margin: 0 0 7px;
 }
 
-.address-element span,
 .store-item span {
   display: block;
 }
 
-.address-element .address,
-.store-item .address {
-  margin: 0;
-}
 
-.address-element .distance,
 .store-item .distance {
   margin-top: 16px;
 }
@@ -13174,121 +13139,6 @@ button.search-store {
   font-weight: 700;
 }
 
-.address-element .checkout-store-forbidden {
-  padding: 0 20px;
-  color: #e61717;
-}
-
-.address-element .checkout-store-forbidden p {
-  color: #e61717;
-  margin: 10px 0 0;
-  font-weight: 500;
-}
-
-.address-element .checkout-store-forbidden .recap-forbidden-product {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.address-element .checkout-store-forbidden .recap-forbidden-product p {
-  color: #757575;
-  text-transform: uppercase;
-  margin: 0;
-  font-weight: 400;
-}
-
-.address-element .checkout-store-forbidden .recap-forbidden-product picture {
-  text-align: right;
-  -ms-flex-preferred-size: 33%;
-  flex-basis: 33%;
-}
-
-@media (min-width: 1024px) {
-  .address-element .checkout-store-forbidden .recap-forbidden-product picture {
-    -ms-flex-preferred-size: 40%;
-    flex-basis: 40%;
-  }
-}
-
-.address-element .checkout-store-forbidden .recap-forbidden-product img {
-  max-width: 90px;
-}
-
-.address-element .checkout-store-forbidden .recap-forbidden-product .infos {
-  text-align: left;
-  -ms-flex-preferred-size: 67%;
-  flex-basis: 67%;
-  margin-left: 15px;
-}
-
-@media (min-width: 1024px) {
-  .address-element .checkout-store-forbidden .recap-forbidden-product .infos {
-    -ms-flex-preferred-size: 60%;
-    flex-basis: 60%;
-  }
-}
-
-.address-element .checkout-store-forbidden .checkout-back-to-cart {
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.address-element button:disabled:hover {
-  color: #f6f6f6;
-}
-
-.suggest-address .address-picklist {
-  border: 1px solid #717171;
-  z-index: 999;
-  background-color: #fff;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: calc(100% - 1px);
-  height: 255px;
-  overflow: auto;
-}
-
-@media (max-width: 575px) {
-  .suggest-address .address-picklist {
-    width: 100vw;
-    left: -7.5%;
-    border-left: none;
-    border-right: none;
-  }
-}
-
-.suggest-address .address-picklist li {
-  height: 85px;
-  padding-left: 32px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-@media (max-width: 575px) {
-  .suggest-address .address-picklist li {
-    padding: 0 15px 0 25px;
-  }
-}
-
-.suggest-address .address-picklist li:nth-child(even) {
-  background-color: #f6f6f6;
-}
-
-.suggest-address .address-picklist li a {
-  font-weight: 400;
-  text-align: left;
-  color: #484848;
-}
-
-.suggest-address .address-picklist li.selected {
-  background-color: #eee;
-}
-
 .show-hidden-fields {
   text-transform: none;
   font-size: 15px;
@@ -13465,9 +13315,7 @@ button.search-store {
   border-width: 0.5px;
 }
 
-.save-in-addressbook {
-  text-align: left;
-}
+
 
 #klarna_container {
   padding: 0 0;
@@ -14127,86 +13975,9 @@ fieldset,
 }
 
 .addresses-area {
-  background: #f6f6f6;
-  padding: 30px;
-  margin-bottom: 40px;
+  padding-bottom: 5rem;
 }
 
-.addresses-area .form-row-button {
-  margin: 0 auto;
-}
-
-.address-list {
-  line-height: 1.25rem;
-}
-
-@media (min-width: 769px) {
-  .address-list {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-  }
-}
-
-.address-list li {
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  color: #717171;
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .address-list li {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-  }
-}
-
-@media (min-width: 1025px) {
-  .address-list li {
-    -ms-flex: 0 0 33.33%;
-    flex: 0 0 33.33%;
-  }
-}
-
-.address-tile address {
-  font-style: normal;
-}
-
-.address-tile h3 {
-  font-size: 0.8125rem;
-  display: inline;
-  text-transform: none;
-  font-weight: 500;
-}
-
-.address-tile a {
-  display: inline-block;
-}
-
-.address-tile a+a {
-  position: relative;
-  padding-left: 14px;
-}
-
-.address-tile a+a:before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 2px;
-  bottom: 2px;
-  width: 1px;
-  background: #000;
-}
-
-.mini-address-title {
-  font-weight: 700;
-  color: #000;
-}
-
-.mini-address-location {
-  margin-bottom: 20px;
-}
 
 .newsletter-unsubscribe {
   margin-bottom: 120px;
@@ -16012,15 +15783,6 @@ fieldset,
   padding-bottom: 0;
 }
 
-.address-content {
-  margin-bottom: 27px;
-}
-
-.address-content .distance {
-  display: block;
-  margin: 16px 0 0;
-}
-
 .storeloc-details-map .map {
   width: 100%;
   height: 375px;
@@ -16390,8 +16152,7 @@ p.intro {
   margin-left: 7.5%;
 }
 
-.account-order,
-.address {
+.account-order {
   margin: 0px 0px 30px;
   padding: 10px;
   background-color: #fbfbfb;
@@ -16455,6 +16216,7 @@ p.intro {
 .anchor {
   background: none !important;
   border: none;
+  cursor: pointer;
 }
 
 .customer-support .tab h2.desktop-only {
@@ -16845,31 +16607,43 @@ dl.table-brand>.product-dl-item ul {
 .ui-dialog .form-row-search {
   max-width: initial;
 }
+
 .form-row-search .form-field-wrapper {
   position: relative;
   padding-top: 0.9375rem;
   margin-bottom: 1.5rem;
   flex-grow: 1;
 }
-.form-row-search.placeholder input, .form-row-search.placeholder select, .form-row-search.placeholder textarea {
+
+.form-row-search.placeholder input,
+.form-row-search.placeholder select,
+.form-row-search.placeholder textarea {
   border-bottom: 1px solid #737373;
 }
-.ui-widget input, .ui-widget select, .ui-widget textarea {
+
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea {
   font-size: .75rem;
   line-height: 1.25rem;
   letter-spacing: .025em;
-  font-family: "Vectora LT Std",sans-serif;
+  font-family: "Vectora LT Std", sans-serif;
 }
-.form-row-search .btn{
+
+.form-row-search .btn {
   border-bottom: 1px solid;
   border-color: none;
-} 
-.form-row-search .btn-link{
+}
+
+.form-row-search .btn-link {
   margin-top: 1.4375rem;
-margin-bottom: 1.5rem;
-margin-left: -3px;
-}   
-.form-row-search input, .form-row-search select, .form-row-search textarea {
+  margin-bottom: 1.5rem;
+  margin-left: -3px;
+}
+
+.form-row-search input,
+.form-row-search select,
+.form-row-search textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -16885,23 +16659,102 @@ margin-left: -3px;
   outline: 0;
   letter-spacing: .025em;
 }
+
 .results-area h2 {
   margin-bottom: 1.25rem;
 }
+
 .results-area ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
 .results-area li {
   margin-bottom: 0.625rem;
 }
+
 .results-area a {
   color: #737373;
   text-decoration: none;
 }
-.btn.btn-link:disabled
-{
+
+.btn.btn-link:disabled {
   color: #737373;
   text-decoration: line-through;
+}
+
+.account-page {
+  min-height: 100vh;
+  line-height: 1.25rem;
+  letter-spacing: .025em;
+  padding: 0 1.563rem 7.5rem;
+}
+
+@media (min-width: 1440px) {
+  .account-page {
+    padding: 0 23.75rem 12.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .account-page {
+    padding: 0 12.188rem 10rem;
+  }
+}
+.account-page h1 {
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .05rem;
+  margin: 2rem 0 2rem;
+}
+.account-page ul {
+  list-style: square inside none;
+  margin: 0 0 0.625rem;
+  padding: 0;
+}
+.addresses-area ul li {
+  list-style: none;
+  margin-bottom: 1.875rem;
+  border-top: 1px solid #d9d9d9;
+  padding-top: 2.5rem;
+}
+.account-page .h2, .account-page .h3, .account-page .h4, .account-page .h5, .account-page .h6, .account-page h2, .account-page h3, .account-page h4, .account-page h5, .account-page h6 {
+  font-size: .75rem;
+  margin: 0 0 1.25rem;
+}
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
+.addresses-area ul li button {
+  font-size: .6875rem;
+  line-height: 1.25rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #737373;
+  margin-right: 0.625rem;
+  font-weight: 700;
+  padding: 0;
+}
+.account-page ul li {
+  font-size: .75rem;
+}
+.addresses-area .h1, .addresses-area h1 {
+  border-top: 1px solid #d9d9d9;
+  padding: 5rem 0 0;
+}
+@media (min-width: 1024px){
+  .addresses-area .h1, .addresses-area h1 {
+    border-top: 1px solid #d9d9d9;
+    padding: 5rem 0 0;
+}
+}
+@media (min-width: 1440px){
+  .addresses-area .h1, .addresses-area h1 {
+    padding: 0;
+    border: none;
+}
 }

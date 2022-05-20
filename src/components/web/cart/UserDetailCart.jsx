@@ -40,15 +40,23 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
               <li className="product-infos-table">
                 <div className="info-table-row">
                   <span className="label">Giá:</span>
-                  <span className="value product-price">{formatPrice(card.product.price)}</span>
+                  {card.product.saleId ? (
+                    <span className="value product-price">{formatPrice(card.product.price - (card.product.price * card.product.saleId.percentSale) / 100)} </span>
+                  ) : (
+                    <span className="value product-price">{formatPrice(card.product.price)}</span>
+                  )}
                 </div>
                 <div className="info-table-row">
                   <span className="label">Mã sản phẩm:</span>
                   <span className="value">{card.product._id}</span>
                 </div>
                 <div className="info-table-row">
-                  <span className="label">Màu:</span>
-                  <span className="value">{card.product.Color}</span>
+                  <span className="label">Màu: </span>
+                  <span className="value">{card.color}</span>
+                </div>
+                <div className="info-table-row">
+                  <span className="label">Size: </span>
+                  <span className="value">{card.size}</span>
                 </div>
                 <div className="info-table-row">
                   <span className="label">Kích cỡ:</span>
@@ -57,7 +65,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
                 <div className="info-table-row lineitem-quantity">
                   <span className="label">
                     <span className="no-mobile">Số lượng:</span>
-                    <span className="mobile-only">Qty:</span>
+                    <span className="mobile-only">Slg:</span>
                   </span>
                   <span className="value">
                     <button
@@ -91,9 +99,6 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
                 </div>
               </li>
               <li className="item-user-actions">
-                <a href className="add-to-wishlist cursor">
-                  <span>Thêm vào wishlist </span>
-                </a>
                 <a
                   className="remove-product cursor"
                   href
@@ -125,7 +130,6 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
         <h2 className="summary-title">Tổng kết</h2>
         <div className="cart-summary">
           <div className="cart-footer">
-            <input type="hidden" name="dwfrm_cart_updateCart" defaultValue="dwfrm_cart_updateCart" />
             <div className="cart-order-totals">
               <table className="order-totals-table">
                 <tbody>
@@ -140,6 +144,10 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
 
                   <tr className="order-country-zone">
                     <th scope="row">VN</th>
+                    <td>$0.00</td>
+                  </tr>
+                  <tr className="order-country-zone">
+                    <th scope="row">Giảm giá</th>
                     <td>$0.00</td>
                   </tr>
                   <tr className="order-total">
