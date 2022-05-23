@@ -17,14 +17,14 @@ function Search(props) {
       <div className="form-row-search placeholder">
         <div className="form-field-wrapper">
           <div className="form-field">
-          <input classNameName="form-input topSearch-field"    placeholder="Search by keyword, style etc"
+          <input className="form-input topSearch-field"    placeholder="Search by keyword, style etc"
               title="Enter search words"></input>
             {/* <Controller
               name={name}
               id={name}
               control={form.control}
               as={<input />}
-              classNameName="form-input topSearch-field"
+              className="form-input topSearch-field"
               type="text"
               maxLength={50}
               placeholder="Search by keyword, style etc"

@@ -2,13 +2,102 @@ import Modal from 'components/web/modal/modal';
 import { cartTotalSelector } from 'components/web/cart/Selectors';
 import Voucher from 'components/web/voucher';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils/common';
+import React, { useEffect } from 'react';
+import { getAllVoucher, getPriceAfterUsingVoucher } from 'components/web/voucher/voucherSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
+  const dispatch = useDispatch();
+  const dataVoucherList = useSelector((state) => state.voucher.voucher);
+  //useEffect
+  useEffect(() => {
+    (async () => {
+      try {
+        // setLoading(true);
+        const action = getAllVoucher();
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // setLoading(false);
+      }
+    })();
+  }, [dispatch]);
+ 
+
+  const handleVoucherFormSubmit = (values) => {
+    try {
+      let isDisCount = (cartTotal * values.discountPercent) / 100 - values.priceOrderLimit;
+      let totalFinalPrice;
+      let DiscountPriceL;
+      if (isDisCount <= 0) {
+        totalFinalPrice = cartTotal - (cartTotal * values.discountPercent) / 100;
+        DiscountPriceL = (cartTotal * values.discountPercent) / 100;
+      } else {
+        totalFinalPrice = cartTotal - values.priceOrderLimit;
+        DiscountPriceL = values.priceOrderLimit
+      }
+      const data = {
+        Total: totalFinalPrice,
+        Percent: values.discountPercent,
+        DiscountPriceL: DiscountPriceL
+      };
+      // setLoading(true);
+      const action = getPriceAfterUsingVoucher(data);
+      const resultAction = dispatch(action);
+      unwrapResult(resultAction);
+    } catch (error) {
+      console.log('Failed to login:', error);
+    } finally {
+      // setLoading(false);
+    }
+  };
   //cart
   const dataCart = useSelector((state) => state.cart.dataCart);
+  const priceFinal = useSelector((state) => state.voucher.data);
   const cartTotal = useSelector(cartTotalSelector);
+  useEffect(() => {
+    (async () => {
+      try {
+        // setLoading(true);
+        const data = {
+          Total: 0,
+          Percent: 0,
+          DiscountPriceL: 0
+        };
+        // setLoading(true);
+        const action = getPriceAfterUsingVoucher(data);
+        const resultAction = dispatch(action);
+        unwrapResult(resultAction);
+        
+      } catch (error) {
+        // console.log('Failed to fetch product', error);
+      } finally {
+        // setLoading(false);
+      }
+    })();
+  }, [cartTotal, dispatch]);
+
+  const handleSearchFormSubmit = async (values) => {
+    try {
+      console.log(values);
+      // setLoading(true);
+      // const action = login(values);
+      // const resultAction = await dispatch(action);
+      // unwrapResult(resultAction);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      // history.push('/login');
+      // window.location.reload();
+    } finally {
+      // setLoading(false);
+    }
+  };
+
   const onUpdateQuantity = (index, quantity) => {
     const dataCart = {
       index: index,
@@ -118,13 +207,13 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
         ))}
         <div className="form-row-button form-row-button-cart" align="center">
           <Modal classNameModal={'form-button secondary anchor'} id={'add-coupon'} label={'Nhập mã'}>
-            <Voucher />
+            <Voucher vouchers={dataVoucherList} onSubmit={handleVoucherFormSubmit} onSubmitSearch={handleSearchFormSubmit} />
           </Modal>
         </div>
 
         <div className="form-row-button form-row-button-cart" align="center">
           <Modal classNameModal={'form-button secondary anchor'} id={'share-basket'} label={'Chia sẻ giỏ hàng'}>
-            Nhập mã
+            Chia sẻ giỏ hàng
           </Modal>
         </div>
         <div className="form-row-button form-row-button-cart" align="center" />
@@ -137,25 +226,25 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
               <table className="order-totals-table">
                 <tbody>
                   <tr className="order-subtotal">
-                    <th scope="row">Tổng phụ</th>
+                    <th scope="row">Tạm tính</th>
                     <td>{formatPrice(cartTotal)}</td>
                   </tr>
                   <tr className="order-estimate-tax">
-                    <th scope="row">Thuế:</th>
-                    <td>$0.00</td>
+                    <th scope="row">% giảm giá:</th>
+                    <td>{priceFinal.Percent ? priceFinal.Percent : 0}</td>
                   </tr>
 
                   <tr className="order-country-zone">
-                    <th scope="row">VN</th>
+                    <th scope="row">Phí vận chuyển:</th>
                     <td>$0.00</td>
                   </tr>
                   <tr className="order-country-zone">
                     <th scope="row">Giảm giá</th>
-                    <td>$0.00</td>
+                    <td>{formatPrice(priceFinal.DiscountPriceL ? priceFinal.DiscountPriceL : 0)}</td>
                   </tr>
                   <tr className="order-total">
                     <th scope="row">Tổng cộng</th>
-                    <td className="order-value">{formatPrice(cartTotal)}</td>
+                    <td className="order-value">{formatPrice(priceFinal.Total ? priceFinal.Total : cartTotal)}</td>
                   </tr>
                 </tbody>
               </table>

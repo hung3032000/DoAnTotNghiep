@@ -72,6 +72,7 @@ const Order = function (props) {
                         <TableCell>Tổng giá</TableCell>
                         <TableCell>Ngày tạo đơn</TableCell>
                         <TableCell>Trạng thái</TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

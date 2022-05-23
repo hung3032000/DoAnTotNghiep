@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 
 InputData.propTypes = {
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.any,
   name: PropTypes.string,
   form: PropTypes.object.isRequired,
 };

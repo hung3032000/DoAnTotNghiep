@@ -10,10 +10,11 @@ InputText.propTypes = {
   isPassword: PropTypes.bool,
   defaultValue: PropTypes.string,
   isDisable: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 function InputText(props) {
-  const { form, name, label, isPassword, defaultValue ,placeholder} = props;
+  const { form, name, label, isPassword, defaultValue, placeholder, className } = props;
   const { errors, formState } = form;
   const hasErrors = formState.touched[name] && errors[name];
   const [passwordShown, setPasswordShown] = useState(false);
@@ -26,9 +27,10 @@ function InputText(props) {
     }
     return isPassword ? 'password' : 'text';
   }
+
   return (
     <>
-      <div className={`form-row required empty ${defaultValue ? 'focus' : ''} ${hasErrors ? 'form-row--error' : ''}`}>
+      <div className={className ? className : `form-row required empty ${defaultValue ? 'focus' : ''} ${hasErrors ? 'form-row--error' : ''}`}>
         <label className="form-label">{label}</label>
         <div className="form-field">
           <Controller

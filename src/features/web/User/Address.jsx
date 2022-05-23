@@ -32,21 +32,21 @@ const AccountOverView = function (props) {
           <NavUser />
         </div>
         <div id="primary" className="primary-content">
-          <div class="account-page">
-            <div class="addresses-area" id="addresses">
+          <div className="account-page">
+            <div className="addresses-area" id="addresses">
               <div>
                 <h1>
-                  <span class="title">Quản lý địa chỉ</span>
+                  <span className="title">Quản lý địa chỉ</span>
                 </h1>
               </div>
-              <ul class="address-list">
-                <li class="address-tile  default">
-                  <div class="mini-address-title">
+              <ul className="address-list">
+                <li className="address-tile  default">
+                  <div className="mini-address-title">
                     484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)
-                    <h3 class="address-default">(Địa chỉ mặc định)</h3>
+                    <h3 className="address-default">(Địa chỉ mặc định)</h3>
                   </div>
-                  <div class="mini-address-name">PHAM HUNG</div>
-                  <div class="mini-address-location">
+                  <div className="mini-address-name">PHAM HUNG</div>
+                  <div className="mini-address-location">
                     <address>
                       484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)<br></br>
                       650000 QUẬN 9 <br></br>
@@ -56,7 +56,7 @@ const AccountOverView = function (props) {
                   </div>
 
                   <Modal classNameModal={'anchor'} label={'Thay đổi'}>
-                    <div class="address-popin">
+                    <div className="address-popin">
                       <h1>Chỉnh sửa</h1>
                       <ModiffyAddress onSubmit={handleAddressFormSubmit} />
                     </div>
@@ -66,10 +66,10 @@ const AccountOverView = function (props) {
                     Heelo
                   </Modal>
                 </li>
-                <li class="address-tile ">
-                  <div class="mini-address-title">Quận 9</div>
-                  <div class="mini-address-name">PHAM HUNG</div>
-                  <div class="mini-address-location">
+                <li className="address-tile ">
+                  <div className="mini-address-title">Quận 9</div>
+                  <div className="mini-address-name">PHAM HUNG</div>
+                  <div className="mini-address-location">
                     <address>
                       484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)<br></br>
                       650000 QUẬN 9 <br></br>
@@ -89,9 +89,9 @@ const AccountOverView = function (props) {
                   </Modal>
                 </li>
               </ul>
-              <div class="form-row form-row-button">
+              <div className="form-row form-row-button">
                 <Modal classNameModal={'address-create form-button btn btn-outline-primary'} label={'Tạo địa chỉ mới'}>
-                  <div class="address-popin">
+                  <div className="address-popin">
                     <h1>Tạo địa chỉ mới</h1>
                     <ModiffyAddress onSubmit={handleAddressFormSubmit} />
                   </div>

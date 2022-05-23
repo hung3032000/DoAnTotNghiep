@@ -1,45 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
-
+import { useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 Index.propTypes = {
-    
+  vouchers: PropTypes.array.isRequired,
 };
 
 function Index(props) {
+  const [voucherChoose, setVoucherChoose] = useState();
+  const voucherForm = useForm();
+  const search = useForm({
+    defaultValues: {
+      search: '',
+    },
+  });
+  const handleSubmit = async () => {
+    const { onSubmit } = props;
+    if (onSubmit) {
+      await onSubmit(voucherChoose);
+    }
+  };
+  const handleSubmitSearch = async (data) => {
+    const { onSubmitSearch } = props;
+    if (onSubmitSearch) {
+      await onSubmitSearch(data);
+    }
+  };
+  const { vouchers } = props;
   return (
     <>
-      <div className="form-row-search placeholder">
-        <div className="form-field-wrapper">
-          <div className="form-field">
-            <input classNameName="form-input topSearch-field" placeholder="Nhập mã giảm giá" title="Nhập mã giảm giá"></input>
-            {/* <Controller
-              name={name}
-              id={name}
-              control={form.control}
-              as={<input />}
-              classNameName="form-input topSearch-field"
-              type="text"
-              maxLength={50}
-              placeholder="Search by keyword, style etc"
-              title="Enter search words"
-            /> */}
+      <form className="form-horizontal edit-account-form" id="RegistrationForm" onSubmit={search.handleSubmit(handleSubmitSearch)}>
+        <div className="form-row-search placeholder">
+          <div className="form-field-wrapper">
+            <div className="form-field">
+              <Controller name="search" id="search" control={search.control} as={<input />} className="form-input topSearch-field" type="text" placeholder="Nhập mã giảm giá" />
+            </div>
           </div>
+          <button className="btn btn-link" type="submit">
+            {/* disabled="disabled" */}
+            Áp dụng
+          </button>
         </div>
-        <button className="btn btn-link" type="submit">
-          {/* disabled="disabled" */}
-          Áp dụng
-        </button>
-      </div>
-      <div class="field-wrapper">
-        <div class="address-element not-instore address-selected">
-          <button class="edit-addressdelivery">Edit</button>
-          <p>Mrs. HUNG PHAM</p>
-          <p>484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)</p>
-          <p>QUẬN 9 68000</p>
-          <p>+84929363511</p>
+      </form>
+      {vouchers.map((voucher) => (
+        <div className="field-wrapper" key={voucher._id}>
+          <form onSubmit={voucherForm.handleSubmit(handleSubmit)}>
+            <div className="voucher-element not-instore voucher-selected">
+              <p>Mã giảm giá: {voucher.nameVouncher}</p>
+              <p>Mô tả: {voucher.description}</p>
+              <p>Giảm giá: {voucher.discountPercent}%</p>
+              <p>Giảm tối đa: {voucher.priceOrderLimit}đ</p>
+              <p>
+                HSD: {voucher.dateEnd.day}/{voucher.dateEnd.month}/{voucher.dateEnd.year}
+              </p>
+              <button
+                className="edit-voucherdelivery"
+                onClick={() => {
+                  setVoucherChoose(voucher);
+                }}
+              >
+                Áp dụng
+              </button>
+            </div>
+          </form>
         </div>
-      </div>
+      ))}
     </>
   );
 }

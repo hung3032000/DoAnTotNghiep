@@ -82,16 +82,15 @@ function ProductInfo() {
 
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
 
-  let a = 0;
+  let priceProductTotal = 0;
   const priceTotal = () => {
     if (product.saleId) {
-      a = product.price - (product.price*product.saleId.percentSale/100) ;
+      priceProductTotal = product.price - (product.price*product.saleId.percentSale/100) ;
     } else {
-      a = product.price;
+      priceProductTotal = product.price;
     }
-    return a;
+    return priceProductTotal;
   };
-  console.log(a);
   const handleSubmit = (data) => {
     setColor(data);
   };

@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 const CheckOut = function (props) {
   const history = useHistory();
+  const priceFinal = useSelector((state) => state.voucher.data);
   const dataUser = useSelector((state) => state.user.current);
   const dataCart = useSelector((state) => state.cart.dataCart);
   const cartTotal = useSelector(cartTotalSelector);
@@ -45,7 +46,7 @@ const CheckOut = function (props) {
       }
       values.userId = dataUser._id;
       values.items = items;
-      values.totalPrice = cartTotal;
+      values.totalPrice = priceFinal.Total ? priceFinal.Total : cartTotal;
       values.isPaypal = false;
       const action = addOrderUser(values);
       const resultAction = await dispatch(action);
@@ -76,15 +77,15 @@ const CheckOut = function (props) {
               <div className="shipping">
                 <div className="page-header">
                   <h1>
-                    <span className="title">Place your order</span>
+                    <span className="title">Đơn hàng của bạn</span>
                   </h1>
                 </div>
                 <div className="col-sm-6 checkout-area">
-                  <h2 className="no-mobile">Finalize your order</h2>
+                  <h2 className="no-mobile">Tiến hành đặt hàng</h2>
                   <div className="step-area shipping ">
                     <div className="step-title">
                       <div className="step">1</div>
-                      <h3>Delivery</h3>
+                      <h3>Vận chuyển</h3>
                     </div>
                     <div className="forms-container step-content">
                       <div className="response-container">
@@ -101,7 +102,7 @@ const CheckOut = function (props) {
               </div>
               <div id="checkout-summary-fixed" className="col-sm-6" style={{ marginTop: '0px' }}>
                 <div className="summary">
-                  <h2>Summary</h2>
+                  <h2>Tổng kết</h2>
                   <div className="checkout-mini-cart">
                     {dataCart.map((card) => (
                       <div key={card.id} className="line-item">
@@ -111,30 +112,30 @@ const CheckOut = function (props) {
                         <ul className="product-infos datacart-ul">
                           <li className="item-name">
                             <h3>
-                              <a href="/#" title="Discover your future Homie Schematics oversized T-shirt">
+                              <a href="/#" title={card.product.name}>
                                 {card.product.name}
                               </a>
                             </h3>
                           </li>
                           <li className="product-infos-table">
                             <div className="info-table-row">
-                              <span className="label">Price:</span>
+                              <span className="label">Giá:</span>
                               <span className="value product-price">{formatPrice(card.product.price)}</span>
                             </div>
                             <div className="info-table-row">
-                              <span className="label">Product code:</span>
+                              <span className="label">Mã sản phẩm:</span>
                               <span className="value">{card.product._id}</span>
                             </div>
                             <div className="info-table-row">
-                              <span className="label">Color:</span>
-                              <span className="value">{card.product.Color}</span>
+                              <span className="label">Màu:</span>
+                              <span className="value">{card.color}</span>
                             </div>
                             <div className="info-table-row">
                               <span className="label">Size:</span>
-                              <span className="value">{card.product.Color}</span>
+                              <span className="value">{card.size}</span>
                             </div>
                             <div className="info-table-row lineitem-qty">
-                              <span className="label">Qty:</span>
+                              <span className="label">Số lượng:</span>
                               <span className="qty-value">{card.quantity}</span>
                             </div>
                           </li>
@@ -146,20 +147,25 @@ const CheckOut = function (props) {
                     <table className="order-totals-table">
                       <tbody>
                         <tr className="order-subtotal">
-                          <th scope="row">Subtotal</th>
+                          <th scope="row">Tạm tính</th>
                           <td>{formatPrice(cartTotal)}</td>
                         </tr>
-                        <tr className="order-sales-tax">
-                          <th scope="row">Taxes</th>
-                          <td>-</td>
+                        <tr className="order-estimate-tax">
+                          <th scope="row">Giảm giá:</th>
+                          <td>{priceFinal.Percent ? priceFinal.Percent : 0}%</td>
                         </tr>
-                        <tr className="order-shipping">
-                          <th scope="row">Delivery charges</th>
-                          <td>{formatPrice(cartTotal)}</td>
+
+                        <tr className="order-country-zone">
+                          <th scope="row">Phí vận chuyển:</th>
+                          <td>$0.00</td>
+                        </tr>
+                        <tr className="order-country-zone">
+                          <th scope="row">Giảm giá</th>
+                          <td>{formatPrice(priceFinal.DiscountPriceL ? priceFinal.DiscountPriceL : 0)}</td>
                         </tr>
                         <tr className="order-total">
-                          <th scope="row">Total</th>
-                          <td className="order-value">{formatPrice(cartTotal)}</td>
+                          <th scope="row">Tổng cộng</th>
+                          <td className="order-value">{formatPrice(priceFinal.Total ? priceFinal.Total : cartTotal)}</td>
                         </tr>
                       </tbody>
                     </table>

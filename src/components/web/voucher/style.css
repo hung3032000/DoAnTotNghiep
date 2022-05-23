@@ -2,14 +2,13 @@
     margin-bottom: 0.5rem;
     width: 100%;
 }
-.address-element  {
+.voucher-element  {
     padding: 1.25rem;
     color: #000;
     border: 1px solid #d9d9d9;
-    cursor: pointer;
     position: relative;
 }
-.edit-addressdelivery {
+.edit-voucherdelivery {
     display: none;
     position: absolute;
     top: 0;
@@ -22,9 +21,9 @@
     letter-spacing: .05em;
     line-height: 1.25rem;
 }
-.address-selected {
+.voucher-selected {
     border: 1px solid #000;
 }
-.address-element.address-selected .edit-addressdelivery {
+.voucher-element.voucher-selected .edit-voucherdelivery {
     display: block;
 }
