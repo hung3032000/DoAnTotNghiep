@@ -31,12 +31,25 @@ const CheckOut = function (props) {
         productId: 1,
         quantity: 2,
         totalPrice: 200,
+        saleId: 20,
+        colorName:"Black",
+        sizeName:"Black"
       };
       let items = [];
+   
       for (let i = 0; i < dataCart.length; i++) {
         item.productId = dataCart[i].product._id;
         item.quantity = dataCart[i].quantity;
         item.totalPrice = dataCart[i].quantity * dataCart[i].product.price;
+        if (dataCart[i].product.saleId) {
+          item.saleId = dataCart[i].product.saleId._id;
+        }
+        else{
+          item.saleId = null
+        }
+        item.colorName = dataCart[i].color;
+        item.sizeName = dataCart[i].size;
+        
         items.unshift(item);
         item = {
           productId: 1,
@@ -46,6 +59,7 @@ const CheckOut = function (props) {
       }
       values.userId = dataUser._id;
       values.items = items;
+      values.priceDiscount = priceFinal.DiscountPriceL;
       values.totalPrice = priceFinal.Total ? priceFinal.Total : cartTotal;
       values.isPaypal = false;
       const action = addOrderUser(values);

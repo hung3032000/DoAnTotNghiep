@@ -231,7 +231,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
                   </tr>
                   <tr className="order-estimate-tax">
                     <th scope="row">% giảm giá:</th>
-                    <td>{priceFinal.Percent ? priceFinal.Percent : 0}</td>
+                    <td>{priceFinal.Percent ? priceFinal.Percent : 0}%</td>
                   </tr>
 
                   <tr className="order-country-zone">
