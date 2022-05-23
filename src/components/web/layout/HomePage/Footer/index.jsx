@@ -49,7 +49,7 @@ const Footer = function (props) {
                   </div>
                   <div className="row">
                     <div className="col-xs-4 col-sm-8 col-lg-8 input-container">
-                      <div className="form-row  required focus" data-requiredtext data-regexinvalidmessage>
+                      <div className="form-row  required focus " data-requiredtext data-regexinvalidmessage >
                         <div className="form-field-wrapper">
                           <label className="form-label" htmlFor="dwfrm_newsletter_email">
                           Địa chỉ E-mail *

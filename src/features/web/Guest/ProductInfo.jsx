@@ -161,7 +161,7 @@ function ProductInfo() {
                           </div>
                           <div className="right">
                             <div className="form-button secondary addtowhishlist-btn">
-                              <a href className="add-to-wishlist">
+                              <a href>
                                 <span className="visible-xs-block">{totalProductState} sản phẩm</span>
                                 <span className="hidden-xs">{totalProductState} sản phẩm</span>
                               </a>

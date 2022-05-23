@@ -33,10 +33,7 @@ function Products({ product }) {
             </div>
           </figcaption>
         </Link>
-        <a href="/#" data-pname="Coat in wool and cashmere with 4G buttons and chain" data-pid="BWC08N13FP-001" className="add-to-wishlist">
-          <i className="icon_Wishlist" /> <i className="icon_Wishlist_Active" />
-          <span className="visually-hidden">Add to your wishlist Coat in wool and cashmere with 4G buttons and chain</span>
-        </a>
+        
       </figure>
   );
 }

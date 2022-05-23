@@ -31,9 +31,8 @@ function LoginFormHeader(props) {
   return (
     <form className="clearfix " name="login-form" onSubmit={form.handleSubmit(handleSubmit)} id="form-3">
       <fieldset>
-        <legend className="visually-hidden">Login</legend>
-        <Input name="email_header" form={form} label="Địa chỉ email *"/>
-        <Input name="password_header" form={form} isPassword={true} label="Mật khẩu *"/>
+        <Input name="email_header" form={form} label="Địa chỉ email *" />
+        <Input name="password_header" form={form} isPassword={true} label="Mật khẩu *" />
         <div className="form-row form-row-button">
           <button type="submit" className="form-button" value="Login" name="dwfrm_login_login">
             Login
@@ -45,7 +44,6 @@ function LoginFormHeader(props) {
             <label htmlFor="remember-me-header" className="form-label">
               Remember me
             </label>
-            <input className=" rememberme" type="hidden" name="dwfrm_login_rememberme" defaultValue="true" data-dwname="rememberme" />
           </div>
           <a className="password-reset" href>
             Quên mật khẩU?

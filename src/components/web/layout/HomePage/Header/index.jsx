@@ -1,6 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { logout } from 'components/web/auth/userSlice';
-import Cart from 'components/web/cart/Cart';
+
 import { removeFromCart } from 'components/web/cart/CartSlice';
 import { cartItemsCountSelector, cartTotalSelector } from 'components/web/cart/Selectors';
 import CategoryParent from 'components/web/category/CategoryParent';
@@ -8,9 +8,10 @@ import { getListCategory } from 'components/web/category/CategorySlice';
 import LoginFormHeader from 'components/web/form/LoginFormHeader';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink, Link } from 'react-router-dom';
 import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
+import Cart from 'components/web/cart/Cart';
 import Search from 'components/web/search/Search';
 
 const Header = function (props) {
@@ -64,9 +65,7 @@ const Header = function (props) {
   return (
     <div>
       <Loader showLoader={loading} />
-      <Cart actionDeleteCart={actionDeleteCart} cartTotal={cartTotal} countProduct={countProduct} dataCart={dataCart} />
       <header className="header" id="header">
-        <div id="js-overlay"></div>
         <div className="header-container">
           <ul className="header-links">
             <li className="level-1 country-selector">
@@ -127,26 +126,29 @@ const Header = function (props) {
                         </span>
                       </a>
                       <div className="level-2 authenticated">
-                        <a href="/myaccount" className="level-2 back">
+                        <NavLink activeClassName="active" to="/order" className="level-2 back">
                           Tài khoản
-                        </a>
+                        </NavLink>
                         <ul>
-                          <li>
-                            <a href="/myaccount">Tổng quan</a>
-                          </li>
                           <li className="order-history ">
-                            <a href="/order">Đơn hàng</a>
+                            <NavLink activeClassName="active" to="/order">
+                              Đơn hàng
+                            </NavLink>
                           </li>
                           <li>
-                            <a href="/editaccount">Thông tin cá nhân</a>
+                            <NavLink activeClassName="active" to="/editaccount">
+                              Thông tin cá nhân
+                            </NavLink>
                           </li>
                           <li>
-                            <a href="/addresses">Địa chỉ</a>
+                            <NavLink activeClassName="active" to="/addresses">
+                              Địa chỉ
+                            </NavLink>
                           </li>
                           <li>
-                            <a className="cursor" href onClick={handleLogout}>
+                            <Link className="cursor" onClick={handleLogout}>
                               Thoát
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -159,24 +161,26 @@ const Header = function (props) {
             <div className="mobile-minicart-added" wfd-invisible="true">
               1 item has been added to your cart
             </div>
+            <div className={`minicart empty-cart ${hoveredcart ? 'hover' : ''}`} onMouseEnter={() => setHoveredcart(true)} onMouseLeave={() => setHoveredcart(false)}>
+              <Modal
+                classNameModal={'minicart-link empty-cart'}
+                label={
+                  <span className="icon_Bag" title="View Your Cart">
+                    ({countProduct})
+                  </span>
+                }
+              >
+                <Cart actionDeleteCart={actionDeleteCart} cartTotal={cartTotal} countProduct={countProduct} dataCart={dataCart} />
+              </Modal>
 
-            <div
-              className={`minicart empty-cart ${hoveredcart ? 'hover' : ''}`}
-              id="minicartnotempty"
-              onMouseEnter={() => setHoveredcart(true)}
-              onMouseLeave={() => setHoveredcart(false)}
-            >
-              <button className="minicart-link empty-cart" aria-label="View Your Cart">
-                <span className="icon_Bag" title="View Your Cart">
-                  ({countProduct})
-                </span>
-              </button>
               {countProduct === 0 && (
                 <div className="minicart-content">
                   <p>Giỏ hàng đang trống</p>
                 </div>
               )}
             </div>
+
+           
             <div className="search-link-container" role="search">
               <a href className="search-link">
                 <Modal classNameModal={'icon icon_Search anchor'}>

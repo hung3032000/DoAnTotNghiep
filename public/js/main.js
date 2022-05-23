@@ -1,38 +1,5 @@
 $(document).ready(function () {
 
-	// click
-
-
-	$("#minicartnotempty").click(function (e) {
-		$(".minicart").addClass("hover");
-		$("html").addClass("minicart-active");
-		$("#minicart-container").addClass("minicart-active");
-		e.stopPropagation();
-	});
-
-	$(".minicart-close").click(function () {
-		$(".minicart").removeClass("hover");
-		$("html").removeClass("minicart-active");
-		$("#minicart-container").removeClass("minicart-active");
-	});
-
-	$("#js-overlay").click(function () {
-		$("html").removeClass("minicart-active");
-		$("#minicart-container").removeClass("minicart-active");
-
-	});
-
-	// $("#variation-Size-header").click(function () {
-	// 	if ($(".tab-pane").hasClass("active") || $(".tab-header").hasClass("active")) {
-	// 		$(".tab-pane").removeClass("active");
-	// 		$(".tab-header").removeClass("active");
-	// 	}
-	// 	else {
-	// 		$(".tab-pane").addClass("active");
-	// 		$(".tab-header").addClass("active");
-	// 	}
-	// });
-
 	// login
 	const inputs = document.querySelectorAll(".form-field");
 	function addcl() {

@@ -22,7 +22,6 @@ function ChangePassForm(props) {
     }
   };
   return (
-    <div>
       <form className="form-horizontal" id="ChangePassowrdForm" onSubmit={updatePassForm.handleSubmit(handleSubmit)}>
         <fieldset>
           <legend className="visually-hidden">Tạo mật khẩu mới</legend>
@@ -41,7 +40,6 @@ function ChangePassForm(props) {
           </div>
         </fieldset>
       </form>
-    </div>
   );
 }
 

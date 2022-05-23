@@ -4,8 +4,20 @@ import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
+import ModiffyAddress from 'components/web/form/ModifyAddress';
 
 const AccountOverView = function (props) {
+  const handleAddressFormSubmit = async (values) => {
+    try {
+      setLoading(true);
+      console.log(values);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
   const [loading, setLoading] = useState(false);
   return (
     <>
@@ -24,14 +36,14 @@ const AccountOverView = function (props) {
             <div class="addresses-area" id="addresses">
               <div>
                 <h1>
-                  <span class="title">Addresses</span>
+                  <span class="title">Quản lý địa chỉ</span>
                 </h1>
               </div>
               <ul class="address-list">
                 <li class="address-tile  default">
                   <div class="mini-address-title">
                     484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)
-                    <h3 class="address-default">(Default address)</h3>
+                    <h3 class="address-default">(Địa chỉ mặc định)</h3>
                   </div>
                   <div class="mini-address-name">PHAM HUNG</div>
                   <div class="mini-address-location">
@@ -42,11 +54,14 @@ const AccountOverView = function (props) {
                       VN Telephone: +840929363511<br></br>
                     </address>
                   </div>
-                  
+
                   <Modal classNameModal={'anchor'} label={'Thay đổi'}>
-                    Heelo
+                    <div class="address-popin">
+                      <h1>Chỉnh sửa</h1>
+                      <ModiffyAddress onSubmit={handleAddressFormSubmit} />
+                    </div>
                   </Modal>
-                 
+
                   <Modal classNameModal={'anchor'} label={'Xoá'}>
                     Heelo
                   </Modal>
@@ -65,20 +80,22 @@ const AccountOverView = function (props) {
                   <Modal classNameModal={'anchor'} label={'Thay đổi'}>
                     Heelo
                   </Modal>
-                 
+
                   <Modal classNameModal={'anchor'} label={'Xoá'}>
                     Heelo
                   </Modal>
                   <Modal classNameModal={'anchor'} label={'Choose a default address'}>
                     Heelo
                   </Modal>
-                  
                 </li>
               </ul>
               <div class="form-row form-row-button">
-                <a class="address-create form-button btn btn-outline-primary" title="Create a new address for this account" href>
-                  Create new address
-                </a>
+                <Modal classNameModal={'address-create form-button btn btn-outline-primary'} label={'Tạo địa chỉ mới'}>
+                  <div class="address-popin">
+                    <h1>Tạo địa chỉ mới</h1>
+                    <ModiffyAddress onSubmit={handleAddressFormSubmit} />
+                  </div>
+                </Modal>
               </div>
             </div>
           </div>

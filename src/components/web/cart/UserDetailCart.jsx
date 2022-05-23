@@ -1,4 +1,6 @@
+import Modal from 'components/web/modal/modal';
 import { cartTotalSelector } from 'components/web/cart/Selectors';
+import Voucher from 'components/web/voucher';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -115,14 +117,15 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
           </div>
         ))}
         <div className="form-row-button form-row-button-cart" align="center">
-          <a className="form-button secondary" id="add-coupon" href="!#">
-            Nhập mã
-          </a>
+          <Modal classNameModal={'form-button secondary anchor'} id={'add-coupon'} label={'Nhập mã'}>
+            <Voucher />
+          </Modal>
         </div>
+
         <div className="form-row-button form-row-button-cart" align="center">
-          <a className="form-button secondary" id="share-basket" href="!#">
-            Chia sẻ giỏ hàng
-          </a>
+          <Modal classNameModal={'form-button secondary anchor'} id={'share-basket'} label={'Chia sẻ giỏ hàng'}>
+            Nhập mã
+          </Modal>
         </div>
         <div className="form-row-button form-row-button-cart" align="center" />
       </div>

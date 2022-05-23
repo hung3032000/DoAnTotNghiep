@@ -1,7 +1,7 @@
 import { logout } from 'components/web/auth/userSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory,Link } from 'react-router-dom';
 
 function NavUser(props) {
   const dispatch = useDispatch();
@@ -17,19 +17,16 @@ function NavUser(props) {
     <div>
       <nav className="account-navigation" aria-label="My account">
         <ul>
-          {/* <li className="active">
-            <Link to="/myaccount">Tổng quan tài khoản</Link>
-          </li> */}
           <li className="order-history ">
-            <Link to="/order">Đơn hàng</Link>
+            <NavLink activeClassName="active" to="/order">Đơn hàng</NavLink>
           </li>
           <li className>
-            <Link to="/editaccount">
+            <NavLink activeClassName="active" to="/editaccount">
               Thông tin cá nhân
-            </Link>
+            </NavLink>
           </li>
           <li className>
-            <Link to="/addresses">Địa chỉ</Link>
+            <NavLink activeClassName="active" to="/addresses">Địa chỉ</NavLink>
           </li>
           <li>
             <Link className="cursor" onClick={handleLogout}>

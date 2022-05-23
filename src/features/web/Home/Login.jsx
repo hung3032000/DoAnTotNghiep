@@ -56,7 +56,7 @@ const Login = function () {
       </Helmet>
       <Loader showLoader={loading} />
       <div className="pt_storefront" id="wrapper">
-        <div id="minicart-container" aria-hidden="true" />
+        
         <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
           <div id="primary" className="primary-content">
             <div className="login-page container">

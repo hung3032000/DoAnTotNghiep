@@ -19,9 +19,9 @@ function RegisterForm(props) {
   });
   const registerForm = useForm({
     defaultValues: {
-      gender:'',
-      lastname:'',
-      fistname:'',
+      gender: '',
+      lastname: '',
+      fistname: '',
       email: '',
       password: '',
     },
@@ -35,44 +35,41 @@ function RegisterForm(props) {
   };
 
   return (
-    <div>
-      <form className="form-horizontal edit-account-form"  onSubmit={registerForm.handleSubmit(handleSubmit)}>
+    <form className="form-horizontal edit-account-form" onSubmit={registerForm.handleSubmit(handleSubmit)}>
       {/* id="form-register" */}
-        <p className="required-msg">Hãy điền đầy đủ các thông tin bên dưới</p>
-        <div className="error-form global-error form-row" aria-live="polite" />
-        <fieldset>
-          <legend className="visually-hidden">Thông tin cá nhân</legend>
-          <InputCombobox name="gender" form={registerForm}/>
-          <Input name="fistname" form={registerForm} label="Họ *"/>
-          <Input name="lastname" form={registerForm} label="Tên *"/>
-          <Input name="email" form={registerForm} label="Địa chỉ E-mail *"/>
-          <Input name="password" form={registerForm} isPassword={true} label="Mật khẩu *"/>
-          <div className="form-row form-secondaryCheckbox form-customCheckbox" data-requiredtext data-regexinvalidmessage>
-            <div className="form-field-wrapper">
-              <input
-                className="form-checkbox addtoemaillist"
-                type="checkbox"
-                id="dwfrm_profile_customer_addtoemaillist"
-                name="dwfrm_profile_customer_addtoemaillist"
-                defaultValue="true"
-              />
-              <label className="form-label" htmlFor="dwfrm_profile_customer_addtoemaillist">
-                Tôi đồng ý
-              </label>
-            </div>
+      <p className="required-msg">Hãy điền đầy đủ các thông tin bên dưới</p>
+      <div className="error-form global-error form-row" aria-live="polite" />
+      <fieldset>
+        <InputCombobox name="gender" form={registerForm} />
+        <Input name="fistname" form={registerForm} label="Họ *" />
+        <Input name="lastname" form={registerForm} label="Tên *" />
+        <Input name="email" form={registerForm} label="Địa chỉ E-mail *" />
+        <Input name="password" form={registerForm} isPassword={true} label="Mật khẩu *" />
+        <div className="form-row form-secondaryCheckbox form-customCheckbox" data-requiredtext data-regexinvalidmessage>
+          <div className="form-field-wrapper">
+            <input
+              className="form-checkbox addtoemaillist"
+              type="checkbox"
+              id="dwfrm_profile_customer_addtoemaillist"
+              name="dwfrm_profile_customer_addtoemaillist"
+              defaultValue="true"
+            />
+            <label className="form-label" htmlFor="dwfrm_profile_customer_addtoemaillist">
+              Tôi đồng ý
+            </label>
           </div>
-          <div className="form-row form-row-button">
-            <input type="hidden" defaultValue="new" name="action" />
-            <button type="submit" value="Apply" name="dwfrm_profile_confirm">
-              Tạo tài khoản
-            </button>
-          </div>
-          <div className="form-row form-row-button">
-            <a href="/login"> Đã có tài khoản? Tới đăng nhập </a>
-          </div>
-        </fieldset>
-      </form>
-    </div>
+        </div>
+        <div className="form-row form-row-button">
+          <input type="hidden" defaultValue="new" name="action" />
+          <button type="submit" value="Apply" name="dwfrm_profile_confirm">
+            Tạo tài khoản
+          </button>
+        </div>
+        <div className="form-row form-row-button">
+          <a href="/login"> Đã có tài khoản? Tới đăng nhập </a>
+        </div>
+      </fieldset>
+    </form>
   );
 }
 

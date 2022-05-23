@@ -21,11 +21,11 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Paypal from 'components/web/Paypal/PayPal';
 import CheckOut from 'features/web/User/CheckOut';
 import UserInfor from 'features/web/User/UserInfor';
-import { lazy } from 'react';
+import AccountOverView from 'features/web/User/Address';
+
 
 import Order from 'features/web/User/Order';
 
-const AccountOverView = lazy(() => import('features/web/User/AccountOverView'));
 //admin
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -99,9 +99,6 @@ function App() {
               </PrivateRoute>
               <PrivateRoute path={'/order'}>
                 <Order />
-              </PrivateRoute>
-              <PrivateRoute path={'/myaccount'}>
-                <AccountOverView />
               </PrivateRoute>
               <PrivateRoute path={'/editaccount'}>
                 <UserInfor />

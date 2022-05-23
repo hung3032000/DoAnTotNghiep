@@ -5,14 +5,15 @@ import { Controller } from 'react-hook-form';
 InputText.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
   isPassword: PropTypes.bool,
   defaultValue: PropTypes.string,
-  isDisable : PropTypes.bool
+  isDisable: PropTypes.bool,
 };
 
 function InputText(props) {
-  const { form, name, label, isPassword,defaultValue } = props;
+  const { form, name, label, isPassword, defaultValue ,placeholder} = props;
   const { errors, formState } = form;
   const hasErrors = formState.touched[name] && errors[name];
   const [passwordShown, setPasswordShown] = useState(false);
@@ -30,7 +31,17 @@ function InputText(props) {
       <div className={`form-row required empty ${defaultValue ? 'focus' : ''} ${hasErrors ? 'form-row--error' : ''}`}>
         <label className="form-label">{label}</label>
         <div className="form-field">
-          <Controller name={name} id={name} control={form.control} as={<input />} className="form-input form-field required" type={showPassword(isPassword)} maxLength={50} defaultValue={defaultValue}/>
+          <Controller
+            name={name}
+            id={name}
+            control={form.control}
+            as={<input />}
+            className="form-input form-field required"
+            type={showPassword(isPassword)}
+            maxLength={50}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+          />
           <span className="error"></span>
           {isPassword ? (
             <i className="password-show" onClick={togglePasswordVisiblity}>

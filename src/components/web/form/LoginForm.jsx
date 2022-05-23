@@ -31,31 +31,28 @@ function LoginForm(props) {
   };
 
   return (
-    <div>
-      <form className="clearfix " onSubmit={loginForm.handleSubmit(handleSubmit)}>
-        <fieldset>
-          <legend className="visually-hidden">Login</legend>
-          <Input name="email" form={loginForm} label="Địa chỉ email *"/>
-          <Input name="password" form={loginForm} isPassword={true} label="Mật khẩu *"/>
-          <div className="form-row form-row-button">
-            <button type="submit" className="form-button" name="dwfrm_login_login">
-              Đăng nhập
-            </button>
+    <form className="clearfix " onSubmit={loginForm.handleSubmit(handleSubmit)}>
+      <fieldset>
+        <Input name="email" form={loginForm} label="Địa chỉ email *" />
+        <Input name="password" form={loginForm} isPassword={true} label="Mật khẩu *" />
+        <div className="form-row form-row-button">
+          <button type="submit" className="form-button" name="dwfrm_login_login">
+            Đăng nhập
+          </button>
+        </div>
+        <div className="login-actions">
+          <a className="password-reset" href>
+            Quên mật khẩu?
+          </a>
+          <div className="form-row form-customCheckbox remember-me">
+            <input type="checkbox" id="remember-me" className="form-checkbox" />
+            <label htmlFor="remember-me" className="form-label">
+              Duy trì đăng nhập
+            </label>
           </div>
-          <div className="login-actions">
-            <a className="password-reset" href>
-              Quên mật khẩu?
-            </a>
-            <div className="form-row form-customCheckbox remember-me">
-              <input type="checkbox" id="remember-me" className="form-checkbox" />
-              <label htmlFor="remember-me" className="form-label">
-                Duy trì đăng nhập
-              </label>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </div>
+        </div>
+      </fieldset>
+    </form>
   );
 }
 
