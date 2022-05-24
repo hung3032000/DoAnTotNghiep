@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, TextField, InputAdornment, SvgIcon } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import CategoryNewForm from 'components/admin/form/category/CategoryNewForm';
-import { createNewCategoryAdmin } from 'components/web/category/CategorySlice';
+import { createNewCategoryAdmin } from 'slice/CategorySlice';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';

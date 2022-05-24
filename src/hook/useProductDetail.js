@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { getProductDetail } from 'components/web/product/ProductSlice';
+import { getProductDetail } from 'slice/ProductSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

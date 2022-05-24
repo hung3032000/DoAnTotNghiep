@@ -1,4 +1,4 @@
-import { logout } from 'components/web/auth/userSlice';
+import { logout } from 'slice/userSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useHistory,Link } from 'react-router-dom';

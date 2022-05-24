@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { ChangePassword, update } from 'components/web/auth/userSlice';
+import { ChangePassword, update } from 'slice/userSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import ChangePassForm from 'components/web/form/ChangePassForm';
 import UpdateInfoForm from 'components/web/form/UpdateInfoForm';
@@ -40,6 +40,9 @@ function UserInfor() {
       setLoading(false);
     }
   };
+
+
+  
 
   return (
     <>

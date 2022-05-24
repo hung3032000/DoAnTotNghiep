@@ -1,14 +1,13 @@
-import { cartTotalSelector } from 'components/web/cart/Selectors';
+import { cartTotalSelector } from 'slice/Selectors';
 import CheckOutForm from 'components/web/form/CheckOutForm';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { THUMNAIL_URL_PRODUCTLIST } from 'constants/index';
 import { useHistory } from 'react-router-dom';
-import { addOrderUser, checkout } from 'components/admin/order/OrderSlice';
+import { addOrderUser, checkout } from 'slice/OrderSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { emptyCart } from 'components/web/cart/CartSlice';
-// import { checkout } from 'components/admin/order/OrderSlice';
+import { emptyCart } from 'slice/CartSlice';
 import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 const CheckOut = function (props) {

@@ -4,7 +4,7 @@ import UserNewForm from 'components/admin/form/User/UserNewForm';
 import adminAPI from 'api/adminAPI';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
-import { addUser } from 'components/web/auth/userSlice';
+import { addUser } from 'slice/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 function UserListToolbar() {

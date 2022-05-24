@@ -1,7 +1,7 @@
-import { Box, Card, Checkbox, Fab, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { getOrderCompleteAdmin, statusOrderComplete } from 'components/admin/order/OrderSlice';
+import { getOrderCompleteAdmin, statusOrderComplete } from 'slice/OrderSlice';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -10,24 +10,34 @@ import { formatPrice } from 'utils';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useSnackbar } from 'notistack';
+import Loader from 'components/fullPageLoading';
 
 function OrderListCompleteResults(props) {
+  const [loading, setLoading] = useState(false);
+
   const dataOrderCList = useSelector((state) => state.order.dataComplete);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     (async () => {
-      const action = getOrderCompleteAdmin({
-        limit:100,
-      });
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
+      try {
+        setLoading(true);
+        const action = getOrderCompleteAdmin({
+          limit: 100,
+        });
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, [dispatch]);
   const handleOnComplete = async (id) => {
     try {
-      console.log(id);
+      setLoading(true);
       const action = statusOrderComplete(id, { status: 'Done' });
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -36,16 +46,24 @@ function OrderListCompleteResults(props) {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
-
   };
 
   const handleOnCancel = async (id) => {
-    console.log(id);
-    const action = statusOrderComplete(id, { status: 'Cancel' });
-    const resultAction = await dispatch(action);
-    unwrapResult(resultAction);
-    window.location.reload();
+    try {
+      setLoading(true);
+      const action = statusOrderComplete(id, { status: 'Cancel' });
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
   };
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(5);
@@ -88,92 +106,96 @@ function OrderListCompleteResults(props) {
     setPage(newPage);
   };
   return (
-    <Card>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === dataOrderCList.length}
-                    color="primary"
-                    indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataOrderCList.length}
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>Id đơn hàng</TableCell>
-                <TableCell>Người đặt hàng</TableCell>
-                <TableCell>Tổng Giá</TableCell>
-                <TableCell>Địa chỉ nhận hàng</TableCell>
-                <TableCell>Ngày tạo</TableCell>
-                <TableCell>Trạng thái</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {dataOrderCList.slice(0, limit).map((order) => (
-                <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
-                  <TableCell padding="checkbox">
-                    <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        {order._id}
-                      </Typography>
-                    </Box>
-                  </TableCell>
+    <>
+      <Loader showLoader={loading} />
 
-                  <TableCell>{order.orderId.addressrecevie.name}</TableCell>
-                  <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-                  <TableCell>{order.orderId.addressrecevie.address}</TableCell>
-                  <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
-                  <TableCell>{order.status}</TableCell>
-                  <TableCell>
-                    <Fab
-                      className="mgr-10"
+      <Card>
+        <PerfectScrollbar>
+          <Box sx={{ minWidth: 1050 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedCustomerIds.length === dataOrderCList.length}
                       color="primary"
-                      aria-label="edit"
-                      onClick={() => {
-                        handleOnComplete(order._id);
-                      }}
-                    >
-                      <CheckIcon />
-                    </Fab>
-                    <Fab
-                      className="mgr-10"
-                      color="secondary"
-                      aria-label="delete"
-                      onClick={() => {
-                        handleOnCancel(order._id);
-                      }}
-                    >
-                      <ClearIcon />
-                    </Fab>
-                    <OrderListInfo order={order.orderId} />
+                      indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataOrderCList.length}
+                      onChange={handleSelectAll}
+                    />
                   </TableCell>
+                  <TableCell>Id đơn hàng</TableCell>
+                  <TableCell>Người đặt hàng</TableCell>
+                  <TableCell>Tổng Giá</TableCell>
+                  <TableCell>Địa chỉ nhận hàng</TableCell>
+                  <TableCell>Ngày tạo</TableCell>
+                  <TableCell>Trạng thái</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={dataOrderCList.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 50, 100]}
-      />
-    </Card>
+              </TableHead>
+              <TableBody>
+                {dataOrderCList.slice(0, limit).map((order) => (
+                  <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: 'center',
+                          display: 'flex',
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          {order._id}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+
+                    <TableCell>{order.orderId.addressrecevie.name}</TableCell>
+                    <TableCell>{formatPrice(order.totalPrice)}</TableCell>
+                    <TableCell>{order.orderId.addressrecevie.address}</TableCell>
+                    <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>{order.status}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        className="mgr-10"
+                        color="primary"
+                        aria-label="edit"
+                        onClick={() => {
+                          handleOnComplete(order._id);
+                        }}
+                      >
+                        <CheckIcon />
+                      </IconButton>
+                      <IconButton
+                        className="mgr-10"
+                        color="secondary"
+                        aria-label="delete"
+                        onClick={() => {
+                          handleOnCancel(order._id);
+                        }}
+                      >
+                        <ClearIcon />
+                      </IconButton>
+                      <OrderListInfo order={order.orderId} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </PerfectScrollbar>
+        <TablePagination
+          component="div"
+          count={dataOrderCList.length}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[5, 50, 100]}
+        />
+      </Card>
+    </>
   );
 }
 

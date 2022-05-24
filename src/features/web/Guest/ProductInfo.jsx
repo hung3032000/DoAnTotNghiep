@@ -1,18 +1,18 @@
 import AddToCart from 'components/web/cart/AddToCart';
-import { addToCart } from 'components/web/cart/CartSlice';
+import { addToCart } from 'slice/CartSlice';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import { formatPrice } from 'utils/common';
 import Loader from 'components/fullPageLoading';
-import { getProductDetail } from 'components/web/product/ProductSlice';
+import { getProductDetail } from 'slice/ProductSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Modal from 'components/web/modal/modal';
 import SizeProduct from 'components/web/sizeProduct';
 import Detailproduct from 'components/web/detailProduct';
 import Colorproduct from 'components/web/colorProduct';
-import { getListSize } from 'components/web/product/ProductListSlice';
+import { getListSize } from 'slice/ProductListSlice';
 import { Helmet } from 'react-helmet';
 
 function ProductInfo() {

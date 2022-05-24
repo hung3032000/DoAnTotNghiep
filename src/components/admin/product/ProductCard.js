@@ -2,9 +2,9 @@ import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
-import { getListCategoryChildAdmin } from 'components/web/category/CategoryChildSlice';
-import { getListProductAdmin } from 'components/web/product/ProductListSlice';
-import { deleteProductDetail, updateProductDetail } from 'components/web/product/ProductSlice';
+import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
+import { getListProductAdmin } from 'slice/ProductListSlice';
+import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
@@ -12,8 +12,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import ProductEditForm from '../form/products/ProductsEditForm';
+import Loader from 'components/fullPageLoading';
 
 function ProductCard() {
+  const [loading, setLoading] = useState(false);
+
   //fetch data category
   const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
   const dataProductsList = useSelector((state) => state.productList.dataA);
@@ -24,6 +27,8 @@ function ProductCard() {
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
+
         //categoryC
         const actionChild = getListCategoryChildAdmin({
           page: 1,
@@ -40,6 +45,8 @@ function ProductCard() {
         unwrapResult(resultActionGetProducts);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [dispatch]);
@@ -49,8 +56,10 @@ function ProductCard() {
   //handl action
   const handleOnEdit = async (values, data) => {
     try {
+      setLoading(true);
+
       if (data) {
-        adminAPI.updateImageProduct(values._id,data);
+        adminAPI.updateImageProduct(values._id, data);
         const action = updateProductDetail(values);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -66,11 +75,15 @@ function ProductCard() {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
   // updateProduct
   const handleOnDelete = async (id) => {
     try {
+      setLoading(true);
+
       const action = deleteProductDetail(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -79,6 +92,8 @@ function ProductCard() {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
   //paging action
@@ -124,85 +139,94 @@ function ProductCard() {
   };
 
   return (
-    <Card>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === dataProductsList.length}
-                    color="primary"
-                    indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataProductsList.length}
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>Tên sản phẩm</TableCell>
-                <TableCell>Giá</TableCell>
-                <TableCell>Số lượng</TableCell>
-                <TableCell>Hình ảnh</TableCell>
-                <TableCell>Xuất sứ</TableCell>
-                <TableCell>Thuộc danh mục</TableCell>
-                <TableCell>Trạng thái</TableCell>
-                <TableCell>Ngày tạo</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {dataProductsList.slice(0, limit).map((product) => (
-                <TableRow hover key={product.id} selected={selectedCustomerIds.indexOf(product.id) !== -1}>
+    <>
+      <Loader showLoader={loading} />
+      <Card>
+        <PerfectScrollbar>
+          <Box sx={{ minWidth: 1050 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
                   <TableCell padding="checkbox">
-                    <Checkbox checked={selectedCustomerIds.indexOf(product.id) !== -1} onChange={(event) => handleSelectOne(event, product.id)} value="true" />
+                    <Checkbox
+                      checked={selectedCustomerIds.length === dataProductsList.length}
+                      color="primary"
+                      indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataProductsList.length}
+                      onChange={handleSelectAll}
+                    />
                   </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        {product.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{formatPrice(product.price)}</TableCell>
-                  <TableCell>{product.quantity}</TableCell>
-                  <TableCell>
-                    <img src={product.images} alt="" width="100%" height="118" />
-                  </TableCell>
-                  <TableCell>{product.orgin}</TableCell>
-                  <TableCell>{product.subcategoryId.namesubCategory}</TableCell>
-                  <TableCell>
-                    {product.status === true && <p>Còn hàng</p>}
-                    {product.status === false && <p>Hết hàng</p>}
-                  </TableCell>
-                  <TableCell>{moment(product.dateCreate).format('DD/MM/YYYY')}</TableCell>
-                  <TableCell>
-                    <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
-                    <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={
-                      ()=>{handleOnDelete(product._id)}
-                      }>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
+                  <TableCell>Tên sản phẩm</TableCell>
+                  <TableCell>Giá</TableCell>
+                  <TableCell>Số lượng</TableCell>
+                  <TableCell>Hình ảnh</TableCell>
+                  <TableCell>Xuất sứ</TableCell>
+                  <TableCell>Thuộc danh mục</TableCell>
+                  <TableCell>Trạng thái</TableCell>
+                  <TableCell>Ngày tạo</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={dataProductsList.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+              </TableHead>
+              <TableBody>
+                {dataProductsList.slice(0, limit).map((product) => (
+                  <TableRow hover key={product.id} selected={selectedCustomerIds.indexOf(product.id) !== -1}>
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={selectedCustomerIds.indexOf(product.id) !== -1} onChange={(event) => handleSelectOne(event, product.id)} value="true" />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: 'center',
+                          display: 'flex',
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          {product.name}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>{formatPrice(product.price)}</TableCell>
+                    <TableCell>{product.quantity}</TableCell>
+                    <TableCell>
+                      <img src={product.images} alt="" width="100%" height="118" />
+                    </TableCell>
+                    <TableCell>{product.orgin}</TableCell>
+                    <TableCell>{product.subcategoryId.namesubCategory}</TableCell>
+                    <TableCell>
+                      {product.status === true && <p>Còn hàng</p>}
+                      {product.status === false && <p>Hết hàng</p>}
+                    </TableCell>
+                    <TableCell>{moment(product.dateCreate).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>
+                      <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
+                      <IconButton
+                        className="mgr-10"
+                        color="primary"
+                        aria-label="edit"
+                        type="submit"
+                        onClick={() => {
+                          handleOnDelete(product._id);
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </PerfectScrollbar>
+        <TablePagination
+          component="div"
+          count={dataProductsList.length}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
+      </Card>
+    </>
   );
 }
 

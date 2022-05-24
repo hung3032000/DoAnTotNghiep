@@ -2,11 +2,11 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography,IconButton } from '@material-ui/core';
 //  import getInitials from 'utils/getInitials';
-import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+// import Loader from 'components/fullPageLoading';
 
 
 
@@ -19,6 +19,9 @@ const handleOnDelete = () => {
 };
 
 const CustomerListResults = ({ customers, ...rest }) => {
+  // const [loading, setLoading] = useState(false);
+  // setLoading(true);
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
@@ -62,6 +65,10 @@ const CustomerListResults = ({ customers, ...rest }) => {
 
   
   return (
+    <>
+
+    {/* <Loader showLoader={loading} /> */}
+
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
@@ -114,12 +121,12 @@ const CustomerListResults = ({ customers, ...rest }) => {
                   </TableCell>
                   <TableCell>{moment(customer.updatedAt).format('DD/MM/YYYY')}</TableCell>
                   <TableCell>
-                    <Fab className="mgr-10" color="primary" aria-label="edit" onClick={handleOnEdit}>
+                    <IconButton className="mgr-10" color="primary" aria-label="edit" onClick={handleOnEdit}>
                       <EditIcon />
-                    </Fab>
-                    <Fab color="secondary" aria-label="delete" onClick={handleOnDelete}>
+                    </IconButton>
+                    <IconButton color="secondary" aria-label="delete" onClick={handleOnDelete}>
                       <DeleteIcon />
-                    </Fab>
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -138,6 +145,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
         rowsPerPageOptions={[5, 50, 100]}
       />
     </Card>
+    </>
   );
 };
 

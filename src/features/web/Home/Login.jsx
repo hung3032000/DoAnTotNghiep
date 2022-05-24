@@ -1,6 +1,6 @@
 import { Fab } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { login, loginGoogle } from 'components/web/auth/userSlice';
+import { login, loginGoogle } from 'slice/userSlice';
 import LoginForm from 'components/web/form/LoginForm';
 import Google from 'icons/Google';
 import { useSnackbar } from 'notistack';

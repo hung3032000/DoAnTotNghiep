@@ -1,11 +1,11 @@
-import userReducer from 'components/web/auth/userSlice';
-import productListReducer from 'components/web/product/ProductListSlice';
-import productReducer from 'components/web/product/ProductSlice';
-import categoryListReducer from 'components/web/category/CategorySlice';
-import categoryChildListReducer from 'components/web/category/CategoryChildSlice';
-import orderReducer from 'components/admin/order/OrderSlice';
-import cartReducer from 'components/web/cart/CartSlice';
-import voucherReducer from 'components/web/voucher/voucherSlice';
+import userReducer from 'slice/userSlice';
+import productListReducer from 'slice/ProductListSlice';
+import productReducer from 'slice/ProductSlice';
+import categoryListReducer from 'slice/CategorySlice';
+import categoryChildListReducer from 'slice/CategoryChildSlice';
+import orderReducer from 'slice/OrderSlice';
+import cartReducer from 'slice/CartSlice';
+import voucherReducer from 'slice/voucherSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {

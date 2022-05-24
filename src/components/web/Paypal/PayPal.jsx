@@ -1,9 +1,9 @@
 import orderApi from 'api/orderApi';
-import { cartTotalSelector } from 'components/web/cart/Selectors';
+import { cartTotalSelector } from 'slice/Selectors';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { emptyCart } from '../cart/CartSlice';
+import { emptyCart } from '../../../slice/CartSlice';
 import { Helmet } from 'react-helmet';
 
 export default function Paypal() {

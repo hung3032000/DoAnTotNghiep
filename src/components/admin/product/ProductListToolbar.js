@@ -1,8 +1,8 @@
 import { Box, Card, CardContent, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
-import { getListCategoryChildAdmin } from 'components/web/category/CategoryChildSlice';
-import { addProductProductDetail } from 'components/web/product/ProductSlice';
+import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
+import { addProductProductDetail } from 'slice/ProductSlice';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { Search as SearchIcon } from 'react-feather';

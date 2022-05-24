@@ -1,7 +1,7 @@
-import { Box, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import { Box, Dialog, DialogContent, DialogTitle,IconButton } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
+
+import Button from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -37,9 +37,9 @@ function OrderListInfo(props) {
   const orderItems = order.items;
   return (
     <>
-      <Fab aria-label="info" onClick={handleClickOpen}>
+      <IconButton aria-label="info" onClick={handleClickOpen}>
         <InfoIcon />
-      </Fab>
+      </IconButton>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth="true">
         <DialogTitle id="form-dialog-title">Chi tiết đơn hàng</DialogTitle>
@@ -67,9 +67,9 @@ function OrderListInfo(props) {
                 <TableBody>
                   <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                     <TableCell>
-                      <IconButton aria-label="expand row" size="small" onClick={() => setOpen1(!open1)}>
+                      <Button aria-label="expand row" size="small" onClick={() => setOpen1(!open1)}>
                         {open1 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                      </IconButton>
+                      </Button>
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {order.userId.fistname + ' ' + order.userId.lastname}

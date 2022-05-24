@@ -1,10 +1,10 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { logout } from 'components/web/auth/userSlice';
+import { logout } from 'slice/userSlice';
 
-import { removeFromCart } from 'components/web/cart/CartSlice';
-import { cartItemsCountSelector, cartTotalSelector } from 'components/web/cart/Selectors';
+import { removeFromCart } from 'slice/CartSlice';
+import { cartItemsCountSelector, cartTotalSelector } from 'slice/Selectors';
 import CategoryParent from 'components/web/category/CategoryParent';
-import { getListCategory } from 'components/web/category/CategorySlice';
+import { getListCategory } from 'slice/CategorySlice';
 import LoginFormHeader from 'components/web/form/LoginFormHeader';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

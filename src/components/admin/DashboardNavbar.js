@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
-import { logout } from 'components/web/auth/userSlice';
+import { logout } from 'slice/userSlice';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {

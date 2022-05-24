@@ -1,7 +1,7 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import CateC from 'components/web/category/CateC';
-import { getListCategoryChild } from 'components/web/category/CategoryChildSlice';
-import { categoryDetail } from 'components/web/category/CategorySlice';
+import { getListCategoryChild } from 'slice/CategoryChildSlice';
+import { categoryDetail } from 'slice/CategorySlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';

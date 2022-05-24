@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { register } from 'components/web/auth/userSlice';
+import { register } from 'slice/userSlice';
 import RegisterForm from 'components/web/form/RegisterForm';
 import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';

@@ -1,5 +1,5 @@
-import { removeFromCart, updateCartProduct } from 'components/web/cart/CartSlice';
-import { cartItemsCountSelector } from 'components/web/cart/Selectors';
+import { removeFromCart, updateCartProduct } from 'slice/CartSlice';
+import { cartItemsCountSelector } from 'slice/Selectors';
 import UserDetailCart from 'components/web/cart/UserDetailCart';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,6 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { categoryCDetail } from 'components/web/category/CategoryChildSlice';
-import { getListProduct } from 'components/web/product/ProductListSlice';
+import { categoryCDetail } from 'slice/CategoryChildSlice';
+import { getListProduct } from 'slice/ProductListSlice';
 import ProductsList from 'components/web/product/ProductsList';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

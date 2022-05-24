@@ -1,11 +1,11 @@
 import Modal from 'components/web/modal/modal';
-import { cartTotalSelector } from 'components/web/cart/Selectors';
+import { cartTotalSelector } from 'slice/Selectors';
 import Voucher from 'components/web/voucher';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils/common';
 import React, { useEffect } from 'react';
-import { getAllVoucher, getPriceAfterUsingVoucher } from 'components/web/voucher/voucherSlice';
+import { getAllVoucher, getPriceAfterUsingVoucher } from 'slice/voucherSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
