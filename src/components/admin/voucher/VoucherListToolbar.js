@@ -1,0 +1,61 @@
+import { Box, Card, CardContent, TextField, InputAdornment, SvgIcon } from '@material-ui/core';
+import { Search as SearchIcon } from 'react-feather';
+import VoucherNewForm from 'components/admin/form/voucher/VoucherNewForm';
+// import { useDispatch } from 'react-redux';
+// import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
+
+function VoucherListToolbar() {
+  // const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleNewCategoryFormSubmit = async (values) => {
+    try {
+      console.log(values);
+      // const action = createNewCategoryAdmin(values);
+      // const resultAction = await dispatch(action);
+      // unwrapResult(resultAction);
+      // enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+      // window.location.reload();
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <VoucherNewForm onSubmit={handleNewCategoryFormSubmit} />
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Card>
+          <CardContent>
+            <Box sx={{ maxWidth: 500 }}>
+              <TextField
+                fullwidth="true"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SvgIcon fontSize="small" color="action">
+                        <SearchIcon />
+                      </SvgIcon>
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Search customer"
+                variant="outlined"
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
+  );
+}
+export default VoucherListToolbar;

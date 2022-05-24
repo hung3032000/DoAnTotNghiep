@@ -10,21 +10,13 @@ import theme2 from './theme';
 import pageAdmin from 'features/admin/page';
 import { useSelector } from 'react-redux';
 //User
-import PrivateRoute from 'components/PrivateRoute';
 import DefaultLayout from 'components/web/layout/HomePage/DefaultLayout';
 import pageGuest from 'features/web/index';
-// import pageUser from 'features/web/pageUser';
+import pageUser from 'features/web/pageUser';
 import NotFound from 'features/web/NotFound';
 import React, { Suspense } from 'react';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Paypal from 'components/web/Paypal/PayPal';
-import CheckOut from 'features/web/User/CheckOut';
-import UserInfor from 'features/web/User/UserInfor';
-import AccountOverView from 'features/web/User/Address';
-
-
-import Order from 'features/web/User/Order';
 
 //admin
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
@@ -61,24 +53,21 @@ function App() {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   // create State
   const user = useSelector((state) => state.user.current);
-  // const state = useContext(UserContext);
-  // const isAdmin = useSelector((state) => state.user.isAdmin);
-  // const token = useSelector((state) => state.user.jwt);
+  const isLoggedIn = !!user._id;
   // function
   const showPageGuest = (page) => {
     if (page.length > 0) {
       return page.map((page, index) => <Route key={index} exact={page.exact} path={page.path} component={page.main} />);
     }
   };
-  // const showPageUser = (page) => {
-  //   if (page.length > 0) {
-  //     return page.map((page, index) => (
-  //       <PrivateRoute key={index} path={page.path}>
-  //         {page.main}
-  //       </PrivateRoute>
-  //     ));
-  //   }
-  // };
+  const showPageUser = (page) => {
+    if (page.length > 0) {
+      if (!isLoggedIn) {
+        return <Redirect to="/login" />;
+      }
+      return page.map((page, index) => <Route key={index} exact={page.exact} path={page.path} component={page.main} />);
+    }
+  };
   const showPageAdmin = (page) => {
     if (page.length > 0) {
       return page.map((page, index) => <Route key={index} exact={page.exact} path={page.path} component={page.main} />);
@@ -91,21 +80,7 @@ function App() {
           <DefaultLayout>
             <Switch>
               {showPageGuest(pageGuest)}
-              <PrivateRoute path={'/checkout'}>
-                <CheckOut />
-              </PrivateRoute>
-              <PrivateRoute path={'/paypal'}>
-                <Paypal />
-              </PrivateRoute>
-              <PrivateRoute path={'/order'}>
-                <Order />
-              </PrivateRoute>
-              <PrivateRoute path={'/editaccount'}>
-                <UserInfor />
-              </PrivateRoute>
-              <PrivateRoute path={'/addresses'}>
-                <AccountOverView />
-              </PrivateRoute>
+              {showPageUser(pageUser)}
               <Route path="/*" component={NotFound} exact />
               <Redirect to="/" from="/" />
             </Switch>

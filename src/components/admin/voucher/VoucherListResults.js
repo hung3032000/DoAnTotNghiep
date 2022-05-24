@@ -1,34 +1,26 @@
-import { Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
-import ClearIcon from '@material-ui/icons/Clear';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { deleteOrderAdmin, getOrderAdmin, addOrderCompleteAdmin } from 'slice/OrderSlice';
-import moment from 'moment';
+// import moment from 'moment';
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatPrice } from 'utils';
-import { useSnackbar } from 'notistack';
+import VoucherEditForm from 'components/admin/form/voucher/VoucherEditForm';
 import Loader from 'components/fullPageLoading';
+import { getAllVoucher } from 'slice/voucherSlice';
 
-function OrderListResults() {
+function VoucherListResults() {
+  const dataVoucherList = useSelector((state) => state.voucher.voucher);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const dataOrderCList = useSelector((state) => state.order.data);
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-
+  //fetch data category
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
-        const action = getOrderAdmin({
-          page: 1,
-          limit: 20,
-          status: 'Pending',
-        });
-        const resultAction = dispatch(action);
+        const action = getAllVoucher();
+        const resultAction = await dispatch(action);
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
@@ -36,44 +28,42 @@ function OrderListResults() {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, dataVoucherList.length]);
 
-  const handleOnComplete = async (order) => {
+  const handleOnEdit = async (values) => {
     try {
       setLoading(true);
-      const data = {};
-      data.orderId = order._id;
-      data.shiprice = 10000;
-      data.totalPrice = order.totalPrice;
-      const action = addOrderCompleteAdmin(data);
-      const resultAction = dispatch(action);
-      unwrapResult(resultAction);
-      window.location.reload();
-      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+
+      // adminAPI.updateUser(values._id,values);
+      // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      console.log(values._id, values);
+      // const action = updateCategoryAdmin(values._id, values);
+      // const resultAction = await dispatch(action);
+      // unwrapResult(resultAction);
+      // window.location.reload();
     } catch (error) {
       console.log(error);
-      enqueueSnackbar(error.message, { variant: 'error' });
+      // enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleOnDelete = async (id) => {
+    try {
+      setLoading(true);
+      console.log(id);
+      // const action = deleteCategoryAdmin(id);
+      // const resultAction = await dispatch(action);
+      // unwrapResult(resultAction);
+      // window.location.reload();
+    } catch (error) {
+      console.log(error);
+      // enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleOnCancel = async (id) => {
-    try {
-      setLoading(true);
-
-      const action = deleteOrderAdmin(id);
-      const resultAction = dispatch(action);
-      unwrapResult(resultAction);
-      enqueueSnackbar('Huỷ Thành công', { variant: 'success' });
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  };
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
@@ -82,7 +72,7 @@ function OrderListResults() {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = dataOrderCList.map((orderList) => orderList.id);
+      newSelectedCustomerIds = dataVoucherList.map((category) => category.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -114,6 +104,7 @@ function OrderListResults() {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+
   return (
     <>
       <Loader showLoader={loading} />
@@ -125,26 +116,27 @@ function OrderListResults() {
                 <TableRow>
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.length === dataOrderCList.length}
+                      checked={selectedCustomerIds.length === dataVoucherList.length}
                       color="primary"
-                      indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataOrderCList.length}
+                      indeterminate={selectedCustomerIds.length > 0 && selectedCustomerIds.length < dataVoucherList.length}
                       onChange={handleSelectAll}
                     />
                   </TableCell>
-                  <TableCell>Id đơn hàng</TableCell>
-                  <TableCell>Người đặt hàng</TableCell>
-                  <TableCell>Tổng Giá</TableCell>
-                  <TableCell>Địa chỉ nhận hàng</TableCell>
-                  <TableCell>Ngày tạo</TableCell>
+                  <TableCell>Mã giảm giá</TableCell>
+                  <TableCell>Mô tả</TableCell>
+                  <TableCell>Giảm giá(%)</TableCell>
+                  <TableCell>Giảm tối đa</TableCell>
+                  <TableCell>Ngày áp dụng</TableCell>
+                  <TableCell>HSD</TableCell>
                   <TableCell>Trạng thái</TableCell>
-                  <TableCell />
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataOrderCList.slice(0, limit).map((order) => (
-                  <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
+                {dataVoucherList.slice(0, limit).map((voucher) => (
+                  <TableRow hover key={voucher._id} selected={selectedCustomerIds.indexOf(voucher.id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(voucher.id) !== -1} onChange={(event) => handleSelectOne(event, voucher.id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box
@@ -154,38 +146,33 @@ function OrderListResults() {
                         }}
                       >
                         <Typography color="textPrimary" variant="body1">
-                          {order._id}
+                          {voucher.nameVouncher}
                         </Typography>
                       </Box>
                     </TableCell>
-
-                    <TableCell>{order.userId.email}</TableCell>
-                    <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-                    <TableCell>{order.userId.email}</TableCell>
-                    <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell>{order.status}</TableCell>
+                    <TableCell>{voucher.description}</TableCell>
+                    <TableCell>{voucher.discountPercent}%</TableCell>
+                    <TableCell>{voucher.priceOrderLimit}</TableCell>
                     <TableCell>
+                      {voucher.dateStart.day}/{voucher.dateStart.month}/{voucher.dateStart.year}
+                    </TableCell>
+                    <TableCell>
+                      {voucher.dateEnd.day}/{voucher.dateEnd.month}/{voucher.dateEnd.year}
+                    </TableCell>
+                    <TableCell>Đang test</TableCell>
+                    <TableCell>
+                      <VoucherEditForm vouchers={voucher} onSubmit={handleOnEdit} />
                       <IconButton
                         className="mgr-10"
                         color="primary"
                         aria-label="edit"
+                        type="submit"
                         onClick={() => {
-                          handleOnComplete(order);
+                          handleOnDelete(voucher._id);
                         }}
                       >
-                        <CheckIcon />
+                        <DeleteIcon />
                       </IconButton>
-                      <IconButton
-                        className="mgr-10"
-                        color="secondary"
-                        aria-label="delete"
-                        onClick={() => {
-                          handleOnCancel(order._id);
-                        }}
-                      >
-                        <ClearIcon />
-                      </IconButton>
-                      <OrderListInfo order={order} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -195,7 +182,7 @@ function OrderListResults() {
         </PerfectScrollbar>
         <TablePagination
           component="div"
-          count={dataOrderCList.length}
+          count={dataVoucherList.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
@@ -207,4 +194,4 @@ function OrderListResults() {
   );
 }
 
-export default OrderListResults;
+export default VoucherListResults;

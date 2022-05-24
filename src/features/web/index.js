@@ -47,7 +47,7 @@ const Page = [
   },
   {
     path: '/usercart',
-    expect: true,
+    exact: true,
     main: UserCart
   }
 ];

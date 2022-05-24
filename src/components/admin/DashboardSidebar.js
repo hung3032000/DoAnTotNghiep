@@ -15,13 +15,13 @@ import {
   // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Grid as GridIcon,
-  // Settings as SettingsIcon,
+  Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   // User as UserIcon,
   UserPlus as UserPlusIcon,
   Truck as TruckIcon,
-  // Users as UsersIcon,
-  // Inbox as InboxIcon
+  Users as UserIcon,
+  Inbox as InboxIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -82,21 +82,21 @@ const items = [
     icon: TruckIcon,
     title: 'Lịch sử đơn hàng'
   },
-  // {
-  //   href: '/accountA',
-  //   icon: UserIcon,
-  //   title: 'Tài khoản'
-  // },
-  // {
-  //   href: '/mailA',
-  //   icon: InboxIcon,
-  //   title: 'Mail'
-  // },
-  // {
-  //   href: '/settingsA',
-  //   icon: SettingsIcon,
-  //   title: 'Cài đặt'
-  // } ,
+  {
+    href: '/sizeandcolorA',
+    icon: UserIcon,
+    title: 'Quản lý Size và Màu'
+  },
+  {
+    href: '/voucherA',
+    icon: InboxIcon,
+    title: 'Quản lý voucher'
+  },
+  {
+    href: '/settingsA',
+    icon: SettingsIcon,
+    title: 'Cài đặt'
+  } 
  
   // {
   //   href: '/404',
