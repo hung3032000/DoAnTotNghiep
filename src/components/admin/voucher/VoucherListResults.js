@@ -7,7 +7,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import VoucherEditForm from 'components/admin/form/voucher/VoucherEditForm';
 import Loader from 'components/fullPageLoading';
-import { getAllVoucher } from 'slice/voucherSlice';
+import { getAllVoucher,updateVoucher,deleteVoucher } from 'slice/voucherSlice';
 
 function VoucherListResults() {
   const dataVoucherList = useSelector((state) => state.voucher.voucher);
@@ -33,14 +33,10 @@ function VoucherListResults() {
   const handleOnEdit = async (values) => {
     try {
       setLoading(true);
-
-      // adminAPI.updateUser(values._id,values);
-      // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      console.log(values._id, values);
-      // const action = updateCategoryAdmin(values._id, values);
-      // const resultAction = await dispatch(action);
-      // unwrapResult(resultAction);
-      // window.location.reload();
+      const action = updateVoucher(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
@@ -52,10 +48,10 @@ function VoucherListResults() {
     try {
       setLoading(true);
       console.log(id);
-      // const action = deleteCategoryAdmin(id);
-      // const resultAction = await dispatch(action);
-      // unwrapResult(resultAction);
-      // window.location.reload();
+      const action = deleteVoucher(id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });

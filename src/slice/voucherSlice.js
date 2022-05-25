@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import voucherApi from 'api/voucherApi';
+import adminAPI from 'api/adminAPI';
+
 import StorageKeys from 'constants/storage-keys';
 export const getAllVoucher = createAsyncThunk('voucher/getAllVoucher', async () => {
   const data = await voucherApi.getAll();
@@ -9,6 +11,19 @@ export const getAllVoucher = createAsyncThunk('voucher/getAllVoucher', async () 
 export const getPriceAfterUsingVoucher = createAsyncThunk('voucher/getPriceAfterUsingVoucher', (data) => {
   localStorage.setItem(StorageKeys.VOUCHER, JSON.stringify(data));
   return data;
+});
+
+export const addVoucher = createAsyncThunk('addVoucher', async (data) => {
+  const response = await adminAPI.addVoucher(data);
+  return response;
+});
+export const updateVoucher = createAsyncThunk('updateVoucher', async (values) => {
+  const response = await adminAPI.updateVoucher(values._id, values);
+  return response;
+});
+export const deleteVoucher = createAsyncThunk('deleteVoucher', async (id) => {
+  const response = await adminAPI.deleteVoucher(id);
+  return response;
 });
 
 const voucherSlice = createSlice({

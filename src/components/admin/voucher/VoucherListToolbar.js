@@ -1,22 +1,22 @@
 import { Box, Card, CardContent, TextField, InputAdornment, SvgIcon } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import VoucherNewForm from 'components/admin/form/voucher/VoucherNewForm';
-// import { useDispatch } from 'react-redux';
-// import { unwrapResult } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
+import {addVoucher } from 'slice/voucherSlice';
 
 function VoucherListToolbar() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleNewCategoryFormSubmit = async (values) => {
     try {
-      console.log(values);
-      // const action = createNewCategoryAdmin(values);
-      // const resultAction = await dispatch(action);
-      // unwrapResult(resultAction);
-      // enqueueSnackbar('Thêm Thành công', { variant: 'success' });
-      // window.location.reload();
+      const action = addVoucher(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });

@@ -111,5 +111,18 @@ const adminAPI = {
     const url = '/users/admin/register';
     return axiosClient.post(url, params);
   },
+  //------------------voucher------------------
+  addVoucher(data) {
+    const url = '/coupons';
+    return axiosClient.post(url, data);
+  },
+  deleteVoucher(id) {
+    const url = `/coupons/${id}`;
+    return axiosClient.delete(url);
+  },
+  updateVoucher: (id, data) => {
+    const url = `/coupons/${id}`;
+    return axiosClient.put(url, data);
+  },
 };
 export default adminAPI;
