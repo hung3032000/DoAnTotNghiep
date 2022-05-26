@@ -5,13 +5,14 @@ import adminAPI from 'api/adminAPI';
 import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
 import { getListProductAdmin } from 'slice/ProductListSlice';
 import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
-import moment from 'moment';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import ProductEditForm from '../form/products/ProductsEditForm';
+import ProductDetailForm from '../form/products/ProductsDetailForm';
 import Loader from 'components/fullPageLoading';
 
 function ProductCard() {
@@ -83,7 +84,6 @@ function ProductCard() {
   const handleOnDelete = async (id) => {
     try {
       setLoading(true);
-
       const action = deleteProductDetail(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -157,12 +157,10 @@ function ProductCard() {
                   </TableCell>
                   <TableCell>Tên sản phẩm</TableCell>
                   <TableCell>Giá</TableCell>
-                  <TableCell>Số lượng</TableCell>
                   <TableCell>Hình ảnh</TableCell>
-                  <TableCell>Xuất sứ</TableCell>
                   <TableCell>Thuộc danh mục</TableCell>
                   <TableCell>Trạng thái</TableCell>
-                  <TableCell>Ngày tạo</TableCell>
+
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -185,23 +183,31 @@ function ProductCard() {
                       </Box>
                     </TableCell>
                     <TableCell>{formatPrice(product.price)}</TableCell>
-                    <TableCell>{product.quantity}</TableCell>
                     <TableCell>
                       <img src={product.images} alt="" width="100%" height="118" />
                     </TableCell>
-                    <TableCell>{product.orgin}</TableCell>
                     <TableCell>{product.subcategoryId.namesubCategory}</TableCell>
                     <TableCell>
                       {product.status === true && <p>Còn hàng</p>}
                       {product.status === false && <p>Hết hàng</p>}
                     </TableCell>
-                    <TableCell>{moment(product.dateCreate).format('DD/MM/YYYY')}</TableCell>
                     <TableCell>
                       <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
                       <IconButton
                         className="mgr-10"
                         color="primary"
-                        aria-label="edit"
+                        tiltle="edit"
+                        type="submit"
+                        onClick={() => {
+                          console.log('Size');
+                        }}
+                      >
+                        <AddCircleIcon />
+                      </IconButton>
+                      <IconButton
+                        className="mgr-10"
+                        color="primary"
+                        tiltle="edit"
                         type="submit"
                         onClick={() => {
                           handleOnDelete(product._id);
@@ -209,6 +215,7 @@ function ProductCard() {
                       >
                         <DeleteIcon />
                       </IconButton>
+                      <ProductDetailForm  product={product} categoriesC={dataCategoryCList} />
                     </TableCell>
                   </TableRow>
                 ))}

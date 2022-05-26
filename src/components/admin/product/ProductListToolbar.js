@@ -23,10 +23,8 @@ function ProductListToolbar() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  // categories.map((product) =>console.log(product.nameCategory))
 
   const handleNewUFormSubmit = async (values,data) => {
-    
     try {
       const action = addProductProductDetail(values);
       const resultAction = await dispatch(action);
@@ -49,7 +47,7 @@ function ProductListToolbar() {
           justifyContent: 'flex-end',
         }}
       >
-        <ProductsNewForm onSubmit={handleNewUFormSubmit} categoriesC={dataCategoryCList}/>
+      <ProductsNewForm onSubmit={handleNewUFormSubmit} categoriesC={dataCategoryCList}/>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>

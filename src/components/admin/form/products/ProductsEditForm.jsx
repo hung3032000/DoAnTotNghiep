@@ -51,7 +51,6 @@ function ProductEditForm(props) {
         await onSubmit(values);
       }
     }
-
   };
   const handleClose = () => {
     setOpen(false);

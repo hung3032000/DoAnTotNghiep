@@ -1,6 +1,6 @@
 //Admin
 import { StyledEngineProvider, ThemeProvider } from '@material-ui/core';
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@material-ui/styles';
 import { useState } from 'react';
 import DashboardNavbar from 'components/admin/DashboardNavbar';
 import DashboardSidebar from 'components/admin/DashboardSidebar';

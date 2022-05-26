@@ -28,7 +28,7 @@ function Category(props) {
             <option style={{ display: 'none' }}></option>
             {categoryOptions.map((tc, index) => (
               <option key={index} value={tc._id}>
-                {tc.categoryID.nameCategory} - {tc.namesubCategory}
+                {tc.categoryID.nameCategory}({tc.namesubCategory})
               </option>
             ))}
           </TextField>

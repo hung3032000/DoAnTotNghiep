@@ -124,5 +124,41 @@ const adminAPI = {
     const url = `/coupons/${id}`;
     return axiosClient.put(url, data);
   },
+  //------------------Sale------------------
+  addSale(data) {
+    const url = '/coupons';
+    return axiosClient.post(url, data);
+  },
+  deleteSale(id) {
+    const url = `/coupons/${id}`;
+    return axiosClient.delete(url);
+  },
+  updateSale: (id, data) => {
+    const url = `/coupons/${id}`;
+    return axiosClient.put(url, data);
+  },
+  //------------------Size&Color------------------
+  getSizeProduct(id) {
+    const url = 
+    `/sizes/product/${id}`;
+    return axiosClient.get(url);
+  },
+  getSizeById(id) {
+    const url = 
+    `/sizes/${id}`;
+    return axiosClient.get(url);
+  },
+  addSizeAColor(data) {
+    const url = '/sizes';
+    return axiosClient.post(url, data);
+  },
+  deleteSizeAColor(id) {
+    const url = `/sizes/${id}`;
+    return axiosClient.delete(url);
+  },
+  updateSizeAColor: (id, data) => {
+    const url = `/sizes/${id}`;
+    return axiosClient.put(url, data);
+  },
 };
 export default adminAPI;

@@ -6,6 +6,7 @@ import categoryChildListReducer from 'slice/CategoryChildSlice';
 import orderReducer from 'slice/OrderSlice';
 import cartReducer from 'slice/CartSlice';
 import voucherReducer from 'slice/voucherSlice';
+import sizeAcolorReducer from 'slice/SizeAColor';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
@@ -19,6 +20,7 @@ const rootReducer = {
   product: productReducer,
   cart: cartReducer,
   //admin
+  sizeAcolor: sizeAcolorReducer,
   order: orderReducer,
 };
 
