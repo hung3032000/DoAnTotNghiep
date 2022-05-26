@@ -46,11 +46,11 @@ function ProductSizeAColorDetailForm(props) {
     (async () => {
       try {
         setLoading(true);
+        setTotalProductState(0);
         let totalProduct = 0;
         for (let size of dataSizeList) {
           setLoading(true);
           let colors = size.colors;
-
           let totalQuantity = 0;
           for (let color of colors) {
             totalQuantity += color.quantity;

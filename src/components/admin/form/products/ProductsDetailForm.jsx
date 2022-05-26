@@ -15,10 +15,8 @@ ProductsDetailForm.propTypes = {
 };
 
 function ProductsDetailForm(props) {
-
   const { product, categoriesC } = props;
 
-  
   const handleClose = () => {
     setOpen(false);
   };

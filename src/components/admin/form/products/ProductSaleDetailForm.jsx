@@ -47,6 +47,7 @@ function ProductSaleDetailForm(props) {
       try {
         setLoading(true);
         let totalProduct = 0;
+        setTotalProductState(0)
         for (let size of dataSizeList) {
           setLoading(true);
           let colors = size.colors;
