@@ -1,0 +1,137 @@
+.btn-create {
+    margin-left: 14px;
+    color: #fff;
+    background: #ff7000;
+}
+.rule-engine-btn.btn-ellipsis {
+    float: right;
+    margin-top: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #ff7000;
+    background: #e6eaee;
+    border-radius: 50%;
+    border: 1px solid #e6eaee;
+}
+.rule-engine-content {
+    margin-top: 12px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+}
+.rule-engine-content .content-title {
+    color: #303030;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Open sans";
+    padding: 20px;
+    margin: 0;
+}
+.rule-engine-content .table {
+    width: 100%;
+    background: transparent;
+}
+.rule-engine-content .table th {
+    background: #f5f8fa;
+}
+.rule-engine-content .table tr {
+    position: relative;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #e6eaee;
+}
+.rule-engine-content .table tr th, .rule-engine-content .table tr td {
+    padding: 16px;
+}
+.rule-engine-content .table tr th + th, .rule-engine-content .table tr td + th, .rule-engine-content .table tr th + td, .rule-engine-content .table tr td + td {
+    border-left: 1px solid #e6eaee;
+}
+.rule-engine-content .table tr .table__th {
+    font-size: 14px;
+    font-weight: 700;
+    color: #303030;
+}
+.rule-engine-content .table tr .table__td {
+    font-size: 12px;
+    font-weight: 600;
+    color: #303030;
+}
+.rule-engine-content .table tr .table__td .select-container {
+    flex: 1;
+}
+.rule-engine-content .table tr .table__td .select-container .select {
+    position: relative;
+    width: 100%;
+    padding: 10px 6px;
+    background: #f8f8f8;
+    border: 1px solid #c1c2c3;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #727272;
+    text-transform: uppercase;
+}
+.rule-engine-content .table tr .table__td .select-container .select:focus {
+    outline: none;
+}
+.rule-engine-content .table tr .table__td .td-flex {
+    display: flex;
+    justify-content: space-between;
+}
+.rule-engine-content .table tr .table__td .td-flex .select-container {
+    flex: 1;
+}
+.rule-engine-content .table tr .table__td .td-flex .select-container .select {
+    position: relative;
+    width: 100%;
+    padding: 10px 6px;
+    background: #f8f8f8;
+    border: 1px solid #c1c2c3;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #727272;
+    text-transform: uppercase;
+}
+.rule-engine-content .table tr .table__td .td-flex .select-container .select:focus {
+    outline: none;
+}
+.rule-engine-content .table tr .table__td .td-flex .btn-eye {
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: 10px;
+}
+.rule-engine-content .table tr .table__td .td-flex .btn-eye i {
+    font-size: 16px;
+    color: #ff7000;
+}
+.rule-engine-content .table tr .table__td.td-text {
+    text-transform: uppercase;
+}
+.rule-engine-content .table tr .table__td.td-text.td-text--primary {
+    color: #ff7000;
+    text-transform: none;
+}
+.rule-engine-content .table tr .btn-ellipsis {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translate(-50%, -50%);
+}
+.rule-engine-content .table tr .btn-ellipsis i {
+    font-size: 15px;
+}
+.rule-engine-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 60px 14px 0;
+}
+.rule-engine-action .btn-save, .rule-engine-action .btn-cancel {
+    color: #ff7000;
+    background: transparent;
+    border: 1px solid #ff7000;
+}

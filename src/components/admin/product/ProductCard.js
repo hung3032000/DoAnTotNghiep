@@ -5,7 +5,6 @@ import adminAPI from 'api/adminAPI';
 import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
 import { getListProductAdmin } from 'slice/ProductListSlice';
 import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -58,7 +57,6 @@ function ProductCard() {
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
-
       if (data) {
         adminAPI.updateImageProduct(values._id, data);
         const action = updateProductDetail(values);
@@ -158,7 +156,6 @@ function ProductCard() {
                   </TableCell>
                   <TableCell>Tên sản phẩm</TableCell>
                   <TableCell>Giá</TableCell>
-                  <TableCell>Số lượng</TableCell>
                   <TableCell>Hình ảnh</TableCell>
                   <TableCell>Thuộc danh mục</TableCell>
                   <TableCell>Trạng thái</TableCell>
@@ -185,7 +182,6 @@ function ProductCard() {
                       </Box>
                     </TableCell>
                     <TableCell>{formatPrice(product.price)}</TableCell>
-                    <TableCell>{product.quantity}</TableCell>
                     <TableCell>
                       <img src={product.images} alt="" width="100%" height="118" />
                     </TableCell>
@@ -197,18 +193,6 @@ function ProductCard() {
                 
                     <TableCell>
                       <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
-                      
-                      <IconButton
-                        className="mgr-10"
-                        color="primary"
-                        tiltle="edit"
-                        type="submit"
-                        onClick={() => {
-                          console.log('Size')
-                        }}
-                      >
-                        <AddCircleIcon />
-                      </IconButton>
                       <IconButton
                         className="mgr-10"
                         color="primary"

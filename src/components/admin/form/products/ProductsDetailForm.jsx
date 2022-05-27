@@ -8,7 +8,7 @@ import TextFieldCusDis from 'components/admin/form/common/TextFieldDisable/index
 import CategorySelectField from 'components/admin/form/common/TextFieldDisable/category';
 
 import ProductSizeAColorDetailForm from 'components/admin/form/products/ProductSizeAColorDetailForm';
-import ProductSaleDetailForm from 'components/admin/form/products/ProductSaleDetailForm';
+// import ProductSaleDetailForm from 'components/admin/form/products/ProductSaleDetailForm';
 
 ProductsDetailForm.propTypes = {
   product: PropTypes.object.isRequired,
@@ -57,7 +57,7 @@ function ProductsDetailForm(props) {
                         <CategorySelectField label="Danh mục" categoryOptions={categoriesC} edit={product.subcategoryId._id} name="subcategoryId" />
                         <SelectField label="Trạng thái" name="status" edit={product.status} />
                         <ProductSizeAColorDetailForm product={product._id} />
-                        <ProductSaleDetailForm product={product._id} />
+                        {/* <ProductSaleDetailForm product={product._id} /> */}
                       </Grid>
                     </CardContent>
                     <Divider />

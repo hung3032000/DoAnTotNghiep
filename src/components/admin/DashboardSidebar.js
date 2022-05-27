@@ -20,7 +20,6 @@ import {
   // User as UserIcon,
   UserPlus as UserPlusIcon,
   Truck as TruckIcon,
-  Users as UserIcon,
   Inbox as InboxIcon
 } from 'react-feather';
 import NavItem from './NavItem';
@@ -81,11 +80,6 @@ const items = [
     href: '/ordersHistoryA',
     icon: TruckIcon,
     title: 'Lịch sử đơn hàng'
-  },
-  {
-    href: '/sizeandcolorA',
-    icon: UserIcon,
-    title: 'Quản lý Size và Màu'
   },
   {
     href: '/voucherA',

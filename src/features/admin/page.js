@@ -8,7 +8,6 @@ import OrderComplete from 'features/admin/page/OrderCompleteList';
 import ProductList from 'features/admin/page/ProductList';
 import Settings from 'features/admin/page/Settings';
 import Voucher from 'features/admin/page/Voucher';
-import SizeAColor from 'features/admin/page/Size&Color';
 import UserList from 'features/admin/page/UserList';
 import Address from 'features/admin/page/Address';
 import OrderHistory from 'features/admin/page/OrderHistory';
@@ -73,11 +72,6 @@ const Page = [
     path: '/settingsA',
     exact: true,
     main: Settings,
-  },
-  {
-    path: '/sizeandcolorA',
-    exact: true,
-    main: SizeAColor,
   },
   {
     path: '/voucherA',

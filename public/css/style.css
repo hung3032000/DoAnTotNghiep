@@ -13577,8 +13577,8 @@ p.intro {
 }
 
 .img-productinfo {
-  width: 545px;
-  height: 730px;
+  width: 100%;
+  height: 100%;
 }
 
 .datacart-ul {

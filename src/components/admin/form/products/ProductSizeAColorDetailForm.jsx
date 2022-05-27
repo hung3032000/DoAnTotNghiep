@@ -1,32 +1,28 @@
-import { Box, Button, Container, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import TextFieldCusDis from 'components/admin/form/common/TextFieldDisable/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getSizeProduct } from 'slice/SizeAColor';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
+import TableRow from 'components/admin/dynamicForm/index';
 import Loader from 'components/fullPageLoading';
+import { getSizeById } from 'slice/SizeAColor';
+import '../../dynamicForm/style.css';
 
 ProductSizeAColorDetailForm.propTypes = {
+  widthCustome: PropTypes.number,
   product: PropTypes.any,
 };
 
 function ProductSizeAColorDetailForm(props) {
   const dataSizeList = useSelector((state) => state.sizeAcolor.size);
-  const { product } = props;
+
+  const { product, widthCustome } = props;
   const dispatch = useDispatch();
   const [totalProductState, setTotalProductState] = useState();
   const [loading, setLoading] = useState(false);
 
-  //fetch data category
   useEffect(() => {
     (async () => {
       try {
@@ -41,7 +37,7 @@ function ProductSizeAColorDetailForm(props) {
       }
     })();
   }, [dispatch, product]);
-  //fetch data category
+
   useEffect(() => {
     (async () => {
       try {
@@ -65,19 +61,9 @@ function ProductSizeAColorDetailForm(props) {
       }
     })();
   }, [dataSizeList, dispatch]);
-  console.log(totalProductState);
+
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const arrayFilter = () => {
-    let array = [];
-    dataSizeList.forEach((i) => {
-      i.colors.forEach((i2) => {
-        array.push({ _id: i._id, nameColor: i2.colorName, nameSize: i.nameSize, quantity: i2.quantity });
-      });
-    });
-    return array;
   };
 
   const handleClickOpen = () => {
@@ -85,10 +71,112 @@ function ProductSizeAColorDetailForm(props) {
   };
 
   const [open, setOpen] = useState(false);
+
+  const dataSize = useSelector((state) => state.sizeAcolor.sizeA);
+  const [inputList, setInputList] = useState([]);
+  const [readOnly, setReadOnly] = useState(true);
+  console.log(readOnly);
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const actionChild = getSizeById(14);
+        const resultActionChild = dispatch(actionChild);
+        unwrapResult(resultActionChild);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch]);
+
+  useEffect(() => {
+    try {
+      setLoading(true);
+
+      let data = [];
+      for (let dataSize of dataSizeList) {
+        if (dataSize <= 0) {
+          data = [{ index: Math.random() }];
+        } else {
+          let item;
+          let list = [];
+          for (let index = 0; index < dataSize.colors.length; index++) {
+            item = {
+              index: Math.random(),
+              productId: dataSize.productId,
+              nameSize: dataSize.nameSize,
+              color: dataSize.colors[index].colorName,
+              quantity: dataSize.colors[index].quantity,
+            };
+            list.push(item);
+          }
+          data.push(list);
+        }
+      }
+      setInputList(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [dataSize, dataSizeList]);
+
+  // handle submit form
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+    try {
+      let color, quantity;
+      let temp = [];
+      let data = {};
+      data.nameSize = inputList[0].size ? inputList[0].size : dataSize.nameSize;
+      data.productId = product._id;
+      for (let index = 0; index < inputList.length; index++) {
+        color = inputList[index].color + '';
+        quantity = parseInt(inputList[index].quantity);
+        temp.push({ colorName: color, quantity: quantity });
+      }
+      data.colors = temp;
+      console.log(data);
+      // setLoading(true);
+      // adminAPI
+      //   .updateSizeAColor(14, data)
+      //   .then((res) => {
+      //     window.localtion.reload();
+      //   })
+      //   .catch((err) => {
+      //     if (err.response) {
+      //       console.log(err.response.data.message);
+      //     }
+      //   })
+      //   .finally(() => {
+      //     window.location.reload();
+      //     setLoading(false);
+      //   });
+    } catch (error) {
+      console.log(error);
+      // enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([
+      ...inputList,
+      {
+        index: Math.random(),
+      },
+    ]);
+  };
+
   return (
     <>
       <Loader showLoader={loading} />
       <TextFieldCusDis
+        widthCustome={widthCustome}
         label="Tổng Số lượng"
         name="quantity"
         edit={totalProductState ? totalProductState : 0}
@@ -103,60 +191,42 @@ function ProductSizeAColorDetailForm(props) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth>
         <DialogTitle id="form-dialog-title">Thông tin size và màu</DialogTitle>
         <DialogContent>
-          <Box
-            sx={{
-              backgroundColor: 'background.default',
-              minHeight: '100%',
-              py: 3,
-            }}
-          >
-            <Container>
-              <TableContainer component={Paper}>
-                <Table aria-label="collapsible table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Id</TableCell>
-                      <TableCell>Size</TableCell>
-                      <TableCell>Màu</TableCell>
-                      <TableCell>Số Lượng</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {arrayFilter().map((size, index) => (
-                      <TableRow hover key={index}>
-                        <TableCell>
-                          <Box
-                            sx={{
-                              alignItems: 'center',
-                              display: 'flex',
-                            }}
-                          >
-                            <Typography color="textPrimary" variant="body1">
-                              {size._id}
-                            </Typography>
-                          </Box>
-                        </TableCell>
-                        <TableCell>{size.nameSize}</TableCell>
-                        <TableCell>{size.nameColor}</TableCell>
-                        <TableCell>{size.quantity}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                p: 2,
-              }}
-            >
-              <Button onClick={handleClose} color="primary">
-                Huỷ
-              </Button>
-            </Box>
-          </Box>
+          <form onSubmit={handleSubmit2}>
+            <div className="rule-engine-content">
+              <h5 className="content-title">Size và Màu</h5>
+              <table className="table">
+                <thead className="table-head">
+                  <tr>
+                    <th className="table__th">Size</th>
+                    <th className="table__th">Màu</th>
+                    <th className="table__th">Số lượng</th>
+                    <th className="table__th"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {inputList.map((i, index) => (
+                
+                      <TableRow key={index} inputList={i} setInputList={setInputList} readOnly={readOnly} setReadOnly={setReadOnly} />
+                 
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {readOnly === true ? (
+              ''
+            ) : (
+              <>
+                <div className="rule-engine-action">
+                  <Button type="submit" className="rule-engine-btn btn-save">
+                    Save
+                  </Button>
+                  <Button type="button" className="rule-engine-btn btn-cancel" onClick={handleClose}>
+                    Cancel
+                  </Button>
+                </div>
+              </>
+            )}
+          </form>
         </DialogContent>
       </Dialog>
     </>

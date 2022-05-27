@@ -24,6 +24,13 @@ export const deleteProductDetail = createAsyncThunk('deleteProductDetail', async
   return response;
 });
 
+export const updateSale = createAsyncThunk('updateSale', async (id, data) => {
+  const response = await adminAPI.updateSale(id, data);
+  return response;
+});
+
+
+
 const ListProductsSlice = createSlice({
   name: 'productId',
   initialState: {

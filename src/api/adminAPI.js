@@ -126,15 +126,15 @@ const adminAPI = {
   },
   //------------------Sale------------------
   addSale(data) {
-    const url = '/coupons';
+    const url = '/sales';
     return axiosClient.post(url, data);
   },
   deleteSale(id) {
-    const url = `/coupons/${id}`;
+    const url = `/sales/${id}`;
     return axiosClient.delete(url);
   },
   updateSale: (id, data) => {
-    const url = `/coupons/${id}`;
+    const url = `/sales/${id}`;
     return axiosClient.put(url, data);
   },
   //------------------Size&Color------------------
