@@ -1,14 +1,11 @@
 import { Box, Button, Card, CardContent, Container, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import InfoIcon from '@material-ui/icons/Info';
-
 import React, { useState } from 'react';
 import SelectField from 'components/admin/form/common/TextFieldDisable/status';
 import TextFieldCusDis from 'components/admin/form/common/TextFieldDisable/index';
 import CategorySelectField from 'components/admin/form/common/TextFieldDisable/category';
-
-import ProductSizeAColorDetailForm from 'components/admin/form/products/ProductSizeAColorDetailForm';
-// import ProductSaleDetailForm from 'components/admin/form/products/ProductSaleDetailForm';
+import ProductSizeAColorDetailForm from './ProductSizeAColorDetailForm';
 
 ProductsDetailForm.propTypes = {
   product: PropTypes.object.isRequired,
@@ -26,6 +23,7 @@ function ProductsDetailForm(props) {
   };
 
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>
@@ -56,8 +54,7 @@ function ProductsDetailForm(props) {
                         <TextFieldCusDis label="Giá" name="price" edit={product.price} />
                         <CategorySelectField label="Danh mục" categoryOptions={categoriesC} edit={product.subcategoryId._id} name="subcategoryId" />
                         <SelectField label="Trạng thái" name="status" edit={product.status} />
-                        <ProductSizeAColorDetailForm product={product._id} />
-                        {/* <ProductSaleDetailForm product={product._id} /> */}
+                        <ProductSizeAColorDetailForm product={product._id} widthCustome={6} />
                       </Grid>
                     </CardContent>
                     <Divider />

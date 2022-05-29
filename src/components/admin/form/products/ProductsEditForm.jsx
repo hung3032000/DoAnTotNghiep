@@ -1,7 +1,7 @@
 import { Box, Button, Card, Dialog, DialogContent, Grid, IconButton, TextField } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import SelectField from 'components/admin/form/common/SelectField/index';
 import TextFieldCus from 'components/admin/form/common/TextField/index';
@@ -10,11 +10,6 @@ import IdField from 'components/admin/form/common/HiddenValue/index';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import { useDispatch, useSelector } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import TableRow from 'components/admin/dynamicForm/index';
-import { getSizeById } from 'slice/SizeAColor';
-import adminAPI from 'api/adminAPI';
 import Loader from 'components/fullPageLoading';
 
 ProductEditForm.propTypes = {
@@ -52,7 +47,6 @@ function a11yProps(index) {
 
 function ProductEditForm(props) {
   const { product, categoriesC } = props;
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   // const [loading, setLoading] = useState(false);
@@ -61,43 +55,6 @@ function ProductEditForm(props) {
     { label: 'Sử dụng', value: true },
     { label: 'Khoá', value: false },
   ];
-  const dataSize = useSelector((state) => state.sizeAcolor.sizeA);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        // setLoading(true);
-        const actionChild = getSizeById(14);
-        const resultActionChild = dispatch(actionChild);
-        unwrapResult(resultActionChild);
-      } catch (error) {
-        console.log(error);
-      }
-      //  finally {
-      //   setLoading(false);
-      // }
-    })();
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (dataSize <= 0) {
-      setInputList([{ index: Math.random() }]);
-    } else {
-      let item;
-      let list = [];
-      for (let index = 0; index < dataSize.colors.length; index++) {
-        item = {
-          index: Math.random(),
-          productId: dataSize.productId,
-          nameSize: dataSize.nameSize,
-          color: dataSize.colors[index].colorName,
-          quantity: dataSize.colors[index].quantity,
-        };
-        list.push(item);
-      }
-      setInputList(list);
-    }
-  }, [dataSize]);
 
   const productsEditForm = useForm({
     defaultValues: {
@@ -116,18 +73,25 @@ function ProductEditForm(props) {
   });
   const [selectedFiles, setSelectedFiles] = useState(undefined);
   const handleSubmit = async (values) => {
-    if (selectedFiles && selectedFiles[0]) {
-      const data = new FormData();
-      data.append('photo', selectedFiles[0]);
-      const { onSubmit } = props;
-      if (onSubmit) {
-        await onSubmit(values, data);
+    try {
+      setLoading(true);
+      if (selectedFiles && selectedFiles[0]) {
+        const data = new FormData();
+        data.append('photo', selectedFiles[0]);
+        const { onSubmit } = props;
+        if (onSubmit) {
+          await onSubmit(values, data);
+        }
+      } else {
+        const { onSubmit } = props;
+        if (onSubmit) {
+          await onSubmit(values);
+        }
       }
-    } else {
-      const { onSubmit } = props;
-      if (onSubmit) {
-        await onSubmit(values);
-      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -143,58 +107,10 @@ function ProductEditForm(props) {
   const selectFile = (event) => {
     setSelectedFiles(event.target.files);
   };
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 
-  const [inputList, setInputList] = useState([{ index: Math.random() }]);
-  // handle submit form
-  const handleSubmit2 = async (e) => {
-    e.preventDefault();
-    try {
-      let color, quantity;
-      let temp = [];
-      let data = {};
-      data.nameSize = inputList[0].size ? inputList[0].size : dataSize.nameSize;
-      data.productId = product._id;
-      for (let index = 0; index < inputList.length; index++) {
-        color = inputList[index].color + '';
-        quantity = parseInt(inputList[index].quantity);
-        temp.push({ colorName: color, quantity: quantity });
-      }
-      data.colors = temp;
-      setLoading(true);
-      adminAPI
-        .updateSizeAColor(14, data)
-        .then((res) => {
-          window.localtion.reload();
-        })
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.message);
-          }
-        })
-        .finally(() => {
-          window.location.reload();
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // handle click event of the Add button
-  const handleAddClick = () => {
-    setInputList([
-      ...inputList,
-      {
-        index: Math.random(),
-      },
-    ]);
-  };
   const [loading, setLoading] = useState(false);
 
   return (
@@ -208,7 +124,6 @@ function ProductEditForm(props) {
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Thay đổi sản phẩm" {...a11yProps(0)} />
             <Tab label="Thay đổi sale" {...a11yProps(1)} />
-            <Tab label="Thay đổi màu size" {...a11yProps(2)} />
           </Tabs>
           <Grid container spacing={3}>
             <Grid item>
@@ -288,37 +203,6 @@ function ProductEditForm(props) {
                   Huỷ
                 </Button>
               </Box>
-            </form>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <form onSubmit={handleSubmit2}>
-              <div className="rule-engine-content">
-                <h5 className="content-title">Size và Màu</h5>
-                <table className="table">
-                  <thead className="table-head">
-                    <tr>
-                      <th className="table__th">Size</th>
-                      <th className="table__th">Màu</th>
-                      <th className="table__th">Số lượng</th>
-                      <th className="table__th"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <TableRow inputList={inputList} setInputList={setInputList} />
-                  </tbody>
-                </table>
-              </div>
-              <Button type="button" className="rule-engine-btn btn-ellipsis" onClick={() => handleAddClick()}>
-                +
-              </Button>
-              <div className="rule-engine-action">
-                <Button type="submit" className="rule-engine-btn btn-save">
-                  Save
-                </Button>
-                <Button type="button" className="rule-engine-btn btn-cancel" onClick={handleClose}>
-                  Cancel
-                </Button>
-              </div>
             </form>
           </TabPanel>
         </DialogContent>

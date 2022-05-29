@@ -11,6 +11,7 @@ import Voucher from 'features/admin/page/Voucher';
 import UserList from 'features/admin/page/UserList';
 import Address from 'features/admin/page/Address';
 import OrderHistory from 'features/admin/page/OrderHistory';
+import SizeAColor from 'features/admin/page/SizeAColor';
 
 const Page = [
   {
@@ -78,5 +79,11 @@ const Page = [
     exact: true,
     main: Voucher,
   },
+  {
+    path: '/sizeA/:id',
+    exact: true,
+    main: SizeAColor,
+  }
+
 ];
 export default Page;

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { Link } from 'react-router-dom';
 
 function Index(props) {
   let { inputList, setInputList, readOnly } = props;
-
+  
+  console.log(inputList);
   const categoryOptions = [
     { label: 'XXS', value: 'XXS', _id: 0 },
     { label: 'XS', value: 'XS', _id: 1 },
@@ -36,7 +38,7 @@ function Index(props) {
           {index === 0 ? (
             <div className="td-flex">
               <div className="select-container">
-                <select disabled={readOnly ? true : false} className="select" name="size" value={inputValue.nameSize} onChange={(e) => handleInputChange(e, index)}>
+                <select disabled={readOnly ? true : false} className="select" name="nameSize" value={inputValue.nameSize} onChange={(e) => handleInputChange(e, index)}>
                   {categoryOptions.map((item, idx) => {
                     return (
                       <option key={idx} className="option-select" value={item.value}>
@@ -98,18 +100,18 @@ function Index(props) {
             </Button>
           )}
         </td>
-        <td className="table__td" style={{
-                display: readOnly ? 'block' : 'none',
-              }}>
+        <td
+          className="table__td"
+          style={{
+            display: readOnly ? 'block' : 'none',
+          }}
+        >
           {index === 0 ? (
-            <div
-              className="td-flex"
-              
-            >
+            <div className="td-flex">
               <div className="select-container">
-                <Button type="submit" className="rule-engine-btn btn-save">
-                  Save
-                </Button>
+                <Link style={{ width: '4rem' }} to={`/sizeA/${inputValue.id}`} color="primary">
+                  Sửa
+                </Link>
               </div>
             </div>
           ) : (
