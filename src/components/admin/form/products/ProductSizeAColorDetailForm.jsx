@@ -108,7 +108,6 @@ function ProductSizeAColorDetailForm(props) {
     }
   }, [dataSize, dataSizeList]);
 
-
   return (
     <>
       <Loader showLoader={loading} />
@@ -128,7 +127,7 @@ function ProductSizeAColorDetailForm(props) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth>
         <DialogContent>
           <div className="rule-engine-content">
-            <h5 className="content-title">Size và Màu<Link style={{float: 'right',padding: 0}}>Thêm mới</Link></h5>
+            <h5 className="content-title">Size và Màu<Link to={`/sizeA/newSize/${product}`} style={{float: 'right',padding: 0}}>Thêm mới</Link></h5>
             <table className="table">
               <thead className="table-head">
                 <tr>

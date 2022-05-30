@@ -2,11 +2,13 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Link } from 'react-router-dom';
-
+import { deleteSizeAColor } from 'slice/SizeAColor';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 function Index(props) {
   let { inputList, setInputList, readOnly } = props;
-  
-  console.log(inputList);
+  const dispatch = useDispatch();
+
   const categoryOptions = [
     { label: 'XXS', value: 'XXS', _id: 0 },
     { label: 'XS', value: 'XS', _id: 1 },
@@ -31,6 +33,19 @@ function Index(props) {
   const handleRemoveClick = (record) => {
     setInputList([...inputList.filter((r) => r !== record)]);
   };
+
+  const handleOnDelete = async (id) => {
+    try {
+      const action = deleteSizeAColor(id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      // enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+
   return inputList.map((inputValue, index) => {
     return (
       <tr key={inputValue.index} style={{ position: 'relative' }}>
@@ -112,6 +127,16 @@ function Index(props) {
                 <Link style={{ width: '4rem' }} to={`/sizeA/${inputValue.id}`} color="primary">
                   Sửa
                 </Link>
+                <a
+                  style={{ float: 'right', cursor: 'pointer' }}
+                  href
+                  color="primary"
+                  onClick={() => {
+                    handleOnDelete(inputValue.id);
+                  }}
+                >
+                  Xoá
+                </a>
               </div>
             </div>
           ) : (

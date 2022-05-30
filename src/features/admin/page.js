@@ -12,6 +12,7 @@ import UserList from 'features/admin/page/UserList';
 import Address from 'features/admin/page/Address';
 import OrderHistory from 'features/admin/page/OrderHistory';
 import SizeAColor from 'features/admin/page/SizeAColor';
+import SizeAColorNew from 'features/admin/page/SizeAColorNew';
 
 const Page = [
   {
@@ -83,6 +84,11 @@ const Page = [
     path: '/sizeA/:id',
     exact: true,
     main: SizeAColor,
+  }, 
+  {
+    path: '/sizeA/newSize/:id',
+    exact: true,
+    main: SizeAColorNew,
   }
 
 ];

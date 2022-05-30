@@ -1,59 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import TableRow from 'components/admin/dynamicForm/index';
-import { getSizeById } from 'slice/SizeAColor';
-import 'components/admin/dynamicForm/style.css';
 import { Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import TableRow from 'components/admin/dynamicForm/index';
 import Loader from 'components/fullPageLoading';
+import 'components/admin/dynamicForm/style.css';
 import { useRouteMatch } from 'react-router';
 import adminAPI from 'api/adminAPI';
 
-function ProductDetailSize() {
+function ProductNewSize() {
   const {
     params: { id },
   } = useRouteMatch();
-  const dispatch = useDispatch();
+  const [inputList, setInputList] = useState([{ index: Math.random(), colorName: '', quantity: 1 }]);
   const [loading, setLoading] = useState(false);
-
-  const [inputList, setInputList] = useState([{ index: Math.random() }]);
-
-  const dataSize = useSelector((state) => state.sizeAcolor.sizeA);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const actionChild = getSizeById(id);
-        const resultActionChild = dispatch(actionChild);
-        unwrapResult(resultActionChild);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (dataSize <= 0) {
-      setInputList([{ index: Math.random() }]);
-    } else {
-      let item;
-      let list = [];
-      for (let index = 0; index < dataSize.colors.length; index++) {
-        item = {
-          index: Math.random(),
-          productId: dataSize.productId,
-          nameSize: dataSize.nameSize,
-          color: dataSize.colors[index].colorName,
-          quantity: dataSize.colors[index].quantity,
-        };
-        list.push(item);
-      }
-      setInputList(list);
-    }
-  }, [dataSize]);
 
   // handle submit form
   const handleSubmit2 = async (e) => {
@@ -62,8 +20,8 @@ function ProductDetailSize() {
       let color, quantity;
       let temp = [];
       let data = {};
-      data.nameSize = inputList[0].nameSize ? inputList[0].nameSize : dataSize.nameSize;
-      data.productId = dataSize.productId;
+      data.nameSize = inputList[0].nameSize;
+      data.productId = id;
       for (let index = 0; index < inputList.length; index++) {
         color = inputList[index].color + '';
         quantity = parseInt(inputList[index].quantity);
@@ -73,7 +31,7 @@ function ProductDetailSize() {
 
       setLoading(true);
       adminAPI
-        .updateSizeAColor(id, data)
+        .addSizeAColor(data)
         .then((res) => {
           window.localtion.reload();
         })
@@ -93,15 +51,9 @@ function ProductDetailSize() {
       setLoading(false);
     }
   };
-
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([
-      ...inputList,
-      {
-        index: Math.random(),
-      },
-    ]);
+    setInputList([...inputList, { index: Math.random(), colorName: '', quantity: 1 }]);
   };
   return (
     <>
@@ -137,4 +89,4 @@ function ProductDetailSize() {
   );
 }
 
-export default ProductDetailSize;
+export default ProductNewSize;

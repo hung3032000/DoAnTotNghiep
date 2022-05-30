@@ -1,4 +1,4 @@
-import SizeAColorResults from 'components/admin/form/products/ProductDetailSize';
+import SizeAColorResults from 'components/admin/form/products/ProductNewSize';
 import React from 'react';
 import Common from './Common';
 
