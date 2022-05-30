@@ -137,6 +137,10 @@ const adminAPI = {
     const url = `/sales/${id}`;
     return axiosClient.put(url, data);
   },
+  getSaleByProductId: (id) => {
+    const url = `sales/product/${id}`;
+    return axiosClient.get(url);
+  },
   //------------------Size&Color------------------
   getSizeProduct(id) {
     const url = 

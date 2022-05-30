@@ -7,10 +7,10 @@ import orderReducer from 'slice/OrderSlice';
 import cartReducer from 'slice/CartSlice';
 import voucherReducer from 'slice/voucherSlice';
 import sizeAcolorReducer from 'slice/SizeAColor';
+import saleReducer from 'slice/SaleSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
-
   //user
   user: userReducer,
   voucher: voucherReducer,
@@ -22,6 +22,7 @@ const rootReducer = {
   //admin
   sizeAcolor: sizeAcolorReducer,
   order: orderReducer,
+  sale: saleReducer,
 };
 
 const store = configureStore({

@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import SelectField from 'components/admin/form/common/TextFieldDisable/status';
 import TextFieldCusDis from 'components/admin/form/common/TextFieldDisable/index';
 import CategorySelectField from 'components/admin/form/common/TextFieldDisable/category';
-import ProductSizeAColorDetailForm from './ProductSizeAColorDetailForm';
+import ProductSizeAColorDetailForm from 'components/admin/form/products/ProductSizeAColorDetailForm';
+import ProductSaleDetailForm from 'components/admin/form/products/ProductSaleDetailForm';
 
 ProductsDetailForm.propTypes = {
   product: PropTypes.object.isRequired,
@@ -23,6 +24,7 @@ function ProductsDetailForm(props) {
   };
 
   const [open, setOpen] = useState(false);
+ 
 
   return (
     <>
@@ -55,6 +57,7 @@ function ProductsDetailForm(props) {
                         <CategorySelectField label="Danh mục" categoryOptions={categoriesC} edit={product.subcategoryId._id} name="subcategoryId" />
                         <SelectField label="Trạng thái" name="status" edit={product.status} />
                         <ProductSizeAColorDetailForm product={product._id} widthCustome={6} />
+                        <ProductSaleDetailForm productId={product._id} widthCustome={6} />
                       </Grid>
                     </CardContent>
                     <Divider />
