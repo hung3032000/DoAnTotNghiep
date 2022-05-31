@@ -14,8 +14,8 @@ export const deleteSale = createAsyncThunk('deleteSale', async (id) => {
   const response = await adminAPI.deleteSale(id);
   return response;
 });
-export const updateSale = createAsyncThunk('updateSale', async (id, data) => {
-  const response = await adminAPI.updateSale(id, data);
+export const updateSale = createAsyncThunk('updateSale', async (data) => {
+  const response = await adminAPI.updateSale(data._id, data);
   return response;
 });
 

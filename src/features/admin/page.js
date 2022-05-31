@@ -13,6 +13,7 @@ import Address from 'features/admin/page/Address';
 import OrderHistory from 'features/admin/page/OrderHistory';
 import SizeAColor from 'features/admin/page/SizeAColor';
 import SizeAColorNew from 'features/admin/page/SizeAColorNew';
+import SaleNew from 'features/admin/page/SaleNew';
 
 const Page = [
   {
@@ -90,6 +91,11 @@ const Page = [
     exact: true,
     main: SizeAColorNew,
   }
-
+  , 
+  {
+    path: '/saleA/newSale/:id', 
+    exact: true,
+    main: SaleNew,
+  }
 ];
 export default Page;
