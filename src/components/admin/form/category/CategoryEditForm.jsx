@@ -29,8 +29,7 @@ function CategoryEditForm(props) {
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
     if (onSubmit) {
-      // await onSubmit(values);
-      console.log(values)
+      await onSubmit(values);
     }
   };
   const handleClose = () => {

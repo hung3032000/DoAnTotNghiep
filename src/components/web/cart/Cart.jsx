@@ -27,7 +27,7 @@ function Cart({ actionDeleteCart, cartTotal, countProduct, dataCart }) {
               <a
                 className="minicart-product-name cursor"
                 href
-                //  ={`productinf/${card.product._id}`}
+                 ={`/productinf/${card.product._id}`}
                 title={card.product.name}
               >
                 {card.product.name}

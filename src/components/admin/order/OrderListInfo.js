@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogContent, DialogTitle,IconButton } from '@material-ui/core';
+import { Box, Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 
 import Button from '@material-ui/core/IconButton';
@@ -100,7 +100,9 @@ function OrderListInfo(props) {
                               {orderItems.map((items) => (
                                 <TableRow key={items._id}>
                                   <TableCell component="th" scope="row">
-                                    {items.productId.name}
+                                    <a className="minicart-product-name cursor" href={`/productinf/${items.productId._id}`} title={items.productId.name}>
+                                      {items.productId.name}
+                                    </a>
                                   </TableCell>
                                   <TableCell>{items.quantity}</TableCell>
                                   <TableCell align="right">{items.productId.price}</TableCell>

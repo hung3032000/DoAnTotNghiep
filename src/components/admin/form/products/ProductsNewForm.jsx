@@ -22,8 +22,7 @@ function ProductsNewForm(props) {
     data.append('photo', selectedFiles[0]);
     const { onSubmit } = props;
     if (onSubmit) {
-      console.log(values, data);
-      // await onSubmit(values, data);
+      await onSubmit(values, data);
     }
   };
 

@@ -115,7 +115,7 @@ const Header = function (props) {
                 <li className={`level-1 account-nav header-link ${hoverUser ? 'hover' : ''}`} onMouseEnter={() => setHoveredUser(true)} onMouseLeave={() => setHoveredUser(false)}>
                   <ul className="header-links" role="presentation">
                     <li className="level-1 account-nav header-link">
-                      <a className="level-1 authenticated navigation-hasSubMenu" href="/myaccount">
+                      <a className="level-1 authenticated navigation-hasSubMenu" href="/order">
                         Tài khoản<span>:</span>
                         <span className="name">
                           <strong>

@@ -45,11 +45,9 @@ function UserEditForm(props) {
     // resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
-    console.log(values);
     const { onSubmit } = props;
     if (onSubmit) {
-      // await onSubmit(values);
-      console.log(values);
+      await onSubmit(values);
     }
   };
   const handleClose = () => {
@@ -85,14 +83,14 @@ function UserEditForm(props) {
                       <CardContent>
                         <Grid container spacing={3}>
                           <SelectField label="Ông/bà" name="gender" edit={customer.gender} categoryOptions={genderOptions} form={userNewForm} />
-                          <EmailField name="email" form={userNewForm} /> 
+                          <EmailField name="email" form={userNewForm} />
                           <IdField name="_id" form={userNewForm} />
                           <TextField label="Tên họ" name="lastname" edit={customer.lastname} form={userNewForm} />
                           <TextField label="Tên" name="fistname" edit={customer.fistname} form={userNewForm} />
                           <TextField label="Số điện thoại" name="phonenumber" edit={customer.phonenumber} form={userNewForm} />
-                          <DateMonthField date="date" month="month"  form={userNewForm} />
+                          <DateMonthField date="date" month="month" form={userNewForm} />
                           <SelectField label="Quyền" name="role" edit={customer.role} categoryOptions={roleOptions} form={userNewForm} />
-                          <SelectField label="Trạng thái" name="status" edit={customer.status} categoryOptions={statusOptions} form={userNewForm} />    
+                          <SelectField label="Trạng thái" name="status" edit={customer.status} categoryOptions={statusOptions} form={userNewForm} />
                         </Grid>
                       </CardContent>
                       <Divider />

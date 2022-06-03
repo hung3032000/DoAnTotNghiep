@@ -44,14 +44,12 @@ function CategoryCEditForm(props) {
       data.append('photo', selectedFiles[0]);
       const { onSubmit } = props;
       if (onSubmit) {
-      console.log(values)
-      // await onSubmit(values, data);
+      await onSubmit(values, data);
       }
     } else {
       const { onSubmit } = props;
       if (onSubmit) {
-      console.log(values)
-      // await onSubmit(values);
+      await onSubmit(values);
       }
     }
   };

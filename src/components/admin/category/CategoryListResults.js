@@ -40,7 +40,6 @@ function CategoryListResults() {
 
       // adminAPI.updateUser(values._id,values);
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      console.log(values._id, values);
       const action = updateCategoryAdmin(values._id, values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -55,8 +54,6 @@ function CategoryListResults() {
   const handleOnDelete = async (id) => {
     try {
       setLoading(true);
-
-      console.log(id);
       const action = deleteCategoryAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
