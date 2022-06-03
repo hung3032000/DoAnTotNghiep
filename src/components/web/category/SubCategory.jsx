@@ -1,29 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-subcategory.propTypes = {
-  // data: PropTypes.array,
-  // count: PropTypes.number,
-};
-
-subcategory.defaultProps = {
-  // data: [],
-  // count: 0,
-};
-
 function subcategory(props) {
-  // const [categoryCList, setCategoryCList] = useState([]);
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const data  = await categoryCApi.getAll({ status: true });
-  //       setCategoryCList(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
-  // console.log(data)
   return (
     <div>
       <div className="level-2">
@@ -41,7 +19,6 @@ function subcategory(props) {
                 </span>
               </p>
             </li>
-
             {/* sub */}
             <li className="level-2 col-sm-3 col-md-2 " id="SHOES_W">
               <a className="level-2 navigation-hasSubMenu" href>
