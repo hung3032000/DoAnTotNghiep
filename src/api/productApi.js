@@ -5,14 +5,18 @@ const productApi = {
     '/products/paging';
     return axiosClient.get(url, {params});
   },
+  getAllSearch() {
+    const url = 
+    '/products';
+    return axiosClient.get(url);
+  },
   get(id) {
     const url = `/products/${id}`; 
     return axiosClient.get(url);
   },
-  getsize(id){
+  getSizeByProductId(id){
     const url = 
-    // `/sizes/${id}`;
-    '/sizes';
+    `/sizes/product/${id}`;
     return axiosClient.get(url);
   }
 };

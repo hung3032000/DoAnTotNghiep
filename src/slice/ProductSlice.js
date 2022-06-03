@@ -7,10 +7,7 @@ export const getProductDetail = createAsyncThunk('ProductDetail', async (id) => 
   return response;
 });
 
-// export const updateImageProductDetail = createAsyncThunk('updateImageProductDetail', async (id,data) => {
-//   const response = await adminAPI.updateImageProduct(3,data);
-//   return response;
-// });
+
 export const addProductProductDetail = createAsyncThunk('addProductProductDetail', async (data) => {
   const response = await adminAPI.addProduct(data);
   return response;

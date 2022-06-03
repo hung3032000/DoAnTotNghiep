@@ -14,12 +14,15 @@ import { getOrder } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
-const Order = function (props) {
+import Pagination from 'components/web/pagination/index';
+let PageSize = 5;
+
+const Order = function () {
   const dataOrderList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -41,7 +44,13 @@ const Order = function (props) {
       }
     })();
   }, [dispatch]);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataOrderList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataOrderList]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -76,7 +85,7 @@ const Order = function (props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {dataOrderList.map((order) => (
+                      {currentTableData.map((order) => (
                         <TableRow hover key={order._id}>
                           <TableCell>
                             <Box
@@ -124,6 +133,13 @@ const Order = function (props) {
                     </TableBody>
                   </Table>
                 </TableContainer>
+                <Pagination
+                  className="pagination cursor mg-t-20"
+                  currentPage={currentPage}
+                  totalCount={dataOrderList.length}
+                  pageSize={PageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
               </div>
             )}
           </div>

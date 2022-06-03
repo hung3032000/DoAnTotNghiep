@@ -1,6 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { logout } from 'slice/userSlice';
-
 import { removeFromCart } from 'slice/CartSlice';
 import { cartItemsCountSelector, cartTotalSelector } from 'slice/Selectors';
 import CategoryParent from 'components/web/category/CategoryParent';
@@ -13,6 +12,7 @@ import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
 import Cart from 'components/web/cart/Cart';
 import Search from 'components/web/search/Search';
+import { getListProductSearch } from 'slice/ProductListSlice';
 
 const Header = function (props) {
   //hover animation
@@ -40,6 +40,10 @@ const Header = function (props) {
           const resultAction = await dispatch(action);
           unwrapResult(resultAction);
         }
+        setLoading(true);
+        const actionSearch = getListProductSearch();
+        const resultActionSearch = await dispatch(actionSearch);
+        unwrapResult(resultActionSearch);
       } catch (error) {
         console.log(error);
       } finally {
@@ -180,7 +184,6 @@ const Header = function (props) {
               )}
             </div>
 
-           
             <div className="search-link-container" role="search">
               <a href className="search-link">
                 <Modal classNameModal={'icon icon_Search anchor'}>

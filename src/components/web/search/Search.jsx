@@ -1,16 +1,13 @@
 import React from 'react';
 // import { Controller } from 'react-hook-form';
 
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-Search.propTypes = {
-  form: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-};
 
-function Search(props) {
-  // const { form, name, label } = props;
+function Search() {
+  
+  const dataProductList = useSelector((state) => state.productList.search);
+  console.log(dataProductList);
   return (
 
     <>

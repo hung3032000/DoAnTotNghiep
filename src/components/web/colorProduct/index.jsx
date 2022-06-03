@@ -62,7 +62,7 @@ function Index(props) {
         </div>
         <div className="dialog-content ui-dialog-content ui-widget-content child-content">
           <div className="color-variation-swiper product-detail-modal">
-            <h2>Colors</h2>
+            <h2>Màu</h2>
             <section className="attribute color-variation-swiper-container" aria-roledescription="carousel">
               <div className="value swiper-container">
                 <div className="swatches color swiper-wrapper">

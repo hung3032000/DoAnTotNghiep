@@ -13569,7 +13569,8 @@ p.intro {
 }
 
 .img-categorychild {
-  height: 552px;
+  height: 600px;
+  object-fit: fill;
 }
 
 .img-productinfo {
@@ -14124,4 +14125,7 @@ address {
 #add-coupon:hover,
 #share-basket:hover {
   background: #f6f6f6 !important;
+}
+.mg-t-20{
+  margin-top: 20px;
 }

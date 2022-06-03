@@ -35,7 +35,7 @@ function ProductInfo() {
         const action = getProductDetail(productId);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
-        const getListSizeAPI = getListSize();
+        const getListSizeAPI = getListSize(productId);
         const resultActiongetListSizeAPI = await dispatch(getListSizeAPI);
         unwrapResult(resultActiongetListSizeAPI);
       } catch (error) {
@@ -79,7 +79,7 @@ function ProductInfo() {
       }
     })();
   }, [size, color, sizes]);
-
+  console.log(size);
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
 
   let priceProductTotal = 0;

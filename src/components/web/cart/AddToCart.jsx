@@ -26,7 +26,7 @@ function AddToCart({ onSubmit = null }) {
           <QuantityField name="quantity" label="Quantity" form={form} value={1} />
         </div>
         <button type="submit" title="Add to cart" value="Add to cart" className="form-button button--full add-to-cart disabled">
-          Add to cart
+          Thêm vào giỏ hàng
         </button>
       </form>
     </div>
