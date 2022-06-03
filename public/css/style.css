@@ -5059,7 +5059,7 @@ a.search-link:hover {
 }
 
 .minicart .minicart-link.minicart-disable,
-.size-disable {
+.size-disable{
   pointer-events: none;
 }
 
@@ -7377,11 +7377,6 @@ a.filters-validate-bt {
   }
 }
 
-.pagination {
-  overflow: hidden;
-  text-transform: uppercase;
-  display: inline-flex;
-}
 
 .pagination .showing {
   float: left;
@@ -13390,6 +13385,8 @@ p.intro {
 .pagination {
   display: inline-block;
   text-align: center;
+  overflow: hidden;
+  text-transform: uppercase;
 }
 
 .pagination li {
@@ -13403,7 +13400,11 @@ p.intro {
   background-color: #ddd;
   color: white;
 }
+.pagination .disable {
+  user-select: none;
+  pointer-events: none;
 
+}
 .pagination li:hover:not(.active) {
   background-color: #ddd;
 }
@@ -13565,11 +13566,6 @@ p.intro {
 
 .mgl-10 {
   margin-left: 10px;
-}
-
-.img-product {
-  width: 256px;
-  height: 343px;
 }
 
 .img-categorychild {

@@ -1,21 +1,22 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { deleteUser, getAllUser, updateUser } from 'slice/userSlice';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Loader from 'components/fullPageLoading';
 
 import UserEditForm from '../form/User/UserEditForm';
+import Pagination from 'components/web/pagination';
 UserListResults.propTypes = {
   closeDialog: PropTypes.func,
 };
-
-function UserListResults(props) {
+let PageSize = 10;
+function UserListResults() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const dataUserList = useSelector((state) => state.user.userList);
@@ -23,7 +24,6 @@ function UserListResults(props) {
     (async () => {
       try {
         setLoading(true);
-
         const action = getAllUser();
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -35,8 +35,6 @@ function UserListResults(props) {
     })();
   }, [dispatch, dataUserList.lenght]);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
@@ -66,13 +64,6 @@ function UserListResults(props) {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
   const { enqueueSnackbar } = useSnackbar();
 
   const handleEditUFormSubmit = async (values) => {
@@ -99,6 +90,13 @@ function UserListResults(props) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataUserList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataUserList]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -126,7 +124,7 @@ function UserListResults(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataUserList.slice(0, limit).map((customer) => (
+                {currentTableData.map((customer) => (
                   <TableRow hover key={customer._id} selected={selectedCustomerIds.indexOf(customer._id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(customer._id) !== -1} onChange={(event) => handleSelectOne(event, customer._id)} value="true" />
@@ -171,15 +169,7 @@ function UserListResults(props) {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataUserList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 50, 100]}
-        />
+        <Pagination className="pagination cursor" currentPage={currentPage} totalCount={dataUserList.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
       </Card>
     </>
   );

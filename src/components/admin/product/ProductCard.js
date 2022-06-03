@@ -1,4 +1,4 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
@@ -6,14 +6,15 @@ import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
 import { getListProductAdmin } from 'slice/ProductListSlice';
 import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import ProductEditForm from '../form/products/ProductsEditForm';
 import ProductDetailForm from '../form/products/ProductsDetailForm';
 import Loader from 'components/fullPageLoading';
-
+import Pagination from 'components/web/pagination';
+let PageSize = 6;
 function ProductCard() {
   const [loading, setLoading] = useState(false);
 
@@ -97,8 +98,6 @@ function ProductCard() {
   };
   //paging action
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -129,13 +128,13 @@ function ProductCard() {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataProductsList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataProductsList]);
 
   return (
     <>
@@ -159,12 +158,12 @@ function ProductCard() {
                   <TableCell>Hình ảnh</TableCell>
                   <TableCell>Thuộc danh mục</TableCell>
                   <TableCell>Trạng thái</TableCell>
-                  
+
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataProductsList.slice(0, limit).map((product) => (
+                {currentTableData.map((product) => (
                   <TableRow hover key={product.id} selected={selectedCustomerIds.indexOf(product.id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(product.id) !== -1} onChange={(event) => handleSelectOne(event, product.id)} value="true" />
@@ -190,7 +189,7 @@ function ProductCard() {
                       {product.status === true && <p>Còn hàng</p>}
                       {product.status === false && <p>Hết hàng</p>}
                     </TableCell>
-                
+
                     <TableCell>
                       <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
                       <IconButton
@@ -212,14 +211,12 @@ function ProductCard() {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataProductsList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25]}
+        <Pagination
+          className="pagination cursor"
+          currentPage={currentPage}
+          totalCount={dataProductsList.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </Card>
     </>

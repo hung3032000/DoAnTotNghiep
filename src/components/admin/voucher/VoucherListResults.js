@@ -1,14 +1,15 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-// import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import VoucherEditForm from 'components/admin/form/voucher/VoucherEditForm';
 import Loader from 'components/fullPageLoading';
 import { getAllVoucher,updateVoucher,deleteVoucher } from 'slice/voucherSlice';
+import Pagination from 'components/web/pagination';
 
+let PageSize = 10;
 function VoucherListResults() {
   const dataVoucherList = useSelector((state) => state.voucher.voucher);
   const dispatch = useDispatch();
@@ -47,7 +48,6 @@ function VoucherListResults() {
   const handleOnDelete = async (id) => {
     try {
       setLoading(true);
-      console.log(id);
       const action = deleteVoucher(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -61,8 +61,6 @@ function VoucherListResults() {
   };
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -93,13 +91,13 @@ function VoucherListResults() {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataVoucherList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataVoucherList]);
 
   return (
     <>
@@ -129,7 +127,7 @@ function VoucherListResults() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataVoucherList.slice(0, limit).map((voucher) => (
+                {currentTableData.map((voucher) => (
                   <TableRow hover key={voucher._id} selected={selectedCustomerIds.indexOf(voucher.id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(voucher.id) !== -1} onChange={(event) => handleSelectOne(event, voucher.id)} value="true" />
@@ -176,15 +174,8 @@ function VoucherListResults() {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataVoucherList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
+        <Pagination className="pagination cursor" currentPage={currentPage} totalCount={dataVoucherList.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
+
       </Card>
     </>
   );

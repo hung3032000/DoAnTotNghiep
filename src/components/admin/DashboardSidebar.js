@@ -15,7 +15,7 @@ import {
   // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Grid as GridIcon,
-  Settings as SettingsIcon,
+  // Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   // User as UserIcon,
   UserPlus as UserPlusIcon,
@@ -85,12 +85,13 @@ const items = [
     href: '/voucherA',
     icon: InboxIcon,
     title: 'Quản lý voucher'
-  },
-  {
-    href: '/settingsA',
-    icon: SettingsIcon,
-    title: 'Cài đặt'
-  } 
+  }
+  
+  // ,{
+  //   href: '/settingsA',
+  //   icon: SettingsIcon,
+  //   title: 'Cài đặt'
+  // } 
  
   // {
   //   href: '/404',

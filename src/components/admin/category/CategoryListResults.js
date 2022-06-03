@@ -1,14 +1,15 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { deleteCategoryAdmin, getListCategoryAdmin, updateCategoryAdmin } from 'slice/CategorySlice';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryEditForm from '../form/category/CategoryEditForm';
 import Loader from 'components/fullPageLoading';
-
+import Pagination from 'components/web/pagination';
+let PageSize = 3;
 function CategoryListResults() {
   const dataCategoryList = useSelector((state) => state.categoryList.dataA);
   const dispatch = useDispatch();
@@ -67,8 +68,7 @@ function CategoryListResults() {
   };
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
+
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -99,13 +99,13 @@ function CategoryListResults() {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataCategoryList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataCategoryList]);
 
   return (
     <>
@@ -133,7 +133,7 @@ function CategoryListResults() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataCategoryList.slice(0, limit).map((category) => (
+                {currentTableData.map((category) => (
                   <TableRow hover key={category._id} selected={selectedCustomerIds.indexOf(category.id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(category.id) !== -1} onChange={(event) => handleSelectOne(event, category.id)} value="true" />
@@ -176,14 +176,12 @@ function CategoryListResults() {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataCategoryList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25]}
+        <Pagination
+          className="pagination cursor"
+          currentPage={currentPage}
+          totalCount={dataCategoryList.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </Card>
     </>

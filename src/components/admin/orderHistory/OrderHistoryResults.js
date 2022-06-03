@@ -1,14 +1,15 @@
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getOrderAdmin } from 'slice/OrderSlice';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import Loader from 'components/fullPageLoading';
-
+import Pagination from 'components/web/pagination';
+let PageSize = 5;
 function OrderHistoryResults() {
   const [loading, setLoading] = useState(false);
   const dataOrderCList = useSelector((state) => state.order.data);
@@ -32,8 +33,6 @@ function OrderHistoryResults() {
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -64,13 +63,13 @@ function OrderHistoryResults() {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataOrderCList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataOrderCList]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -98,7 +97,7 @@ function OrderHistoryResults() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataOrderCList.slice(0, limit).map((order) => (
+                {currentTableData.map((order) => (
                   <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
@@ -130,14 +129,12 @@ function OrderHistoryResults() {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataOrderCList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 50, 100]}
+        <Pagination
+          className="pagination cursor"
+          currentPage={currentPage}
+          totalCount={dataOrderCList.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </Card>
     </>

@@ -1,9 +1,9 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
 import { getOrderCompleteAdmin, statusOrderComplete } from 'slice/OrderSlice';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
@@ -11,7 +11,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useSnackbar } from 'notistack';
 import Loader from 'components/fullPageLoading';
-
+import Pagination from 'components/web/pagination';
+let PageSize = 5;
 function OrderListCompleteResults(props) {
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +25,7 @@ function OrderListCompleteResults(props) {
       try {
         setLoading(true);
         const action = getOrderCompleteAdmin({
-          limit: 100,
+          limit: 100000,
         });
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -66,8 +67,7 @@ function OrderListCompleteResults(props) {
     }
   };
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
+
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -98,13 +98,13 @@ function OrderListCompleteResults(props) {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return dataOrderCList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataOrderCList]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -133,7 +133,7 @@ function OrderListCompleteResults(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataOrderCList.slice(0, limit).map((order) => (
+                {currentTableData.map((order) => (
                   <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
                     <TableCell padding="checkbox">
                       <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
@@ -185,14 +185,12 @@ function OrderListCompleteResults(props) {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count={dataOrderCList.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 50, 100]}
+        <Pagination
+          className="pagination cursor"
+          currentPage={currentPage}
+          totalCount={dataOrderCList.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </Card>
     </>
