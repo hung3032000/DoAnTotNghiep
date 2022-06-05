@@ -20,7 +20,7 @@ function ProductCard() {
 
   //fetch data category
   const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
-  const dataProductsList = useSelector((state) => state.productList.dataA);
+  const dataProductsList = useSelector((state) => state.productList.search);
 
   const dispatch = useDispatch();
 

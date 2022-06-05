@@ -35,6 +35,7 @@ function OrderListInfo(props) {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const orderItems = order.items;
+  console.log(order);
   return (
     <>
       <IconButton aria-label="info" onClick={handleClickOpen}>
@@ -60,18 +61,19 @@ function OrderListInfo(props) {
                     <TableCell align="right">Ngày tạo đơn</TableCell>
                     <TableCell align="right">Địa chỉ</TableCell>
                     <TableCell align="right">Số điện thoại</TableCell>
+                    
                     <TableCell align="right">Trạng thái</TableCell>
                     <TableCell align="right">Tổng giá</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                  <TableRow>
                     <TableCell>
                       <Button aria-label="expand row" size="small" onClick={() => setOpen1(!open1)}>
                         {open1 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                       </Button>
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell>
                       {order.userId.fistname + ' ' + order.userId.lastname}
                     </TableCell>
                     <TableCell align="right">{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
@@ -81,7 +83,7 @@ function OrderListInfo(props) {
                     <TableCell align="right">{formatPrice(order.totalPrice)}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
                       <Collapse in={open1} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                           <Typography variant="h6" gutterBottom component="div">
@@ -93,7 +95,10 @@ function OrderListInfo(props) {
                                 <TableCell>Tên sản phẩm</TableCell>
                                 <TableCell>Số lượng</TableCell>
                                 <TableCell align="right">Giá thành</TableCell>
-                                <TableCell align="right">Tổng giá trị (VND)</TableCell>
+                                {order.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
+                                
+                                {order.isPaypal ? <TableCell align="right">Tổng giá trị (USD)</TableCell> : <TableCell align="right">Tổng giá trị (VND)</TableCell>}
+                                
                               </TableRow>
                             </TableHead>
                             <TableBody>
@@ -106,6 +111,7 @@ function OrderListInfo(props) {
                                   </TableCell>
                                   <TableCell>{items.quantity}</TableCell>
                                   <TableCell align="right">{items.productId.price}</TableCell>
+                                  {order.isPaypal && <TableCell align="right">Thành công</TableCell>}
                                   <TableCell align="right">{items.totalPrice}</TableCell>
                                 </TableRow>
                               ))}
