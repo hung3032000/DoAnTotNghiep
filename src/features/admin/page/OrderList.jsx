@@ -2,9 +2,39 @@ import OrderListResults from 'components/admin/order/OrderListResults';
 import OrderListToolbar from 'components/admin/order/OrderListToolbar';
 import React from 'react';
 import Common from './Common';
+import { getOrderAdmin } from 'slice/OrderSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import Loader from 'components/fullPageLoading';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 function OrderList() {
-  return <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar />} listResults={<OrderListResults />} />;
+  const [loading, setLoading] = useState(false);
+  const dataOrderCList = useSelector((state) => state.order.data);
+  const dispatch = useDispatch();
+  // const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const action = getOrderAdmin({
+          status: 'Pending',
+        });
+        const resultAction = dispatch(action);
+        unwrapResult(resultAction);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch]);
+  return (
+    <>
+      <Loader showLoader={loading} />
+      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar />} listResults={<OrderListResults dataOrderCList={dataOrderCList} />} />;
+    </>
+  );
 }
 
 export default OrderList;

@@ -40,7 +40,6 @@ function InputText(props) {
             as={<input />}
             className="form-input form-field required"
             type={showPassword(isPassword)}
-            maxLength={50}
             placeholder={placeholder}
             defaultValue={defaultValue}
           />

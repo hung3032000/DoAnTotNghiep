@@ -1,13 +1,12 @@
 import React from 'react';
 // import { Controller } from 'react-hook-form';
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 
 function Search() {
   
-  const dataProductList = useSelector((state) => state.productList.search);
-  console.log(dataProductList);
+  // const dataProductList = useSelector((state) => state.productList.search);
   return (
 
     <>
@@ -23,7 +22,6 @@ function Search() {
               as={<input />}
               className="form-input topSearch-field"
               type="text"
-              maxLength={50}
               placeholder="Search by keyword, style etc"
               title="Enter search words"
             /> */}

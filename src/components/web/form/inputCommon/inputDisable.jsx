@@ -19,7 +19,6 @@ function inputDisable(props) {
           id={name}
           name={name}
           defaultValue={defaultValue}
-          maxLength={50}
           disabled="disabled"
         />
       </div>

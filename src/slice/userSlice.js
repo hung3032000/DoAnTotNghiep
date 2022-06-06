@@ -14,7 +14,6 @@ export const register = createAsyncThunk('user/register', async (payload) => {
 
 export const login = createAsyncThunk('user/login', async (payload) => {
   const data = await userApi.login(payload, { status: true });
-  console.log(data)
   if (data.error) {
     return null;
   }

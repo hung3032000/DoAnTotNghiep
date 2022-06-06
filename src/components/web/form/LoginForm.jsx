@@ -26,7 +26,6 @@ function LoginForm(props) {
     const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);
-      console.log(values);
     }
   };
 

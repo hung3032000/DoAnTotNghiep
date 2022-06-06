@@ -3,41 +3,40 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { deleteOrderAdmin, getOrderAdmin, addOrderCompleteAdmin } from 'slice/OrderSlice';
+import { deleteOrderAdmin, addOrderCompleteAdmin, statusOrderComplete } from 'slice/OrderSlice';
+import { useDispatch } from 'react-redux';
+import { useState, useMemo } from 'react';
 import moment from 'moment';
-import { useEffect, useState,useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { useSnackbar } from 'notistack';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
+import PropTypes from 'prop-types';
 let PageSize = 5;
-function OrderListResults() {
-  const [loading, setLoading] = useState(false);
+OrderListResults.propTypes = {
+  dataOrderCList: PropTypes.array.isRequired,
+  orderComplete: PropTypes.bool,
+  orderHistory: PropTypes.bool,
+};
 
-  const dataOrderCList = useSelector((state) => state.order.data);
+function OrderListResults(props) {
+  const [loading, setLoading] = useState(false);
+  const { dataOrderCList, orderComplete, orderHistory } = props;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  let data = [];
+  if (orderComplete) {
+    dataOrderCList.forEach((element) => {
+      data.push({ _id: element._id, dataOrder: element.orderId });
+    });
+  } else {
+    dataOrderCList.forEach((element) => {
+      data.push({ _id: element._id, dataOrder: element });
+    });
+  }
+  console.log(dataOrderCList);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const action = getOrderAdmin({
-          page: 1,
-          limit: 100000,
-          status: 'Pending',
-        });
-        const resultAction = dispatch(action);
-        unwrapResult(resultAction);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch]);
 
   const handleOnComplete = async (order) => {
     try {
@@ -49,12 +48,12 @@ function OrderListResults() {
       const action = addOrderCompleteAdmin(data);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
+      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -62,27 +61,42 @@ function OrderListResults() {
   const handleOnCancel = async (id) => {
     try {
       setLoading(true);
-
       const action = deleteOrderAdmin(id);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Huỷ Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
+      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 
+  const handleOnHistoryOrder = async (order) => {
+    try {
+      setLoading(true);
+      const action = statusOrderComplete(order._id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setTimeout(() => window.location.reload(), 1000);
+      setLoading(false);
+    }
+  };
+
+  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = dataOrderCList.map((orderList) => orderList.id);
+      newSelectedCustomerIds = data.map((orderList) => orderList.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -112,8 +126,8 @@ function OrderListResults() {
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return dataOrderCList.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, dataOrderCList]);
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, data]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -133,8 +147,8 @@ function OrderListResults() {
                   </TableCell>
                   <TableCell>Id đơn hàng</TableCell>
                   <TableCell>Người đặt hàng</TableCell>
-                  <TableCell>Tổng Giá</TableCell>
                   <TableCell>Địa chỉ nhận hàng</TableCell>
+                  <TableCell>Tổng Giá</TableCell>
                   <TableCell>Ngày tạo</TableCell>
                   <TableCell>Trạng thái</TableCell>
                   <TableCell />
@@ -142,9 +156,9 @@ function OrderListResults() {
               </TableHead>
               <TableBody>
                 {currentTableData.map((order) => (
-                  <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order.id) !== -1}>
+                  <TableRow hover key={order._id} selected={selectedCustomerIds.indexOf(order._id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(order.id) !== -1} onChange={(event) => handleSelectOne(event, order.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(order._id) !== -1} onChange={(event) => handleSelectOne(event, order._id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box
@@ -158,34 +172,52 @@ function OrderListResults() {
                         </Typography>
                       </Box>
                     </TableCell>
-
-                    <TableCell>{order.userId.email}</TableCell>
-                    <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-                    <TableCell>{order.userId.email}</TableCell>
-                    <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell>{order.status}</TableCell>
+                    <TableCell>{order.dataOrder.userId.email}</TableCell>
+                    <TableCell>{order.dataOrder.addressrecevie.address}</TableCell>
+                    <TableCell>{formatPrice(order.dataOrder.totalPrice)}</TableCell>
+                    <TableCell>{moment(order.dataOrder.createdAt).format('DD/MM/YYYY')}</TableCell>
+                    {orderComplete ? <TableCell>Waiting</TableCell> : <TableCell>{order.dataOrder.status}</TableCell>}
                     <TableCell>
-                      <IconButton
-                        className="mgr-10"
-                        color="primary"
-                        aria-label="edit"
-                        onClick={() => {
-                          handleOnComplete(order);
-                        }}
-                      >
-                        <CheckIcon />
-                      </IconButton>
-                      <IconButton
-                        className="mgr-10"
-                        color="secondary"
-                        aria-label="delete"
-                        onClick={() => {
-                          handleOnCancel(order._id);
-                        }}
-                      >
-                        <ClearIcon />
-                      </IconButton>
-                      <OrderListInfo order={order} />
+                      {orderHistory ? (
+                        ''
+                      ) : (
+                        <>
+                          {orderComplete ? (
+                            <IconButton
+                              className="mgr-10"
+                              color="primary"
+                              aria-label="edit"
+                              onClick={() => {
+                                handleOnHistoryOrder(order);
+                              }}
+                            >
+                              <CheckIcon />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              className="mgr-10"
+                              color="primary"
+                              aria-label="edit"
+                              onClick={() => {
+                                handleOnComplete(order.dataOrder);
+                              }}
+                            >
+                              <CheckIcon />
+                            </IconButton>
+                          )}
+                          <IconButton
+                            className="mgr-10"
+                            color="secondary"
+                            aria-label="delete"
+                            onClick={() => {
+                              handleOnCancel(order._id);
+                            }}
+                          >
+                            <ClearIcon />
+                          </IconButton>
+                        </>
+                      )}
+                      <OrderListInfo order={order.dataOrder} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -193,13 +225,7 @@ function OrderListResults() {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Pagination
-          className="pagination cursor"
-          currentPage={currentPage}
-          totalCount={dataOrderCList.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+        <Pagination className="pagination cursor" currentPage={currentPage} totalCount={data.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
       </Card>
     </>
   );

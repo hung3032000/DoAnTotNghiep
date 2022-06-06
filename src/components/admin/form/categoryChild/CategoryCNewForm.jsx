@@ -12,7 +12,6 @@ CategoryCNewForm.propTypes = {
 
 function CategoryCNewForm(props) {
   const { category } = props;
-  console.log(category)
   const categoryCNewForm = useForm({
     defaultValues: {
       namesubCategory: '',
@@ -34,16 +33,12 @@ function CategoryCNewForm(props) {
       data.append('photo', selectedFiles[0]);
       const { onSubmit } = props;
       if (onSubmit) {
-        // await onSubmit(values, data);
-      console.log(values)
-
+        await onSubmit(values, data);
       }
     } else {
       const { onSubmit } = props;
       if (onSubmit) {
-        // await onSubmit(values);
-      console.log(values)
-
+        await onSubmit(values);
       }
     }
   };

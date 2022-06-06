@@ -35,7 +35,6 @@ function OrderListInfo(props) {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const orderItems = order.items;
-  console.log(order);
   return (
     <>
       <IconButton aria-label="info" onClick={handleClickOpen}>
@@ -61,7 +60,7 @@ function OrderListInfo(props) {
                     <TableCell align="right">Ngày tạo đơn</TableCell>
                     <TableCell align="right">Địa chỉ</TableCell>
                     <TableCell align="right">Số điện thoại</TableCell>
-                    
+
                     <TableCell align="right">Trạng thái</TableCell>
                     <TableCell align="right">Tổng giá</TableCell>
                   </TableRow>
@@ -73,9 +72,7 @@ function OrderListInfo(props) {
                         {open1 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                       </Button>
                     </TableCell>
-                    <TableCell>
-                      {order.userId.fistname + ' ' + order.userId.lastname}
-                    </TableCell>
+                    <TableCell>{order.userId.fistname + ' ' + order.userId.lastname}</TableCell>
                     <TableCell align="right">{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
                     <TableCell align="right">{order.addressrecevie.address}</TableCell>
                     <TableCell align="right">{order.addressrecevie.phonenumber}</TableCell>
@@ -96,9 +93,8 @@ function OrderListInfo(props) {
                                 <TableCell>Số lượng</TableCell>
                                 <TableCell align="right">Giá thành</TableCell>
                                 {order.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
-                                
+
                                 {order.isPaypal ? <TableCell align="right">Tổng giá trị (USD)</TableCell> : <TableCell align="right">Tổng giá trị (VND)</TableCell>}
-                                
                               </TableRow>
                             </TableHead>
                             <TableBody>

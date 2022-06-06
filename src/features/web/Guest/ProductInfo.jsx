@@ -79,7 +79,6 @@ function ProductInfo() {
       }
     })();
   }, [size, color, sizes]);
-  console.log(size);
   const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
 
   let priceProductTotal = 0;

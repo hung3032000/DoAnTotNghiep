@@ -21,11 +21,11 @@ export const addOrderCompleteAdmin = createAsyncThunk('addOrderCompleteAdmin', a
   return response;
 });
 export const deleteOrderAdmin = createAsyncThunk('deleteOrderAdmin', async (id) => {
-  const response = await adminAPI.deletOrder(id, { status: 'Cancel' });
+  const response = await adminAPI.deletOrder(id);
   return response;
 });
-export const statusOrderComplete = createAsyncThunk('statusOrderComplete', async (id,data) => {
-  const response = await adminAPI.statusOrderComplete(id,data);
+export const statusOrderComplete = createAsyncThunk('statusOrderComplete', async (id) => {
+  const response = await adminAPI.statusOrderComplete(id);
   return response;
 });
 

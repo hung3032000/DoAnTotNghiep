@@ -99,7 +99,6 @@ export default function Paypal() {
           let items = [];
           let b = 0;
           for (let i = 0; i < dataCart.length; i++) {
-            console.log(dataCart[i]);
             item.productId = dataCart[i].product._id;
             item.colorName = dataCart[i].color;
             item.sizeName = dataCart[i].size;

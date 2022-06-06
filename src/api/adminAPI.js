@@ -71,13 +71,17 @@ const adminAPI = {
   },
   //------------------Order------------------
   listOrder: (params) => {
-    const url = '/orders/paging';
+    const url = '/orders/search';
     return axiosClient.get(url, { params });
   },
 
-  deletOrder: (id,data) => {
+  deletOrder: (id) => {
     const url = `/orders/${id}`;
-    return axiosClient.delete(url,data);
+    return axiosClient.delete(url, {
+      data: {
+        status: 'Cancel',
+      },
+    });
   },
 
   //------------------OrderComplete------------------
@@ -87,11 +91,11 @@ const adminAPI = {
   },
   listOrderComplete: (params) => {
     const url = '/ordercompletes/paging';
-    return axiosClient.get(url,  { params });
+    return axiosClient.get(url, { params });
   },
-  statusOrderComplete:(id,data)=>{
+  statusOrderComplete: (id) => {
     const url = `/ordercompletes/status/${id}`;
-    return axiosClient.put(url,data);
+    return axiosClient.put(url, { status: 'Done' });
   },
 
   //------------------user------------------
@@ -143,13 +147,11 @@ const adminAPI = {
   },
   //------------------Size&Color------------------
   getSizeProduct(id) {
-    const url = 
-    `/sizes/product/${id}`;
+    const url = `/sizes/product/${id}`;
     return axiosClient.get(url);
   },
   getSizeById(id) {
-    const url = 
-    `/sizes/${id}`;
+    const url = `/sizes/${id}`;
     return axiosClient.get(url);
   },
   addSizeAColor(data) {

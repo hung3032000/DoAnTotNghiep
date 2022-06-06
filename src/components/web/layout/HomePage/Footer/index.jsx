@@ -61,7 +61,6 @@ const Footer = function (props) {
                               id="dwfrm_newsletter_email"
                               name="dwfrm_newsletter_email"
                               defaultValue=""
-                              maxLength={50}
                               data-dwname="email"
                               autoComplete="email"
                             />

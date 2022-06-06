@@ -1,4 +1,3 @@
-// import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,16 +9,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { getOrder } from 'slice/OrderSlice';
+import { deleteOrderAdmin, getOrder } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
-import React, { useEffect, useState,useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
 import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination/index';
+import { IconButton } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 let PageSize = 5;
 
 const Order = function () {
@@ -51,6 +52,21 @@ const Order = function () {
     const lastPageIndex = firstPageIndex + PageSize;
     return dataOrderList.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, dataOrderList]);
+
+  const handleOnCancel = async (id) => {
+    try {
+      setLoading(true);
+      const action = deleteOrderAdmin(id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+    } catch (error) {
+      console.log(error);
+      // enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setTimeout(() => window.location.reload(), 1000);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Loader showLoader={loading} />
@@ -106,27 +122,19 @@ const Order = function () {
                           <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
                           <TableCell>{order.status}</TableCell>
                           <TableCell>
-                            {/* <Fab
-                            className="mgr-10"
-                            color="primary"
-                            aria-label="edit"
-                            onClick={() => {
-                              handleOnComplete(order);
-                            }}
-                          >
-                            <CheckIcon />
-                          </Fab>
-                          <Fab
-                            className="mgr-10"
-                            color="secondary"
-                            aria-label="delete"
-                            onClick={() => {
-                              handleOnCancel(order._id);
-                            }}
-                          >
-                            <ClearIcon />
-                          </Fab> */}
                             <OrderListInfo order={order} />
+                            {order.status === 'Pending' && (
+                              <IconButton
+                                className="mgr-10"
+                                color="secondary"
+                                aria-label="delete"
+                                onClick={() => {
+                                  handleOnCancel(order._id);
+                                }}
+                              >
+                                <ClearIcon />
+                              </IconButton>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}

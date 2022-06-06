@@ -10,7 +10,6 @@ const AccountOverView = function (props) {
   const handleAddressFormSubmit = async (values) => {
     try {
       setLoading(true);
-      console.log(values);
     } catch (error) {
       console.log('Failed to login:', error);
       // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
