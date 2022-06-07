@@ -5,11 +5,20 @@ import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
 import ModiffyAddress from 'components/web/form/ModifyAddress';
+import { addAddress } from 'slice/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 const AccountOverView = function (props) {
+  const dispatch = useDispatch();
+
   const handleAddressFormSubmit = async (values) => {
     try {
       setLoading(true);
+      console.log(values);
+      const action = addAddress(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
     } catch (error) {
       console.log('Failed to login:', error);
       // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });

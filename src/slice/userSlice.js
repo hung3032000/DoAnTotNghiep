@@ -29,6 +29,7 @@ export const update = createAsyncThunk('user/update', async (payload) => {
   localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
   return data;
 });
+
 export const getAllUser = createAsyncThunk('admin/getAllUser', async (params) => {
   const data = await adminAPI.getAllUser(params);
   return data;
@@ -37,8 +38,9 @@ export const addUser = createAsyncThunk('admin/addUser', async (params) => {
   const data = await adminAPI.addUser(params);
   return data;
 });
+
 export const updateUser = createAsyncThunk('admin/updateUser', async (values) => {
-  const data = await adminAPI.updateUser(values._id,values);
+  const data = await adminAPI.updateUser(values._id, values);
   return data;
 });
 export const deleteUser = createAsyncThunk('admin/deleteUser', async (id) => {
@@ -55,6 +57,11 @@ export const loginGoogle = createAsyncThunk('user/loginGoogle', async (payload) 
 });
 export const ChangePassword = createAsyncThunk('user/ChangePassword', async (values) => {
   const data = await userApi.ChangePassword(values);
+  return data;
+});
+
+export const addAddress = createAsyncThunk('user/addAddress', async (values) => {
+  const data = await userApi.addAddress(values);
   return data;
 });
 const userSlice = createSlice({
@@ -91,7 +98,6 @@ const userSlice = createSlice({
     [loginGoogle.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
-
   },
 });
 

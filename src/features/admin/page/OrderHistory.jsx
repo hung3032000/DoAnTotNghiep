@@ -19,8 +19,6 @@ function OrderHistory() {
         setLoading(true);
         const action = getOrderAdmin({
           status: 'Cancel',
-          // eslint-disable-next-line no-dupe-keys
-          status: 'Done',
         });
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);

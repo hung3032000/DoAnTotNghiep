@@ -1,0 +1,140 @@
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import useLocationForm from '../address/useLocationForm';
+import { TextField } from '@mui/material';
+
+AddressCombobox.propTypes = {
+  form: PropTypes.object.isRequired,
+};
+
+function AddressCombobox(props) {
+  const { form } = props;
+  const { state, onCitySelect, onDistrictSelect, onWardSelect } = useLocationForm(false);
+
+  const { cityOptions, districtOptions, wardOptions } = state;
+  const [city, setCity] = useState();
+  const [district, setDistrict] = useState();
+  const [ward, setWard] = useState();
+  const handleOnChangeCity = (e) => {
+    let index = e.target.selectedIndex;
+    let label = e.target[index].text;
+    let value = e.target.value;
+    setCity(value);
+    onCitySelect({ value: value, label: label });
+  };
+  const handleOnChangeDistrict = (e) => {
+    let index = e.target.selectedIndex;
+    let label = e.target[index].text;
+    let value = e.target.value;
+    setDistrict(value);
+    onDistrictSelect({ value: value, label: label });
+  };
+  const handleOnChangeWard = (e) => {
+    let index = e.target.selectedIndex;
+    let label = e.target[index].text;
+    let value = e.target.value;
+    setWard(value);
+    onWardSelect({ value: value, label: label });
+  };
+
+  return (
+    <>
+      <Controller
+        name="city"
+        control={form.control}
+        render={({ onChange }) => (
+          <TextField
+            fullWidth
+            label="Tỉnh/Thành phố"
+            required
+            select
+            SelectProps={{ native: true }}
+            variant="outlined"
+            value={city}
+            onChange={handleOnChangeCity}
+            onBlur={onChange}
+          >
+            <option style={{ display: 'none' }}></option>
+            {cityOptions.map((tc, index) => (
+              <option key={index} value={tc.value}>
+                {tc.label}
+              </option>
+            ))}
+          </TextField>
+        )}
+      />
+      <Controller
+        name="district"
+        control={form.control}
+        render={({ onChange }) => (
+          <TextField
+            fullWidth
+            label="Quận"
+            disabled={districtOptions.length === 0}
+            required
+            select
+            SelectProps={{ native: true }}
+            variant="outlined"
+            value={district}
+            onChange={handleOnChangeDistrict}
+            onBlur={onChange}
+          >
+            <option style={{ display: 'none' }}></option>
+            {districtOptions.map((tc, index) => (
+              <option key={index} value={tc.value}>
+                {tc.label}
+              </option>
+            ))}
+          </TextField>
+        )}
+      />
+      <Controller
+        name="ward"
+        control={form.control}
+        render={({ onChange }) => (
+          <TextField
+            fullWidth
+            label="ward"
+            disabled={wardOptions.length === 0}
+            required
+            select
+            SelectProps={{ native: true }}
+            variant="outlined"
+            value={ward}
+            onChange={handleOnChangeWard}
+            onBlur={onChange}
+          >
+            <option style={{ display: 'none' }}></option>
+            {wardOptions.map((tc, index) => (
+              <option key={index} value={tc.value}>
+                {tc.label}
+              </option>
+            ))}
+          </TextField>
+        )}
+      />
+      {/* <Select
+        name="districtId"
+        key={`districtId_${selectedDistrict?.value}`}
+        isDisabled={districtOptions.length === 0}
+        options={districtOptions}
+        onChange={(option) => onDistrictSelect(option)}
+        placeholder="Quận/Huyện"
+        defaultValue={selectedDistrict}
+      />
+
+      <Select
+        name="wardId"
+        key={`wardId_${selectedWard?.value}`}
+        isDisabled={wardOptions.length === 0}
+        options={wardOptions}
+        placeholder="Phường/Xã"
+        onChange={(option) => onWardSelect(option)}
+        defaultValue={selectedWard}
+      /> */}
+    </>
+  );
+}
+
+export default AddressCombobox;
