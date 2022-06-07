@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import InputCombobox from './inputCommon/inputCombobox';
@@ -8,17 +8,6 @@ import useLocationForm from './address/useLocationForm';
 function ModifyAddress(props) {
   const { state, onCitySelect, onDistrictSelect, onWardSelect } = useLocationForm(false);
   const { cityOptions, districtOptions, wardOptions, selectedCity, selectedDistrict, selectedWard } = state;
-  const data = {
-    city: { value: 297, label: 'Hà Nội' },
-    detailAddress: '192.299283 asdjlasdjalsdjlas',
-    district: { value: 1, label: 'Quận Ba Đình' },
-    gender: 'Female',
-    nameCustomer: 'Holl John',
-    phoneNumber: '+84929363511',
-    ward: 'Xã Tuyết Nghĩa',
-  };
-  state.cityOptions = cityOptions;
-  state.selectedCity = data.city;
   const addressform = useForm({
     defaultValues: {
       city: '',
@@ -30,13 +19,12 @@ function ModifyAddress(props) {
     },
   });
   const handleSubmit = async (values) => {
-    values.city = state.selectedCity.label;
-    values.district = state.selectedDistrict.label;
-    values.ward = state.selectedWard.label;
+    values.city = state.selectedCity;
+    values.district = state.selectedDistrict;
+    values.ward = state.selectedWard;
     const { onSubmit } = props;
     if (onSubmit) {
-      console.log(values);
-      // await onSubmit(values);
+      await onSubmit(values);
     }
   };
   const handleOnChangeCity = (e) => {

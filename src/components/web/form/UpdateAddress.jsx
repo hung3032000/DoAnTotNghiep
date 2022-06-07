@@ -1,42 +1,86 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import InputCombobox from './inputCommon/inputCombobox';
 import Input from './inputCommon/inputText';
 import useLocationForm from './address/useLocationForm';
 
-function UpdateAddress(props) {
-  const { state, onCitySelect, onDistrictSelect, onWardSelect } = useLocationForm(false);
-  const { cityOptions, districtOptions, wardOptions, selectedCity, selectedDistrict, selectedWard } = state;
-  const data = {
-    city: { value: 297, label: 'Hà Nội' },
-    detailAddress: '192.299283 asdjlasdjalsdjlas',
-    district: { value: 1, label: 'Quận Ba Đình' },
-    gender: 'Female',
-    nameCustomer: 'Holl John',
-    phoneNumber: '+84929363511',
-    ward: 'Xã Tuyết Nghĩa',
-  };
-  onCitySelect(data.city);
-  onDistrictSelect(data.district);
+import axios from 'axios';
+import { PATHS } from 'constants/paths';
 
-  console.log(cityOptions);
-  console.log(data);
+const FETCH_TYPES = {
+  CITIES: 'FETCH_CITIES',
+  DISTRICTS: 'FETCH_DISTRICTS',
+  WARDS: 'FETCH_WARDS',
+};
+async function fetchLocationOptions(fetchType, locationId) {
+  let url;
+  switch (fetchType) {
+    case FETCH_TYPES.CITIES: {
+      url = PATHS.CITIES;
+      break;
+    }
+    case FETCH_TYPES.DISTRICTS: {
+      url = `${PATHS.DISTRICTS}/${locationId}.json`;
+      break;
+    }
+    case FETCH_TYPES.WARDS: {
+      url = `${PATHS.WARDS}/${locationId}.json`;
+      break;
+    }
+    default: {
+      return [];
+    }
+  }
+  const locations = (await axios.get(url)).data['data'];
+  return locations.map(({ id, name }) => ({ value: id, label: name }));
+}
+function UpdateAddress(props) {
+  const { data } = props;
+  const { state, onCitySelect, onDistrictSelect, onWardSelect } = useLocationForm(false);
+  let { cityOptions, districtOptions, wardOptions, selectedCity, selectedDistrict, selectedWard } = state;
+  const [state2, setState2] = useState({
+    cityOptions: [],
+    districtOptions: [],
+    wardOptions: [],
+    selectedCity: null,
+    selectedDistrict: null,
+    selectedWard: null,
+  });
   const addressform = useForm({
     defaultValues: {
-      city: '',
-      district: '',
-      ward: '',
-      nameCustomer: '',
-      detailAddress: '',
-      phoneNumber: '',
+      _id: data._id,
+      city: data.city,
+      district: data.district,
+      ward: data.ward,
+      nameCustomer: data.nameCustomer,
+      detailAddress: data.detailAddress,
+      phoneNumber: data.phoneNumber,
+      gender: data.gender,
     },
   });
 
+  useEffect(() => {
+    state.selectedCity = data.city;
+    state.selectedDistrict = data.district;
+    state.selectedWard = data.ward;
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      if (!data.city) return;
+      const options = await fetchLocationOptions(FETCH_TYPES.DISTRICTS, data.city.value);
+      setState2({ ...state, districtOptions: options });
+    })();
+  }, []);
+  state.districtOptions = state2.districtOptions;
+
   const handleSubmit = async (values) => {
-    values.city = state.selectedCity.label;
-    values.district = state.selectedDistrict.label;
-    values.ward = state.selectedWard.label;
+    values.city = state.selectedCity;
+    values.district = state.selectedDistrict;
+    values.ward = state.selectedWard;
+    values._id = data._id;
     const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);
@@ -83,7 +127,7 @@ function UpdateAddress(props) {
                   value={selectedCity?.value}
                   defaultValue={selectedCity}
                 >
-                  <option className="hidden">Tỉnh/Thành phố</option>
+                  <option className="hidden">Tỉnh/Thành</option>
                   {cityOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}

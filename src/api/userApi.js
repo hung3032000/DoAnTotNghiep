@@ -29,6 +29,18 @@ const userApi = {
     const url = '/addresses';
     return axiosClient.get(url);
   },
+  updateAddress:(id,data) => {
+    const url = `/addresses/${id}`;
+    return axiosClient.put(url,data);
+  },
+  updateDefaultAddress:(id,data) => {
+    const url = `/addresses/${id}`;
+    return axiosClient.put(url,data);
+  },
+  deleteAddress:(id) => {
+    const url = `/addresses/${id}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default userApi;

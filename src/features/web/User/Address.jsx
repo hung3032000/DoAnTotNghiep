@@ -5,17 +5,17 @@ import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
 import ModiffyAddress from 'components/web/form/ModifyAddress';
-import { addAddress } from 'slice/userSlice';
+import { addAddress, deleteAddress, updateAddress, updateDefaultAddress } from 'slice/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import UpdateAddress from 'components/web/form/UpdateAddress';
 
 const AccountOverView = function (props) {
   const dispatch = useDispatch();
-
+  const addresses = useSelector((state) => state.user.current.addresses);
   const handleAddressFormSubmit = async (values) => {
     try {
       setLoading(true);
-      console.log(values);
       const action = addAddress(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -26,6 +26,57 @@ const AccountOverView = function (props) {
       setLoading(false);
     }
   };
+  const handleUpdateAddressFormSubmit = async (values) => {
+    try {
+      setLoading(true);
+      const action = updateAddress(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleUpdateStatusFormSubmit = async (values) => {
+    try {
+      setLoading(true);
+      const data = {
+        _id: values._id,
+        city: values.city,
+        district: values.district,
+        ward: values.ward,
+        gender: values.gender,
+        nameCustomer: values.nameCustomer,
+        detailAddress: values.detailAddress,
+        phoneNumber: values.phoneNumber,
+        isdefault: true,
+      };
+      const action = updateDefaultAddress(data);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleDeleteFormSubmit = async (id) => {
+    try {
+      setLoading(true);
+      const action = deleteAddress(id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const [loading, setLoading] = useState(false);
   return (
     <>
@@ -42,60 +93,56 @@ const AccountOverView = function (props) {
         <div id="primary" className="primary-content">
           <div className="account-page">
             <div className="addresses-area" id="addresses">
-              <div>
-                <h1>
-                  <span className="title">Quản lý địa chỉ</span>
-                </h1>
-              </div>
+              <h1>
+                <span className="title">Quản lý địa chỉ</span>
+              </h1>
+
               <ul className="address-list">
-                <li className="address-tile  default">
-                  <div className="mini-address-title">
-                    484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)
-                    <h3 className="address-default">(Địa chỉ mặc định)</h3>
-                  </div>
-                  <div className="mini-address-name">PHAM HUNG</div>
-                  <div className="mini-address-location">
-                    <address>
-                      484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)<br></br>
-                      650000 QUẬN 9 <br></br>
-                      Hồ Chí minHeight<br></br>
-                      VN Telephone: +840929363511<br></br>
-                    </address>
-                  </div>
+                <>
+                  {addresses.length === 0 && <>Hiện tại chưa có địa chỉ nào</>}
+                  {addresses.map((data) => (
+                    <li key={data._id} className="address-tile default">
+                      <div className="mini-address-title">
+                        {data.detailAddress}
+                        {data.default && <h3 className="address-default"> (Địa chỉ mặc định) </h3>}
+                      </div>
+                      <div className="mini-address-name">
+                        <>
+                          {data.gender === 'Male' && 'Ông'}
+                          {data.gender === 'Female' && 'Bà'}.
+                        </>
+                        {data.nameCustomer}
+                      </div>
+                      <div className="mini-address-location">
+                        <address>
+                          {data.detailAddress}
+                          <br></br>
+                          {data.district.label}, {data.ward.label} <br></br>
+                          {data.city.label}
+                          <br></br>
+                          VN Telephone: {data.phoneNumber} <br></br>
+                        </address>
+                      </div>
 
-                  <Modal classNameModal={'anchor'} label={'Thay đổi'}>
-                    <div className="address-popin">
-                      <h1>Chỉnh sửa</h1>
-                      <ModiffyAddress onSubmit={handleAddressFormSubmit} />
-                    </div>
-                  </Modal>
+                      <Modal classNameModal={'anchor'} label={'Thay đổi'}>
+                        <div className="address-popin">
+                          <h1>Chỉnh sửa</h1>
+                          <UpdateAddress onSubmit={handleUpdateAddressFormSubmit} data={data} />
+                        </div>
+                      </Modal>
+                      <Modal classNameModal={'anchor'} label={'Xoá'}>
+                        <p>Bạn có chắc muốn xoá địa chỉ?</p>
+                        <button onClick={() => handleDeleteFormSubmit(data._id)}>Xoá</button>
+                      </Modal>
 
-                  <Modal classNameModal={'anchor'} label={'Xoá'}>
-                    Heelo
-                  </Modal>
-                </li>
-                <li className="address-tile ">
-                  <div className="mini-address-title">Quận 9</div>
-                  <div className="mini-address-name">PHAM HUNG</div>
-                  <div className="mini-address-location">
-                    <address>
-                      484 lê văn việt, tăng nhơn phú a,q9(Ktx đh spkt)<br></br>
-                      650000 QUẬN 9 <br></br>
-                      Hồ Chí minHeight<br></br>
-                      VN Telephone: +840929363511<br></br>
-                    </address>
-                  </div>
-                  <Modal classNameModal={'anchor'} label={'Thay đổi'}>
-                    Heelo
-                  </Modal>
-
-                  <Modal classNameModal={'anchor'} label={'Xoá'}>
-                    Heelo
-                  </Modal>
-                  <Modal classNameModal={'anchor'} label={'Choose a default address'}>
-                    Heelo
-                  </Modal>
-                </li>
+                      {!data.default && (
+                        <button className="anchor" onClick={() => handleUpdateStatusFormSubmit(data)}>
+                          Chọn địa chỉ mặc định
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </>
               </ul>
               <div className="form-row form-row-button">
                 <Modal classNameModal={'address-create form-button btn btn-outline-primary'} label={'Tạo địa chỉ mới'}>

@@ -64,6 +64,23 @@ export const addAddress = createAsyncThunk('user/addAddress', async (values) => 
   const data = await userApi.addAddress(values);
   return data;
 });
+
+export const updateAddress = createAsyncThunk('user/updateAddress', async (values) => {
+  const data = await userApi.updateAddress(values._id,values);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
+  return data;
+});
+export const updateDefaultAddress = createAsyncThunk('user/updateDefaultAddress', async (values) => {
+  const data = await userApi.updateAddress(values._id,values);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
+  return data;
+});
+export const deleteAddress = createAsyncThunk('user/deleteAddress', async (id) => {
+  const data = await userApi.deleteAddress(id);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
+  return data;
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -98,6 +115,19 @@ const userSlice = createSlice({
     [loginGoogle.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
+    [addAddress.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+    [updateAddress.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+    [updateDefaultAddress.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+    [deleteAddress.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+    
   },
 });
 

@@ -60,6 +60,7 @@ function useLocationForm(shouldFetchInitialLocation) {
   });
 
   const { selectedCity, selectedDistrict } = state;
+
   useEffect(() => {
     (async function () {
       if (shouldFetchInitialLocation) {
@@ -79,7 +80,7 @@ function useLocationForm(shouldFetchInitialLocation) {
       setState({ ...state, districtOptions: options });
     })();
   }, [selectedCity]);
-
+  
   useEffect(() => {
     (async function () {
       if (!selectedDistrict) return;
