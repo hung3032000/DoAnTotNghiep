@@ -12,13 +12,13 @@ function OrderHistory() {
   const [loading, setLoading] = useState(false);
   const dataOrderCList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
-
+  const [status, setStatus] = useState('Cancel');
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const action = getOrderAdmin({
-          status: 'Cancel',
+          status: status,
         });
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -28,12 +28,13 @@ function OrderHistory() {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
-  // const { enqueueSnackbar } = useSnackbar();
+  }, [dispatch,status]);
+  // const { enqueueSnackbar } = useSnackbar();  
+  const count = {status: status, count: dataOrderCList.length}
   return (
     <>
       <Loader showLoader={loading} />
-      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar />} listResults={<OrderListResults dataOrderCList={dataOrderCList} orderHistory={true}/>} />;
+      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar setStatus={setStatus} size={count} history={true} />} listResults={<OrderListResults dataOrderCList={dataOrderCList} orderHistory={true} />} />;
     </>
   );
 }

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 
 AddToCart.propTypes = {
   onSubmit: PropTypes.func,
+  soldOut: PropTypes.bool,
 };
 
 function AddToCart({ onSubmit = null }) {
@@ -25,7 +26,9 @@ function AddToCart({ onSubmit = null }) {
         <div style={{ display: 'none' }}>
           <QuantityField name="quantity" label="Quantity" form={form} value={1} />
         </div>
-        <button type="submit" title="Add to cart" value="Add to cart" className="form-button button--full add-to-cart disabled">
+        <button type="submit" 
+        // disabled 
+        title="Add to cart" value="Add to cart" className="form-button button--full add-to-cart disabled">
           Thêm vào giỏ hàng
         </button>
       </form>

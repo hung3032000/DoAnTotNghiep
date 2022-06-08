@@ -14,7 +14,7 @@ export const getListProductAdmin = createAsyncThunk('getListProductAdmin', async
   const response = await productApi.getAll(params);
   return response;
 });
-export const getListProductSearch = createAsyncThunk('getListProductAdmin', async (params) => {
+export const getListProductSearch = createAsyncThunk('getListProductSearch', async (params) => {
   const response = await productApi.getAllSearch(params);
   return response;
 });

@@ -2780,7 +2780,7 @@ a.secondary.filters-validate-bt:hover,
 .form-button.fitle-active,
 .form-row button.fitle-active,
 .form-row input[type='submit'].fitle-active,
-a.fitle-active.filters-validate-bt {
+a.fitle-active.filters-validate-bt,.active-btn {
   background: #f6f6f6;
 }
 

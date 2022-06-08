@@ -58,7 +58,6 @@ const ListCategorySlice = createSlice({
     // [getCategoryAdmin.fulfilled]: (state, action) => {
     //   state.dataA = [...state.dataA, action.payload];
     // },
-    
   },
 });
 const { reducer } = ListCategorySlice;

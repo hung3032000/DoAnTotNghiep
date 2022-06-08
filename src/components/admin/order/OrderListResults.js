@@ -34,7 +34,7 @@ function OrderListResults(props) {
       data.push({ _id: element._id, dataOrder: element });
     });
   }
-  console.log(dataOrderCList);
+
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -96,7 +96,7 @@ function OrderListResults(props) {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = data.map((orderList) => orderList.id);
+      newSelectedCustomerIds = dataOrderCList.map((orderList) => orderList.id);
     } else {
       newSelectedCustomerIds = [];
     }

@@ -69,11 +69,11 @@ function UpdateAddress(props) {
 
   useEffect(() => {
     (async function () {
-      if (!data.city) return;
-      const options = await fetchLocationOptions(FETCH_TYPES.DISTRICTS, data.city.value);
+      if (!state.selectedCity) return;
+      const options = await fetchLocationOptions(FETCH_TYPES.DISTRICTS, state.selectedCity.value);
       setState2({ ...state, districtOptions: options });
     })();
-  }, []);
+  }, [state.selectedCity]);
   state.districtOptions = state2.districtOptions;
 
   const handleSubmit = async (values) => {
