@@ -1,39 +1,25 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteUser, getAllUser, updateUser } from 'slice/userSlice';
+import { deleteUser, updateUser } from 'slice/userSlice';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Loader from 'components/fullPageLoading';
-
+import { useDispatch } from 'react-redux';
 import UserEditForm from '../form/User/UserEditForm';
 import Pagination from 'components/web/pagination';
 UserListResults.propTypes = {
   closeDialog: PropTypes.func,
 };
 let PageSize = 10;
-function UserListResults() {
+function UserListResults(props) {
   const [loading, setLoading] = useState(false);
+  const { dataUserList } = props;
   const dispatch = useDispatch();
-  const dataUserList = useSelector((state) => state.user.userList);
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const action = getAllUser();
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch, dataUserList.lenght]);
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -68,6 +54,7 @@ function UserListResults() {
 
   const handleEditUFormSubmit = async (values) => {
     try {
+      setLoading(true);
       const action = updateUser(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -76,10 +63,13 @@ function UserListResults() {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
   const handleDelUFormSubmit = async (id) => {
     try {
+      setLoading(true);
       const action = deleteUser(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -88,6 +78,8 @@ function UserListResults() {
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
   const [currentPage, setCurrentPage] = useState(1);

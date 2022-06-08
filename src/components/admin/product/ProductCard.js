@@ -2,56 +2,23 @@ import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
-import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
-import { getListProductAdmin } from 'slice/ProductListSlice';
+
 import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { formatPrice } from 'utils';
 import ProductEditForm from '../form/products/ProductsEditForm';
 import ProductDetailForm from '../form/products/ProductsDetailForm';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
 let PageSize = 6;
-function ProductCard() {
+function ProductCard(props) {
   const [loading, setLoading] = useState(false);
-
-  //fetch data category
-  const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
-  const dataProductsList = useSelector((state) => state.productList.dataA);
-
   const dispatch = useDispatch();
 
-  //fetch data category
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-
-        //categoryC
-        const actionChild = getListCategoryChildAdmin({
-          page: 1,
-          limit: 10,
-        });
-        const resultActionChild = await dispatch(actionChild);
-        unwrapResult(resultActionChild);
-        //product
-        const actionGetProducts = getListProductAdmin({
-          page: 1,
-          limit: 100,
-        });
-        const resultActionGetProducts = await dispatch(actionGetProducts);
-        unwrapResult(resultActionGetProducts);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch]);
-
+  const { dataProductsList, dataCategoryCList } = props;
   const { enqueueSnackbar } = useSnackbar();
 
   //handl action

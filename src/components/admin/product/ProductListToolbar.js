@@ -9,7 +9,8 @@ import { Search as SearchIcon } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductsNewForm from '../form/products/ProductsNewForm';
 
-function ProductListToolbar() {
+function ProductListToolbar(props) {
+  const { data, setProductsList } = props;
 
   const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
   const dispatch = useDispatch();
@@ -23,22 +24,26 @@ function ProductListToolbar() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-
-  const handleNewUFormSubmit = async (values,data) => {
+  const handleNewUFormSubmit = async (values, data) => {
     try {
       const action = addProductProductDetail(values);
       const resultAction = await dispatch(action);
       const products = unwrapResult(resultAction);
-      adminAPI.updateImageProduct(products._id,data);
+      adminAPI.updateImageProduct(products._id, data);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
       window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
-
     }
   };
-
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions = data.filter(function (el) {
+      return el.name.toLowerCase().indexOf(query) > -1;
+    });
+    setProductsList(filterSuggestions);
+  };
   return (
     <Box>
       <Box
@@ -47,7 +52,7 @@ function ProductListToolbar() {
           justifyContent: 'flex-end',
         }}
       >
-      <ProductsNewForm onSubmit={handleNewUFormSubmit} categoriesC={dataCategoryCList}/>
+        <ProductsNewForm onSubmit={handleNewUFormSubmit} categoriesC={dataCategoryCList} />
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
@@ -55,6 +60,7 @@ function ProductListToolbar() {
             <Box sx={{ maxWidth: 500 }}>
               <TextField
                 fullWidth
+                onChange={handleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

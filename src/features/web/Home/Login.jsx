@@ -38,16 +38,33 @@ const Login = function () {
     }
   };
   const responseGoogleSuccess = async (response) => {
-    setLoading(true);
-    const data = { tokenId: response.tokenId };
-    const action = loginGoogle(data);
-    const resultAction = await dispatch(action);
-    unwrapResult(resultAction);
-    history.push('/');
-    window.location.reload();
+    try {
+      setLoading(true);
+      const data = { tokenId: response.tokenId };
+      const action = loginGoogle(data);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      history.push('/');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar("Tài khoản đã bị vô hiệu hoá", { variant: 'error' });
+    }finally {
+      setLoading(false);
+    }
+
   };
   const responseGoogle = (response) => {
-    enqueueSnackbar(response.error, { variant: 'error' });
+    try {
+      setLoading(true);
+      console.log(response.error);
+      enqueueSnackbar(response.error, { variant: 'error' });
+    } catch (error) {
+      console.log(error);
+    }finally{
+      setLoading(false);
+    }
+
   };
   return (
     <div>

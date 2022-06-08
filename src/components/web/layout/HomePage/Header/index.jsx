@@ -34,7 +34,7 @@ const Header = function (props) {
         if (dataCategoryList.length === 0) {
           setLoading(true);
           const action = getListCategory({
-            limit: 20,
+            limit: 50,
             status: true,
           });
           const resultAction = await dispatch(action);

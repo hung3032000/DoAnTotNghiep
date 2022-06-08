@@ -7,10 +7,10 @@ import { useDispatch } from 'react-redux';
 import { addUser } from 'slice/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-function UserListToolbar() {
+function UserListToolbar(props) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-
+  const { data, setUserList } = props;
   const handleNewUFormSubmit = async (values) => {
     try {
       const action = addUser(values);
@@ -25,6 +25,13 @@ function UserListToolbar() {
     }
   };
 
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions = data.filter(function (el) {
+      return el.email.toLowerCase().indexOf(query) > -1;
+    });
+    setUserList(filterSuggestions);
+  };
   return (
     <Box>
       <Box
@@ -33,7 +40,7 @@ function UserListToolbar() {
           justifyContent: 'flex-end',
         }}
       >
-      <UserNewForm onSubmit={handleNewUFormSubmit} />
+        <UserNewForm onSubmit={handleNewUFormSubmit} />
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
@@ -41,6 +48,7 @@ function UserListToolbar() {
             <Box sx={{ maxWidth: 500 }}>
               <TextField
                 fullWidth
+                onChange={handleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

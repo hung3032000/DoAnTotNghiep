@@ -43,6 +43,8 @@ function UpdateInfoForm(props) {
       await onSubmit(values);
     }
   };
+
+
   return (
     <form className="form-horizontal edit-account-form" id="RegistrationForm" onSubmit={updateForm.handleSubmit(handleSubmit)}>
       <p className="required-msg">Tất cả các trường có dấu * là bắt buộc</p>
@@ -60,11 +62,6 @@ function UpdateInfoForm(props) {
             Lưu thay đổi
           </button>
         </div>
-        {/* <div className="form-row form-row-button">
-            <button type="button" className="delete-account" value="Delete account" name="dwfrm_profile_deleteaccount">
-              Xoá tài khoản
-            </button>
-          </div> */}
       </fieldset>
     </form>
   );
