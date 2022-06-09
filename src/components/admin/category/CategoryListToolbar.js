@@ -6,10 +6,17 @@ import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 
-function CategoryListToolbar() {
+function CategoryListToolbar(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  const { data, setCategoryList } = props;
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions = data.filter(function (el) {
+      return el.nameCategory.toLowerCase().indexOf(query) > -1;
+    });
+    setCategoryList(filterSuggestions);
+  };
   const handleNewCategoryFormSubmit = async (values) => {
     try {
       const action = createNewCategoryAdmin(values);
@@ -36,9 +43,10 @@ function CategoryListToolbar() {
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+            <Box>
               <TextField
-                fullwidth="true"
+                fullWidth
+                onChange={handleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -48,7 +56,7 @@ function CategoryListToolbar() {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search customer"
+                placeholder="Tìm kiếm"
                 variant="outlined"
               />
             </Box>

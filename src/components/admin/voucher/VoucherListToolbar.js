@@ -48,7 +48,7 @@ function VoucherListToolbar() {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search customer"
+                placeholder="Tìm kiếm"
                 variant="outlined"
               />
             </Box>

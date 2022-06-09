@@ -4,39 +4,30 @@ import { Search as SearchIcon } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryCNewForm from 'components/admin/form/categoryChild/CategoryCNewForm';
 import { createNewCategoryCAdmin } from 'slice/CategoryChildSlice';
-import { getListCategoryAdmin } from 'slice/CategorySlice';
-import { useEffect } from 'react';
 import adminAPI from 'api/adminAPI';
 import { useSnackbar } from 'notistack';
 
-function CategoryChildListToolbar() {
+function CategoryChildListToolbar(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  const { data, setSubCategoryList } = props;
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions = data.filter(function (el) {
+      return el.namesubCategory.toLowerCase().indexOf(query) > -1;
+    });
+    setSubCategoryList(filterSuggestions);
+  };
   const dataCategoryList = useSelector((state) => state.categoryList.dataA);
 
-  //fetch data category
-  useEffect(() => {
-    (async () => {
-      try {
-        const action = getListCategoryAdmin({
-          page: 1,
-          limit: 100
-        });
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [dispatch, dataCategoryList.length]);
 
-  const handleNewCategoryCFormSubmit = async (values,data) => {
+
+  const handleNewCategoryCFormSubmit = async (values, data) => {
     try {
       const action = createNewCategoryCAdmin(values);
       const resultAction = await dispatch(action);
       const categoryC = unwrapResult(resultAction);
-      adminAPI.updateImageCategoriesC(categoryC._id,data);
+      adminAPI.updateImageCategoriesC(categoryC._id, data);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
       window.location.reload();
     } catch (error) {
@@ -58,9 +49,10 @@ function CategoryChildListToolbar() {
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+            <Box>
               <TextField
-                fullwidth="true"
+                fullWidth
+                onChange={handleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -70,7 +62,7 @@ function CategoryChildListToolbar() {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search customer"
+                placeholder="Tìm kiếm"
                 variant="outlined"
               />
             </Box>

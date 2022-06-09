@@ -45,7 +45,7 @@ function UserListToolbar(props) {
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+            <Box>
               <TextField
                 fullWidth
                 onChange={handleChange}
@@ -58,7 +58,7 @@ function UserListToolbar(props) {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search customer"
+                placeholder="Tìm kiếm"
                 variant="outlined"
               />
             </Box>

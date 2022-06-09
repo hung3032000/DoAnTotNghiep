@@ -1,50 +1,22 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteCategoryCAdmin, getListCategoryChildAdmin, updateCategoryCAdmin } from 'slice/CategoryChildSlice';
-import { getListCategoryAdmin } from 'slice/CategorySlice';
+import { deleteCategoryCAdmin, updateCategoryCAdmin } from 'slice/CategoryChildSlice';
 import moment from 'moment';
-import { useEffect, useState,useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CategoryCEditForm from '../form/categoryChild/CategoryCEditForm';
 import adminAPI from 'api/adminAPI';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
 let PageSize = 5;
-function CategoryChildListResults() {
-  const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
-  const dataCategoryList = useSelector((state) => state.categoryList.dataA);
+function CategoryChildListResults(props) {
   const [loading, setLoading] = useState(false);
-
+  const { dataCategoryCList, dataCategoryList } = props;
   const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
 
-        const action = getListCategoryChildAdmin({
-          page: 1,
-          limit: 5,
-        });
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-
-        const actionCateP = getListCategoryAdmin({
-          page: 1,
-          limit: 100,
-        });
-        const resultActionActionCateP = await dispatch(actionCateP);
-        unwrapResult(resultActionActionCateP);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch]);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-
 
   const handleOnEdit = async (values, data) => {
     try {

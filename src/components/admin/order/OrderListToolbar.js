@@ -31,8 +31,6 @@ function OrderListToolbar(props) {
       }
     })();
   }, [size.count, size.status]);
-  console.log(cancelCOunt);
-  console.log(doneCOunt);
   return (
     <>
       <Box sx={{ mt: 3 }}>
@@ -56,7 +54,7 @@ function OrderListToolbar(props) {
                                 </InputAdornment>
                               ),
                             }}
-                            placeholder="Search customer"
+                            placeholder="Tìm kiếm"
                             variant="outlined"
                           />
                         </Grid>

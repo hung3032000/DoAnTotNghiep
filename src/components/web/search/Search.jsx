@@ -20,6 +20,7 @@ function Search() {
           search
         </button>
       </div>
+      
       <div className="results">
         <div className="results-area">
           <div id="search-suggestions">

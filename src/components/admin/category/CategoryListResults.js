@@ -1,39 +1,19 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteCategoryAdmin, getListCategoryAdmin, updateCategoryAdmin } from 'slice/CategorySlice';
+import { deleteCategoryAdmin, updateCategoryAdmin } from 'slice/CategorySlice';
 import moment from 'moment';
-import { useEffect, useState,useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CategoryEditForm from '../form/category/CategoryEditForm';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
 let PageSize = 3;
-function CategoryListResults() {
-  const dataCategoryList = useSelector((state) => state.categoryList.dataA);
+function CategoryListResults(props) {
+  const { dataCategoryList } = props;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
-  //fetch data category
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-
-        const action = getListCategoryAdmin({
-          page: 1,
-          limit: 100,
-        });
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch, dataCategoryList.length]);
 
   const handleOnEdit = async (values) => {
     try {
@@ -68,7 +48,6 @@ function CategoryListResults() {
   };
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -125,7 +104,6 @@ function CategoryListResults() {
                     />
                   </TableCell>
                   <TableCell>Tên danh mục</TableCell>
-                  {/* <TableCell>Email</TableCell> */}
                   <TableCell>Số danh mục con</TableCell>
                   <TableCell>Ngày tạo</TableCell>
                   <TableCell>Trạng thái</TableCell>

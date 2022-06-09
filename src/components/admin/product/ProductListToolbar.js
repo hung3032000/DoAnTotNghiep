@@ -57,7 +57,7 @@ function ProductListToolbar(props) {
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+            <Box>
               <TextField
                 fullWidth
                 onChange={handleChange}
@@ -70,7 +70,7 @@ function ProductListToolbar(props) {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search product"
+                placeholder="Tìm kiếm"
                 variant="outlined"
               />
             </Box>

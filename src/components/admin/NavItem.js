@@ -2,32 +2,25 @@ import { matchPath, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
 
-const NavItem = ({
-  href,
-  icon: Icon,
-  title,
-  ...rest
-}) => {
+const NavItem = ({ href, icon: Icon, title, ...rest }) => {
   const location = useLocation();
 
-  const active = href ? !!matchPath({
-    path: href,
-    end: false
-  }, location.pathname) : false;
+  const active = href
+    ? !!matchPath(location.pathname, {
+        path: href,
+      })
+    : false;
 
   return (
     <ListItem
       disableGutters
       sx={{
         display: 'flex',
-        py: 0
+        py: 0,
       }}
       {...rest}
     >
-      <a
-        href={href}
-        style={{ width: '100%',"textDecoration" : "none" }}
-      >
+      <a href={href} style={{ width: '100%', textDecoration: 'none' }}>
         <Button
           sx={{
             color: 'text.secondary',
@@ -38,11 +31,11 @@ const NavItem = ({
             textTransform: 'none',
             width: '100%',
             ...(active && {
-              color: 'primary.main'
+              color: 'primary.main',
             }),
             '& svg': {
-              mr: 1
-            }
+              mr: 1,
+            },
           }}
         >
           {Icon && <Icon size="20" />}
@@ -56,7 +49,7 @@ const NavItem = ({
 NavItem.propTypes = {
   href: PropTypes.string,
   icon: PropTypes.elementType,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default NavItem;
