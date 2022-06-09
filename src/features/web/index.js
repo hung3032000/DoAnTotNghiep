@@ -49,6 +49,12 @@ const Page = [
     path: '/usercart',
     exact: true,
     main: UserCart
+  },
+  {
+    path: '/search',
+    exact: false,
+    main: Home
   }
+
 ];
 export default Page;
