@@ -4,7 +4,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Autocomplete from 'components/autoComplete';
 import { useHistory } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 function Search() {
   const history = useHistory();
