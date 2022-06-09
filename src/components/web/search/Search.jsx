@@ -3,24 +3,31 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 import Autocomplete from 'components/autoComplete';
+import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 function Search() {
-
+  const history = useHistory();
+  const handleOnClick = () => {
+    let queryString = 'q=New';
+    //+  "New";
+    history.push(`/search?${queryString}`);
+  };
   const dataProductList = useSelector((state) => state.productList.search);
   return (
     <>
       <div className="form-row-search placeholder">
         <div className="form-field-wrapper">
           <div className="form-field">
-            <Autocomplete data={dataProductList} classNameInput="form-input topSearch-field" placeholderInput="Search by keyword, style etc" titleInput="Enter search words"/>
+            <Autocomplete data={dataProductList} classNameInput="form-input topSearch-field" placeholderInput="Search by keyword, style etc" titleInput="Enter search words" />
           </div>
         </div>
-        <button className="btn btn-link" type="submit">
+        <button className="btn btn-link" type="submit" onClick={handleOnClick}>
           {/* disabled="disabled" */}
           search
         </button>
       </div>
-      
+
       <div className="results">
         <div className="results-area">
           <div id="search-suggestions">
