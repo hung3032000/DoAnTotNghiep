@@ -45,7 +45,7 @@ function OrderHistory() {
       <Common
         title="Quản lý lịch sử đơn hàng"
         toolbar={<OrderListToolbar data={filterSuggestions} setStatus={setStatus} setOrderList={setOrderList} size={count} history={true} />}
-        listResults={<OrderListResults dataOrderCList={orderHistoryList.length === 0 ? dataOrderCList : orderHistoryList} orderHistory={true} status={status} />}
+        listResults={<OrderListResults dataOrderCList={orderHistoryList.length === 0 ? filterSuggestions : orderHistoryList} orderHistory={true} status={status} />}
       />
 
       ;
