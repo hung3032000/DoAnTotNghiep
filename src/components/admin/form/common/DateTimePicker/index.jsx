@@ -25,7 +25,7 @@ function Index(props) {
         render={({ onChange }) => (
           <TextField
             type="date"
-            fullWidth
+            fullWidth={true}
             label={label}
             onChange={handleOnChange}
             onBlur={onChange}

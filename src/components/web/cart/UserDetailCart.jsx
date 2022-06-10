@@ -116,7 +116,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
       <div className="col-sm-6">
         <h2 className="products-title">Products</h2>
         {dataCart.map((card, index) => (
-          <div className="line-item" data-product="BW60T4111N-100" data-quantity={2.0}>
+          <div key={index} className="line-item" data-product="BW60T4111N-100" data-quantity={2.0}>
             <div className="product-image">
               <img src={card.product.images ? card.product.images : THUMNAIL_URL_PRODUCTINFO} alt="Lỗi ảnh" />
             </div>

@@ -45,7 +45,7 @@ function AddressCombobox(props) {
         control={form.control}
         render={({ onChange }) => (
           <TextField
-            fullWidth
+            fullWidth={true}
             label="Tỉnh/Thành phố"
             required
             select
@@ -69,7 +69,7 @@ function AddressCombobox(props) {
         control={form.control}
         render={({ onChange }) => (
           <TextField
-            fullWidth
+            fullWidth={true}
             label="Quận"
             disabled={districtOptions.length === 0}
             required
@@ -94,7 +94,7 @@ function AddressCombobox(props) {
         control={form.control}
         render={({ onChange }) => (
           <TextField
-            fullWidth
+            fullWidth={true}
             label="ward"
             disabled={wardOptions.length === 0}
             required

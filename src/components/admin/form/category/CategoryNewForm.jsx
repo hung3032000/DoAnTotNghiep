@@ -34,7 +34,7 @@ function CategoryNewForm(props) {
         Thêm danh mục
       </Button>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Thêm danh mục mới</DialogTitle>
         <DialogContent>
           <Box

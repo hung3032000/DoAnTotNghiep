@@ -14,7 +14,7 @@ function Index(props) {
   const width = widthCustome === undefined ? 6 : widthCustome;
   return (
     <Grid item md={width} xs={12}>
-      <TextField fullWidth label={label} disabled value={edit} variant="outlined" InputProps={InputProps}/>
+      <TextField fullWidth={true} label={label} disabled value={edit} variant="outlined" InputProps={InputProps}/>
     </Grid>
   );
 }

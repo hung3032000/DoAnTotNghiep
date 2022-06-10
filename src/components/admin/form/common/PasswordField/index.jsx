@@ -22,7 +22,7 @@ function Index(props) {
   };
   return (
     <Grid item md={6} xs={12}>
-      <FormControl fullWidth variant="outlined">
+      <FormControl fullWidth={true} variant="outlined">
         <InputLabel htmlFor={name}>{label}</InputLabel>
 
         <Controller

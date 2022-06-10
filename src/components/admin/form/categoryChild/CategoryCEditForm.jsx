@@ -63,7 +63,7 @@ function CategoryCEditForm(props) {
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>
         <EditIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Cập nhập thông tin danh mục con</DialogTitle>
         <DialogContent>
           <Box
@@ -88,7 +88,7 @@ function CategoryCEditForm(props) {
                           name="photo"
                           defaultValue
                           control={categoryEditForm.control}
-                          render={() => <TextField fullWidth type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
+                          render={() => <TextField fullWidth={true} type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
                         />
                       </Grid>
                     </Grid>

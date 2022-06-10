@@ -65,7 +65,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 helperText="Please specify the first name"
                 label="First name"
                 name="firstName"
@@ -81,7 +81,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 label="Last name"
                 name="lastName"
                 onChange={handleChange}
@@ -96,7 +96,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 label="Email Address"
                 name="email"
                 onChange={handleChange}
@@ -111,7 +111,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
@@ -126,7 +126,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 label="Country"
                 name="country"
                 onChange={handleChange}
@@ -141,7 +141,7 @@ const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
-                fullwidth="true"
+                fullWidth={true}
                 label="Select State"
                 name="state"
                 onChange={handleChange}

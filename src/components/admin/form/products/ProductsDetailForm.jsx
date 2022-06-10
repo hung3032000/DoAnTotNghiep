@@ -31,7 +31,7 @@ function ProductsDetailForm(props) {
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>
         <InfoIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Thông tin chi tiết sản phẩm</DialogTitle>
         <DialogContent>
           <Box

@@ -6,10 +6,10 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import {addVoucher } from 'slice/voucherSlice';
 
-function VoucherListToolbar() {
+function VoucherListToolbar(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  const { data, setVoucherList } = props;
   const handleNewCategoryFormSubmit = async (values) => {
     try {
       const action = addVoucher(values);
@@ -22,7 +22,13 @@ function VoucherListToolbar() {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
-
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions = data.filter(function (el) {
+      return el.nameVouncher.toLowerCase().indexOf(query) > -1;
+    });
+    setVoucherList(filterSuggestions);
+  };
   return (
     <Box>
       <Box
@@ -36,9 +42,10 @@ function VoucherListToolbar() {
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+            <Box>
               <TextField
-                fullwidth="true"
+                onChange={handleChange}
+                fullWidth={true}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

@@ -32,7 +32,7 @@ const SettingsPassword = (props) => {
         <Divider />
         <CardContent>
           <TextField
-            fullWidth
+            fullWidth={true}
             label="Password"
             margin="normal"
             name="password"
@@ -42,7 +42,7 @@ const SettingsPassword = (props) => {
             variant="outlined"
           />
           <TextField
-            fullWidth
+            fullWidth={true}
             label="Confirm password"
             margin="normal"
             name="confirm"

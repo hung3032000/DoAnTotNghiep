@@ -64,7 +64,7 @@ function UserEditForm(props) {
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>
         <EditIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Cập nhập thông tin</DialogTitle>
         <DialogContent>
           <Box

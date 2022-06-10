@@ -14,7 +14,7 @@ function Status(props) {
   const width = widthCustome === undefined ? 6 : widthCustome;
   return (
     <Grid item md={width} xs={12}>
-      <TextField fullWidth label={label} disabled value={edit ? "Còn hàng" : "Hết hàng"} variant="outlined" />
+      <TextField fullWidth={true} label={label} disabled value={edit ? "Còn hàng" : "Hết hàng"} variant="outlined" />
     </Grid>
   );
 }

@@ -51,7 +51,7 @@ function CategoryChildListToolbar(props) {
           <CardContent>
             <Box>
               <TextField
-                fullWidth
+                fullWidth={true}
                 onChange={handleChange}
                 InputProps={{
                   startAdornment: (

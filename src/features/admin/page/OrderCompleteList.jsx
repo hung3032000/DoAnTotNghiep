@@ -11,7 +11,7 @@ function OrderListComplete() {
   const [loading, setLoading] = useState(false);
   const dataOrderCList = useSelector((state) => state.order.dataComplete);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     (async () => {
       try {
@@ -29,10 +29,17 @@ function OrderListComplete() {
     })();
   }, [dispatch]);
   // const { enqueueSnackbar } = useSnackbar();
+  const [orderList, setOrderList] = useState(dataOrderCList);
+  console.log(orderList);
   return (
     <>
       <Loader showLoader={loading} />
-      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar />} listResults={<OrderListResults dataOrderCList={dataOrderCList} orderComplete={true} />} />;
+      <Common
+        title="Quản lý đơn hàng"
+        toolbar={<OrderListToolbar data={dataOrderCList} setOrderList={setOrderList} orderComplete={true}/>}
+        listResults={<OrderListResults dataOrderCList={orderList.length === 0 ? dataOrderCList : orderList} orderComplete={true} />}
+      />
+      ;
     </>
   );
 }

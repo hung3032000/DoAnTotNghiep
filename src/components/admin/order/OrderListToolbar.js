@@ -3,32 +3,63 @@ import { Search as SearchIcon } from 'react-feather';
 import { Container } from '@material-ui/core';
 import { Avatar, Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-
 import { green } from '@material-ui/core/colors';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 function OrderListToolbar(props) {
   const [active, setActive] = useState(0);
-  let { setStatus, history, size } = props;
-
+  const { orderComplete } = props;
+  let { setStatus, history, size, setOrderList, data } = props;
+  const [cancelCOunt, setCancelCount] = useState(0);
+  const [doneCOunt, setDoneCount] = useState(0);
   const buttons = [
-    { _id: 1, value: 'Đơn đã huỷ', status: 'Cancel', size: size ? size.count : 0 },
-    { _id: 2, value: 'Đơn đã xử lý', status: 'Done', size: size ? size.count : 0 },
+    { _id: 1, value: 'Đơn đã huỷ', status: 'Cancel', size: cancelCOunt },
+    { _id: 2, value: 'Đơn đã xử lý', status: 'Done', size: doneCOunt },
   ];
-
+  useEffect(() => {
+    (async () => {
+      try {
+        if (size.status === 'Cancel') {
+          setCancelCount(size.count);
+        } else {
+          setDoneCount(size.count);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // setLoading(false);
+      }
+    })();
+  }, [size]);
+  const handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    var filterSuggestions;
+    if (orderComplete) {
+      filterSuggestions = data.filter(function (el) {
+        return el.orderId.userId.email.toLowerCase().indexOf(query) > -1;
+      });
+    } else {
+      filterSuggestions = data.filter(function (el) {
+        return el.userId.email.toLowerCase().indexOf(query) > -1;
+      });
+    }
+    setOrderList(filterSuggestions);
+  };
+  const number = history ? 6 : 12;
   return (
     <>
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
             <Box>
-              <Container maxWidth={false}>
+              <Container maxWidth={true}>
                 <Grid container spacing={3}>
-                  <Grid item lg={6} sm={6} xl={6} xs={12}>
+                  <Grid item lg={number} xs={12}>
                     <CardContent>
                       <Grid sx={{ justifyContent: 'space-between' }}>
                         <Grid item>
                           <TextField
-                            fullWidth
+                            onChange={handleChange}
+                            fullWidth={true}
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -47,7 +78,7 @@ function OrderListToolbar(props) {
                   </Grid>
                   {history &&
                     buttons.map((tc, index) => (
-                      <Grid item lg={3} sm={6} xl={3} xs={12}>
+                      <Grid key={index} item lg={3} sm={6} xl={3} xs={12}>
                         <Button
                           className={active === index ? 'active-btn' : ''}
                           key={index}

@@ -56,7 +56,7 @@ function UserNewForm(props) {
         Thêm người dùng
       </Button>
 
-      <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
+      <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Thêm người dùng mới</DialogTitle>
         <DialogContent>
           <Box

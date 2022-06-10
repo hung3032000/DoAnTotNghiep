@@ -5,7 +5,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
 import { deleteOrderAdmin, addOrderCompleteAdmin, statusOrderComplete } from 'slice/OrderSlice';
 import { useDispatch } from 'react-redux';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { formatPrice } from 'utils';
@@ -22,7 +22,7 @@ OrderListResults.propTypes = {
 
 function OrderListResults(props) {
   const [loading, setLoading] = useState(false);
-  const { dataOrderCList, orderComplete, orderHistory } = props;
+  const { dataOrderCList, orderComplete, orderHistory, status } = props;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   let data = [];
   if (orderComplete) {
@@ -34,7 +34,6 @@ function OrderListResults(props) {
       data.push({ _id: element._id, dataOrder: element });
     });
   }
-
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -122,12 +121,15 @@ function OrderListResults(props) {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [status]);
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, data]);
+
   return (
     <>
       <Loader showLoader={loading} />

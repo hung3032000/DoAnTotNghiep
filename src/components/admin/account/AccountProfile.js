@@ -46,7 +46,7 @@ function AccountProfile() {
       <Divider />
       <CardActions>
         <input type="file" accept=".jpg,.png"  />
-        <Button variant="text" component="label" color="primary" fullWidth >
+        <Button variant="text" component="label" color="primary" fullWidth={true} >
           Upload File
         </Button>
       </CardActions>

@@ -80,7 +80,7 @@ function ProductEditForm(props) {
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>
         <EditIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Cập nhập thông tin</DialogTitle>
         <DialogContent>
           <Box
@@ -111,7 +111,7 @@ function ProductEditForm(props) {
                             <Controller
                               name="photo"
                               control={productsEditForm.control}
-                              render={() => <TextField fullWidth type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
+                              render={() => <TextField fullWidth={true} type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
                             />
                           </Grid>
                         </Grid>

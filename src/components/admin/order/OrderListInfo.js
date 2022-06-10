@@ -41,7 +41,7 @@ function OrderListInfo(props) {
         <InfoIcon />
       </IconButton>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Chi tiết đơn hàng</DialogTitle>
         <DialogContent>
           <Box

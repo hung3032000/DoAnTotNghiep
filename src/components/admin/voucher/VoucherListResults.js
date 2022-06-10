@@ -1,35 +1,19 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useEffect, useState,useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import VoucherEditForm from 'components/admin/form/voucher/VoucherEditForm';
 import Loader from 'components/fullPageLoading';
-import { getAllVoucher,updateVoucher,deleteVoucher } from 'slice/voucherSlice';
+import { updateVoucher, deleteVoucher } from 'slice/voucherSlice';
 import Pagination from 'components/web/pagination';
 
 let PageSize = 10;
-function VoucherListResults() {
-  const dataVoucherList = useSelector((state) => state.voucher.voucher);
+function VoucherListResults(props) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
-  //fetch data category
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const action = getAllVoucher();
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [dispatch, dataVoucherList.length]);
+  const { dataVoucherList } = props;
 
   const handleOnEdit = async (values) => {
     try {
@@ -175,7 +159,6 @@ function VoucherListResults() {
           </Box>
         </PerfectScrollbar>
         <Pagination className="pagination cursor" currentPage={currentPage} totalCount={dataVoucherList.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
-
       </Card>
     </>
   );

@@ -40,7 +40,7 @@ const CustomerListToolbar = (props) => (
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
             <TextField
-              fullwidth="true"
+              fullWidth={true}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

@@ -55,7 +55,7 @@ function ProductsNewForm(props) {
         Thêm sản phẩm
       </Button>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Thêm sản phẩm mới</DialogTitle>
         <DialogContent>
           <Box
@@ -85,7 +85,7 @@ function ProductsNewForm(props) {
                             <Controller
                               name="photo"
                               control={productsNewForm.control}
-                              render={() => <TextField fullWidth required type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
+                              render={() => <TextField fullWidth={true} required type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
                             />
                           </Grid>
                         </Grid>

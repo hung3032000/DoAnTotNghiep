@@ -26,7 +26,7 @@ function Index(props) {
           <TextField
             type={number ? 'number' : 'text'}
             InputProps={{ inputProps: { min: 1 } }}
-            fullWidth
+            fullWidth={true}
             label={label}
             onChange={handleOnChange}
             onBlur={onChange}

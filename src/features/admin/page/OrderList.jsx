@@ -29,10 +29,17 @@ function OrderList() {
       }
     })();
   }, [dispatch]);
+  const [orderList, setOrderList] = useState(dataOrderCList);
+
   return (
     <>
       <Loader showLoader={loading} />
-      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar />} listResults={<OrderListResults dataOrderCList={dataOrderCList} />} />;
+      <Common
+        title="Quản lý đơn hàng"
+        toolbar={<OrderListToolbar data={dataOrderCList} setOrderList={setOrderList} />}
+        listResults={<OrderListResults dataOrderCList={orderList.length === 0 ? dataOrderCList : orderList} />}
+      />
+      ;
     </>
   );
 }

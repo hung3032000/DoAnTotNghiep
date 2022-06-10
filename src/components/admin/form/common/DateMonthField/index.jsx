@@ -66,7 +66,7 @@ function Index(props) {
           control={form.control}
           render={({ onChange, onBlur, value }) => (
             
-            <TextField fullWidth label="Ngày sinh" select SelectProps={{ native: true }} variant="outlined" value={value} onChange={onChange} onBlur={onBlur}>
+            <TextField fullWidth={true} label="Ngày sinh" select SelectProps={{ native: true }} variant="outlined" value={value} onChange={onChange} onBlur={onBlur}>
               <option style={{ display: 'none' }}></option>
               {dayOptions.map((tc, index) => (
                 <option key={index} value={tc.value}>
@@ -82,7 +82,7 @@ function Index(props) {
           name={month}
           control={form.control}
           render={({ onChange, onBlur, value }) => (
-            <TextField fullWidth label="Tháng sinh" select SelectProps={{ native: true }} variant="outlined" value={value} onChange={onChange} onBlur={onBlur}>
+            <TextField fullWidth={true} label="Tháng sinh" select SelectProps={{ native: true }} variant="outlined" value={value} onChange={onChange} onBlur={onBlur}>
               <option style={{ display: 'none' }}></option>
               {monthOptions.map((tc, index) => (
                 <option key={index} value={tc.value}>

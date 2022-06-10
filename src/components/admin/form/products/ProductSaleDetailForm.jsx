@@ -126,7 +126,7 @@ function ProductSaleDetailForm(props) {
           ),
         }}
       />
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
         <DialogContent>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Xem chi tiết sale" {...a11yProps(0)} />

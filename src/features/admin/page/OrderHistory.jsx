@@ -10,6 +10,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 function OrderHistory() {
   const [loading, setLoading] = useState(false);
+
   const dataOrderCList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
   const [status, setStatus] = useState('Cancel');
@@ -17,9 +18,7 @@ function OrderHistory() {
     (async () => {
       try {
         setLoading(true);
-        const action = getOrderAdmin({
-          status: status,
-        });
+        const action = getOrderAdmin();
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
       } catch (error) {
@@ -28,13 +27,28 @@ function OrderHistory() {
         setLoading(false);
       }
     })();
-  }, [dispatch,status]);
-  // const { enqueueSnackbar } = useSnackbar();  
-  const count = {status: status, count: dataOrderCList.length}
+  }, [dispatch]);
+
+  var filterSuggestions = dataOrderCList.filter(function (el) {
+    return el.status === status;
+  });
+  // const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    setOrderList(filterSuggestions)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+  const [orderHistoryList, setOrderList] = useState(filterSuggestions);
+  const count = { status: status, count: filterSuggestions.length };
   return (
     <>
       <Loader showLoader={loading} />
-      <Common title="Quản lý đơn hàng" toolbar={<OrderListToolbar setStatus={setStatus} size={count} history={true} />} listResults={<OrderListResults dataOrderCList={dataOrderCList} orderHistory={true} />} />;
+      <Common
+        title="Quản lý lịch sử đơn hàng"
+        toolbar={<OrderListToolbar data={filterSuggestions} setStatus={setStatus} setOrderList={setOrderList} size={count} history={true} />}
+        listResults={<OrderListResults dataOrderCList={orderHistoryList.length === 0 ? dataOrderCList : orderHistoryList} orderHistory={true} status={status} />}
+      />
+
+      ;
     </>
   );
 }

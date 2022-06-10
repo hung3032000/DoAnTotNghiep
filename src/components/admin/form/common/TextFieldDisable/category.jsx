@@ -14,7 +14,7 @@ function Category(props) {
   const width = widthCustome === undefined ? 6 : widthCustome;
   return (
     <Grid item md={width} xs={12}>
-      <TextField fullWidth label={label} disabled select SelectProps={{ native: true }} variant="outlined" value={edit}>
+      <TextField fullWidth={true} label={label} disabled select SelectProps={{ native: true }} variant="outlined" value={edit}>
         <option style={{ display: 'none' }}></option>
         {categoryOptions.map((tc, index) => (
           <option key={index} value={tc._id}>

@@ -55,7 +55,7 @@ function CategoryCNewForm(props) {
         Thêm danh mục con
       </Button>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth="true">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth={true}>
         <DialogTitle id="form-dialog-title">Thêm danh mục con mới</DialogTitle>
         <DialogContent>
           <Box
@@ -78,7 +78,7 @@ function CategoryCNewForm(props) {
                           name="photo"
                           defaultValue
                           control={categoryCNewForm.control}
-                          render={() => <TextField fullWidth type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
+                          render={() => <TextField fullWidth={true} type="file" accept=".jpg,.png" onChange={selectFile} variant="outlined" />}
                         />
                       </Grid>
                     </Grid>

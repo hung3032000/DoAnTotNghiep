@@ -47,7 +47,7 @@ function UserListToolbar(props) {
           <CardContent>
             <Box>
               <TextField
-                fullWidth
+                fullWidth={true}
                 onChange={handleChange}
                 InputProps={{
                   startAdornment: (

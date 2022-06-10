@@ -25,7 +25,7 @@ function Status(props) {
         defaultValue
         control={form.control}
         render={({ onChange }) => (
-          <TextField fullWidth label={label} required select SelectProps={{ native: true }} variant="outlined"  value={value} onChange={handleOnChange} onBlur={onChange}>
+          <TextField fullWidth={true} label={label} required select SelectProps={{ native: true }} variant="outlined"  value={value} onChange={handleOnChange} onBlur={onChange}>
             <option style={{ display: 'none' }}></option>
             {categoryOptions.map((tc, index) => (
               <option key={index} value={tc.nameCategory}>
