@@ -9,28 +9,12 @@ import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 function OrderListToolbar(props) {
   const [active, setActive] = useState(0);
   let { setStatus, history, size } = props;
-  const [cancelCOunt, setCancelCount] = useState(0);
-  const [doneCOunt, setDoneCount] = useState(0);
+
   const buttons = [
-    { _id: 1, value: 'Đơn đã huỷ', status: 'Cancel', size: cancelCOunt },
-    { _id: 2, value: 'Đơn đã xử lý', status: 'Done', size: doneCOunt },
+    { _id: 1, value: 'Đơn đã huỷ', status: 'Cancel', size: size ? size.count : 0 },
+    { _id: 2, value: 'Đơn đã xử lý', status: 'Done', size: size ? size.count : 0 },
   ];
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (size.status === 'Cancel') {
-          setCancelCount(size.count);
-        } else {
-          setDoneCount(size.count);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        // setLoading(false);
-      }
-    })();
-  }, [size.count, size.status]);
   return (
     <>
       <Box sx={{ mt: 3 }}>

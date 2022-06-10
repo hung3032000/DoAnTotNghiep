@@ -10,7 +10,7 @@ function Search() {
   const handleOnClick = () => {
     let queryString = 'q=New';
     //+  "New";
-    history.push(`/search?${queryString}`);
+    history.push(`?${queryString}`);
   };
   const dataProductList = useSelector((state) => state.productList.search);
   return (
