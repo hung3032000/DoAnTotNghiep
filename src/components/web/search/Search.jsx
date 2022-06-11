@@ -14,7 +14,6 @@ function Search() {
   const dataProductList = useSelector((state) => state.productList.search);
   const [suggestions, setSuggestions] = useState();
   const [suggestionsActive, setSuggestionsActive] = useState(false);
-  const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [value, setValue] = useState('');
   let noResult;
   const handleClick = () => {
@@ -93,10 +92,8 @@ function Search() {
               suggestions={suggestions}
               setSuggestions={setSuggestions}
               setSuggestionsActive={setSuggestionsActive}
-              suggestionIndex={suggestionIndex}
               setValue={setValue}
               value={value}
-              setSuggestionIndex={setSuggestionIndex}
               classNameInput="form-input topSearch-field"
               placeholderInput="Search by keyword, style etc"
               titleInput="Enter search words"

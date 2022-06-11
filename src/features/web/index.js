@@ -6,6 +6,7 @@ import { lazy } from 'react';
 const CategoryChild = lazy(() => import('features/web/Guest/CategoryChild'));
 const Productin4 = lazy(() => import('features/web/Guest/ProductInfo'));
 const ShowProduct = lazy(() => import('features/web/Guest/ShowProduct'));
+const Search = lazy(() => import('features/web/Guest/Search'));
 const UserCart = lazy(() => import('features/web/Guest/UserCart'));
 const Cartlist = lazy(() => import('features/web/User/CartList'));
 const Page = [
@@ -53,7 +54,7 @@ const Page = [
   {
     path: '/search',
     exact: false,
-    main: Home
+    main: Search
   }
 
 ];
