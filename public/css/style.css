@@ -199,7 +199,7 @@
 }
 
 .form-row.form-customCheckbox .form-label,
-.no-results,
+
 a.checkout-previous-step,
 .product-price .price-sales,
 .typo-p1 {
@@ -12926,11 +12926,6 @@ fieldset {
   content: none;
 }
 
-.no-results {
-  padding: 40px 20px 100px;
-  text-align: center;
-}
-
 .contact-page h3 {
   font-weight: 400;
 }
@@ -14128,4 +14123,20 @@ address {
 }
 .mg-t-20{
   margin-top: 20px;
+}
+
+.results-area .search-header {
+  margin: 1.625rem 0 2.5rem 0;
+}
+.search-header h1{
+  font-size: .75rem;
+  line-height: 1.25rem;
+  letter-spacing: .025em;
+}
+.noresults-top {
+  margin-top: 1.25rem;
+}
+.noresults-top p {
+  color: #737373;
+  margin-bottom: 0.625rem;
 }

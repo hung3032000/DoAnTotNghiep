@@ -1,11 +1,6 @@
-import { useState } from 'react';
-
 const AutoComplete = (props) => {
   const { data, classNameInput, placeholderInput, titleInput } = props;
-  const [suggestions, setSuggestions] = useState();
-  const [suggestionIndex, setSuggestionIndex] = useState(0);
-  const [suggestionsActive, setSuggestionsActive] = useState(false);
-  const [value, setValue] = useState('');
+  let {suggestions,setSuggestions,setSuggestionsActive,suggestionIndex,setSuggestionIndex,value,setValue} = props
   let newArr = [];
   data.forEach((element) => {
     newArr.push({ _id: element._id, name: element.name });
@@ -23,12 +18,8 @@ const AutoComplete = (props) => {
       setSuggestionsActive(false);
     }
   };
-  console.log(suggestions);
-  const handleClick = (e) => {
-    setSuggestions([]);
-    setValue(e.target.innerText);
-    setSuggestionsActive(false);
-  };
+
+
 
   const handleKeyDown = (e) => {
     // UP ARROW
@@ -53,26 +44,12 @@ const AutoComplete = (props) => {
     }
   };
 
-  const Suggestions = () => {
-    return (
-      <ul className="suggestions">
-        {suggestions.map((suggestion, index) => {
-          return (
-            <li className={index === suggestionIndex ? 'active' : ''} key={index} onClick={handleClick}>
-              <a className="minicart-product-name cursor" href={`/productinf/${suggestion._id}`} title={suggestion.name}>
-                {suggestion.name}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+
 
   return (
     <div className="autocomplete">
       <input type="text" value={value} onChange={handleChange} onKeyDown={handleKeyDown} className={classNameInput} placeholder={placeholderInput} title={titleInput} />
-      {suggestionsActive && <Suggestions />}
+      
     </div>
   );
 };
