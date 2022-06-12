@@ -31,8 +31,8 @@ function InputCombobox(props) {
               name={name}
               control={form.control}
               as={
-                <select className="form-select  form-field required" id={name} name={name} title={name} onChange={handleOnChange} value={value}>
-                  <option className="hidden">Ông/Bà</option>
+                <select className="form-select  form-field required" id={name} name={name} title={name} onChange={handleOnChange} value={value} required>
+                  <option className="hidden" value="">Ông/Bà</option>
                   {categoryOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}

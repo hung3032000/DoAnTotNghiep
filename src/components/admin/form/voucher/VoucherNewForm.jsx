@@ -98,8 +98,8 @@ function VoucherNewForm(props) {
                     <Grid container spacing={3}>
                       <TextField label="Mã giảm giá" name="nameVouncher" widthCustome={6} form={voucherNewForm} />
                       <TextField label="Mô tả" name="description" widthCustome={6} form={voucherNewForm} />
-                      <TextField label="Giảm giá(%)" name="discountPercent" widthCustome={6} form={voucherNewForm} />
-                      <TextField label="Giảm tối đa" name="priceOrderLimit" widthCustome={6} form={voucherNewForm} />
+                      <TextField label="Giảm giá(%)" number={true} max={99} name="discountPercent" widthCustome={6} form={voucherNewForm} />
+                      <TextField label="Giảm tối đa" number={true} name="priceOrderLimit" widthCustome={6} form={voucherNewForm} />
                       <DateTimeField label="Ngày bắt đầu" name="dateStart" widthCustome={6} form={voucherNewForm} />
                       <DateTimeField label="HSD" name="dateEnd" widthCustome={6} form={voucherNewForm} />
                     </Grid>

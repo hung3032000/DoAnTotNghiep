@@ -114,25 +114,6 @@ function AddressCombobox(props) {
           </TextField>
         )}
       />
-      {/* <Select
-        name="districtId"
-        key={`districtId_${selectedDistrict?.value}`}
-        isDisabled={districtOptions.length === 0}
-        options={districtOptions}
-        onChange={(option) => onDistrictSelect(option)}
-        placeholder="Quận/Huyện"
-        defaultValue={selectedDistrict}
-      />
-
-      <Select
-        name="wardId"
-        key={`wardId_${selectedWard?.value}`}
-        isDisabled={wardOptions.length === 0}
-        options={wardOptions}
-        placeholder="Phường/Xã"
-        onChange={(option) => onWardSelect(option)}
-        defaultValue={selectedWard}
-      /> */}
     </>
   );
 }

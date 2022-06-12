@@ -35,7 +35,6 @@ function InputText(props) {
         <div className="form-field">
           <Controller
             name={name}
-            id={name}
             control={form.control}
             as={<input />}
             className="form-input form-field required"

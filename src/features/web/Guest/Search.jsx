@@ -12,14 +12,13 @@ import Pagination from 'components/web/pagination/index';
 import { useLocation } from 'react-router';
 
 let PageSize = 8;
-const ShowProduct = function () {
+const Search = function () {
   let location = useLocation();
   console.log(location.search.substring(3));
   const searchFor = location.search.substring(3);
   const dispatch = useDispatch();
   // list Product
   const dataProductsList = useSelector((state) => state.productList.data);
-  const dataCategoryCDetail = useSelector((state) => state.categoryChildList.categoryChildDetail);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,12 +59,6 @@ const ShowProduct = function () {
       <main id="main" className="clearfix" style={{ marginTop: '128px' }}>
         <div className="content-slot slot-grid-header" />
         <div id="primary" className="primary-content">
-          <div className="page-header">
-            <h1>
-              <span className="title">{dataCategoryCDetail.namesubCategory}</span>
-            </h1>
-          </div>
-
           <div className="container">
             <div className="category-box">
               <div className="row-title">
@@ -104,4 +97,4 @@ const ShowProduct = function () {
   );
 };
 
-export default ShowProduct;
+export default Search;

@@ -4,6 +4,8 @@ import InputCombobox from './inputCommon/inputCombobox';
 import InputDisabled from './inputCommon/inputDisable';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 CheckOutForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -11,15 +13,21 @@ CheckOutForm.propTypes = {
 
 function CheckOutForm(props) {
   const dataUser = useSelector((state) => state.user.current);
+  const schema = yup.object().shape({
+    LName: yup.string().required('Họ không hợp lệ'),
+    FName: yup.string().required('Tên không hợp lệ'),
+    Address: yup.string().required('Địa chỉ không hợp lệ'),
+    Phone: yup.string().required('Số điện thoại không hợp lệ'),
+  });
   const checkOutForm = useForm({
     defaultValues: {
       LName: '',
       FName: '',
       Address: '',
-      Title: '',
+      Title: 'Male',
       Phone: '',
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
 

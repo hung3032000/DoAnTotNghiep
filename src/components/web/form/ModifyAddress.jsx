@@ -1,15 +1,21 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import InputCombobox from './inputCommon/inputCombobox';
 import Input from './inputCommon/inputText';
 import useLocationForm from './address/useLocationForm';
-
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 function ModifyAddress(props) {
   const { state, onCitySelect, onDistrictSelect, onWardSelect } = useLocationForm(false);
   const { cityOptions, districtOptions, wardOptions, selectedCity, selectedDistrict, selectedWard } = state;
+  const schema = yup.object().shape({
+    nameCustomer: yup.string().required('Tên không hợp lệ'),
+    detailAddress: yup.string().required('Địa chỉ không hợp lệ'),
+    phoneNumber: yup.string().required('Số điện thoại không hợp lệ'),
+  });
   const addressform = useForm({
     defaultValues: {
+      gender: 'Male',
       city: '',
       district: '',
       ward: '',
@@ -17,11 +23,13 @@ function ModifyAddress(props) {
       detailAddress: '',
       phoneNumber: '',
     },
+    resolver: yupResolver(schema),
   });
+
   const handleSubmit = async (values) => {
-    values.city = state.selectedCity;
-    values.district = state.selectedDistrict;
-    values.ward = state.selectedWard;
+    values.city = state.selectedCity ? state.selectedCity : { value: '294', label: 'Hồ Chí Minh' };
+    values.district = state.selectedDistrict ? state.selectedDistrict : { value: '484', label: 'Quận 1' };
+    values.ward = state.selectedWard ? state.selectedWard : { value: '10379', label: 'Phường Bến Nghé' };
     const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);

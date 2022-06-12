@@ -13,6 +13,7 @@ function UserListToolbar(props) {
   const { data, setUserList } = props;
   const handleNewUFormSubmit = async (values) => {
     try {
+      console.log(values);
       const action = addUser(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);

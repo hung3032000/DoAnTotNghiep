@@ -58,7 +58,7 @@ function ProductEditSale(props) {
                     <TextFieldCusDis widthCustome={12} label="Tên sản phẩm" name="percentSale" edit={saleData.sale.productId.name} />
                     <TextFieldCus widthCustome={6} label="Mã giảm giá" name="nameSale" edit={saleData.sale.nameSale} form={saleForm} />
                     <TextFieldCus widthCustome={6} label="Mô tả" name="description" edit={saleData.sale.description} form={saleForm} />
-                    <TextFieldCus widthCustome={6} number={true} label="Giảm giá(%)" name="percentSale" edit={saleData.sale.percentSale} form={saleForm} />
+                    <TextFieldCus widthCustome={6} number={true} max={99} label="Giảm giá(%)" name="percentSale" edit={saleData.sale.percentSale} form={saleForm} />
                     <TextFieldCusDis widthCustome={6} label="Trạng thái" name="percentSale" edit={saleData.status === true ? 'Đang Sale' : 'Không có chương trình sale'} />
                   </Grid>
                 </CardContent>

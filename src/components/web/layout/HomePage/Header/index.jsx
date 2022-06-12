@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { logout } from 'slice/userSlice';
+import { login, logout } from 'slice/userSlice';
 import { removeFromCart } from 'slice/CartSlice';
 import { cartItemsCountSelector, cartTotalSelector } from 'slice/Selectors';
 import CategoryParent from 'components/web/category/CategoryParent';
@@ -65,7 +65,24 @@ const Header = function (props) {
   const countProduct = useSelector(cartItemsCountSelector);
   const cartTotal = useSelector(cartTotalSelector);
   const actionDeleteCart = (index) => dispatch(removeFromCart(index));
-
+  const handleLoginFormSubmit = async (values) => {
+    try {
+      setLoading(true);
+      console.log(values);
+      const action = login(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      history.push('/');
+      window.location.reload();
+    } catch (error) {
+      console.log('Failed to login:', error);
+      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      // history.push('/login');
+      // window.location.reload();
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <Loader showLoader={loading} />
@@ -108,8 +125,7 @@ const Header = function (props) {
                     <a href className="level-2 back" wfd-invisible="true">
                       Đăng nhập
                     </a>
-                    <LoginFormHeader />
-                    {/* onSubmit={handleLoginFormSubmit} */}
+                    <LoginFormHeader onSubmit={handleLoginFormSubmit}/>
                   </div>
                 </li>
               </ul>

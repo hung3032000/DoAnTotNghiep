@@ -11,7 +11,6 @@ function CategoryNewForm(props) {
     defaultValues: {
       nameCategory: '',
     },
-    // resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;

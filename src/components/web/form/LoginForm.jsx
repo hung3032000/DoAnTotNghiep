@@ -10,8 +10,8 @@ LoginForm.propTypes = {
 
 function LoginForm(props) {
   const schema = yup.object().shape({
-    email: yup.string().required('The e-mail address is invalid').email(),
-    password: yup.string().required('Please enter a password containing at least 8 characters, with 1 number and 1 uppercase letter'),
+    email: yup.string().required('Email không hợp lệ').email(),
+    password: yup.string().required('Mật khẩu không hợp lệ').min(5, 'title'),
   });
 
   const loginForm = useForm({

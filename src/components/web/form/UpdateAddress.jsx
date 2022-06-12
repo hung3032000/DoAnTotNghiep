@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import InputCombobox from './inputCommon/inputCombobox';
 import Input from './inputCommon/inputText';
 import useLocationForm from './address/useLocationForm';
-
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import { PATHS } from 'constants/paths';
 
@@ -48,6 +49,12 @@ function UpdateAddress(props) {
     selectedDistrict: null,
     selectedWard: null,
   });
+  const schema = yup.object().shape({
+    nameCustomer: yup.string().required('Tên không hợp lệ'),
+    detailAddress: yup.string().required('Địa chỉ không hợp lệ'),
+    phoneNumber: yup.string().required('Số điện thoại không hợp lệ'),
+  });
+
   const addressform = useForm({
     defaultValues: {
       _id: data._id,
@@ -59,6 +66,7 @@ function UpdateAddress(props) {
       phoneNumber: data.phoneNumber,
       gender: data.gender,
     },
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {

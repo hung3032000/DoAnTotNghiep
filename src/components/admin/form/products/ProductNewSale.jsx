@@ -38,7 +38,6 @@ function ProductNewSale() {
       percentSale: '',
       description: '',
     },
-    // resolver: yupResolver(schema),
   });
   return (
     <>

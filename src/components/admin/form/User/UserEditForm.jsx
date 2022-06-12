@@ -85,12 +85,12 @@ function UserEditForm(props) {
                           <SelectField label="Ông/bà" name="gender" edit={customer.gender} categoryOptions={genderOptions} form={userNewForm} />
                           <EmailField name="email" form={userNewForm} />
                           <IdField name="_id" form={userNewForm} />
-                          <TextField label="Tên họ" name="lastname" edit={customer.lastname} form={userNewForm} />
-                          <TextField label="Tên" name="fistname" edit={customer.fistname} form={userNewForm} />
-                          <TextField label="Số điện thoại" name="phonenumber" edit={customer.phonenumber} form={userNewForm} />
-                          <DateMonthField date="date" month="month" form={userNewForm} />
-                          <SelectField label="Quyền" name="role" edit={customer.role} categoryOptions={roleOptions} form={userNewForm} />
-                          <SelectField label="Trạng thái" name="status" edit={customer.status} categoryOptions={statusOptions} form={userNewForm} />
+                          <TextField label="Tên họ" name="lastname" edit={customer.lastname} form={userNewForm} editForm={true}/>
+                          <TextField label="Tên" name="fistname" edit={customer.fistname} form={userNewForm} editForm={true}/>
+                          <TextField label="Số điện thoại" name="phonenumber" edit={customer.phonenumber} form={userNewForm} editForm={true}/>
+                          <DateMonthField date="date" month="month" form={userNewForm} editForm={true}/>
+                          <SelectField label="Quyền" name="role" edit={customer.role} categoryOptions={roleOptions} form={userNewForm} editForm={true}/>
+                          <SelectField label="Trạng thái" name="status" edit={customer.status} categoryOptions={statusOptions} form={userNewForm} editForm={true}/>
                         </Grid>
                       </CardContent>
                       <Divider />

@@ -6,6 +6,8 @@ import TextField from 'components/admin/form/common/TextField/index';
 import SelectField from 'components/admin/form/common/SelectField/index';
 import DateMonthField from 'components/admin/form/common/DateMonthField/index';
 import PasswordField from 'components/admin/form/common/PasswordField/index';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 UserNewForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -21,6 +23,13 @@ function UserNewForm(props) {
     { label: 'Ông', value: 'Male' },
     { label: 'Bà', value: 'Female' },
   ];
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+  const schema = yup.object().shape({
+    email: yup.string().email('Please enter a valid email address.'),
+    password: yup.string().required('Mật khẩu không hợp lệ').min(5, 'title'),
+    phonenumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  });
   const userNewForm = useForm({
     defaultValues: {
       gender: '',
@@ -33,7 +42,7 @@ function UserNewForm(props) {
       date: '',
       month: '',
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;

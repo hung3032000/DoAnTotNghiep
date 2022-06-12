@@ -17,7 +17,6 @@ function CategoryCNewForm(props) {
       namesubCategory: '',
       nameCategory: '',
     },
-    // resolver: yupResolver(schema),
   });
   const handleClose = () => {
     setOpen(false);
