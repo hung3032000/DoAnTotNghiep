@@ -18,13 +18,11 @@ function CategoryListResults(props) {
   const handleOnEdit = async (values) => {
     try {
       setLoading(true);
-      console.log(values);
-      // adminAPI.updateUser(values._id,values);
+      const action = updateCategoryAdmin(values._id, values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      // const action = updateCategoryAdmin(values._id, values);
-      // const resultAction = await dispatch(action);
-      // unwrapResult(resultAction);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });

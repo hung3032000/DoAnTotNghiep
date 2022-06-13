@@ -21,22 +21,20 @@ function CategoryChildListResults(props) {
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
-      console.log(values);
-      // if (data) {
-      //   adminAPI.updateImageCategoriesC(values._id, data);
-      //   const action = updateCategoryCAdmin(values);
-      //   const resultAction = await dispatch(action);
-      //   unwrapResult(resultAction);
-      //   // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      //   // window.location.reload();
-      // } else {
-      //   const action = updateCategoryCAdmin(values);
-      //   const resultAction = await dispatch(action);
-      //   unwrapResult(resultAction);
-      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      //   window.location.reload();
-        
-      // }
+      if (data) {
+        adminAPI.updateImageCategoriesC(values._id, data);
+        const action = updateCategoryCAdmin(values);
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+        window.location.reload();
+      } else {
+        const action = updateCategoryCAdmin(values);
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });

@@ -16,6 +16,17 @@ export const updateProductDetail = createAsyncThunk('updateProductDetail', async
   const response = await adminAPI.updateProduct(values._id, values);
   return response;
 });
+
+export const updateImageProduct = createAsyncThunk('updateImageProduct', async (values) => {
+  const response = await adminAPI.updateImageProduct(values._id, values.data);
+  return response;
+});
+
+export const updateMultipleImageProduct = createAsyncThunk('updateMultipleImageProduct', async (values) => {
+  const response = await adminAPI.updateMultipleImageProduct(values._id, values.data);
+  return response;
+});
+
 export const deleteProductDetail = createAsyncThunk('deleteProductDetail', async (id) => {
   const response = await adminAPI.deleteProduct(id);
   return response;

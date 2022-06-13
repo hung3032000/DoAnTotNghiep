@@ -23,6 +23,12 @@ const adminAPI = {
     const url = `/products/images/${id}`;
     return axiosClient.post(url, data);
   },
+
+
+  updateMultipleImageProduct: (id, data) => {
+    const url = `/products/imagesMutiple/${id}`;
+    return axiosClient.post(url, data);
+  },
   //------------------Category------------------
   listCategories: (params) => {
     const url = '/categories/pagingcategory/paging';

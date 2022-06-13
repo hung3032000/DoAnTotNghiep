@@ -27,6 +27,7 @@ export const updateCategoryAdmin = createAsyncThunk('updateCategoryAdmin', async
   const response = await adminAPI.updateCategories(id,params);
   return response;
 });
+
 export const deleteCategoryAdmin = createAsyncThunk('deleteCategoryAdmin', async (id) => {
   const response = await adminAPI.deleteCategories(id);
   return response;

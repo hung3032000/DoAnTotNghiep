@@ -12,7 +12,7 @@ Products.defaultProps = {
 };
 function Products({ product }) {
   const thumnailUrl =
-   product.images ? product.images :
+   product.imageMain ? product.imageMain :
    THUMNAIL_URL_PRODUCTLIST;
   return (
       <figure className="product-image">

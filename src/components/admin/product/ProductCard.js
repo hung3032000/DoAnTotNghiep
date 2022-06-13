@@ -1,9 +1,7 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import adminAPI from 'api/adminAPI';
-
-import { deleteProductDetail, updateProductDetail } from 'slice/ProductSlice';
+import { deleteProductDetail, updateImageProduct, updateMultipleImageProduct, updateProductDetail } from 'slice/ProductSlice';
 import { useSnackbar } from 'notistack';
 import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -13,33 +11,34 @@ import ProductEditForm from '../form/products/ProductsEditForm';
 import ProductDetailForm from '../form/products/ProductsDetailForm';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
+import ProductImageForm from '../form/products/ProductImageForm';
 let PageSize = 6;
 function ProductCard(props) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
   const { dataProductsList, dataCategoryCList } = props;
   const { enqueueSnackbar } = useSnackbar();
 
-  //handl action
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
-      console.log(values);
-      // if (data) {
-      //   adminAPI.updateImageProduct(values._id, data);
-      //   const action = updateProductDetail(values);
-      //   const resultAction = await dispatch(action);
-      //   unwrapResult(resultAction);
-      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      //   window.location.reload();
-      // } else {
-      //   const action = updateProductDetail(values);
-      //   const resultAction = await dispatch(action);
-      //   unwrapResult(resultAction);
-      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      //   window.location.reload();
-      // }
+      if (data) {
+        values.data = data
+        const action = updateProductDetail(values);
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+        const action2 = updateImageProduct(values);
+        const resultAction2 = await dispatch(action2);
+        unwrapResult(resultAction2);
+        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+        // window.location.reload();
+      } else {
+        const action = updateProductDetail(values);
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
+        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+        // window.location.reload();
+      }
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -47,7 +46,7 @@ function ProductCard(props) {
       setLoading(false);
     }
   };
-  // updateProduct
+
   const handleOnDelete = async (id) => {
     try {
       setLoading(true);
@@ -64,14 +63,31 @@ function ProductCard(props) {
       setLoading(false);
     }
   };
-  //paging action
+
+
+  const handleOnEditImage = async (values,data) => {
+    try {
+      setLoading(true);
+      values.data =data;
+      console.log(values);
+      const action2 = updateMultipleImageProduct(values);
+      const resultAction2 = await dispatch(action2);
+      unwrapResult(resultAction2);
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = dataProductsList.map((product) => product.id);
+      newSelectedCustomerIds = dataProductsList.map((product) => product._id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -79,12 +95,12 @@ function ProductCard(props) {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
+  const handleSelectOne = (event, _id) => {
+    const selectedIndex = selectedCustomerIds.indexOf(_id);
     let newSelectedCustomerIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, _id);
     } else if (selectedIndex === 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
@@ -150,7 +166,7 @@ function ProductCard(props) {
                     </TableCell>
                     <TableCell>{formatPrice(product.price)}</TableCell>
                     <TableCell>
-                      <img src={product.images} alt="" width="100%" height="118" />
+                      <img src={product.imageMain} alt="" width="100%" height="118" />
                     </TableCell>
                     <TableCell>{product.subcategoryId.namesubCategory}</TableCell>
                     <TableCell>
@@ -160,6 +176,7 @@ function ProductCard(props) {
 
                     <TableCell>
                       <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
+                      <ProductImageForm productId={product._id} onSubmit={handleOnEditImage}/>
                       <IconButton
                         className="mgr-10"
                         color="primary"

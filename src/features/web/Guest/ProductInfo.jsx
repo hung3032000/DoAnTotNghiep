@@ -79,12 +79,12 @@ function ProductInfo() {
       }
     })();
   }, [size, color, sizes]);
-  const thumnailUrl = product.images ? product.images : THUMNAIL_URL_PRODUCTINFO;
+  const thumnailUrl = product.imageMain ? product.imageMain : THUMNAIL_URL_PRODUCTINFO;
 
   let priceProductTotal = 0;
   const priceTotal = () => {
     if (product.saleId) {
-      priceProductTotal = product.price - (product.price*product.saleId.percentSale/100) ;
+      priceProductTotal = product.price - (product.price * product.saleId.percentSale) / 100;
     } else {
       priceProductTotal = product.price;
     }
@@ -96,7 +96,7 @@ function ProductInfo() {
   const handleSubmitSize = (data) => {
     setSize(data);
   };
- 
+
   const handleAddToCartSubmit = (values) => {
     try {
       setLoading(true);
@@ -105,7 +105,7 @@ function ProductInfo() {
           color: color,
           size: sizes,
           product,
-          price : priceTotal(),
+          price: priceTotal(),
           quantity: 1,
         };
         actionAddToCart(dataCart);
@@ -146,7 +146,7 @@ function ProductInfo() {
                             <span className="price-sales"> {formatPrice(priceTotal())} </span>
                           </>
                         ) : (
-                          <span className="price-sales"> {formatPrice(priceTotal())}  </span>
+                          <span className="price-sales"> {formatPrice(priceTotal())} </span>
                         )}
                       </div>
 
@@ -177,18 +177,11 @@ function ProductInfo() {
                 </div>
               </div>
               <div className="product-block-images container">
-                <a href className="fullscreen full-mobile">
-                  <img className="img-productinfo" src={thumnailUrl} alt="Lỗi ảnh" />
-                </a>
-                <a href className="fullscreen full-mobile">
-                  <img className="img-productinfo" src={thumnailUrl} alt="Lỗi ảnh" />
-                </a>
-                <a href className="fullscreen full-mobile">
-                  <img className="img-productinfo" src={thumnailUrl} alt="Lỗi ảnh" />
-                </a>
-                <a href className="fullscreen full-mobile">
-                  <img className="img-productinfo" src={thumnailUrl} alt="Lỗi ảnh" />
-                </a>
+                {product.images.map((productList, index) => (
+                  <a key={index} href className="fullscreen full-mobile">
+                    <img className="img-productinfo" src={productList} alt="Lỗi ảnh" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
