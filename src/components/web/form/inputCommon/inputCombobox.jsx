@@ -9,8 +9,6 @@ InputCombobox.propTypes = {
 
 function InputCombobox(props) {
   const { form, name } = props;
-  // const { errors, formState } = formRUserTitle;
-  // const hasErrors = formState.touched[name] && errors[name];
   const categoryOptions = [
     { label: 'Ông', value: 'Male' },
     { label: 'Bà', value: 'Female' },
@@ -22,7 +20,6 @@ function InputCombobox(props) {
   return (
     <div className={`form-row  required form-row-select`}>
       {/* ${hasErrors ? 'form-row--error' : ''} */}
-
       <div className="form-field-wrapper">
         <label className="form-label">Ông/Bà</label>
         <div className="form-field">

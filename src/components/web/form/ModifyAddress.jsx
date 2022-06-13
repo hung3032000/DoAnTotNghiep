@@ -15,7 +15,7 @@ function ModifyAddress(props) {
   });
   const addressform = useForm({
     defaultValues: {
-      gender: 'Male',
+      gender: '',
       city: '',
       district: '',
       ward: '',
@@ -27,9 +27,6 @@ function ModifyAddress(props) {
   });
 
   const handleSubmit = async (values) => {
-    values.city = state.selectedCity ? state.selectedCity : { value: '294', label: 'Hồ Chí Minh' };
-    values.district = state.selectedDistrict ? state.selectedDistrict : { value: '484', label: 'Quận 1' };
-    values.ward = state.selectedWard ? state.selectedWard : { value: '10379', label: 'Phường Bến Nghé' };
     const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);
@@ -75,8 +72,11 @@ function ModifyAddress(props) {
                   placeholder="Tỉnh/Thành"
                   value={selectedCity?.value}
                   defaultValue={selectedCity}
+                  required
                 >
-                  <option className="hidden">Tỉnh/Thành phố</option>
+                  <option className="hidden" value="">
+                    Tỉnh/Thành phố
+                  </option>
                   {cityOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}
@@ -102,8 +102,11 @@ function ModifyAddress(props) {
                   placeholder="Quận"
                   value={selectedDistrict?.value}
                   defaultValue={selectedDistrict}
+                  required
                 >
-                  <option className="hidden">Quận/Huyện</option>
+                  <option className="hidden" value="">
+                    Quận/Huyện
+                  </option>
                   {districtOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}
@@ -129,8 +132,11 @@ function ModifyAddress(props) {
                   disabled={wardOptions.length === 0}
                   value={selectedWard?.value}
                   defaultValue={selectedWard}
+                  required
                 >
-                  <option className="hidden">Phường/Xã</option>
+                  <option className="hidden" value="">
+                    Phường/Xã
+                  </option>
                   {wardOptions.map((tc, index) => (
                     <option className="form-selectOption" key={index} value={tc.value}>
                       {tc.label}

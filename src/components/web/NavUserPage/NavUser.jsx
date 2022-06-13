@@ -15,7 +15,7 @@ function NavUser(props) {
   };
   return (
     <div>
-      <nav className="account-navigation" aria-label="My account">
+      <nav className="account-navigation">
         <ul>
           <li className="order-history ">
             <NavLink activeClassName="active" to="/order">Đơn hàng</NavLink>

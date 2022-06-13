@@ -12,10 +12,7 @@ RegisterForm.propTypes = {
 
 function RegisterForm(props) {
   const schema = yup.object().shape({
-    fistname: yup.string().required('The fName address is invalid'),
-    lastname: yup.string().required('The lName address is invalid'),
-    email: yup.string().required('The e-mail address is invalid').email(),
-    password: yup.string().required('Please enter a password containing at least 8 characters, with 1 number and 1 uppercase letter').min(5, 'title'),
+    email: yup.string().required('Email không hợp lệ').email(),
   });
   const registerForm = useForm({
     defaultValues: {
@@ -36,7 +33,6 @@ function RegisterForm(props) {
 
   return (
     <form className="form-horizontal edit-account-form" onSubmit={registerForm.handleSubmit(handleSubmit)}>
-      {/* id="form-register" */}
       <p className="required-msg">Hãy điền đầy đủ các thông tin bên dưới</p>
       <div className="error-form global-error form-row" aria-live="polite" />
       <fieldset>

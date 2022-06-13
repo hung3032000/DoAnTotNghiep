@@ -19,17 +19,22 @@ function CheckOutForm(props) {
     Address: yup.string().required('Địa chỉ không hợp lệ'),
     Phone: yup.string().required('Số điện thoại không hợp lệ'),
   });
+  let address = '';
+  dataUser.addresses.forEach((element) => {
+    if (element.default) {
+      address = element.detailAddress;
+    }
+  });
   const checkOutForm = useForm({
     defaultValues: {
       LName: '',
       FName: '',
-      Address: '',
-      Title: 'Male',
+      Address: address,
+      Title: '',
       Phone: '',
     },
     resolver: yupResolver(schema),
   });
-
 
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
@@ -38,31 +43,26 @@ function CheckOutForm(props) {
     }
   };
   return (
-
-      <form
-        onSubmit={checkOutForm.handleSubmit(handleSubmit)}
-        className="shipping-address-select-form"
-      >
-        <div className="checkout-box shipping-address-box">
-          <h3 className="info-perso">Thông tin cá nhân</h3>
-          <InputDisabled name="email" defaultValue={dataUser.email} label="Địa chỉ Email"/>
-          <h3>Địa chỉ giao hàng</h3>
-          <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà"/>
-          <Input name="LName" form={checkOutForm} label="Họ"/>
-          <Input name="FName" form={checkOutForm} label="Tên"/>
-          <Input name="Address" form={checkOutForm} label="Địa chỉ"/>
-          <Input name="Phone" form={checkOutForm} label="Số điện thoại"/>
-          <div className="billing-address">
-            <button className="form-button shipping-address-save" name="dwfrm_singleshipping_shippingAddress_save">
-              Thanh toán
-            </button>
-            <a className="checkout-back-to-cart" href="/usercart">
-              Quay lại giỏ hàng
-            </a>
-          </div>
+    <form onSubmit={checkOutForm.handleSubmit(handleSubmit)} className="shipping-address-select-form">
+      <div className="checkout-box shipping-address-box">
+        <h3 className="info-perso">Thông tin cá nhân</h3>
+        <InputDisabled name="email" defaultValue={dataUser.email} label="Địa chỉ Email" />
+        <h3>Địa chỉ giao hàng</h3>
+        <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà" />
+        <Input name="LName" form={checkOutForm} label="Họ" />
+        <Input name="FName" form={checkOutForm} label="Tên" />
+        <Input name="Address" defaultValue={address} label="Địa chỉ Email" form={checkOutForm} />
+        <Input name="Phone" form={checkOutForm} label="Số điện thoại" />
+        <div className="billing-address">
+          <button className="form-button shipping-address-save" name="dwfrm_singleshipping_shippingAddress_save">
+            Thanh toán
+          </button>
+          <a className="checkout-back-to-cart" href="/usercart">
+            Quay lại giỏ hàng
+          </a>
         </div>
-      </form>
-
+      </div>
+    </form>
   );
 }
 

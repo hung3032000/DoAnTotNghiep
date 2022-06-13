@@ -18,13 +18,13 @@ function CategoryListResults(props) {
   const handleOnEdit = async (values) => {
     try {
       setLoading(true);
-
+      console.log(values);
       // adminAPI.updateUser(values._id,values);
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      const action = updateCategoryAdmin(values._id, values);
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
-      window.location.reload();
+      // const action = updateCategoryAdmin(values._id, values);
+      // const resultAction = await dispatch(action);
+      // unwrapResult(resultAction);
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
@@ -112,9 +112,9 @@ function CategoryListResults(props) {
               </TableHead>
               <TableBody>
                 {currentTableData.map((category) => (
-                  <TableRow hover key={category._id} selected={selectedCustomerIds.indexOf(category.id) !== -1}>
+                  <TableRow hover key={category._id} selected={selectedCustomerIds.indexOf(category._id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(category.id) !== -1} onChange={(event) => handleSelectOne(event, category.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(category._id) !== -1} onChange={(event) => handleSelectOne(event, category._id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box

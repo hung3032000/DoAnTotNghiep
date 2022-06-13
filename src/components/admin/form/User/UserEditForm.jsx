@@ -42,7 +42,6 @@ function UserEditForm(props) {
       month: customer.month,
       status: customer.status,
     },
-    // resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;

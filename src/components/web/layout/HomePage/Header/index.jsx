@@ -68,7 +68,6 @@ const Header = function (props) {
   const handleLoginFormSubmit = async (values) => {
     try {
       setLoading(true);
-      console.log(values);
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -77,8 +76,8 @@ const Header = function (props) {
     } catch (error) {
       console.log('Failed to login:', error);
       // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
-      // history.push('/login');
-      // window.location.reload();
+      history.push('/login');
+      window.location.reload();
     } finally {
       setLoading(false);
     }

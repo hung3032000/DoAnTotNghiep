@@ -36,7 +36,6 @@ function ProductsNewForm(props) {
       price: '',
       subcategoryId: '',
     },
-    // resolver: yupResolver(schema),
   });
   const handleClose = () => {
     setOpen(false);

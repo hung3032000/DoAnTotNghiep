@@ -26,9 +26,8 @@ function UserNewForm(props) {
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const schema = yup.object().shape({
-    email: yup.string().email('Please enter a valid email address.'),
-    password: yup.string().required('Mật khẩu không hợp lệ').min(5, 'title'),
-    phonenumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+    email: yup.string().email('Địa chỉ email không hợp lệ.'),
+    phonenumber: yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
   });
   const userNewForm = useForm({
     defaultValues: {

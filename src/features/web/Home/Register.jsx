@@ -42,9 +42,9 @@ const Register = function (props) {
           <div className="registration container">
             <div className="page-header">
               <h1>
-                <span className="subtitle">Create an account</span> <span className="title">My account</span>
+                <span className="subtitle">Tạo tài khoản</span> <span className="title">Tài khoản</span>
               </h1>
-              <p className="text">Be the first to know about new collections and exclusive events through your personal account.</p>
+              <p className="text">Trở thành người tiên phong biết đến những sản phẩm mới nhất, biết về các bộ sưu tập mới và các sự kiện độc quyền thông qua tài khoản cá nhân của bạn .</p>
             </div>
             <div className="row">
               <div className="col-xs-6 col-sm-offset-3">

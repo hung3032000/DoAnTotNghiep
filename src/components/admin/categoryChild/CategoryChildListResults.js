@@ -21,22 +21,22 @@ function CategoryChildListResults(props) {
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
-
-      if (data) {
-        adminAPI.updateImageCategoriesC(values._id, data);
-        const action = updateCategoryCAdmin(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        // window.location.reload();
-      } else {
-        const action = updateCategoryCAdmin(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        // window.location.reload();
-        // }
-      }
+      console.log(values);
+      // if (data) {
+      //   adminAPI.updateImageCategoriesC(values._id, data);
+      //   const action = updateCategoryCAdmin(values);
+      //   const resultAction = await dispatch(action);
+      //   unwrapResult(resultAction);
+      //   // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      //   // window.location.reload();
+      // } else {
+      //   const action = updateCategoryCAdmin(values);
+      //   const resultAction = await dispatch(action);
+      //   unwrapResult(resultAction);
+      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      //   window.location.reload();
+        
+      // }
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
@@ -127,9 +127,9 @@ function CategoryChildListResults(props) {
               </TableHead>
               <TableBody>
                 {currentTableData.map((categoryC) => (
-                  <TableRow hover key={categoryC.id} selected={selectedCustomerIds.indexOf(categoryC.id) !== -1}>
+                  <TableRow hover key={categoryC._id} selected={selectedCustomerIds.indexOf(categoryC._id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(categoryC.id) !== -1} onChange={(event) => handleSelectOne(event, categoryC.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(categoryC._id) !== -1} onChange={(event) => handleSelectOne(event, categoryC._id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box

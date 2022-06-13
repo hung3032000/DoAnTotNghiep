@@ -18,7 +18,7 @@ function UserInfor() {
   const handleResFormSubmit = async (values) => {
     try {
       setLoading(true);
-      values.password = 'hackcailon';
+      values.password = 'test';
       const action = update(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
@@ -45,10 +45,9 @@ function UserInfor() {
   const handleDeleteAccount = async () => {
     try {
       setLoading(true);
-      console.log(id);
-      // const action = ChangePassword(values);
-      // const resultAction = await dispatch(action);
-      // unwrapResult(resultAction);
+      const action = ChangePassword(id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
       enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });

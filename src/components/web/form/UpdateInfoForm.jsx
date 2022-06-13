@@ -2,12 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import * as yup from 'yup';
 import Input from './inputCommon/inputText';
 import InputCombobox from './inputCommon/inputCombobox';
 import InputData from './inputCommon/inputData';
 import DateTimePicker from './inputCommon/dateTimePicker';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 UpdateInfoForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -15,13 +13,6 @@ UpdateInfoForm.propTypes = {
 
 function UpdateInfoForm(props) {
   const dataUser = useSelector((state) => state.user.current);
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-  const schema = yup.object().shape({
-    fName: yup.string().required('Họ không hợp lệ'),
-    lName: yup.string().required('Tên không hợp lệ'),
-    phoneNumber: yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
-  });
   const updateForm = useForm({
     defaultValues: {
       email: dataUser.email,
@@ -32,7 +23,6 @@ function UpdateInfoForm(props) {
       date: dataUser.date ? dataUser.date : 0,
       month: dataUser.month ? dataUser.month : 0,
     },
-    resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;

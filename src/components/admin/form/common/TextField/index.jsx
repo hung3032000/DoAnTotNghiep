@@ -5,60 +5,38 @@ import React, { useState } from 'react';
 Index.propTypes = {
   form: PropTypes.object.isRequired,
   edit: PropTypes.any,
-  editForm: PropTypes.any,
-  widthCustome: PropTypes.number,
   max: PropTypes.any,
+  widthCustome: PropTypes.number,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 
 function Index(props) {
-  const { form, name, label, edit, widthCustome, number, editForm,max } = props;
-  const { errors } = form;
-  const hasError = errors[name];
+  const { form, name, label, edit, widthCustome, number,max } = props;
   const [value, setValue] = useState(edit);
   const handleOnChange = (event) => {
     setValue(event.target.value);
   };
-  const renderText = (onChange) => {
-    if (editForm) {
-      return (
-        <TextField
-          name={name}
-          type={number ? 'number' : 'text'}
-          InputProps={{ inputProps: { min: 1 ,max : max }}}
-          fullWidth={true}
-          label={label}
-          onChange={handleOnChange}
-          required
-          value={value}
-          variant="outlined"
-          error={!!hasError}
-          helperText={errors[name]?.message}
-        />
-      );
-    }
-    return (
-      <TextField
-        name={name}
-        type={number ? 'number' : 'text'}
-        InputProps={{ inputProps: { min: 1 ,max : max} }}
-        fullWidth={true}
-        label={label}
-        onChange={onChange}
-        required
-        value={value}
-        variant="outlined"
-        error={!!hasError}
-        helperText={errors[name]?.message}
-      />
-    );
-  };
-
   const width = widthCustome === undefined ? 6 : widthCustome;
   return (
     <Grid item md={width} xs={12}>
-      <Controller name={name} control={form.control} render={({ onChange }) => renderText(onChange)} />
+      <Controller
+        name={name}
+        control={form.control}
+        render={({ onChange }) => (
+          <TextField
+            type={number ? 'number' : 'text'}
+            InputProps={{ inputProps: { min: 1,max:max } }}
+            fullWidth={true}
+            label={label}
+            onChange={handleOnChange}
+            onBlur={onChange}
+            required
+            value={value}
+            variant="outlined"
+          />
+        )}
+      />
     </Grid>
   );
 }

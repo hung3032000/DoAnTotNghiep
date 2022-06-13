@@ -112,9 +112,9 @@ function VoucherListResults(props) {
               </TableHead>
               <TableBody>
                 {currentTableData.map((voucher) => (
-                  <TableRow hover key={voucher._id} selected={selectedCustomerIds.indexOf(voucher.id) !== -1}>
+                  <TableRow hover key={voucher._id} selected={selectedCustomerIds.indexOf(voucher._id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(voucher.id) !== -1} onChange={(event) => handleSelectOne(event, voucher.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(voucher._id) !== -1} onChange={(event) => handleSelectOne(event, voucher._id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box
@@ -137,7 +137,10 @@ function VoucherListResults(props) {
                     <TableCell>
                       {voucher.dateEnd.day}/{voucher.dateEnd.month}/{voucher.dateEnd.year}
                     </TableCell>
-                    <TableCell>Đang test</TableCell>
+                    <TableCell>
+                      {voucher.statusCoupon === true && <p>Đang sử dụng</p>}
+                      {voucher.statusCoupon === false && <p>Không sử dụng</p>}
+                    </TableCell>
                     <TableCell>
                       <VoucherEditForm vouchers={voucher} onSubmit={handleOnEdit} />
                       <IconButton

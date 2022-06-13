@@ -30,7 +30,6 @@ function OrderListComplete() {
   }, [dispatch]);
   // const { enqueueSnackbar } = useSnackbar();
   const [orderList, setOrderList] = useState(dataOrderCList);
-  console.log(orderList);
   return (
     <>
       <Loader showLoader={loading} />

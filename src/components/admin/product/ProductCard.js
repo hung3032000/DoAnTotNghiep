@@ -25,20 +25,21 @@ function ProductCard(props) {
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
-      if (data) {
-        adminAPI.updateImageProduct(values._id, data);
-        const action = updateProductDetail(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        window.location.reload();
-      } else {
-        const action = updateProductDetail(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        window.location.reload();
-      }
+      console.log(values);
+      // if (data) {
+      //   adminAPI.updateImageProduct(values._id, data);
+      //   const action = updateProductDetail(values);
+      //   const resultAction = await dispatch(action);
+      //   unwrapResult(resultAction);
+      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      //   window.location.reload();
+      // } else {
+      //   const action = updateProductDetail(values);
+      //   const resultAction = await dispatch(action);
+      //   unwrapResult(resultAction);
+      //   enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      //   window.location.reload();
+      // }
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -131,9 +132,9 @@ function ProductCard(props) {
               </TableHead>
               <TableBody>
                 {currentTableData.map((product) => (
-                  <TableRow hover key={product.id} selected={selectedCustomerIds.indexOf(product.id) !== -1}>
+                  <TableRow hover key={product._id} selected={selectedCustomerIds.indexOf(product._id) !== -1}>
                     <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(product.id) !== -1} onChange={(event) => handleSelectOne(event, product.id)} value="true" />
+                      <Checkbox checked={selectedCustomerIds.indexOf(product._id) !== -1} onChange={(event) => handleSelectOne(event, product._id)} value="true" />
                     </TableCell>
                     <TableCell>
                       <Box

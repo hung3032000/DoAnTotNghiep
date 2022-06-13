@@ -36,7 +36,7 @@ function InputText(props) {
           <Controller
             name={name}
             control={form.control}
-            as={<input />}
+            as={<input required/>}
             className="form-input form-field required"
             type={showPassword(isPassword)}
             placeholder={placeholder}
@@ -45,7 +45,7 @@ function InputText(props) {
           <span className="error"></span>
           {isPassword ? (
             <i className="password-show" onClick={togglePasswordVisiblity}>
-              {passwordShown ? 'Hide' : 'Show'}
+              {passwordShown ? 'Ẩn' : 'Hiện'}
             </i>
           ) : (
             ''

@@ -118,7 +118,7 @@ const Order = function () {
 
                           <TableCell>{order.userId.email}</TableCell>
                           <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-                          {/* <TableCell>{order.userId.email}</TableCell> */}
+                     
                           <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
                           <TableCell>{order.status}</TableCell>
                           <TableCell>

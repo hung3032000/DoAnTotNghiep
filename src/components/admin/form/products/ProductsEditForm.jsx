@@ -40,17 +40,18 @@ function ProductEditForm(props) {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
+      console.log(values);
       if (selectedFiles && selectedFiles[0]) {
         const data = new FormData();
         data.append('photo', selectedFiles[0]);
         const { onSubmit } = props;
         if (onSubmit) {
-          await onSubmit(values, data);
+          // await onSubmit(values, data);
         }
       } else {
         const { onSubmit } = props;
         if (onSubmit) {
-          await onSubmit(values);
+          // await onSubmit(values);
         }
       }
     } catch (error) {
