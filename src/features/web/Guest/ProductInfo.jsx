@@ -177,7 +177,7 @@ function ProductInfo() {
                 </div>
               </div>
               <div className="product-block-images container">
-                {product.images.map((productList, index) => (
+                {product.images?.map((productList, index) => (
                   <a key={index} href className="fullscreen full-mobile">
                     <img className="img-productinfo" src={productList} alt="Lỗi ảnh" />
                   </a>

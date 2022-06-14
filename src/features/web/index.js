@@ -9,6 +9,7 @@ const ShowProduct = lazy(() => import('features/web/Guest/ShowProduct'));
 const Search = lazy(() => import('features/web/Guest/Search'));
 const UserCart = lazy(() => import('features/web/Guest/UserCart'));
 const Cartlist = lazy(() => import('features/web/User/CartList'));
+const ResetPassword = lazy(() => import('features/web/Guest/ResetPassword'));
 const Page = [
 
   {
@@ -55,6 +56,12 @@ const Page = [
     path: '/search',
     exact: false,
     main: Search
+  }
+  ,
+  {
+    path: '/reset-password/:token',
+    exact: false,
+    main: ResetPassword
   }
 
 ];

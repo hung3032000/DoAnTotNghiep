@@ -80,7 +80,14 @@ export const deleteAddress = createAsyncThunk('user/deleteAddress', async (id) =
   localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
   return data;
 });
-
+export const resetPassword = createAsyncThunk('user/resetPassword', async (values) => {
+  const data = await userApi.resetPassword(values);
+  return data;
+});
+export const confirmResetPassword = createAsyncThunk('user/confirmResetPassword', async (values) => {
+  const data = await userApi.confirmResetPassword(values);
+  return data;
+});
 const userSlice = createSlice({
   name: 'user',
   initialState: {

@@ -28,10 +28,17 @@ export const statusOrderComplete = createAsyncThunk('statusOrderComplete', async
   const response = await adminAPI.statusOrderComplete(id);
   return response;
 });
-
+export const statusOrderFail = createAsyncThunk('statusOrderFail', async (id) => {
+  const response = await adminAPI.statusOrderFail(id);
+  return response;
+});
 
 export const getOrder = createAsyncThunk('getOrder', async (params) => {
   const response = await orderApi.getAll(params);
+  return response;
+});
+export const getOrderCompleteUser = createAsyncThunk('getOrderCompleteUser', async (params) => {
+  const response = await orderApi.getOrderByEmail(params);
   return response;
 });
 
@@ -57,6 +64,9 @@ const ListCategorySlice = createSlice({
     },
     [getOrder.fulfilled]: (state, action) => {
       state.data = action.payload;
+    },
+    [getOrderCompleteUser.fulfilled]: (state, action) => {
+      state.dataComplete = action.payload;
     },
   },
 });

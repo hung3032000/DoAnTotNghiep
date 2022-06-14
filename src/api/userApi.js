@@ -29,17 +29,25 @@ const userApi = {
     const url = '/addresses';
     return axiosClient.get(url);
   },
-  updateAddress:(id,data) => {
+  updateAddress: (id, data) => {
     const url = `/addresses/${id}`;
-    return axiosClient.put(url,data);
+    return axiosClient.put(url, data);
   },
-  updateDefaultAddress:(id,data) => {
+  updateDefaultAddress: (id, data) => {
     const url = `/addresses/${id}`;
-    return axiosClient.put(url,data);
+    return axiosClient.put(url, data);
   },
-  deleteAddress:(id) => {
+  deleteAddress: (id) => {
     const url = `/addresses/${id}`;
     return axiosClient.delete(url);
+  },
+  resetPassword: (values)=> {
+    const url = '/resetpassword/generate-token';
+    return axiosClient.post(url,  values );
+  },
+  confirmResetPassword(data) {
+    const url = `/resetpassword/reset`;
+    return axiosClient.put(url, data);
   },
 };
 

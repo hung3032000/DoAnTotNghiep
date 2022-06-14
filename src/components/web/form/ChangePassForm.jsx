@@ -5,15 +5,16 @@ import Input from './inputCommon/inputText';
 
 ChangePassForm.propTypes = {
   onSubmit: PropTypes.func,
+  reset: PropTypes.bool,
 };
 
 function ChangePassForm(props) {
+  const { reset } = props;
   const updatePassForm = useForm({
     defaultValues: {
       passwordOld: '',
       passwordNew: '',
     },
-    // resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
@@ -22,24 +23,24 @@ function ChangePassForm(props) {
     }
   };
   return (
-      <form className="form-horizontal" id="ChangePassowrdForm" onSubmit={updatePassForm.handleSubmit(handleSubmit)}>
-        <fieldset>
-          <legend className="visually-hidden">Tạo mật khẩu mới</legend>
-          <Input name="passwordOld" form={updatePassForm} isPassword={true} label="Mật khẩu cũ *" />
-          <Input name="passwordNew" form={updatePassForm} isPassword={true} label="Mật khẩu mới *" />
-          <div className="form-row" data-requiredtext data-regexinvalidmessage aria-required="true">
-            <div className="form-caption" id="profile_login_password-instruction">
-              Vui lòng nhập mật khẩu có ít nhất 8 ký tự, với 1 số và 1 ký tự viết hoa.
-            </div>
+    <form className="form-horizontal" id="ChangePassowrdForm" onSubmit={updatePassForm.handleSubmit(handleSubmit)}>
+      <fieldset>
+        <legend className="visually-hidden">Tạo mật khẩu mới</legend>
+        {reset ? '' : <Input name="passwordOld" form={updatePassForm} isPassword={true} placeholder="Mật khẩu cũ *" />}
+        <Input name="passwordNew" form={updatePassForm} isPassword={true} placeholder="Mật khẩu mới *" />
+        <div className="form-row" data-requiredtext data-regexinvalidmessage aria-required="true">
+          <div className="form-caption" id="profile_login_password-instruction">
+            Vui lòng nhập mật khẩu có ít nhất 8 ký tự, với 1 số và 1 ký tự viết hoa.
           </div>
-          {/* <UserRetypePasword name="retypeNewPass" formUserRetypePassword={updatePassForm}/> */}
-          <div className="form-row form-row-button">
-            <button type="submit" value="Apply" name="dwfrm_profile_changepassword">
-              Xác nhận
-            </button>
-          </div>
-        </fieldset>
-      </form>
+        </div>
+        {/* <UserRetypePasword name="retypeNewPass" formUserRetypePassword={updatePassForm}/> */}
+        <div className="form-row form-row-button">
+          <button type="submit" value="Apply" name="dwfrm_profile_changepassword">
+            Xác nhận
+          </button>
+        </div>
+      </fieldset>
+    </form>
   );
 }
 

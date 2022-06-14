@@ -103,6 +103,10 @@ const adminAPI = {
     const url = `/ordercompletes/status/${id}`;
     return axiosClient.put(url, { status: 'Done' });
   },
+  statusOrderFail: (id) => {
+    const url = `/ordercompletes/status/${id}`;
+    return axiosClient.put(url, { status: 'Failed' });
+  },
 
   //------------------user------------------
   getAllUser: (params) => {

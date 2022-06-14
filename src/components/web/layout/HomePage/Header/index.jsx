@@ -13,9 +13,10 @@ import Modal from 'components/web/modal/modal';
 import Cart from 'components/web/cart/Cart';
 import Search from 'components/web/search/Search';
 import { getListProductSearch } from 'slice/ProductListSlice';
-
+import { listNavUser } from 'constants/index';
 const Header = function (props) {
   //hover animation
+ 
   const [hovered, setHovered] = useState(false);
   const [hoveredcart, setHoveredcart] = useState(false);
   const [hoverUser, setHoveredUser] = useState(false); //check login
@@ -71,8 +72,8 @@ const Header = function (props) {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      history.push('/');
-      window.location.reload();
+      // history.push('/');
+      // window.location.reload();
     } catch (error) {
       console.log('Failed to login:', error);
       // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
@@ -124,7 +125,7 @@ const Header = function (props) {
                     <a href className="level-2 back" wfd-invisible="true">
                       Đăng nhập
                     </a>
-                    <LoginFormHeader onSubmit={handleLoginFormSubmit}/>
+                    <LoginFormHeader onSubmit={handleLoginFormSubmit} />
                   </div>
                 </li>
               </ul>
@@ -149,21 +150,13 @@ const Header = function (props) {
                           Tài khoản
                         </NavLink>
                         <ul>
-                          <li className="order-history ">
-                            <NavLink activeClassName="active" to="/order">
-                              Đơn hàng
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink activeClassName="active" to="/editaccount">
-                              Thông tin cá nhân
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink activeClassName="active" to="/addresses">
-                              Địa chỉ
-                            </NavLink>
-                          </li>
+                          {listNavUser.map((data, index) => (
+                            <li key={index} className={data.className}>
+                              <NavLink activeClassName="active" to={data.href}>
+                                {data.label}
+                              </NavLink>
+                            </li>
+                          ))}
                           <li>
                             <Link className="cursor" onClick={handleLogout}>
                               Thoát

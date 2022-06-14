@@ -3,7 +3,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { deleteOrderAdmin, addOrderCompleteAdmin, statusOrderComplete } from 'slice/OrderSlice';
+import { deleteOrderAdmin, addOrderCompleteAdmin, statusOrderComplete, statusOrderFail } from 'slice/OrderSlice';
 import { useDispatch } from 'react-redux';
 import { useState, useMemo, useEffect } from 'react';
 import moment from 'moment';
@@ -72,11 +72,25 @@ function OrderListResults(props) {
       setLoading(false);
     }
   };
-
   const handleOnHistoryOrder = async (order) => {
     try {
       setLoading(true);
       const action = statusOrderComplete(order._id);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setTimeout(() => window.location.reload(), 1000);
+      setLoading(false);
+    }
+  };
+  const handleOnFailOrder = async (id) => {
+    try {
+      setLoading(true);
+      const action = statusOrderFail(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
@@ -185,38 +199,52 @@ function OrderListResults(props) {
                       ) : (
                         <>
                           {orderComplete ? (
-                            <IconButton
-                              className="mgr-10"
-                              color="primary"
-                              aria-label="edit"
-                              onClick={() => {
-                                handleOnHistoryOrder(order);
-                              }}
-                            >
-                              <CheckIcon />
-                            </IconButton>
+                            <>
+                              <IconButton
+                                className="mgr-10"
+                                color="primary"
+                                aria-label="edit"
+                                onClick={() => {
+                                  handleOnHistoryOrder(order);
+                                }}
+                              >
+                                <CheckIcon />
+                              </IconButton>
+                              <IconButton
+                                className="mgr-10"
+                                color="secondary"
+                                aria-label="delete"
+                                onClick={() => {
+                                  handleOnFailOrder(order._id);
+                                }}
+                              >
+                                <ClearIcon />
+                              </IconButton>
+                            </>
                           ) : (
-                            <IconButton
-                              className="mgr-10"
-                              color="primary"
-                              aria-label="edit"
-                              onClick={() => {
-                                handleOnComplete(order.dataOrder);
-                              }}
-                            >
-                              <CheckIcon />
-                            </IconButton>
+                            <>
+                              <IconButton
+                                className="mgr-10"
+                                color="primary"
+                                aria-label="edit"
+                                onClick={() => {
+                                  handleOnComplete(order.dataOrder);
+                                }}
+                              >
+                                <CheckIcon />
+                              </IconButton>
+                              <IconButton
+                                className="mgr-10"
+                                color="secondary"
+                                aria-label="delete"
+                                onClick={() => {
+                                  handleOnCancel(order._id);
+                                }}
+                              >
+                                <ClearIcon />
+                              </IconButton>
+                            </>
                           )}
-                          <IconButton
-                            className="mgr-10"
-                            color="secondary"
-                            aria-label="delete"
-                            onClick={() => {
-                              handleOnCancel(order._id);
-                            }}
-                          >
-                            <ClearIcon />
-                          </IconButton>
                         </>
                       )}
                       <OrderListInfo order={order.dataOrder} />

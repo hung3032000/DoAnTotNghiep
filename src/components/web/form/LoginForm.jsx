@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Modal from 'components/web/modal/modal';
 import Input from './inputCommon/inputText';
+import ForgetPassword from "components/web/forgetPass"
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -40,9 +42,9 @@ function LoginForm(props) {
           </button>
         </div>
         <div className="login-actions">
-          <a className="password-reset" href>
-            Quên mật khẩu?
-          </a>
+          <Modal anchorButton={true} classNameModal={'password-reset anchor'} label={'Quên mật khẩu?'}>
+            <ForgetPassword/>
+          </Modal>
           <div className="form-row form-customCheckbox remember-me">
             <input type="checkbox" id="remember-me" className="form-checkbox" />
             <label htmlFor="remember-me" className="form-label">

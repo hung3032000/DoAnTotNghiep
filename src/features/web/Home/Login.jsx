@@ -26,8 +26,8 @@ const Login = function () {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      history.push('/');
-      window.location.reload();
+      // history.push('/');
+      // window.location.reload();
     } catch (error) {
       console.log('Failed to login:', error);
       enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
@@ -73,16 +73,9 @@ const Login = function () {
       </Helmet>
       <Loader showLoader={loading} />
       <div className="pt_storefront" id="wrapper">
-        
         <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
           <div id="primary" className="primary-content">
             <div className="login-page container">
-              {/* <div className="account-edit-success">
-                <i className="icon_CheckMark"></i>
-                <span role="alert">
-                  ${'{'}message2{'}'}
-                </span>
-              </div> */}
               <div className="page-header">
                 <h1>
                   <span className="subtitle">Tài khoản</span> <span className="title">Đăng nhập</span>
@@ -105,9 +98,6 @@ const Login = function () {
                       cookiePolicy={'single_host_origin'}
                     />
                     <p className="intro">Nếu bạn là một thành viên của Hermes, hãy đăng nhập với thông tin của bạn.</p>
-                    {/* <div className="error">
-                      ${click}
-                    </div> */}
                     <LoginForm onSubmit={handleLoginFormSubmit} />
                   </div>
                 </div>

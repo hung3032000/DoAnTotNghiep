@@ -24,6 +24,17 @@ function CategoryChild() {
         const action = categoryDetail(id);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
         const actionChild = getListCategoryChild(id, { substatus: true });
         const resultActionChild = await dispatch(actionChild);
         unwrapResult(resultActionChild);
@@ -34,6 +45,7 @@ function CategoryChild() {
       }
     })();
   }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
+
   return (
     <div>
       <Loader showLoader={loading} />
@@ -42,7 +54,7 @@ function CategoryChild() {
         <div id="primary" className="primary-content">
           <div className="page-header">
             <h1>
-              <span className="title">{dataCategoryDetail.nameCategory}</span>
+              <span className="title">{dataCategoryDetail.nameCategory}ss</span>
             </h1>
           </div>
           <CateC data={dataCategoryCList.subcategories} />

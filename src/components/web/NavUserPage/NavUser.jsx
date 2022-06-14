@@ -1,7 +1,8 @@
 import { logout } from 'slice/userSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink, useHistory,Link } from 'react-router-dom';
+import { NavLink, useHistory, Link } from 'react-router-dom';
+import { listNavUser } from 'constants/index';
 
 function NavUser(props) {
   const dispatch = useDispatch();
@@ -13,21 +14,18 @@ function NavUser(props) {
     history.push('/');
     window.location.reload();
   };
+
   return (
     <div>
       <nav className="account-navigation">
         <ul>
-          <li className="order-history ">
-            <NavLink activeClassName="active" to="/order">Đơn hàng</NavLink>
-          </li>
-          <li className>
-            <NavLink activeClassName="active" to="/editaccount">
-              Thông tin cá nhân
-            </NavLink>
-          </li>
-          <li className>
-            <NavLink activeClassName="active" to="/addresses">Địa chỉ</NavLink>
-          </li>
+          {listNavUser.map((data, index) => (
+            <li key={index} className={data.className}>
+              <NavLink activeClassName="active" to={data.href}>
+                {data.label}
+              </NavLink>
+            </li>
+          ))}
           <li>
             <Link className="cursor" onClick={handleLogout}>
               Đăng xuất

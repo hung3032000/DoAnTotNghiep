@@ -152,7 +152,7 @@ function ModifyAddress(props) {
         <p className="mandatory-fields">Tất cả các trường có dấu * là bắt buộc</p>
         <div className="form-row form-row-button">
           <button className="apply-button btn btn-outline-primary btn-full " type="submit" name="dwfrm_profile_address_edit" value="Apply">
-            Apply
+            Lưu
           </button>
         </div>
       </fieldset>

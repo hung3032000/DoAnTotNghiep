@@ -22,7 +22,6 @@ import Pagination from 'components/web/pagination/index';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 let PageSize = 5;
-
 const Order = function () {
   const dataOrderList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
@@ -32,8 +31,6 @@ const Order = function () {
       try {
         setLoading(true);
         const action = getOrder({
-          page: 1,
-          limit: 20,
           status: 'Pending',
         });
         const resultAction = await dispatch(action);
@@ -71,7 +68,7 @@ const Order = function () {
     <>
       <Loader showLoader={loading} />
       <Helmet>
-        <title>Đơn hàng</title>
+        <title>Đang xử lý</title>
       </Helmet>
       <main id="main" className="page-content clearfix" style={{ marginTop: '128px' }}>
         <div className="cart-live-region" aria-live="polite" role="status"></div>
@@ -82,10 +79,10 @@ const Order = function () {
           <div className="orders-history">
             <div className="page-header">
               <h1>
-                <span className="subtitle">Tài khoản của tôi</span> <span className="title">Đơn hàng</span>
+                <span className="subtitle">Đơn hàng của tôi</span> <span className="title">Đơn đang xử lý</span>
               </h1>
             </div>
-            {dataOrderList.length === 0 && <div className="container no-orders">Hiện tại chưa có đơn hàng</div>}
+            {dataOrderList.length === 0 && <div className="container no-orders">Hiện tại chưa có đơn đang xử lý</div>}
             {dataOrderList.length > 0 && (
               <div className="container" style={{ marginBottom: '30px' }}>
                 <TableContainer component={Paper}>
@@ -118,23 +115,21 @@ const Order = function () {
 
                           <TableCell>{order.userId.email}</TableCell>
                           <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-                     
+
                           <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
                           <TableCell>{order.status}</TableCell>
                           <TableCell>
                             <OrderListInfo order={order} />
-                            {order.status === 'Pending' && (
-                              <IconButton
-                                className="mgr-10"
-                                color="secondary"
-                                aria-label="delete"
-                                onClick={() => {
-                                  handleOnCancel(order._id);
-                                }}
-                              >
-                                <ClearIcon />
-                              </IconButton>
-                            )}
+                            <IconButton
+                              className="mgr-10"
+                              color="secondary"
+                              aria-label="delete"
+                              onClick={() => {
+                                handleOnCancel(order._id);
+                              }}
+                            >
+                              <ClearIcon />
+                            </IconButton>
                           </TableCell>
                         </TableRow>
                       ))}

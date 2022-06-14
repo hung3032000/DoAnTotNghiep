@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 Modal.propTypes = {
   classNameModal: PropTypes.string,
   label: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  anchorButton: PropTypes.bool,
 };
 function Modal(props) {
-  const { label, classNameModal,id} = props;
+  const { label, classNameModal, id, anchorButton } = props;
   const [state, setState] = useState({});
   const anchor = 'right';
   const toggleDrawer = (anchor, action) => (event) => {
@@ -34,9 +35,16 @@ function Modal(props) {
 
   return (
     <>
-      <button className={classNameModal} id={id} onClick={toggleDrawer(anchor, true)}>
-        {label}
-      </button>
+      {anchorButton ? (
+        <a href className={classNameModal} id={id} onClick={toggleDrawer(anchor, true)}>
+          {label}
+        </a>
+      ) : (
+        <button className={classNameModal} id={id} onClick={toggleDrawer(anchor, true)}>
+          {label}
+        </button>
+      )}
+
       <SwipeableDrawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} onOpen={toggleDrawer(anchor, true)}>
         {list(anchor)}
       </SwipeableDrawer>

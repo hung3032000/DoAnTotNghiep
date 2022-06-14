@@ -22,5 +22,9 @@ const orderApi = {
     const url = `/orders/${data.id}`;
     return axiosClient.patch(url,data);
   },
+  getOrderByEmail(params) {
+    const url = `/ordercompletes/search/getByEmail`;
+    return axiosClient.get(url, {params});
+  },
 };
 export default orderApi;
