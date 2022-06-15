@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, Tooltip } from '@material-ui/core';
+import { Box, Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -13,16 +13,10 @@ function LatestOrders(props) {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Order Ref</TableCell>
-                <TableCell>Customer</TableCell>
-                <TableCell sortDirection="desc">
-                  <Tooltip enterDelay={300} title="Sort">
-                    <TableSortLabel active direction="desc">
-                      Date
-                    </TableSortLabel>
-                  </Tooltip>
-                </TableCell>
-                <TableCell>Status</TableCell>
+                <TableCell>Mã đơn hàng</TableCell>
+                <TableCell>Khách hàng</TableCell>
+                <TableCell>Ngày</TableCell>
+                <TableCell>Trạng thái</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
