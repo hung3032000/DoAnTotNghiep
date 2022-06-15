@@ -69,7 +69,7 @@ function Dashboard() {
               <LatestProducts sx={{ height: '100%' }} data={topProductList.listProduct} label="Sản phẩm bán chạy"/>
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
-              <LatestOrders data={orderLastedList.orderlist.slice(0,5)} label="Đơn hàng mới nhất"/>
+              <LatestOrders data={orderLastedList.orderlist} label="Đơn hàng mới nhất"/>
             </Grid>
           </Grid>
         </Container>

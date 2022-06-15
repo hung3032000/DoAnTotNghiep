@@ -2,9 +2,8 @@ import { Box, Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, Tabl
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-
 function LatestOrders(props) {
-  const { data,label } = props;
+  const { data, label } = props;
   return (
     <Card {...props}>
       <CardHeader title={label} />
@@ -27,12 +26,12 @@ function LatestOrders(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((order) => (
+              {data?.slice(0, 5).map((order) => (
                 <TableRow hover key={order._id}>
-                   <TableCell>{order._id}</TableCell>
-                <TableCell>{order.addressrecevie.name}</TableCell>
+                  <TableCell>{order._id}</TableCell>
+                  <TableCell>{order.addressrecevie.name}</TableCell>
                   <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
-                   <TableCell>
+                  <TableCell>
                     <Chip color="primary" label={order.status} size="small" />
                   </TableCell>
                 </TableRow>
@@ -48,9 +47,7 @@ function LatestOrders(props) {
           p: 2,
         }}
       >
-        <a href='/ordersA'>
-          Xem tất cả đơn hàng
-        </a>
+        <a href="/ordersA">Xem tất cả đơn hàng</a>
       </Box>
     </Card>
   );
