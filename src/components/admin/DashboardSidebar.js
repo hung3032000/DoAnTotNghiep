@@ -15,13 +15,15 @@ import {
   // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Grid as GridIcon,
-  // Settings as SettingsIcon,
+  
   ShoppingBag as ShoppingBagIcon,
   // User as UserIcon,
   UserPlus as UserPlusIcon,
   Truck as TruckIcon,
-  Inbox as InboxIcon
+  Inbox as InboxIcon,
+
 } from 'react-feather';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import NavItem from './NavItem';
 
 const user = {
@@ -45,11 +47,6 @@ const items = [
   //   href: '/customersA',
   //   icon: UsersIcon,
   //   title: 'Khách hàng'
-  // },
-  // {
-  //   href: '/addressA',
-  //   icon: UsersIcon,
-  //   title: 'Địa chỉ'
   // },
   {
     href: '/productsA',
@@ -85,7 +82,12 @@ const items = [
     href: '/voucherA',
     icon: InboxIcon,
     title: 'Quản lý voucher'
-  }
+  },
+  {
+    href: '/statistical',
+    icon: EqualizerIcon,
+    title: 'Thống kê'
+  },
   
   // ,{
   //   href: '/settingsA',

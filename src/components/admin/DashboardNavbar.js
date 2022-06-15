@@ -1,23 +1,19 @@
 // import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
   AppBar,
-  // Badge,
   Box,
   Hidden,
   IconButton,
   Toolbar
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-// import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import Logo from './Logo';
-import { logout } from 'slice/userSlice';
+import MenuIcon from '@material-ui/icons/Menu';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { logout } from 'slice/userSlice';
+import Logo from './Logo';
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
-  // const [notifications] = useState([]);
   //logout
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,29 +22,16 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
     dispatch(action);
     history.push('/');
     window.location.reload();
-
   };
- 
+
   return (
-    <AppBar
-      elevation={0}
-      {...rest}
-    >
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
-        <RouterLink to="/">
+        <a href="/">
           <Logo />
-        </RouterLink>
+        </a>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden xlDown>
-          {/* <IconButton color="inherit" size="large">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton> */}
           <IconButton color="inherit" size="large" onClick={handleLogout}>
             <InputIcon />
           </IconButton>
@@ -64,7 +47,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
 };
 
 DashboardNavbar.propTypes = {
-  onMobileNavOpen: PropTypes.func
+  onMobileNavOpen: PropTypes.func,
 };
 
 export default DashboardNavbar;

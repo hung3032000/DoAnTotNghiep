@@ -1,22 +1,46 @@
-import { Helmet } from 'react-helmet';
 import { Box, Container, Grid } from '@material-ui/core';
-import Budget from 'components/admin/dashboard/Budget';
+import { unwrapResult } from '@reduxjs/toolkit';
 import LatestOrders from 'components/admin/dashboard/LatestOrders';
 import LatestProducts from 'components/admin/dashboard/LatestProducts';
-import Sales from 'components/admin/dashboard/Sales';
-import TasksProgress from 'components/admin/dashboard/TasksProgress';
 import TotalCustomers from 'components/admin/dashboard/TotalCustomers';
-import TotalProfit from 'components/admin/dashboard/TotalProfit';
-import TrafficByDevice from 'components/admin/dashboard/TrafficByDevice';
+import Loader from 'components/fullPageLoading';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLastedOrder, getTopProduct, getTotalField } from 'slice/StaticSlice';
+function Dashboard() {
+  const [loading, setLoading] = useState(false);
+  const orderLastedList = useSelector((state) => state.static.orderLasted);
+  const topProductList = useSelector((state) => state.static.topProduct);
+  const totalFieldList = useSelector((state) => state.static.totalField);
+  const dispatch = useDispatch();
 
-import React from 'react';
-// import PropTypes from 'prop-types';
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const lastedOrder = getLastedOrder();
+        const resultAction = await dispatch(lastedOrder);
+        unwrapResult(resultAction);
 
-// Dashboard.propTypes = {};
+        const totalField = getTotalField();
+        const resultActionTotalField = await dispatch(totalField);
+        unwrapResult(resultActionTotalField);
 
-function Dashboard(props) {
+        const topProduct = getTopProduct();
+        const resultActionTopProduct = await dispatch(topProduct);
+        unwrapResult(resultActionTopProduct);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch]);
   return (
     <>
+      <Loader showLoader={loading} />
+
       <Helmet>
         <title>Trang chủ admin</title>
       </Helmet>
@@ -30,28 +54,22 @@ function Dashboard(props) {
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <Budget />
+              <TotalCustomers data={totalFieldList.getTotalOrderCompleteDay} label="Đơn hoàn thành trong ngày"/>
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalCustomers />
+              <TotalCustomers data={totalFieldList.totalUser} label="Tổng người dùng"/>
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TasksProgress />
+              <TotalCustomers data={totalFieldList.getTotalOrderWaitingShipping} label="Tổng đơn đang chờ"/>
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalProfit sx={{ height: '100%' }} />
-            </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <Sales />
+              <TotalCustomers sx={{ height: '100%' }} data={totalFieldList.totalOrderByDay} label="Tổng đơn trong ngày"/>
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>
-              <TrafficByDevice sx={{ height: '100%' }} />
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              <LatestProducts sx={{ height: '100%' }} />
+              <LatestProducts sx={{ height: '100%' }} data={topProductList.listProduct} label="Sản phẩm bán chạy"/>
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
-              <LatestOrders />
+              <LatestOrders data={orderLastedList.orderlist.slice(0,5)} label="Đơn hàng mới nhất"/>
             </Grid>
           </Grid>
         </Container>

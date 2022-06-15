@@ -8,6 +8,7 @@ import cartReducer from 'slice/CartSlice';
 import voucherReducer from 'slice/voucherSlice';
 import sizeAcolorReducer from 'slice/SizeAColor';
 import saleReducer from 'slice/SaleSlice';
+import staticReducer from 'slice/StaticSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
@@ -23,6 +24,7 @@ const rootReducer = {
   sizeAcolor: sizeAcolorReducer,
   order: orderReducer,
   sale: saleReducer,
+  static: staticReducer
 };
 
 const store = configureStore({

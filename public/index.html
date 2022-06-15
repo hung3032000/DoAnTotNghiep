@@ -25,14 +25,46 @@
 
       gtag('config', 'UA-230695609-1');
     </script> -->
-
+    
     
     <script src="https://www.paypal.com/sdk/js?client-id=ARKSwdxd5hEkUfqEz02FG3CbehuJRyqXsZhnxnyGzMpo9cpItWoujchTv9FBPUQPZ6QpekV3m2DjmxtG&currency=USD"></script>
   </head>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
 
+      let __protocol = document.location.protocol;
+      let __baseUrl = __protocol + '//livechat.fpt.ai/v35/src';
+
+      let prefixNameLiveChat = 'ChatBotKTLN';
+      let objPreDefineLiveChat = {
+              appCode: 'a87017e26f1fda6b195334cf42a36970',
+              themes: '',
+              appName: prefixNameLiveChat ? prefixNameLiveChat : 'Live support',
+              thumb: '',
+              icon_bot: ''
+          },
+          appCodeHash = window.location.hash.substr(1);
+      if (appCodeHash.length == 32) {
+          objPreDefineLiveChat.appCode = appCodeHash;
+      }
+
+      let fpt_ai_livechat_script = document.createElement('script');
+      fpt_ai_livechat_script.id = 'fpt_ai_livechat_script';
+      fpt_ai_livechat_script.src = __baseUrl + '/static/fptai-livechat.js';
+      document.body.appendChild(fpt_ai_livechat_script);
+
+      let fpt_ai_livechat_stylesheet = document.createElement('link');
+      fpt_ai_livechat_stylesheet.id = 'fpt_ai_livechat_script';
+      fpt_ai_livechat_stylesheet.rel = 'stylesheet';
+      fpt_ai_livechat_stylesheet.href = __baseUrl + '/static/fptai-livechat.css';
+      document.body.appendChild(fpt_ai_livechat_stylesheet);
+
+      fpt_ai_livechat_script.onload = function () {
+          fpt_ai_render_chatbox(objPreDefineLiveChat, __baseUrl, 'livechat.fpt.ai:443');
+      }
+    </script>
     <div id="root"></div>
 
     <script type="text/javascript" src="%PUBLIC_URL%/js/main.js"></script>

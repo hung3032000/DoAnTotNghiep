@@ -1,6 +1,6 @@
-import { matchPath, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { matchPath, useLocation } from 'react-router-dom';
 
 const NavItem = ({ href, icon: Icon, title, ...rest }) => {
   const location = useLocation();
@@ -10,7 +10,6 @@ const NavItem = ({ href, icon: Icon, title, ...rest }) => {
         path: href,
       })
     : false;
-
   return (
     <ListItem
       disableGutters

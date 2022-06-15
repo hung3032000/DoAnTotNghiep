@@ -54,7 +54,7 @@ function CategoryChild() {
         <div id="primary" className="primary-content">
           <div className="page-header">
             <h1>
-              <span className="title">{dataCategoryDetail.nameCategory}ss</span>
+              <span className="title">{dataCategoryDetail.nameCategory}</span>
             </h1>
           </div>
           <CateC data={dataCategoryCList.subcategories} />

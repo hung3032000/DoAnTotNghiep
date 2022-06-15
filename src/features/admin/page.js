@@ -14,6 +14,7 @@ import OrderHistory from 'features/admin/page/OrderHistory';
 import SizeAColor from 'features/admin/page/SizeAColor';
 import SizeAColorNew from 'features/admin/page/SizeAColorNew';
 import SaleNew from 'features/admin/page/SaleNew';
+import Statistical from 'features/admin/page/Statistical';
 
 const Page = [
   {
@@ -85,17 +86,21 @@ const Page = [
     path: '/sizeA/:id',
     exact: true,
     main: SizeAColor,
-  }, 
+  },
   {
     path: '/sizeA/newSize/:id',
     exact: true,
     main: SizeAColorNew,
-  }
-  , 
+  },
   {
-    path: '/saleA/newSale/:id', 
+    path: '/saleA/newSale/:id',
     exact: true,
     main: SaleNew,
-  }
+  },
+  {
+    path: '/statistical',
+    exact: true,
+    main: Statistical,
+  },
 ];
 export default Page;
