@@ -18,11 +18,11 @@ function CategoryListResults(props) {
   const handleOnEdit = async (values) => {
     try {
       setLoading(true);
-      const action = updateCategoryAdmin(values._id, values);
-      const resultAction = await dispatch(action);
+      const action = updateCategoryAdmin(values);
+      const resultAction = dispatch(action);
       unwrapResult(resultAction);
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });

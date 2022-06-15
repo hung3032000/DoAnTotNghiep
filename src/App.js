@@ -1,7 +1,7 @@
 //Admin
 import { StyledEngineProvider, ThemeProvider } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardNavbar from 'components/admin/DashboardNavbar';
 import DashboardSidebar from 'components/admin/DashboardSidebar';
 import GlobalStyles from 'components/admin/GlobalStyles';
@@ -9,6 +9,7 @@ import NotFoundA from 'features/admin/NotFound';
 import theme2 from './theme';
 import pageAdmin from 'features/admin/page';
 import { useSelector } from 'react-redux';
+import ReactGA from 'react-ga';
 //User
 import DefaultLayout from 'components/web/layout/HomePage/DefaultLayout';
 import pageGuest from 'features/web/index';
@@ -18,6 +19,8 @@ import React, { Suspense } from 'react';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
+const TRACKING_ID = "UA-230695609-1"; 
+ReactGA.initialize(TRACKING_ID);
 //admin
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -54,6 +57,11 @@ function App() {
   // create State
   const user = useSelector((state) => state.user.current);
   const isLoggedIn = !!user._id;
+
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
   // function
   const showPageGuest = (page) => {
     if (page.length > 0) {

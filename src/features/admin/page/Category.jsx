@@ -17,10 +17,7 @@ function CategoryList() {
       try {
         setLoading(true);
 
-        const action = getListCategoryAdmin({
-          page: 1,
-          limit: 100,
-        });
+        const action = getListCategoryAdmin();
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
       } catch (error) {

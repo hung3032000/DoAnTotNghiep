@@ -35,8 +35,8 @@ function CategoryChild() {
     (async () => {
       try {
         setLoading(true);
-        const actionChild = getListCategoryChild(id, { substatus: true });
-        const resultActionChild = await dispatch(actionChild);
+        const actionChild = getListCategoryChild(id);
+        const resultActionChild = dispatch(actionChild);
         unwrapResult(resultActionChild);
       } catch (error) {
         console.log(error);

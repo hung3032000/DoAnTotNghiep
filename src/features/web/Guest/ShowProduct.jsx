@@ -9,7 +9,7 @@ import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
 import { Helmet } from 'react-helmet';
 import Pagination from 'components/web/pagination/index';
-
+import Filter from 'components/web/filter'
 let PageSize = 8;
 const ShowProduct = function () {
   const {
@@ -73,7 +73,9 @@ const ShowProduct = function () {
                 </div>
                 <div className="refine-buttons col-md-6 col-md-4 order-md-3">
                   <div className="filters-tabs">
-                    <Modal classNameModal={'btn btn-link filters-tab'} label={'Filters'}></Modal>
+                    <Modal classNameModal={'btn btn-link filters-tab'} label={'Filters'}>
+                      <Filter />
+                    </Modal>
 
                     <a href className="reset-refinements btn btn-link-secondary d-none">
                       Clear all

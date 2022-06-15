@@ -43,8 +43,8 @@ const adminAPI = {
     return axiosClient.post(url, data);
   },
   updateCategories: (id, data) => {
-    const url = `/categories/update/${id}`;
-    return axiosClient.put(url, data);
+    const url = `/categories/${id}`;
+    return axiosClient.put(url,data);
   },
   deleteCategories: (id) => {
     const url = `/categories/${id}`;

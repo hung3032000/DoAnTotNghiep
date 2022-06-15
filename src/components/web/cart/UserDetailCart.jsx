@@ -5,7 +5,7 @@ import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils/common';
 import React, { useEffect } from 'react';
-import { getAllVoucher, getPriceAfterUsingVoucher } from 'slice/voucherSlice';
+import { getAllVoucherUser, getPriceAfterUsingVoucher } from 'slice/voucherSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
@@ -16,7 +16,7 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
     (async () => {
       try {
         // setLoading(true);
-        const action = getAllVoucher();
+        const action = getAllVoucherUser();
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
       } catch (error) {

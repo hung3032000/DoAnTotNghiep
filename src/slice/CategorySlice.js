@@ -23,8 +23,8 @@ export const createNewCategoryAdmin = createAsyncThunk('createNewCategoryAdmin',
   const response = await adminAPI.addCategories(params);
   return response;
 });
-export const updateCategoryAdmin = createAsyncThunk('updateCategoryAdmin', async (id,params) => {
-  const response = await adminAPI.updateCategories(id,params);
+export const updateCategoryAdmin = createAsyncThunk('updateCategoryAdmin', async (values) => {
+  const response = await adminAPI.updateCategories(values._id,values);
   return response;
 });
 

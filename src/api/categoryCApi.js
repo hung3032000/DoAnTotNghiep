@@ -1,15 +1,12 @@
 import axiosClient from './axiosClient';
 
-
 const categoryCApi = {
-  getAll(id,params) {
+  getAll(id, params) {
     const url = `/categories/${id}`;
-    return axiosClient.get(url, {params});
-
+    return axiosClient.get(url, { params });
   },
   get(id) {
-    const url = 
-    `/subcategories/${id}`;
+    const url = `/subcategories/${id}`;
     return axiosClient.get(url);
   },
 };

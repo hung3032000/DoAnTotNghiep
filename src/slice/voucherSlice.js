@@ -8,6 +8,11 @@ export const getAllVoucher = createAsyncThunk('voucher/getAllVoucher', async () 
   return data;
 });
 
+export const getAllVoucherUser = createAsyncThunk('voucher/getAllVoucherUser', async () => {
+  const data = await voucherApi.getAllUser();
+  return data;
+});
+
 export const getPriceAfterUsingVoucher = createAsyncThunk('voucher/getPriceAfterUsingVoucher', (data) => {
   localStorage.setItem(StorageKeys.VOUCHER, JSON.stringify(data));
   return data;
@@ -40,6 +45,9 @@ const voucherSlice = createSlice({
     },
     [getPriceAfterUsingVoucher.fulfilled]: (state, action) => {
       state.data = action.payload;
+    },
+    [getAllVoucherUser.fulfilled]: (state, action) => {
+      state.voucher = action.payload;
     },
   },
 });

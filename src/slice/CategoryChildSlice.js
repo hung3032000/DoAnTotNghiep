@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
 import categoryCApi from 'api/categoryCApi';
 
-export const getListCategoryChild = createAsyncThunk('listCategoryChild', async (id,params) => {
-  const response = await categoryCApi.getAll(id,params);
+export const getListCategoryChild = createAsyncThunk('listCategoryChild', async (id) => {
+  const response = await categoryCApi.getAll(id, { status: true });
   return response;
 });
 export const categoryCDetail = createAsyncThunk('categoryCDetail', async (id) => {
@@ -29,18 +29,17 @@ export const deleteCategoryCAdmin = createAsyncThunk('deleteCategoryCAdmin', asy
 });
 
 export const updateCategoryCAdmin = createAsyncThunk('updateCategoryCAdmin', async (values) => {
-  const response = await adminAPI.updateCategoriesC(values._id,values);
+  const response = await adminAPI.updateCategoriesC(values._id, values);
   return response;
 });
-
 
 const ListCategorySlice = createSlice({
   name: 'category',
   initialState: {
     data: [],
-    categoryChildDetail:[],
-    dataA:[],
-    categoryChildDetailA:[],
+    categoryChildDetail: [],
+    dataA: [],
+    categoryChildDetailA: [],
   },
   reducers: {},
   extraReducers: {

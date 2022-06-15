@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Autocomplete from 'components/autoComplete';
 import { useHistory } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 function Search() {
   const history = useHistory();
   const handleOnClick = () => {
-    let queryString = `q=${value}`;
-    history.push(`/search?${queryString}`);
+    let queryString = `?q=${value}`;
+    ReactGA.ga('send', 'pageview', queryString);
+    history.push(`/search${queryString}`);
   };
   const dataProductList = useSelector((state) => state.productList.search);
   const [suggestions, setSuggestions] = useState();

@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router';
+import ReactGA from 'react-ga';
 
 const AutoComplete = (props) => {
   const { data, classNameInput, placeholderInput, titleInput } = props;
@@ -25,8 +26,10 @@ const AutoComplete = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
-      let queryString = `q=${value}`;
-      history.push(`/search?${queryString}`);
+      let queryString = `?q=${value}`;
+      ReactGA.ga('send', 'pageview', queryString);
+
+      history.push(`/search${queryString}`);
       setSuggestionsActive(false);
     }
   };

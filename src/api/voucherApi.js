@@ -17,5 +17,10 @@ const voucherApi = {
     const url = `/coupons/${data.id}`;
     return axiosClient.put(url,data);
   },
+  getAllUser() {
+    const url = 
+    '/coupons/checkvalid/all';
+    return axiosClient.get(url);
+  },
 };
 export default voucherApi;

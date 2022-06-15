@@ -14,7 +14,6 @@ import { useLocation } from 'react-router';
 let PageSize = 8;
 const Search = function () {
   let location = useLocation();
-  console.log(location.search.substring(3));
   const searchFor = location.search.substring(3);
   const dispatch = useDispatch();
   // list Product
