@@ -30,7 +30,7 @@ const OrderUserCancel = function () {
   return (
     <>
       <Loader showLoader={loading} />
-      <OrderUser dataOrderList={dataOrderList} label="đã huỷ" orderComplete={false}/>
+      <OrderUser dataOrderList={dataOrderList} label="đã huỷ" orderComplete={false} orderCancel={true}/>
     </>
   );
 };

@@ -21,7 +21,7 @@ function Cart({ actionDeleteCart, cartTotal, countProduct, dataCart }) {
         {dataCart.map((card, index) => (
           <li key={card.id} className="minicart-product" data-qty="Quantity: value=1, unit=">
             <div className="minicart-product-image">
-              <img src={card.product.images ? card.product.images : THUMNAIL_URL_PRODUCTLIST} alt="Lỗi ảnh" />
+              <img src={card.product.imageMain ? card.product.imageMain : THUMNAIL_URL_PRODUCTLIST} alt="Lỗi ảnh" />
             </div>
             <div className="minicart-product-details">
               <a

@@ -154,7 +154,7 @@ function ProductInfo() {
                         <div className="double-form-button">
                           <div className="left">
                             <Modal classNameModal={'form-button secondary'} label={'Thông tin món hàng'}>
-                              <Detailproduct />
+                              <Detailproduct product={product} color={size}/>
                             </Modal>
                           </div>
                           <div className="right">
@@ -170,7 +170,7 @@ function ProductInfo() {
                       <Colorproduct color={size} onSubmit={handleSubmit} />
                       <SizeProduct size={size} onSubmit={handleSubmitSize} color={color} />
                       <div className="product-add-to-cart">
-                        <AddToCart onSubmit={handleAddToCartSubmit} />
+                        <AddToCart onSubmit={handleAddToCartSubmit} soldOut={totalProductState > 0 ? false : true}/>
                       </div>
                     </div>
                   </div>

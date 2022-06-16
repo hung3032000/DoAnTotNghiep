@@ -25,7 +25,7 @@ function ProductEditForm(props) {
     defaultValues: {
       _id: product._id,
       content: product.content,
-      photo: product.image,
+      photo: product.imageMain,
       description: product.description,
       name: product.name,
       material: product.material,

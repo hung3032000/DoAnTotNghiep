@@ -14,6 +14,7 @@ import Cart from 'components/web/cart/Cart';
 import Search from 'components/web/search/Search';
 import { getListProductSearch } from 'slice/ProductListSlice';
 import { listNavUser } from 'constants/index';
+import { getTopTrending } from 'slice/SearchSlice';
 const Header = function (props) {
   //hover animation
  
@@ -65,6 +66,7 @@ const Header = function (props) {
   const dataCart = useSelector((state) => state.cart.dataCart);
   const countProduct = useSelector(cartItemsCountSelector);
   const cartTotal = useSelector(cartTotalSelector);
+  const dataTrending = useSelector((state) => state.search.data);
   const actionDeleteCart = (index) => dispatch(removeFromCart(index));
   const handleLoginFormSubmit = async (values) => {
     try {
@@ -83,6 +85,20 @@ const Header = function (props) {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const action = getTopTrending();
+        const resultActionChild = dispatch(action);
+        unwrapResult(resultActionChild);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch]);
   return (
     <div>
       <Loader showLoader={loading} />
@@ -195,7 +211,7 @@ const Header = function (props) {
             <div className="search-link-container" role="search">
               <a href className="search-link">
                 <Modal classNameModal={'icon icon_Search anchor'}>
-                  <Search />
+                  <Search data={dataTrending}/>
                 </Modal>
               </a>
             </div>

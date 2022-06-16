@@ -8,7 +8,8 @@ AddToCart.propTypes = {
   soldOut: PropTypes.bool,
 };
 
-function AddToCart({ onSubmit = null }) {
+function AddToCart(props) {
+  const { soldOut,onSubmit } = props;
   const form = useForm({
     defaultValues: {
       quantity: 1,
@@ -22,13 +23,11 @@ function AddToCart({ onSubmit = null }) {
   };
   return (
     <div>
-      <form onSubmit={form.handleSubmit(handleSubmit)} >
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div style={{ display: 'none' }}>
           <QuantityField name="quantity" label="Quantity" form={form} value={1} />
         </div>
-        <button type="submit" 
-        // disabled 
-        title="Add to cart" value="Add to cart" className="form-button button--full add-to-cart disabled">
+        <button type="submit" disabled={soldOut} title="Add to cart" value="Add to cart" className="form-button button--full add-to-cart disabled">
           Thêm vào giỏ hàng
         </button>
       </form>

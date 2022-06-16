@@ -23,7 +23,7 @@ function ProductCard(props) {
     try {
       setLoading(true);
       if (data) {
-        values.data = data
+        values.data = data;
         const action = updateProductDetail(values);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
@@ -31,19 +31,18 @@ function ProductCard(props) {
         const resultAction2 = await dispatch(action2);
         unwrapResult(resultAction2);
         enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        // window.location.reload();
       } else {
         const action = updateProductDetail(values);
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
         enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        // window.location.reload();
       }
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 
@@ -64,11 +63,10 @@ function ProductCard(props) {
     }
   };
 
-
-  const handleOnEditImage = async (values,data) => {
+  const handleOnEditImage = async (values, data) => {
     try {
       setLoading(true);
-      values.data =data;
+      values.data = data;
       console.log(values);
       const action2 = updateMultipleImageProduct(values);
       const resultAction2 = await dispatch(action2);
@@ -176,7 +174,7 @@ function ProductCard(props) {
 
                     <TableCell>
                       <ProductEditForm product={product} onSubmit={handleOnEdit} categoriesC={dataCategoryCList} />
-                      <ProductImageForm productId={product._id} onSubmit={handleOnEditImage}/>
+                      <ProductImageForm productId={product._id} onSubmit={handleOnEditImage} />
                       <IconButton
                         className="mgr-10"
                         color="primary"

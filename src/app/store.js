@@ -9,11 +9,13 @@ import voucherReducer from 'slice/voucherSlice';
 import sizeAcolorReducer from 'slice/SizeAColor';
 import saleReducer from 'slice/SaleSlice';
 import staticReducer from 'slice/StaticSlice';
+import searchReducer from 'slice/SearchSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
   //user
   user: userReducer,
+  search: searchReducer,
   voucher: voucherReducer,
   productList: productListReducer,
   categoryList: categoryListReducer,

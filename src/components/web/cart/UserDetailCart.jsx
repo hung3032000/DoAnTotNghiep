@@ -114,11 +114,11 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
   return (
     <div className="row">
       <div className="col-sm-6">
-        <h2 className="products-title">Products</h2>
+        <h2 className="products-title">Sản phẩm</h2>
         {dataCart.map((card, index) => (
           <div key={index} className="line-item" data-product="BW60T4111N-100" data-quantity={2.0}>
             <div className="product-image">
-              <img src={card.product.images ? card.product.images : THUMNAIL_URL_PRODUCTINFO} alt="Lỗi ảnh" />
+              <img src={card.product.imageMain ? card.product.imageMain : THUMNAIL_URL_PRODUCTINFO} alt="Lỗi ảnh" />
             </div>
             <ul className="product-infos">
               <li className="item-name">
@@ -211,14 +211,14 @@ function UserDetailCart({ actionDeleteCart, actionUpdateCartProduct }) {
           </Modal>
         </div>
 
-        <div className="form-row-button form-row-button-cart" align="center">
+        {/* <div className="form-row-button form-row-button-cart" align="center">
           <Modal classNameModal={'form-button secondary anchor'} id={'share-basket'} label={'Chia sẻ giỏ hàng'}>
             Chia sẻ giỏ hàng
           </Modal>
-        </div>
+        </div> */}
         <div className="form-row-button form-row-button-cart" align="center" />
       </div>
-      <div className="col-sm-6" id="cart-summary-fixed" style={{ marginTop: '0px' }}>
+      <div className="col-sm-6" id="cart-summary-fixed" style={{ marginTop: '0px', marginBottom: '10px'}}>
         <h2 className="summary-title">Tổng kết</h2>
         <div className="cart-summary">
           <div className="cart-footer">

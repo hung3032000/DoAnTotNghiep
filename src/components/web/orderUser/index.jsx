@@ -18,7 +18,7 @@ import { formatPrice } from 'utils';
 let PageSize = 5;
 
 const Index = function (props) {
-  const { dataOrderList, label, orderComplete } = props;
+  const { dataOrderList, label, orderComplete, orderCancel } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -52,7 +52,7 @@ const Index = function (props) {
                         <TableCell>Id</TableCell>
                         <TableCell>Địa chỉ email</TableCell>
                         <TableCell>Tổng giá</TableCell>
-                        <TableCell>Phí vận chuyển</TableCell>
+                        {orderCancel ? '' : <TableCell>Phí vận chuyển</TableCell>}
                         <TableCell>Ngày tạo đơn</TableCell>
                         <TableCell>Trạng thái</TableCell>
                         <TableCell></TableCell>

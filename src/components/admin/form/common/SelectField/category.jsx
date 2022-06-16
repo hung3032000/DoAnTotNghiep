@@ -25,7 +25,7 @@ function Category(props) {
         control={form.control}
         render={({ onChange }) => (
           <TextField fullWidth={true} label={label} required select SelectProps={{ native: true }} variant="outlined" value={value} onChange={handleOnChange} onBlur={onChange}>
-            <option style={{ display: 'none' }}></option>
+            <option style={{ display: 'none' }} value=''>Danh mục</option>
             {categoryOptions.map((tc, index) => (
               <option key={index} value={tc._id}>
                 {tc.categoryID.nameCategory}({tc.namesubCategory})

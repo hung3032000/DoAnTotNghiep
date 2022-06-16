@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-// import { Controller } from 'react-hook-form';
-
-import { useSelector } from 'react-redux';
 import Autocomplete from 'components/autoComplete';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import ReactGA from 'react-ga';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-function Search() {
+function Search(props) {
+  const { data } = props;
+  console.log(data);
   const history = useHistory();
-  const handleOnClick = () => {
-    let queryString = `?q=${value}`;
+  const handleOnClick = (data) => {
+    let queryString;
+    if (data) {
+      queryString = `?q=${data}`;
+    } else {
+      queryString = `?q=${value}`;
+    }
     ReactGA.ga('send', 'pageview', queryString);
     history.push(`/search${queryString}`);
   };
@@ -23,10 +28,13 @@ function Search() {
     setValue('');
     setSuggestionsActive(false);
   };
-  if (value !== '' && suggestions.length === 0) {
+  if (value !== '' && suggestions?.length === 0) {
     noResult = true;
   } else {
     noResult = false;
+  }
+  function search(data) {
+    handleOnClick(data);
   }
   const renderPrimary = () => {
     if (noResult) {
@@ -64,9 +72,22 @@ function Search() {
       <div className="suggestions">
         <h2>Tìm kiếm nhiều nhất</h2>
         <ul>
-          <li>
-            <a href="#Boots">Boots</a>
-          </li>
+          {data.listTrending.slice(0, 10).map((suggestion, index) => {
+            return (
+              <li key={index}>
+                <a
+                  className="minicart-product-name cursor"
+                  href
+                  title={suggestion.key}
+                  onClick={() => {
+                    search(suggestion.key);
+                  }}
+                >
+                  {suggestion.key}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

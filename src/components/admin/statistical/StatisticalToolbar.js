@@ -98,8 +98,7 @@ function StatisticalToolbar(props) {
       }
     } catch (error) {
       console.log(error);
-    } finally {
-    }
+    } 
   };
   const handleSetFromDate = (event) => {
     setFromDate(event.target.value);

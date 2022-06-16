@@ -112,7 +112,7 @@ function VoucherEditForm(props) {
         <EditIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="lg" fullWidth={true}>
-        <DialogTitle id="form-dialog-title">Cập nhập danh mục</DialogTitle>
+        <DialogTitle id="form-dialog-title">Cập nhập mã giảm giá</DialogTitle>
         <DialogContent>
           <Box
             sx={{

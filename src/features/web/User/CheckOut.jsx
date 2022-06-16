@@ -119,7 +119,7 @@ const CheckOut = function (props) {
                     {dataCart.map((card) => (
                       <div key={card.id} className="line-item">
                         <div className="product-image">
-                          <img src={card.product.images ? card.product.images : THUMNAIL_URL_PRODUCTLIST} alt="ProductImage" />
+                          <img src={card.product.imageMain ? card.product.imageMain : THUMNAIL_URL_PRODUCTLIST} alt="ProductImage" />
                         </div>
                         <ul className="product-infos datacart-ul">
                           <li className="item-name">

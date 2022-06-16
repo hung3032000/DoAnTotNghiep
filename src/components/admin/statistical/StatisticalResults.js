@@ -11,7 +11,6 @@ StatisticalResults.propTypes = {
 let PageSize = 5;
 function StatisticalResults(props) {
   const { dataStatistical, status, search } = props;
-  console.log(search);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;

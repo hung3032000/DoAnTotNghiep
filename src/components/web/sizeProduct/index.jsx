@@ -68,7 +68,7 @@ function Index(props) {
                   }}
                 >
                   <button className="swatchanchor anchor">
-                    <span className={arrayFilter().some((item) => i.value === item.nameSize) ? '' : 'unavailable-size'} title={'Chọn Size: ' + i.label}>
+                    <span className={arrayFilter().some((item) => i.value === item.nameSize && item.quantity > 0) ? '' : 'unavailable-size'} title={'Chọn Size: ' + i.label}>
                       {i.label}
                     </span>
                   </button>

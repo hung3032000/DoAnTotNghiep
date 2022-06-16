@@ -77,11 +77,11 @@ function VoucherNewForm(props) {
   return (
     <>
       <Button color="primary" variant="contained" onClick={handleClickOpen}>
-        Thêm danh mục
+        Thêm mã giảm giá
       </Button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth={true}>
-        <DialogTitle id="form-dialog-title">Thêm danh mục mới</DialogTitle>
+        <DialogTitle id="form-dialog-title">Thêm mã giảm giá mới</DialogTitle>
         <DialogContent>
           <Box
             sx={{

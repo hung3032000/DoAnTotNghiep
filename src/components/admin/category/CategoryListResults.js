@@ -22,12 +22,12 @@ function CategoryListResults(props) {
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      // window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
   const handleOnDelete = async (id) => {
@@ -36,12 +36,12 @@ function CategoryListResults(props) {
       const action = deleteCategoryAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 

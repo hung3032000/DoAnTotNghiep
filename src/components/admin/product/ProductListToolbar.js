@@ -31,10 +31,11 @@ function ProductListToolbar(props) {
       const products = unwrapResult(resultAction);
       adminAPI.updateImageProduct(products._id, data);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      window.location.reload();
     }
   };
   const handleChange = (e) => {

@@ -1,8 +1,12 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 const searchAPI = {
   getSearch: (params) => {
     const url = '/search';
     return axiosClient.get(url, { params });
-  }
+  },
+  getTopTrending: () => {
+    const url = '/statistics/googleAnalytics';
+    return axiosClient.get(url);
+  },
 };
 export default searchAPI;

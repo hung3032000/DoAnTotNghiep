@@ -50,13 +50,13 @@ function CategoryChildListResults(props) {
       const action = deleteCategoryCAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
       // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       // enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 
