@@ -143,7 +143,7 @@ function OrderListResults(props) {
     const lastPageIndex = firstPageIndex + PageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, data]);
-
+  console.log(currentTableData);
   return (
     <>
       <Loader showLoader={loading} />

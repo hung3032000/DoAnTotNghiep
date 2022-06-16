@@ -34,7 +34,7 @@ function OrderListInfo(props) {
 
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const orderItems = order.items;
+  const orderItems = order?.items;
   return (
     <>
       <IconButton aria-label="info" onClick={handleClickOpen}>
@@ -72,12 +72,12 @@ function OrderListInfo(props) {
                         {open1 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                       </Button>
                     </TableCell>
-                    <TableCell>{order.userId.fistname + ' ' + order.userId.lastname}</TableCell>
-                    <TableCell align="right">{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell align="right">{order.addressrecevie.address}</TableCell>
-                    <TableCell align="right">{order.addressrecevie.phonenumber}</TableCell>
-                    <TableCell align="right">{order.status}</TableCell>
-                    <TableCell align="right">{formatPrice(order.totalPrice)}</TableCell>
+                    <TableCell>{order?.userId.fistname + ' ' + order?.userId.lastname}</TableCell>
+                    <TableCell align="right">{moment(order?.createdAt).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell align="right">{order?.addressrecevie.address}</TableCell>
+                    <TableCell align="right">{order?.addressrecevie.phonenumber}</TableCell>
+                    <TableCell align="right">{order?.status}</TableCell>
+                    <TableCell align="right">{formatPrice(order?.totalPrice)}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
@@ -92,13 +92,13 @@ function OrderListInfo(props) {
                                 <TableCell>Tên sản phẩm</TableCell>
                                 <TableCell>Số lượng</TableCell>
                                 <TableCell align="right">Giá thành</TableCell>
-                                {order.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
+                                {order?.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
 
-                                {order.isPaypal ? <TableCell align="right">Tổng giá trị (USD)</TableCell> : <TableCell align="right">Tổng giá trị (VND)</TableCell>}
+                                {order?.isPaypal ? <TableCell align="right">Tổng giá trị (USD)</TableCell> : <TableCell align="right">Tổng giá trị (VND)</TableCell>}
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {orderItems.map((items) => (
+                              {orderItems?.map((items) => (
                                 <TableRow key={items._id}>
                                   <TableCell component="th" scope="row">
                                     <a className="minicart-product-name cursor" href={`/productinf/${items.productId._id}`} title={items.productId.name}>
@@ -107,7 +107,7 @@ function OrderListInfo(props) {
                                   </TableCell>
                                   <TableCell>{items.quantity}</TableCell>
                                   <TableCell align="right">{items.productId.price}</TableCell>
-                                  {order.isPaypal && <TableCell align="right">Thành công</TableCell>}
+                                  {order?.isPaypal && <TableCell align="right">Thành công</TableCell>}
                                   <TableCell align="right">{items.totalPrice}</TableCell>
                                 </TableRow>
                               ))}

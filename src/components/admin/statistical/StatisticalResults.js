@@ -1,31 +1,23 @@
-import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteUser, updateUser } from 'slice/userSlice';
-import moment from 'moment';
-import { useSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
-import { useState, useMemo } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Loader from 'components/fullPageLoading';
-import { useDispatch } from 'react-redux';
-import UserEditForm from '../form/User/UserEditForm';
+import { Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Pagination from 'components/web/pagination';
+import PropTypes from 'prop-types';
+import { useMemo, useState } from 'react';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { formatPrice } from 'utils';
+import OrderListInfo from '../order/OrderListInfo';
 StatisticalResults.propTypes = {
   closeDialog: PropTypes.func,
 };
-let PageSize = 10;
+let PageSize = 5;
 function StatisticalResults(props) {
-  const [loading, setLoading] = useState(false);
-  const { dataStatistical } = props;
-  const dispatch = useDispatch();
-
+  const { dataStatistical, status, search } = props;
+  console.log(search);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = dataStatistical.map((customer) => customer.id);
+      newSelectedCustomerIds = dataStatistical.map((customer) => customer._id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -50,48 +42,68 @@ function StatisticalResults(props) {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleEditUFormSubmit = async (values) => {
-    try {
-      setLoading(true);
-      const action = updateUser(values);
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
-      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleDelUFormSubmit = async (id) => {
-    try {
-      setLoading(true);
-      const action = deleteUser(id);
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
-      enqueueSnackbar('Xoá Thành công', { variant: 'success' });
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  };
   const [currentPage, setCurrentPage] = useState(1);
+  const render = (customer) => {
+    if (status === 'product') {
+      return (
+        <>
+          <TableRow hover key={customer.productId} selected={selectedCustomerIds.indexOf(customer.productId) !== -1}>
+            <TableCell padding="checkbox">
+              <Checkbox checked={selectedCustomerIds.indexOf(customer.productId) !== -1} onChange={(event) => handleSelectOne(event, customer.productId)} value="true" />
+            </TableCell>
+            <TableCell>
+              <Box
+                sx={{
+                  alignItems: 'center',
+                  display: 'flex',
+                }}
+              >
+                <Typography color="textPrimary" variant="body1">
+                  {customer.product?.name}
+                </Typography>
+              </Box>
+            </TableCell>
+            <TableCell>{formatPrice(customer.product?.price)}</TableCell>
+            <TableCell>{formatPrice(customer.totalPriceSale)}</TableCell>
+            <TableCell>{customer.totalQuantitySale}</TableCell>
+          </TableRow>
+        </>
+      );
+    }
+    return (
+      <>
+        <TableRow hover key={customer._id} selected={selectedCustomerIds.indexOf(customer._id) !== -1}>
+          <TableCell padding="checkbox">
+            <Checkbox checked={selectedCustomerIds.indexOf(customer._id) !== -1} onChange={(event) => handleSelectOne(event, customer._id)} value="true" />
+          </TableCell>
+          <TableCell>
+            <Box
+              sx={{
+                alignItems: 'center',
+                display: 'flex',
+              }}
+            >
+              <Typography color="textPrimary" variant="body1">
+                {customer._id}
+              </Typography>
+            </Box>
+          </TableCell>
+          <TableCell>{formatPrice(customer.totalPrice)}</TableCell>
+          <TableCell>{formatPrice(customer.shiprice)}</TableCell>
+          <TableCell>{customer.orderId?.userId.email}</TableCell>
+          <OrderListInfo order={customer?.orderId} />
+        </TableRow>
+      </>
+    );
+  };
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return dataStatistical.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, dataStatistical]);
+    return (search.length === 0 ? dataStatistical : search).slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, dataStatistical, search]);
   return (
     <>
-      <Loader showLoader={loading} />
       <Card>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
@@ -106,62 +118,36 @@ function StatisticalResults(props) {
                       onChange={handleSelectAll}
                     />
                   </TableCell>
-                  <TableCell>Tên</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Số điện thoại</TableCell>
-                  <TableCell>Ngày sinh</TableCell>
-                  <TableCell>Trạng Thái</TableCell>
-                  <TableCell>Quyền</TableCell>
-                  <TableCell></TableCell>
+                  {status === 'product' ? (
+                    <>
+                      <TableCell>Tên sản phẩm</TableCell>
+                      <TableCell>Giá sản phẩm</TableCell>
+                      <TableCell>Doanh thu bán sản phẩm</TableCell>
+                      <TableCell>Tổng sản phẩm bán được</TableCell>
+                    </>
+                  ) : (
+                    <>
+                      <TableCell>Id</TableCell>
+                      <TableCell>Tổng đơn hàng</TableCell>
+                      <TableCell>Phí vận chuyển</TableCell>
+                      <TableCell>Email khách</TableCell>
+
+                      <TableCell></TableCell>
+                    </>
+                  )}
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {currentTableData.map((customer) => (
-                  <TableRow hover key={customer._id} selected={selectedCustomerIds.indexOf(customer._id) !== -1}>
-                    <TableCell padding="checkbox">
-                      <Checkbox checked={selectedCustomerIds.indexOf(customer._id) !== -1} onChange={(event) => handleSelectOne(event, customer._id)} value="true" />
-                    </TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          alignItems: 'center',
-                          display: 'flex',
-                        }}
-                      >
-                        <Typography color="textPrimary" variant="body1">
-                          {customer.lastname + ' ' + customer.fistname}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>{customer.email}</TableCell>
-                    <TableCell>{customer.phonenumber}</TableCell>
-                    <TableCell>{moment(customer.updatedAt).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell>
-                      {customer.status === true && <p>Đã xác nhận</p>}
-                      {customer.status === false && <p>Đã huỷ</p>}
-                    </TableCell>
-                    <TableCell>{customer.role}</TableCell>
-                    <TableCell>
-                      <UserEditForm customer={customer} onSubmit={handleEditUFormSubmit} />
-                      <IconButton
-                        className="mgr-10"
-                        color="primary"
-                        aria-label="edit"
-                        type="submit"
-                        onClick={() => {
-                          handleDelUFormSubmit(customer._id);
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
+              <TableBody>{currentTableData.map((customer) => render(customer))}</TableBody>
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Pagination className="pagination cursor" currentPage={currentPage} totalCount={dataStatistical.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
+        <Pagination
+          className="pagination cursor"
+          currentPage={currentPage}
+          totalCount={search.length ? search.length : dataStatistical.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </Card>
     </>
   );
