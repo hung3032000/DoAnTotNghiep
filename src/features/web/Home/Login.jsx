@@ -26,13 +26,13 @@ const Login = function () {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      // history.push('/');
-      // window.location.reload();
+      history.push('/');
+      window.location.reload();
     } catch (error) {
       console.log('Failed to login:', error);
       enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
-      // history.push('/login');
-      // window.location.reload();
+      history.push('/login');
+      window.location.reload();
     } finally {
       setLoading(false);
     }
@@ -45,12 +45,13 @@ const Login = function () {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       history.push('/');
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar("Tài khoản đã bị vô hiệu hoá", { variant: 'error' });
     }finally {
       setLoading(false);
+      window.location.reload();
+
     }
 
   };

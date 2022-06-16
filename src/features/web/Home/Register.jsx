@@ -23,11 +23,12 @@ const Register = function (props) {
       unwrapResult(resultAction);
       enqueueSnackbar('Đăng kí thành công', { variant: 'success' });
       history.push('/myaccount');
-      window.location.reload();
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+     
+      window.location.reload();
     }
   };
   return (

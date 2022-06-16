@@ -26,6 +26,7 @@ function ResetPassword() {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 
