@@ -11,30 +11,27 @@ Products.defaultProps = {
   product: [],
 };
 function Products({ product }) {
-  const thumnailUrl =
-   product.imageMain ? product.imageMain :
-   THUMNAIL_URL_PRODUCTLIST;
+  const thumnailUrl = product.imageMain ? product.imageMain : THUMNAIL_URL_PRODUCTLIST;
   return (
-      <figure className="product-image">
-        <Link className="thumb-link" to={`/productinf/${product._id}`}>
-          <picture className="thumb-img">
-            <img className="img-product" src={thumnailUrl} alt="Lỗi ảnh" />
-          </picture>
-          <span className="flag">{product.content}</span>
-          <figcaption className="thumb-caption">
-            <div className="product-infos">
-              <div className="product-name">{product.name}</div>
-              <div className="product-pricing">
-                <div className="product-price">
-                  <span className="price-sales">{formatPrice(product.price)}</span>
-                </div>
+    <figure className="product-image">
+      <Link className="thumb-link" to={`/productinf/${product._id}`}>
+        <picture className="thumb-img">
+          <img className="img-product" src={thumnailUrl} alt="Lỗi ảnh" />
+        </picture>
+        <span className="flag">{product.content}</span>
+        <figcaption className="thumb-caption">
+          <div className="product-infos">
+            <div className="product-name">{product.name}</div>
+            <div className="product-pricing">
+              <div className="product-price">
+                <span className="price-sales">{formatPrice(product.price)}</span>
               </div>
-              <div className="product-promo" />
             </div>
-          </figcaption>
-        </Link>
-        
-      </figure>
+            <div className="product-promo" />
+          </div>
+        </figcaption>
+      </Link>
+    </figure>
   );
 }
 

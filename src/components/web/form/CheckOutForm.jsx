@@ -13,6 +13,10 @@ CheckOutForm.propTypes = {
 
 function CheckOutForm(props) {
   const dataUser = useSelector((state) => state.user.current);
+  const categoryOptions = [
+    { label: 'Ông', value: 'Male' },
+    { label: 'Bà', value: 'Female' },
+  ];
   const schema = yup.object().shape({
     LName: yup.string().required('Họ không hợp lệ'),
     FName: yup.string().required('Tên không hợp lệ'),
@@ -48,7 +52,7 @@ function CheckOutForm(props) {
         <h3 className="info-perso">Thông tin cá nhân</h3>
         <InputDisabled name="email" defaultValue={dataUser.email} label="Địa chỉ Email" />
         <h3>Địa chỉ giao hàng</h3>
-        <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà" />
+        <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà" dataForm={categoryOptions}/>
         <Input name="LName" form={checkOutForm} label="Họ" />
         <Input name="FName" form={checkOutForm} label="Tên" />
         <Input name="Address" defaultValue={address} label="Địa chỉ Email" form={checkOutForm} />

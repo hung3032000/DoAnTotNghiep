@@ -42,6 +42,11 @@ export const getOrderCompleteUser = createAsyncThunk('getOrderCompleteUser', asy
   return response;
 });
 
+
+export const paymentVNPAY = createAsyncThunk('paymentVNPAY', async (id) => {
+  const response = await orderApi.getPaymentVNPAY(id);
+  return response;
+});
 const ListCategorySlice = createSlice({
   name: 'order',
   initialState: {

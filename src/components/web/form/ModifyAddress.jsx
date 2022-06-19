@@ -52,11 +52,14 @@ function ModifyAddress(props) {
 
     onWardSelect({ value: value, label: label });
   };
-
+  const categoryOptions = [
+    { label: 'Ông', value: 'Male' },
+    { label: 'Bà', value: 'Female' },
+  ];
   return (
     <form className="form-horizontal" onSubmit={addressform.handleSubmit(handleSubmit)}>
       <fieldset>
-        <InputCombobox name="gender" form={addressform} />
+        <InputCombobox name="gender" form={addressform} label="Ông/Bà" dataForm={categoryOptions}/>
         <Input name="nameCustomer" form={addressform} placeholder="Họ và Tên *" />
         <Input name="phoneNumber" form={addressform} placeholder="Số điện thoại *" />
         <div className={`form-row  required form-row-select`}>

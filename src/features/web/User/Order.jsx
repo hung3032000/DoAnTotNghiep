@@ -9,7 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { deleteOrderAdmin, getOrder } from 'slice/OrderSlice';
+import { deleteOrderAdmin, getOrder 
+  // ,paymentVNPAY
+ } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
@@ -64,6 +66,22 @@ const Order = function () {
       setLoading(false);
     }
   };
+
+  // const handleOnVNPAY = async (id) => {
+  //   try {
+  //     setLoading(true);
+  //     console.log(id);
+  //     const action = paymentVNPAY(id);
+  //     const resultAction = await dispatch(action);
+  //     unwrapResult(resultAction);
+  //   } catch (error) {
+  //     console.log(error);
+  //     // enqueueSnackbar(error.message, { variant: 'error' });
+  //   } finally {
+  //     // setTimeout(() => window.location.reload(), 1000);
+  //     setLoading(false);
+  //   }
+  // };
   return (
     <>
       <Loader showLoader={loading} />
@@ -130,6 +148,16 @@ const Order = function () {
                             >
                               <ClearIcon />
                             </IconButton>
+                            {/* <IconButton
+                              className="mgr-10"
+                              color="secondary"
+                              aria-label="delete"
+                              onClick={() => {
+                                handleOnVNPAY(order._id);
+                              }}
+                            >
+                              VNPAY
+                            </IconButton> */}
                           </TableCell>
                         </TableRow>
                       ))}

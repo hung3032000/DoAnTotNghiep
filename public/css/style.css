@@ -7161,39 +7161,7 @@ html.minicart-active {
   display: block;
 }
 
-.filters-results-infos {
-  text-transform: uppercase;
-  height: 64px;
-  line-height: 4rem;
-  overflow: hidden;
-}
 
-.filters-results-infos:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 0;
-  width: 100%;
-  border-top: 1px solid #757575;
-}
-
-.filters-results-count {
-  float: left;
-}
-
-.filters-results-reset {
-  float: right;
-  height: 100%;
-  border-left: 1px solid #757575;
-}
-
-.filters-results-reset a {
-  display: block;
-  height: 100%;
-  line-height: 4rem;
-  padding-left: 16px;
-}
 
 .filters-tags {
   text-transform: uppercase;
@@ -13572,7 +13540,10 @@ p.intro {
   width: 100%;
   height: 100%;
 }
-
+.img-product{
+  width: 412px;
+  height: 550px;
+}
 .datacart-ul {
   padding: 0px 0 30px 32px !important;
 }
@@ -14141,6 +14112,10 @@ address {
   margin-bottom: 0.625rem;
 }
 @media (min-width: 1200px) {
+  .col-mg-reset-4{
+    right: 50%
+  }
+
   .col-mg-reset-7{
     margin-top: -372px;
   }
@@ -14150,9 +14125,9 @@ address {
 }
 @media (min-width: 1920px) {
   .col-mg-reset-7{
-    margin-top: -600px;
+    margin-top: -596px;
   }
   .col-mg-reset-8{
-    margin-left: 464px;
+    margin-left: 462.2px;
   }
 }

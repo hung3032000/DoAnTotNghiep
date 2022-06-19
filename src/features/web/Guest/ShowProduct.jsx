@@ -9,7 +9,7 @@ import Loader from 'components/fullPageLoading';
 import Modal from 'components/web/modal/modal';
 import { Helmet } from 'react-helmet';
 import Pagination from 'components/web/pagination/index';
-import Filter from 'components/web/filter'
+import Filter from 'components/web/filter';
 let PageSize = 8;
 const ShowProduct = function () {
   const {
@@ -21,13 +21,14 @@ const ShowProduct = function () {
   const dataCategoryCDetail = useSelector((state) => state.categoryChildList.categoryChildDetail);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState('');
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return dataProductsList.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, dataProductsList]);
-
+    return (data !== '' ? data : dataProductsList).slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, data, dataProductsList]);
+  console.log(currentTableData);
   //useEffect
   useEffect(() => {
     (async () => {
@@ -50,6 +51,10 @@ const ShowProduct = function () {
       }
     })();
   }, [catechildId, dispatch]);
+  useEffect(() => {
+    setData(dataProductsList);
+  }, [dataProductsList]);
+
   return (
     <div>
       <Helmet>
@@ -74,12 +79,8 @@ const ShowProduct = function () {
                 <div className="refine-buttons col-md-6 col-md-4 order-md-3">
                   <div className="filters-tabs">
                     <Modal classNameModal={'btn btn-link filters-tab'} label={'Filters'}>
-                      <Filter />
+                      <Filter data={data} setData={setData} productList={dataProductsList}/>
                     </Modal>
-
-                    <a href className="reset-refinements btn btn-link-secondary d-none">
-                      Clear all
-                    </a>
                   </div>
                 </div>
                 <div className="col-md-12 col-md-4 order-md-2"></div>
@@ -91,7 +92,7 @@ const ShowProduct = function () {
               <Pagination
                 className="pagination cursor"
                 currentPage={currentPage}
-                totalCount={dataProductsList.length}
+                totalCount={data.length}
                 pageSize={PageSize}
                 onPageChange={(page) => setCurrentPage(page)}
               />

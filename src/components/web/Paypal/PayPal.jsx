@@ -83,36 +83,12 @@ export default function Paypal() {
         onApprove: async (data, actions) => {
           try {
             const order = await actions.order.capture();
-          order.addressrecevie = {
-            name: order.payer.email_address,
-            phonenumber: '0929333111',
-            address: order.payer.address.country_code,
-          };
-          let item = {
-            productId: 1,
-            quantity: 2,
-            totalPrice: 200,
-            colorName: 'Black',
-            saleId: 26,
-            sizeName: 'S',
-          };
-          let items = [];
-          let b = 0;
-          for (let i = 0; i < dataCart.length; i++) {
-            item.productId = dataCart[i].product._id;
-            item.colorName = dataCart[i].color;
-            item.sizeName = dataCart[i].size;
-            item.quantity = dataCart[i].quantity;
-            if (dataCart[i].product.saleId) {
-              b = dataCart[i].quantity * ((dataCart[i].product.price - (dataCart[i].product.price * dataCart[i].product.saleId.percentSale) / 100) / 20000);
-              item.saleId = dataCart[i].product.saleId._id;
-            } else {
-              b = dataCart[i].quantity * (dataCart[i].product.price / 20000);
-              item.saleId = null;
-            }
-            item.totalPrice = b.toFixed(2);
-            items.unshift(item);
-            item = {
+            order.addressrecevie = {
+              name: order.payer.email_address,
+              phonenumber: '0929333111',
+              address: order.payer.address.country_code,
+            };
+            let item = {
               productId: 1,
               quantity: 2,
               totalPrice: 200,
@@ -120,25 +96,49 @@ export default function Paypal() {
               saleId: 26,
               sizeName: 'S',
             };
-          }
-          order.priceDiscount = 0;
-          order.userId = userId;
-          order.items = items;
-          order.totalPrice = cartTotal;
-          order.paymentId = order.id;
-          order.isPaypal = true;
-          const action = addOrderUser(order);
-          const resultAction = await dispatch(action);
-          unwrapResult(resultAction);
+            let items = [];
+            let b = 0;
+            for (let i = 0; i < dataCart.length; i++) {
+              item.productId = dataCart[i].product._id;
+              item.colorName = dataCart[i].color;
+              item.sizeName = dataCart[i].size;
+              item.quantity = dataCart[i].quantity;
+              if (dataCart[i].product.saleId) {
+                b = dataCart[i].quantity * ((dataCart[i].product.price - (dataCart[i].product.price * dataCart[i].product.saleId.percentSale) / 100) / 20000);
+                item.saleId = dataCart[i].product.saleId._id;
+              } else {
+                b = dataCart[i].quantity * (dataCart[i].product.price / 20000);
+                item.saleId = null;
+              }
+              item.totalPrice = b.toFixed(2);
+              items.unshift(item);
+              item = {
+                productId: 1,
+                quantity: 2,
+                totalPrice: 200,
+                colorName: 'Black',
+                saleId: 26,
+                sizeName: 'S',
+              };
+            }
+            order.priceDiscount = 0;
+            order.userId = userId;
+            order.items = items;
+            order.totalPrice = cartTotal;
+            order.paymentId = order.id;
+            order.isPaypal = true;
+            console.log(order);
+            const action = addOrderUser(order);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
 
-          const actionEmptyCart = emptyCart();
-          dispatch(actionEmptyCart);
-          history.push('/order');
-          window.location.reload();
+            const actionEmptyCart = emptyCart();
+            dispatch(actionEmptyCart);
+            history.push('/order');
+            window.location.reload();
           } catch (error) {
             console.log(error);
           }
-          
         },
         onError: (err) => {
           console.log(err);

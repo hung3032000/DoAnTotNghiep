@@ -1,39 +1,11 @@
-@media (min-width: 1440px) {
-  .ui-dialog .popin-content {
-    padding: 10rem 5rem 5rem;
-  }
+.filters-results-reset {
+  margin-top: 1.25rem;
+  text-align: center;
 }
-.ui-dialog .popin-content {
-  position: absolute;
-  color: #000;
-  z-index: 1060 !important;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding-top: 8.125rem;
-  padding-right: 1.563rem;
-  padding-bottom: 2.5rem;
-  padding-left: 1.563rem;
-  height: 100% !important;
-  overflow: hidden auto;
-  display: flex;
-  flex-direction: column;
+.filters-results-reset button {
+  font-weight: 700;
+
 }
-.popin-content {
-  padding: 7.5rem 1.563rem 1.563rem 1.563rem;
-}
-@media (min-width: 1024px) {
-  .popin-content {
-    padding: 6.25rem 3.125rem 3.125rem 3.125rem;
-  }
-}
-@media (min-width: 1440px) {
-  .popin-content {
-    padding: 10rem 5rem 5rem 5rem;
-  }
-}
- .wrapper {
-    flex-grow: 1;
-    margin-bottom: 6.25rem;
+.filters-results-reset button:hover {
+  text-decoration: underline;
 }

@@ -3,9 +3,9 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import PropTypes from 'prop-types';
 
 Modal.propTypes = {
-  classNameModal: PropTypes.string,
-  label: PropTypes.string,
-  id: PropTypes.string,
+  classNameModal: PropTypes.any,
+  label: PropTypes.any,
+  id: PropTypes.any,
   anchorButton: PropTypes.bool,
 };
 function Modal(props) {

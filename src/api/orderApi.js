@@ -26,5 +26,9 @@ const orderApi = {
     const url = `/ordercompletes/search/getByEmail`;
     return axiosClient.get(url, {params});
   },
+  getPaymentVNPAY(id) {
+    const url = `/orders/payment/vnPay/${id}`;
+    return axiosClient.get(url);
+  },
 };
 export default orderApi;

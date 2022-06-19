@@ -24,6 +24,7 @@ OrderListInfo.propTypes = {
 
 function OrderListInfo(props) {
   const { order } = props;
+  console.log(order);
   const handleClose = () => {
     setOpen(false);
   };
@@ -92,9 +93,10 @@ function OrderListInfo(props) {
                                 <TableCell>Tên sản phẩm</TableCell>
                                 <TableCell>Số lượng</TableCell>
                                 <TableCell align="right">Giá thành</TableCell>
+                                <TableCell align="right">Giảm giá</TableCell>
                                 {order?.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
 
-                                {order?.isPaypal ? <TableCell align="right">Tổng giá trị (USD)</TableCell> : <TableCell align="right">Tổng giá trị (VND)</TableCell>}
+                                <TableCell align="right">Tổng giá trị (VND)</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
@@ -106,9 +108,10 @@ function OrderListInfo(props) {
                                     </a>
                                   </TableCell>
                                   <TableCell>{items.quantity}</TableCell>
-                                  <TableCell align="right">{items.productId.price}</TableCell>
+                                  <TableCell align="right">{formatPrice(items.productId.price)}</TableCell>
+                                  <TableCell align="right">{formatPrice(order.priceDiscount ? order.priceDiscount : 0)}</TableCell>
                                   {order?.isPaypal && <TableCell align="right">Thành công</TableCell>}
-                                  <TableCell align="right">{items.totalPrice}</TableCell>
+                                  <TableCell align="right">{formatPrice(order.totalPrice)}</TableCell>
                                 </TableRow>
                               ))}
                             </TableBody>

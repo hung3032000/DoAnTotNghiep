@@ -1,75 +1,70 @@
-import React from 'react';
-import "./style.css"
+import Loader from 'components/fullPageLoading';
+import InputCombobox from 'components/web/form/inputCommon/inputCombobox';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
+import './style.css';
 function Index(props) {
+  const { data, setData, productList } = props;
+  const filterForm = useForm({
+    defaultValues: {
+      filter: '',
+    },
+  });
+  const categoryOptions = [
+    { label: 'Sale', value: '0' },
+    { label: 'Giá từ thấp đến cao', value: '1' },
+    { label: 'Giá từ cao đến thấp', value: '-1' },
+  ];
+  const [loading, setLoading] = useState(false);
+  let sale = [];
+  data.forEach((element) => {
+    if (element.saleId) {
+      sale.push(element);
+    }
+  });
+  const handleSubmit = async (values) => {
+    try {
+      setLoading(true);
+      if (values.filter === '1') {
+        const numAscending = [...productList].sort((a, b) => a.price - b.price);
+        setData(numAscending);
+      }
+      if (values.filter === '-1') {
+        const numAscending = [...productList].sort((a, b) => b.price - a.price);
+        setData(numAscending);
+      }
+      if (values.filter === '0') {
+        setData(sale);
+      }
+    } catch (error) {
+      console.log('Failed to login:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleOnClear = () => {
+    setData(productList);
+  };
   return (
-    <div className="popin-content">
-      {/* <div className="wrapper giv-accordion">
-        <div id="filter-sort-by" className="filters-content" data-filter-id="98">
-          <div className="panel refinement sort open" data-filter-name="Sort by">
-            <button type="button" aria-expanded="true" className="panel__header btn btn-link filters-toggle">
-              <span className="name">Sort by</span>
+    <div className="address-popin">
+      {/* <h1>Lọc theo</h1> */}
+      <Loader showLoader={loading} />
+      <form className="form-horizontal" onSubmit={filterForm.handleSubmit(handleSubmit)}>
+        <fieldset>
+          <InputCombobox name="filter" form={filterForm} label="Lọc theo" dataForm={categoryOptions} />
+          <div className="form-row form-row-button">
+            <button type="submit" value="Apply" name="dwfrm_profile_changepassword">
+              Xác nhận
             </button>
-            <div className="panel__content refinement-content standard" aria-hidden="false">
-              <ul>
-                <li>
-                  <h3 className="visually-hidden refinement-option-name">New in</h3>
-                  <a
-                    className="refinement-link sorting-link"
-                    data-sorting-rule-id="New in"
-                    href="https://www.givenchy.com/us/en-US/women/new-arrivals/new-in/?srule=New%20in&amp;include=page-element"
-                    title="New in"
-                  >
-                    New in
-                  </a>
-                </li>
-                <li className="">
-                  <h3 className="visually-hidden refinement-option-name">Price Low to High</h3>
-                  <a
-                    className="refinement-link sorting-link"
-                    data-sorting-rule-id="Price ascending"
-                    href="https://www.givenchy.com/us/en-US/women/new-arrivals/new-in/?srule=Price%20ascending&amp;include=page-element"
-                    title="Price Low to High"
-                  >
-                    Price Low to High
-                  </a>
-                </li>
-                <li>
-                  <h3 className="visually-hidden refinement-option-name">Price High to Low</h3>
-                  <a
-                    className="refinement-link sorting-link"
-                    data-sorting-rule-id="Price descending"
-                    href="https://www.givenchy.com/us/en-US/women/new-arrivals/new-in/?srule=Price%20descending&amp;include=page-element"
-                    title="Price High to Low"
-                  >
-                    Price High to Low
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
-        </div>
+        </fieldset>
+      </form>
+      <div class="filters-results-reset">
+        <button class="reset-refinements btn btn-link-secondary" onClick={handleOnClear}>
+          Clear all
+        </button>
       </div>
-      <div className="filters-results-infos">
-        <div className="filters-results-count visually-hidden" aria-live="polite">
-          <strong>420</strong> results
-        </div>
-        <a href className="btn btn-outline-primary btn--large btn-load apply-filters">
-          <span className="btn__label">Done</span>
-          <span className="btn__loader" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </a>
-        <div className="filters-results-reset">
-          <a href="/us/en-US/women/new-arrivals/new-in/" className="reset-refinements btn btn-link-secondary">
-            Clear all
-          </a>
-        </div>
-      </div> */}
-      Hello
     </div>
   );
 }

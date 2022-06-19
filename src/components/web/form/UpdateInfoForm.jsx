@@ -30,7 +30,10 @@ function UpdateInfoForm(props) {
       await onSubmit(values);
     }
   };
-
+  const categoryOptions = [
+    { label: 'Ông', value: 'Male' },
+    { label: 'Bà', value: 'Female' },
+  ];
 
   return (
     <form className="form-horizontal edit-account-form" id="RegistrationForm" onSubmit={updateForm.handleSubmit(handleSubmit)}>
@@ -38,7 +41,7 @@ function UpdateInfoForm(props) {
       <div className="error-form global-error form-row" aria-live="polite" />
       <fieldset>
         <legend className="visually-hidden">Thông tin cá nhân</legend>
-        <InputCombobox name="gender" form={updateForm} />
+        <InputCombobox name="gender" form={updateForm} label="Ông/Bà" dataForm={categoryOptions}/>
         <Input defaultValue={dataUser.fistname} name="fistname" form={updateForm} label="Họ *" />
         <Input defaultValue={dataUser.lastname} name="lastname" form={updateForm} label="Tên *" />
         <DateTimePicker userDate={dataUser.date} userMonth={dataUser.month} form={updateForm} />

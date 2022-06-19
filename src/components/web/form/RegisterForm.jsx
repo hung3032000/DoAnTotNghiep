@@ -11,6 +11,10 @@ RegisterForm.propTypes = {
 };
 
 function RegisterForm(props) {
+  const categoryOptions = [
+    { label: 'Ông', value: 'Male' },
+    { label: 'Bà', value: 'Female' },
+  ];
   const schema = yup.object().shape({
     email: yup.string().required('Email không hợp lệ').email(),
   });
@@ -36,7 +40,7 @@ function RegisterForm(props) {
       <p className="required-msg">Hãy điền đầy đủ các thông tin bên dưới</p>
       <div className="error-form global-error form-row" aria-live="polite" />
       <fieldset>
-        <InputCombobox name="gender" form={registerForm} />
+        <InputCombobox name="gender" form={registerForm} label="Ông/Bà" dataForm={categoryOptions}/>
         <Input name="fistname" form={registerForm} label="Họ *" />
         <Input name="lastname" form={registerForm} label="Tên *" />
         <Input name="email" form={registerForm} label="Địa chỉ E-mail *" />
