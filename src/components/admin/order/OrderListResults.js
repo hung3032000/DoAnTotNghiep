@@ -52,7 +52,6 @@ function OrderListResults(props) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -68,7 +67,6 @@ function OrderListResults(props) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -83,7 +81,6 @@ function OrderListResults(props) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -98,7 +95,6 @@ function OrderListResults(props) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -143,7 +139,6 @@ function OrderListResults(props) {
     const lastPageIndex = firstPageIndex + PageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, data]);
-  console.log(currentTableData);
   return (
     <>
       <Loader showLoader={loading} />

@@ -13,7 +13,6 @@ import searchReducer from 'slice/SearchSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
-  //user
   user: userReducer,
   search: searchReducer,
   voucher: voucherReducer,
@@ -22,7 +21,6 @@ const rootReducer = {
   categoryChildList: categoryChildListReducer,
   product: productReducer,
   cart: cartReducer,
-  //admin
   sizeAcolor: sizeAcolorReducer,
   order: orderReducer,
   sale: saleReducer,

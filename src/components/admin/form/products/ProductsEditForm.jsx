@@ -34,7 +34,6 @@ function ProductEditForm(props) {
       status: product.status,
       subcategoryId: product.subcategoryId._id,
     },
-    // resolver: yupResolver(schema),
   });
   const [selectedFiles, setSelectedFiles] = useState(undefined);
   const handleSubmit = async (values) => {
@@ -46,7 +45,6 @@ function ProductEditForm(props) {
         const { onSubmit } = props;
         if (onSubmit) {
           await onSubmit(values, data);
-          console.log(data);
         }
       } else {
         const { onSubmit } = props;
@@ -104,7 +102,7 @@ function ProductEditForm(props) {
                           <TextFieldCus label="Tên sản phẩm" name="name" edit={product.name} form={productsEditForm} />
                           <TextFieldCus label="Vật liệu" name="material" edit={product.material} form={productsEditForm} />
                           <TextFieldCus label="Nguồn gốc" name="orgin" edit={product.orgin} form={productsEditForm} />
-                          <TextFieldCus label="Giá" name="price" edit={product.price} form={productsEditForm} />
+                          <TextFieldCus label="Giá" number={true} name="price" edit={product.price} form={productsEditForm} />
                           <CategorySelectField label="Danh mục" categoryOptions={categoriesC} edit={product.subcategoryId._id} name="subcategoryId" form={productsEditForm} />
                           <IdField name="_id" form={productsEditForm} />
                           <SelectField label="Trạng thái" name="status" edit={product.status} categoryOptions={statusOptions} form={productsEditForm} />

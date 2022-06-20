@@ -175,10 +175,11 @@ function ProductSaleDetailForm(props) {
               </p>
             )}
           </TabPanel>
-
-          <TabPanel value={value} index={1}>
-            <ProductEditSale saleData={saleData} productId={productId} onSubmit={handleSubmit} />
-          </TabPanel>
+          {saleData.sale && (
+            <TabPanel value={value} index={1}>
+              <ProductEditSale saleData={saleData} productId={productId} onSubmit={handleSubmit} />
+            </TabPanel>
+          )}
         </DialogContent>
       </Dialog>
     </>

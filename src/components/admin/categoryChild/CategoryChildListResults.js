@@ -1,20 +1,23 @@
 import { Box, Card, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteCategoryCAdmin, updateCategoryCAdmin } from 'slice/CategoryChildSlice';
+import { deleteCategoryCAdmin, updateCategoryCAdmin, updateImageAdmin } from 'slice/CategoryChildSlice';
 import moment from 'moment';
 import { useState, useMemo } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch } from 'react-redux';
 import CategoryCEditForm from '../form/categoryChild/CategoryCEditForm';
-import adminAPI from 'api/adminAPI';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
+import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
+import { useSnackbar } from 'notistack';
+
 let PageSize = 5;
 function CategoryChildListResults(props) {
   const [loading, setLoading] = useState(false);
   const { dataCategoryCList, dataCategoryList } = props;
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 
@@ -22,22 +25,18 @@ function CategoryChildListResults(props) {
     try {
       setLoading(true);
       if (data) {
-        adminAPI.updateImageCategoriesC(values._id, data);
-        const action = updateCategoryCAdmin(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        window.location.reload();
-      } else {
-        const action = updateCategoryCAdmin(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-        window.location.reload();
+        values.data = data;
+        const actionImage = updateImageAdmin(values);
+        const resultActionImage = await dispatch(actionImage);
+        unwrapResult(resultActionImage);
       }
+      const action = updateCategoryCAdmin(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -50,13 +49,12 @@ function CategoryChildListResults(props) {
       const action = deleteCategoryCAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
@@ -116,8 +114,13 @@ function CategoryChildListResults(props) {
                   </TableCell>
                   <TableCell>Tên danh mục</TableCell>
                   <TableCell>Tên danh mục chính</TableCell>
-                  <TableCell>Hình ảnh</TableCell>
-                  {/* <TableCell>Số sản phẩm</TableCell> */}
+                  <TableCell
+                    sx={{
+                      textAlign: 'center',
+                    }}
+                  >
+                    Hình ảnh
+                  </TableCell>
                   <TableCell>Ngày tạo</TableCell>
                   <TableCell>Trạng thái</TableCell>
                   <TableCell></TableCell>
@@ -143,13 +146,13 @@ function CategoryChildListResults(props) {
                     </TableCell>
                     <TableCell>{categoryC.categoryID.nameCategory}</TableCell>
                     <TableCell>
-                      <img src={categoryC.icon} alt="" width="100%" height="118" />
+                      <img src={categoryC.icon ? categoryC.icon : THUMNAIL_URL_PRODUCTINFO} alt={categoryC.categoryID.nameCategory} width="100%" height="200" />
                     </TableCell>
 
                     <TableCell>{moment(categoryC.date).format('DD/MM/YYYY')}</TableCell>
                     <TableCell>
-                      {categoryC.substatus === true && <p>Đang sử dụng</p>}
-                      {categoryC.substatus === false && <p>Không sử dụng</p>}
+                      {categoryC.substatus === true && <>Đang sử dụng</>}
+                      {categoryC.substatus === false && <>Không sử dụng</>}
                     </TableCell>
                     <TableCell>
                       <CategoryCEditForm category={dataCategoryList} categoryC={categoryC} onSubmit={handleOnEdit} />

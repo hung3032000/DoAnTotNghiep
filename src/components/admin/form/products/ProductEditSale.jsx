@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import Loader from 'components/fullPageLoading';
 
 ProductEditSale.propTypes = {
-    productId: PropTypes.any,
+  productId: PropTypes.any,
   saleData: PropTypes.any,
   onSubmit: PropTypes.func,
 };
@@ -25,7 +25,6 @@ function ProductEditSale(props) {
       percentSale: saleData.sale.percentSale ? saleData.sale.percentSale : '',
       description: saleData.sale.description ? saleData.sale.description : '',
     },
-    // resolver: yupResolver(schema),
   });
 
   const handleSubmit = async (values) => {

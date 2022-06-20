@@ -33,6 +33,12 @@ export const updateCategoryCAdmin = createAsyncThunk('updateCategoryCAdmin', asy
   return response;
 });
 
+export const updateImageAdmin = createAsyncThunk('updateImageAdmin', async (values) => {
+  const response = await adminAPI.updateImageCategoriesC(values._id, values.data);
+  return response;
+});
+
+
 const ListCategorySlice = createSlice({
   name: 'category',
   initialState: {
@@ -54,6 +60,21 @@ const ListCategorySlice = createSlice({
     },
     [categoryCDetailAdmin.fulfilled]: (state, action) => {
       state.categoryChildDetailA = action.payload;
+    },
+    [updateImageAdmin.fulfilled]: (state, action) => {
+      const newUserList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newUserList;
+    },
+    [updateCategoryCAdmin.fulfilled]: (state, action) => {
+      const newUserList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newUserList;
+    },
+    [deleteCategoryCAdmin.fulfilled]: (state, action) => {
+      const newUserList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newUserList;
+    },
+    [createNewCategoryCAdmin.fulfilled]: (state, action) => {
+      state.dataA.push(action.payload);
     },
   },
 });

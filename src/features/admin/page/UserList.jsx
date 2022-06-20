@@ -12,6 +12,7 @@ function UserList() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const dataUserList = useSelector((state) => state.user.userList);
+  const [userList, setUserList] = useState(dataUserList);
   useEffect(() => {
     (async () => {
       try {
@@ -26,7 +27,6 @@ function UserList() {
       }
     })();
   }, [dispatch]);
-  const [userList, setUserList] = useState(dataUserList);
   return (
     <>
       <Loader showLoader={loading} />

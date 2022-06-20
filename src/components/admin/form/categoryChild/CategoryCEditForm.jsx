@@ -27,7 +27,6 @@ function CategoryCEditForm(props) {
       substatus: categoryC.substatus,
       categoryID: categoryC.categoryID._id,
     },
-    // resolver: yupResolver(schema),
   });
 
   const handleClose = () => {
@@ -81,7 +80,7 @@ function CategoryCEditForm(props) {
                     <Grid container spacing={3}>
                       <IdField name="_id" form={categoryEditForm} />
                       <TextFieldCus label="Tên danh mục con" name="namesubCategory" edit={categoryC.namesubCategory} widthCustome={12} form={categoryEditForm} />
-                      <SelectField label="Danh mục" name="categoryID" edit={categoryC.categoryID.nameCategory}  widthCustome={12} categoryOptions={category} form={categoryEditForm} />
+                      <SelectField label="Danh mục" name="categoryID" edit={categoryC.categoryID._id}  widthCustome={12} categoryOptions={category} form={categoryEditForm} />
                       <SelectFieldStatus label="Trạng thái" name="substatus" edit={categoryC.substatus}  categoryOptions={statusOptions} form={categoryEditForm} />    
                       <Grid item md={6} xs={12}>
                         <Controller

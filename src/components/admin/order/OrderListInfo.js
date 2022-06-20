@@ -24,7 +24,6 @@ OrderListInfo.propTypes = {
 
 function OrderListInfo(props) {
   const { order } = props;
-  console.log(order);
   const handleClose = () => {
     setOpen(false);
   };

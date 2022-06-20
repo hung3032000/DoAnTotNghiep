@@ -1,5 +1,5 @@
 
-import { Link as RouterLink,
+import { Link as RouterLink, useLocation,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -25,6 +25,7 @@ import {
 } from 'react-feather';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import NavItem from './NavItem';
+import { useEffect } from 'react';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -43,11 +44,6 @@ const items = [
     icon: UserPlusIcon,
     title: 'Quản lý người dùng'
   },
-  // {
-  //   href: '/customersA',
-  //   icon: UsersIcon,
-  //   title: 'Khách hàng'
-  // },
   {
     href: '/productsA',
     icon: ShoppingBagIcon,
@@ -95,21 +91,16 @@ const items = [
   //   title: 'Cài đặt'
   // } 
  
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Lỗi'
-  // }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
-  // const location = useLocation();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   if (openMobile && onMobileClose) {
-  //     onMobileClose();
-  //   }
-  // }, [location.pathname, onMobileClose, openMobile]);
+  useEffect(() => {
+    if (openMobile && onMobileClose) {
+      onMobileClose();
+    }
+  }, [location.pathname, onMobileClose, openMobile]);
 
   const content = (
     <Box

@@ -12,49 +12,42 @@ import ProductDetailForm from '../form/products/ProductsDetailForm';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
 import ProductImageForm from '../form/products/ProductImageForm';
-let PageSize = 6;
+import { THUMNAIL_URL_PRODUCTLIST } from 'constants/index';
+
+let PageSize = 5;
 function ProductCard(props) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { dataProductsList, dataCategoryCList } = props;
   const { enqueueSnackbar } = useSnackbar();
-
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
+      const action = updateProductDetail(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
       if (data) {
         values.data = data;
-        const action = updateProductDetail(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
         const action2 = updateImageProduct(values);
         const resultAction2 = await dispatch(action2);
         unwrapResult(resultAction2);
-        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      } else {
-        const action = updateProductDetail(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        enqueueSnackbar('Sửa Thành công', { variant: 'success' });
       }
+      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
   const handleOnDelete = async (id) => {
     try {
       setLoading(true);
-
       const action = deleteProductDetail(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Xoá Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -137,10 +130,9 @@ function ProductCard(props) {
                   </TableCell>
                   <TableCell>Tên sản phẩm</TableCell>
                   <TableCell>Giá</TableCell>
-                  <TableCell>Hình ảnh</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>Hình ảnh</TableCell>
                   <TableCell>Thuộc danh mục</TableCell>
                   <TableCell>Trạng thái</TableCell>
-
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -164,12 +156,12 @@ function ProductCard(props) {
                     </TableCell>
                     <TableCell>{formatPrice(product.price)}</TableCell>
                     <TableCell>
-                      <img src={product.imageMain} alt="" width="100%" height="118" />
+                      <img src={product.imageMain ? product.imageMain : THUMNAIL_URL_PRODUCTLIST} alt={product.name} width="100%" height="300" />
                     </TableCell>
                     <TableCell>{product.subcategoryId.namesubCategory}</TableCell>
                     <TableCell>
-                      {product.status === true && <p>Còn hàng</p>}
-                      {product.status === false && <p>Hết hàng</p>}
+                      {product.status === true && <>Còn hàng</>}
+                      {product.status === false && <>Hết hàng</>}
                     </TableCell>
 
                     <TableCell>

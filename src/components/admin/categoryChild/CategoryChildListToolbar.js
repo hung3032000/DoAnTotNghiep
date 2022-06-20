@@ -3,12 +3,14 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Search as SearchIcon } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryCNewForm from 'components/admin/form/categoryChild/CategoryCNewForm';
-import { createNewCategoryCAdmin } from 'slice/CategoryChildSlice';
-import adminAPI from 'api/adminAPI';
+import { createNewCategoryCAdmin, updateImageAdmin } from 'slice/CategoryChildSlice';
 import { useSnackbar } from 'notistack';
+import { useState } from 'react';
+import Loader from 'components/fullPageLoading';
 
 function CategoryChildListToolbar(props) {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const { data, setSubCategoryList } = props;
   const handleChange = (e) => {
@@ -22,53 +24,63 @@ function CategoryChildListToolbar(props) {
 
   const handleNewCategoryCFormSubmit = async (values, data) => {
     try {
+      setLoading(true);
+      values.categoryID = parseInt(values.categoryID);
+      if (data) {
+        values.data = data;
+        const actionImage = updateImageAdmin(values);
+        const resultActionImage = await dispatch(actionImage);
+        unwrapResult(resultActionImage);
+      }
       const action = createNewCategoryCAdmin(values);
       const resultAction = await dispatch(action);
-      const categoryC = unwrapResult(resultAction);
-      adminAPI.updateImageCategoriesC(categoryC._id, data);
+      unwrapResult(resultAction);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      window.location.reload();
+      setLoading(false);
     }
   };
 
   return (
-    <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <CategoryCNewForm category={dataCategoryList} onSubmit={handleNewCategoryCFormSubmit} />
+    <>
+      <Loader showLoader={loading} />
+      <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <CategoryCNewForm category={dataCategoryList} onSubmit={handleNewCategoryCFormSubmit} />
+        </Box>
+        <Box sx={{ mt: 3 }}>
+          <Card>
+            <CardContent>
+              <Box>
+                <TextField
+                  fullWidth={true}
+                  onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon fontSize="small" color="action">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Tìm kiếm"
+                  variant="outlined"
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
       </Box>
-      <Box sx={{ mt: 3 }}>
-        <Card>
-          <CardContent>
-            <Box>
-              <TextField
-                fullWidth={true}
-                onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon fontSize="small" color="action">
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  ),
-                }}
-                placeholder="Tìm kiếm"
-                variant="outlined"
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-    </Box>
+    </>
   );
 }
 export default CategoryChildListToolbar;

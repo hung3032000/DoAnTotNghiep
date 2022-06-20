@@ -15,7 +15,7 @@ function CategoryCNewForm(props) {
   const categoryCNewForm = useForm({
     defaultValues: {
       namesubCategory: '',
-      nameCategory: '',
+      categoryID: '',
     },
   });
   const handleClose = () => {
@@ -48,8 +48,6 @@ function CategoryCNewForm(props) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      {/* <Button>Nhập</Button>
-      <Button sx={{ mx: 1 }}>Export</Button> */}
       <Button color="primary" variant="contained" onClick={handleClickOpen}>
         Thêm danh mục con
       </Button>
@@ -71,7 +69,7 @@ function CategoryCNewForm(props) {
                   <CardContent>
                     <Grid container spacing={3}>
                       <TextFieldCus label="Tên danh mục con" name="namesubCategory" widthCustome={12} form={categoryCNewForm} />
-                      <SelectField label="Danh mục" name="status" widthCustome={12} categoryOptions={category} form={categoryCNewForm} />
+                      <SelectField label="Danh mục" name="categoryID" widthCustome={12} categoryOptions={category} form={categoryCNewForm} />
                       <Grid item md={12} xs={12}>
                         <Controller
                           name="photo"

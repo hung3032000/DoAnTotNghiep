@@ -48,8 +48,6 @@ function ProductsNewForm(props) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      {/* <Button>Nhập</Button>
-      <Button sx={{ mx: 1 }}>Export</Button> */}
       <Button color="primary" variant="contained" onClick={handleClickOpen}>
         Thêm sản phẩm
       </Button>
@@ -73,7 +71,6 @@ function ProductsNewForm(props) {
                       <CardContent>
                         <Grid container spacing={3}>
                           <TextFieldCus label="Content" name="content" form={productsNewForm} />
-                          {/* <AProductOrigin name="images" formImages={productsNewForm} /> */}
                           <TextFieldCus label="Mô tả" name="description" form={productsNewForm} />
                           <TextFieldCus label="Tên sản phẩm" name="name" form={productsNewForm} />
                           <TextFieldCus label="Vật liệu" name="material" form={productsNewForm} />

@@ -78,7 +78,7 @@ const ShowProduct = function () {
                 </div>
                 <div className="refine-buttons col-md-6 col-md-4 order-md-3">
                   <div className="filters-tabs">
-                    <Modal classNameModal={'btn btn-link filters-tab'} label={'Filters'}>
+                    <Modal classNameModal={'btn btn-link filters-tab'} label={'Lọc'}>
                       <Filter data={data} setData={setData} productList={dataProductsList}/>
                     </Modal>
                   </div>

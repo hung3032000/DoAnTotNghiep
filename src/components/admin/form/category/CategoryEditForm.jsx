@@ -24,7 +24,6 @@ function CategoryEditForm(props) {
       nameCategory: category.nameCategory,
       status: category.status
     },
-    // resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;

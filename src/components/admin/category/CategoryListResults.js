@@ -9,11 +9,13 @@ import { useDispatch } from 'react-redux';
 import CategoryEditForm from '../form/category/CategoryEditForm';
 import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination';
+import { useSnackbar } from 'notistack';
 let PageSize = 3;
 function CategoryListResults(props) {
   const { dataCategoryList } = props;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleOnEdit = async (values) => {
     try {
@@ -21,13 +23,12 @@ function CategoryListResults(props) {
       const action = updateCategoryAdmin(values);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
-      // enqueueSnackbar('Sửa Thành công', { variant: 'success' });
+      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
   const handleOnDelete = async (id) => {
@@ -36,12 +37,12 @@ function CategoryListResults(props) {
       const action = deleteCategoryAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Xoá Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
@@ -129,8 +130,8 @@ function CategoryListResults(props) {
                     <TableCell>{category.subcategories.length}</TableCell>
                     <TableCell>{moment(category.datecreated).format('DD/MM/YYYY')}</TableCell>
                     <TableCell>
-                      {category.status === true && <p>Đang sử dụng</p>}
-                      {category.status === false && <p>Không sử dụng</p>}
+                      {category.status === true && <>Đang sử dụng</>}
+                      {category.status === false && <>Không sử dụng</>}
                     </TableCell>
                     <TableCell>
                       <CategoryEditForm category={category} onSubmit={handleOnEdit} />

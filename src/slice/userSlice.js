@@ -66,12 +66,12 @@ export const addAddress = createAsyncThunk('user/addAddress', async (values) => 
 });
 
 export const updateAddress = createAsyncThunk('user/updateAddress', async (values) => {
-  const data = await userApi.updateAddress(values._id,values);
+  const data = await userApi.updateAddress(values._id, values);
   localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
   return data;
 });
 export const updateDefaultAddress = createAsyncThunk('user/updateDefaultAddress', async (values) => {
-  const data = await userApi.updateAddress(values._id,values);
+  const data = await userApi.updateAddress(values._id, values);
   localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
   return data;
 });
@@ -134,7 +134,17 @@ const userSlice = createSlice({
     [deleteAddress.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
-    
+    [updateUser.fulfilled]: (state, action) => {
+      const newUserList = state.userList.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.userList = newUserList;
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      const newUserList = state.userList.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.userList = newUserList;
+    },
+    [addUser.fulfilled]: (state, action) => {
+      state.userList.push(action.payload.user);
+    },
   },
 });
 

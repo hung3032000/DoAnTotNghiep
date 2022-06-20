@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import UserNewForm from 'components/admin/form/User/UserNewForm';
-import adminAPI from 'api/adminAPI';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import { addUser } from 'slice/userSlice';
@@ -17,9 +16,7 @@ function UserListToolbar(props) {
       const action = addUser(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
-      adminAPI.addUser(values);
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });

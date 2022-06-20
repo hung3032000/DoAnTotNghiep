@@ -17,6 +17,9 @@ function OrderListToolbar(props) {
   ];
   useEffect(() => {
     (async () => {
+      if (!history) {
+        return null;
+      }
       try {
         if (size.status === 'Cancel') {
           setCancelCount(size.count);
@@ -29,7 +32,7 @@ function OrderListToolbar(props) {
         // setLoading(false);
       }
     })();
-  }, [size]);
+  }, [history, size]);
   const handleChange = (e) => {
     const query = e.target.value.toLowerCase();
     var filterSuggestions;

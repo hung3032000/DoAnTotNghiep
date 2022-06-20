@@ -9,6 +9,7 @@ Index.propTypes = {
   widthCustome: PropTypes.number,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  number: PropTypes.bool
 };
 
 function Index(props) {

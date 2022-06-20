@@ -71,7 +71,6 @@
     font-size: 12px;
     font-weight: 400;
     color: #727272;
-    text-transform: uppercase;
 }
 .rule-engine-content .table tr .table__td .select-container .select:focus {
     outline: none;

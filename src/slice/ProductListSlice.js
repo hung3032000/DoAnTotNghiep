@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import adminAPI from 'api/adminAPI';
 import productApi from 'api/productApi';
+import {addProductProductDetail, deleteProductDetail, updateImageProduct, updateProductDetail} from "./ProductSlice"
 
 export const getListProduct = createAsyncThunk('listProduct', async (params) => {
   const response = await productApi.getAll(params);
@@ -45,6 +46,22 @@ const ListProductSlice = createSlice({
     [getListProductSearch.fulfilled]: (state, action) => {
       state.search = action.payload;
     },
+    [addProductProductDetail.fulfilled]: (state, action) => {
+      state.dataA.push(action.payload);
+    },
+    [updateProductDetail.fulfilled]: (state, action) => {
+      const newCategoryList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newCategoryList;
+    },
+    [updateImageProduct.fulfilled]: (state, action) => {
+      const newCategoryList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newCategoryList;
+    },
+    [deleteProductDetail.fulfilled]: (state, action) => {
+      const newCategoryList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newCategoryList;
+    },
+    
   },
 });
 const { reducer } = ListProductSlice;

@@ -56,9 +56,17 @@ const ListCategorySlice = createSlice({
     [getCategoryAdmin.fulfilled]: (state, action) => {
       state.categoryDetailA = action.payload;
     },
-    // [getCategoryAdmin.fulfilled]: (state, action) => {
-    //   state.dataA = [...state.dataA, action.payload];
-    // },
+    [updateCategoryAdmin.fulfilled]: (state, action) => {
+      const newCategoryList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newCategoryList;
+    },
+    [deleteCategoryAdmin.fulfilled]: (state, action) => {
+      const newCategoryList = state.dataA.map((service) => (service._id === action.payload._id ? action.payload : service));
+      state.dataA = newCategoryList;
+    },
+    [createNewCategoryAdmin.fulfilled]: (state, action) => {
+      state.dataA.push(action.payload);
+    },
   },
 });
 const { reducer } = ListCategorySlice;

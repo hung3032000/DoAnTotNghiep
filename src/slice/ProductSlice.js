@@ -48,15 +48,6 @@ const ListProductsSlice = createSlice({
     [updateProductDetail.fulfilled]: (state, action) => {
       state.product = action.payload;
     },
-    // case types.UPDATE_SERVICE:
-		// 	const newServices = state.services.map((service) =>
-		// 		service._id === payload._id ? payload : service
-		// 	);
-		// 	return {
-		// 		...state,
-		// 		services: newServices,
-		// 	};
-
   },
 });
 const { reducer } = ListProductsSlice;

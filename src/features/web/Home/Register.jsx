@@ -27,7 +27,7 @@ const Register = function (props) {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-     
+
       window.location.reload();
     }
   };
@@ -45,7 +45,9 @@ const Register = function (props) {
               <h1>
                 <span className="subtitle">Tạo tài khoản</span> <span className="title">Tài khoản</span>
               </h1>
-              <p className="text">Trở thành người tiên phong biết đến những sản phẩm mới nhất, biết về các bộ sưu tập mới và các sự kiện độc quyền thông qua tài khoản cá nhân của bạn .</p>
+              <p className="text">
+                Trở thành người tiên phong biết đến những sản phẩm mới nhất, biết về các bộ sưu tập mới và các sự kiện độc quyền thông qua tài khoản cá nhân của bạn .
+              </p>
             </div>
             <div className="row">
               <div className="col-xs-6 col-sm-offset-3">

@@ -47,7 +47,7 @@ export const paymentVNPAY = createAsyncThunk('paymentVNPAY', async (id) => {
   const response = await orderApi.getPaymentVNPAY(id);
   return response;
 });
-const ListCategorySlice = createSlice({
+const ListOrderSlice = createSlice({
   name: 'order',
   initialState: {
     data: [],
@@ -73,8 +73,16 @@ const ListCategorySlice = createSlice({
     [getOrderCompleteUser.fulfilled]: (state, action) => {
       state.dataComplete = action.payload;
     },
+    [addOrderCompleteAdmin.fulfilled]: (state, action) => {
+      const newOrderList = state.data.filter(service => service._id !== action.payload.orderComplete.orderId._id);
+      state.data = newOrderList;
+    },
+    [deleteOrderAdmin.fulfilled]: (state, action) => {
+      const newOrderList = state.data.filter(service => service._id !== action.payload.orderComplete.orderId._id);
+      state.data = newOrderList;
+    },
   },
 });
-const { actions,reducer } = ListCategorySlice;
+const { actions,reducer } = ListOrderSlice;
 export const { checkout } = actions;
 export default reducer;

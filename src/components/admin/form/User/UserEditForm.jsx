@@ -16,6 +16,7 @@ UserEditForm.propTypes = {
 
 function UserEditForm(props) {
   const { customer } = props;
+  const [open, setOpen] = useState(false);
   const roleOptions = [
     { label: 'Admin', value: 'admin' },
     { label: 'SubAdmin', value: 'subadmin' },
@@ -57,7 +58,6 @@ function UserEditForm(props) {
     setOpen(true);
   };
 
-  const [open, setOpen] = useState(false);
   return (
     <>
       <IconButton className="mgr-10" color="primary" aria-label="edit" type="submit" onClick={handleClickOpen}>

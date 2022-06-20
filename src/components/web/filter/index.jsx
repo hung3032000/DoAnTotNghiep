@@ -62,7 +62,7 @@ function Index(props) {
       </form>
       <div class="filters-results-reset">
         <button class="reset-refinements btn btn-link-secondary" onClick={handleOnClear}>
-          Clear all
+          Xoá lọc
         </button>
       </div>
     </div>

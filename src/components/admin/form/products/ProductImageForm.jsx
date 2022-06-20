@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import Loader from 'components/fullPageLoading';
 
 ProductImageForm.propTypes = {
-  productId: PropTypes.string.isRequired,
+  productId: PropTypes.any.isRequired,
   onSubmit: PropTypes.func,
 };
 

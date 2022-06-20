@@ -14,7 +14,7 @@ import Pagination from 'components/web/pagination';
 UserListResults.propTypes = {
   closeDialog: PropTypes.func,
 };
-let PageSize = 10;
+let PageSize = 5;
 function UserListResults(props) {
   const [loading, setLoading] = useState(false);
   const { dataUserList } = props;
@@ -59,7 +59,6 @@ function UserListResults(props) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Sửa Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -74,7 +73,6 @@ function UserListResults(props) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Xoá Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -137,8 +135,8 @@ function UserListResults(props) {
                     <TableCell>{customer.phonenumber}</TableCell>
                     <TableCell>{moment(customer.updatedAt).format('DD/MM/YYYY')}</TableCell>
                     <TableCell>
-                      {customer.status === true && <p>Đã xác nhận</p>}
-                      {customer.status === false && <p>Đã huỷ</p>}
+                      {customer.status === true && <>Đã xác nhận</>}
+                      {customer.status === false && <>Đã huỷ</>}
                     </TableCell>
                     <TableCell>{customer.role}</TableCell>
                     <TableCell>

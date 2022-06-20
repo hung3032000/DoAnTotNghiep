@@ -1,8 +1,7 @@
 import { Box, Card, CardContent, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
-import adminAPI from 'api/adminAPI';
 import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
-import { addProductProductDetail } from 'slice/ProductSlice';
+import { addProductProductDetail, updateImageProduct } from 'slice/ProductSlice';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { Search as SearchIcon } from 'react-feather';
@@ -29,13 +28,19 @@ function ProductListToolbar(props) {
       const action = addProductProductDetail(values);
       const resultAction = await dispatch(action);
       const products = unwrapResult(resultAction);
-      adminAPI.updateImageProduct(products._id, data);
+      if (data) {
+        values._id = products._id;
+        values.data = data;
+        const action2 = updateImageProduct(values);
+        const resultAction2 = await dispatch(action2);
+        unwrapResult(resultAction2);
+      }
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      window.location.reload();
+      // window.location.reload();
     }
   };
   const handleChange = (e) => {
