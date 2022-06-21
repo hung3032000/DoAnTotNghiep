@@ -34,6 +34,7 @@ const CheckOut = function (props) {
         quantity: 2,
         totalPrice: 200,
         saleId: 20,
+        sizeId: 20,
         colorName: 'Black',
         sizeName: 'Black',
       };
@@ -50,7 +51,7 @@ const CheckOut = function (props) {
         }
         item.colorName = dataCart[i].color;
         item.sizeName = dataCart[i].size;
-
+        item.sizeId = dataCart[i].sizeId;
         items.unshift(item);
         item = {
           productId: 1,

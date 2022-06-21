@@ -55,7 +55,7 @@ function CheckOutForm(props) {
         <InputCombobox name="Title" form={checkOutForm} label="Ông/Bà" dataForm={categoryOptions}/>
         <Input name="LName" form={checkOutForm} label="Họ" />
         <Input name="FName" form={checkOutForm} label="Tên" />
-        <Input name="Address" defaultValue={address} label="Địa chỉ Email" form={checkOutForm} />
+        <Input name="Address" defaultValue={address} label="Địa chỉ" form={checkOutForm} />
         <Input name="Phone" form={checkOutForm} label="Số điện thoại" />
         <div className="billing-address">
           <button className="form-button shipping-address-save" name="dwfrm_singleshipping_shippingAddress_save">
