@@ -9,7 +9,7 @@ function index(props) {
         <div className="product-related-container related-swiper-container">
           <h2 className="related-product-header">Sản phẩm tương tự</h2>
           <ul className="search-result-items tiles-container js-slv-product-grid row" data-columns>
-            {currentTableData.map((productList, index) => (
+            {currentTableData?.map((productList, index) => (
               <li key={index} className="grid-tile col-xs-3 col-sm-6 col-lg-3">
                 <div className="product-tile">
                   <Products product={productList} />
