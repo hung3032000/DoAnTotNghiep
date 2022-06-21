@@ -53,7 +53,8 @@ function Index(props) {
           {index === 0 ? (
             <div className="td-flex">
               <div className="select-container">
-                <select disabled={readOnly ? true : false} className="select" name="nameSize" value={inputValue.nameSize} onChange={(e) => handleInputChange(e, index)}>
+                <select disabled={readOnly ? true : false} required className="select" name="nameSize" value={inputValue.nameSize} onChange={(e) => handleInputChange(e, index)}>
+                  <option className="hidden" value=""></option>
                   {categoryOptions.map((item, idx) => {
                     return (
                       <option key={idx} className="option-select" value={item.value}>
