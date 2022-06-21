@@ -109,7 +109,7 @@ function OrderListInfo(props) {
                                   <TableCell>{items.quantity}</TableCell>
                                   <TableCell align="right">{formatPrice(items.productId.price)}</TableCell>
                                   <TableCell align="right">{formatPrice(order.priceDiscount ? order.priceDiscount : 0)}</TableCell>
-                                  {order?.isPaypal ? <TableCell align="right">{formatPrice(items.totalPrice*20000)}</TableCell> : <TableCell align="right">{formatPrice(items.totalPrice)}</TableCell>}
+                                  {order?.paymentMethod === 'Paypal' ? <TableCell align="right">{formatPrice(items.totalPrice*20000)}</TableCell> : <TableCell align="right">{formatPrice(items.totalPrice)}</TableCell>}
                                 </TableRow>
                               ))}
                             </TableBody>
