@@ -32,7 +32,7 @@ function Index() {
       <Loader showLoader={loading} />
       <form className="form-horizontal" onSubmit={forgetPasswordForm.handleSubmit(handleSubmit)}>
         <fieldset>
-          <Input name="email" form={forgetPasswordForm} placeholder="Địa chỉ E-sssmail *" />
+          <Input name="email" form={forgetPasswordForm} placeholder="Địa chỉ E-mail *" />
           <div className="form-row form-row-button">
             <button type="submit" value="Apply" name="dwfrm_profile_changepassword">
               Xác nhận

@@ -18,6 +18,7 @@ function ResetPassword() {
     try {
       setLoading(true);
       values.token = token;
+      console.log(values);
       const action = confirmResetPassword(values);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
@@ -26,7 +27,6 @@ function ResetPassword() {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
