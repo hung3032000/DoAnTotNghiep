@@ -78,7 +78,7 @@ const ListOrderSlice = createSlice({
       state.data = newOrderList;
     },
     [deleteOrderAdmin.fulfilled]: (state, action) => {
-      const newOrderList = state.data.filter(service => service._id !== action.payload.orderComplete.orderId._id);
+      const newOrderList = state.data.filter(service => service._id !== action.payload._id);
       state.data = newOrderList;
     },
   },
