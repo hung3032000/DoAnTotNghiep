@@ -82,7 +82,7 @@ const Login = function () {
               <div className="row">
                 <div className="col-xs-6">
                   <div className="login-box">
-                    <h2>Thành viên của Hermes</h2>
+                    <h2>Thành viên của H</h2>
                     <GoogleLogin
                       clientId="907790633444-0fnqh5mpf12k1jfes1pal08gv51vhnsh.apps.googleusercontent.com"
                       buttonText="Login"
@@ -95,14 +95,14 @@ const Login = function () {
                       onFailure={responseGoogle}
                       cookiePolicy={'single_host_origin'}
                     />
-                    <p className="intro">Nếu bạn là một thành viên của Hermes, hãy đăng nhập với thông tin của bạn.</p>
+                    <p className="intro">Nếu bạn là một thành viên của H, hãy đăng nhập với thông tin của bạn.</p>
                     <LoginForm onSubmit={handleLoginFormSubmit} />
                   </div>
                 </div>
                 <div className="col-xs-6">
                   <div className="register-box">
                     <h2>Thành viên mới</h2>
-                    <p className="intro">Tạo một tài khoản cho riêng mình để tham gia cùng hermes.</p>
+                    <p className="intro">Tạo một tài khoản cho riêng mình để tham gia cùng H.</p>
                     <a href="/register" className="form-row">
                       <button type="submit" value="Create an account" name="dwfrm_login_register">
                         Tạo tài khoản mới
@@ -111,10 +111,10 @@ const Login = function () {
                     <div className="create-account-benefits">
                       <h3>Lợi ích</h3>
                       <div className="content-asset">
-                        <p className="title">Wishlist</p>
-                        <p className="text">Create a wish list and share it with loved ones or in-store consultants</p>
+                        <p className="title">Giỏ hàng</p>
+                        <p className="text">Thêm vào những sản phẩm yêu thích của riêng mình</p>
                         <p className="title">Cá nhân hoá</p>
-                        <p className="text">Take advantage of suggestions for customized products and exclusive content</p>
+                        <p className="text">Sở hữu bộ sưu tập cho riêng mình</p>
                         <p className="title">Yêu thích</p>
                         <p className="text">Quản lý những tin tức mới nhất mà mình yêu thích</p>
                         <p className="title">Thông tin cá nhân</p>

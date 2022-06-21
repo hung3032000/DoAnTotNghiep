@@ -37,7 +37,7 @@ const Footer = function (props) {
               <div className="col-xs-6 col-sm-6 col-lg-6 newsletter-part">
                 <form action="/#Newsletter-Edit" method="POST" className="newsletter-form">
                   <div>
-                    <h2>Đăng kí để nhận những tin tức mới nhất và kết nối đến cộng đồng Hermes</h2>
+                    <h2>Đăng kí để nhận những tin tức mới nhất và kết nối đến cộng đồng H</h2>
                     <p>Trở thành người đầu tiên biết đến những bộ collections và event mới nhất.</p>
                   </div>
                   <div>
@@ -121,7 +121,7 @@ const Footer = function (props) {
                 <a className="HomieBeauty promotion-impression" data-promotion-creative="footer" href="/#" target="_blank">
                   <img alt="" src="/image/Parfum_Linterdit.jpg" title />
                   <span style={{ position: 'absolute', color: 'white', top: '50%', left: 0, width: '100%', textAlign: 'center', transform: 'translateY(-50%)' }}>
-                    Hermes
+                    H
                   </span>
                 </a>
               </div>

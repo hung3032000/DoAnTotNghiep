@@ -11,7 +11,7 @@ function CustomerSp(props) {
         <div className="container">
           <div className="text">
             <p className="subtitle">Tổng đài dịch vụ</p>
-            lorem ipsum dolor sit amet, consectetur adipiscing elit
+            Đội ngũ hỗ trợ sẵn sàng từ thứ 2 đến thứ 7 từ 10:00 sáng đến 7:00 tối để trả lời tất cả các thắc mắc của khách hàng.
           </div>
           <div className="links">
             <a href="/#" className="contact-popin">
