@@ -139,6 +139,7 @@ function OrderListResults(props) {
     const lastPageIndex = firstPageIndex + PageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, data]);
+
   return (
     <>
       <Loader showLoader={loading} />
@@ -178,9 +179,15 @@ function OrderListResults(props) {
                           display: 'flex',
                         }}
                       >
-                        <Typography color="textPrimary" variant="body1">
-                          {order._id}
-                        </Typography>
+                        {orderComplete ? (
+                          <Typography color="textPrimary" variant="body1">
+                            {order.dataOrder._id}
+                          </Typography>
+                        ) : (
+                          <Typography color="textPrimary" variant="body1">
+                            {order._id}
+                          </Typography>
+                        )}
                       </Box>
                     </TableCell>
                     <TableCell>{order.dataOrder.userId.email}</TableCell>

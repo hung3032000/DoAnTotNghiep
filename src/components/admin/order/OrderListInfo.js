@@ -31,7 +31,6 @@ function OrderListInfo(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  console.log(order);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const orderItems = order?.items;

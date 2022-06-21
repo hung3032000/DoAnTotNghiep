@@ -129,7 +129,6 @@ export default function Paypal() {
             order.totalPrice = cartTotal;
             order.paymentId = order.id;
             order.isPaypal = true;
-            console.log(order);
             const action = addOrderUser(order);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
