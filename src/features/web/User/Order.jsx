@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
 import { deleteOrderAdmin, getOrder 
-  // ,paymentVNPAY
+  ,paymentVNPAY
  } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
@@ -67,21 +67,22 @@ const Order = function () {
     }
   };
 
-  // const handleOnVNPAY = async (id) => {
-  //   try {
-  //     setLoading(true);
-  //     console.log(id);
-  //     const action = paymentVNPAY(id);
-  //     const resultAction = await dispatch(action);
-  //     unwrapResult(resultAction);
-  //   } catch (error) {
-  //     console.log(error);
-  //     // enqueueSnackbar(error.message, { variant: 'error' });
-  //   } finally {
-  //     // setTimeout(() => window.location.reload(), 1000);
-  //     setLoading(false);
-  //   }
-  // };
+  const handleOnVNPAY = async (id) => {
+    try {
+      setLoading(true);
+      console.log(id);
+      const action = paymentVNPAY(id);
+      const resultAction = await dispatch(action);
+      const linkHref = unwrapResult(resultAction);
+      window.location.href = linkHref.vnpUrl;
+    } catch (error) {
+      console.log(error);
+      // enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      // setTimeout(() => window.location.reload(), 1000);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Loader showLoader={loading} />
@@ -133,7 +134,6 @@ const Order = function () {
 
                           <TableCell>{order.userId.email}</TableCell>
                           <TableCell>{formatPrice(order.totalPrice)}</TableCell>
-
                           <TableCell>{moment(order.createdAt).format('DD/MM/YYYY')}</TableCell>
                           <TableCell>{order.status}</TableCell>
                           <TableCell>
@@ -148,7 +148,7 @@ const Order = function () {
                             >
                               <ClearIcon />
                             </IconButton>
-                            {/* <IconButton
+                            <IconButton
                               className="mgr-10"
                               color="secondary"
                               aria-label="delete"
@@ -157,7 +157,7 @@ const Order = function () {
                               }}
                             >
                               VNPAY
-                            </IconButton> */}
+                            </IconButton>
                           </TableCell>
                         </TableRow>
                       ))}

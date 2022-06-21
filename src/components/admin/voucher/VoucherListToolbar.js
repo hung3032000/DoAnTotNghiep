@@ -16,7 +16,6 @@ function VoucherListToolbar(props) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Thêm Thành công', { variant: 'success' });
-      window.location.reload();
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });

@@ -8,10 +8,13 @@ import VoucherEditForm from 'components/admin/form/voucher/VoucherEditForm';
 import Loader from 'components/fullPageLoading';
 import { updateVoucher, deleteVoucher } from 'slice/voucherSlice';
 import Pagination from 'components/web/pagination';
+import { useSnackbar } from 'notistack';
 
 let PageSize = 10;
 function VoucherListResults(props) {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [loading, setLoading] = useState(false);
   const { dataVoucherList } = props;
 
@@ -21,10 +24,10 @@ function VoucherListResults(props) {
       const action = updateVoucher(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
+      enqueueSnackbar('Sửa Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -35,10 +38,10 @@ function VoucherListResults(props) {
       const action = deleteVoucher(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      window.location.reload();
+      enqueueSnackbar('Xoá Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -106,7 +109,7 @@ function VoucherListResults(props) {
                   <TableCell>Giảm tối đa</TableCell>
                   <TableCell>Ngày áp dụng</TableCell>
                   <TableCell>HSD</TableCell>
-                  <TableCell>Trạng thái</TableCell>
+              
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -137,10 +140,7 @@ function VoucherListResults(props) {
                     <TableCell>
                       {voucher.dateEnd.day}/{voucher.dateEnd.month}/{voucher.dateEnd.year}
                     </TableCell>
-                    <TableCell>
-                      {voucher.statusCoupon === true && <p>Đang sử dụng</p>}
-                      {voucher.statusCoupon === false && <p>Không sử dụng</p>}
-                    </TableCell>
+           
                     <TableCell>
                       <VoucherEditForm vouchers={voucher} onSubmit={handleOnEdit} />
                       <IconButton

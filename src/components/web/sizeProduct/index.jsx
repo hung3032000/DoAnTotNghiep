@@ -19,9 +19,8 @@ function Index(props) {
     { label: 'XL', value: 'XL', _id: 5 },
     { label: 'XXL', value: 'XXL', _id: 6 },
   ];
-  const [sizes, setSizes] = useState();
+  const [sizes, setSizes] = useState({});
   const [choosers, setChoosers] = useState(-1);
-
   const arrayFilter = () => {
     let array = [];
     size.forEach((i) => {
@@ -45,6 +44,12 @@ function Index(props) {
       await onSubmit(sizes);
     }
   };
+  const idSize = (i) => {
+    if (arrayFilter().map((item) => i.value === item.nameSize)) {
+      return arrayFilter().filter((item) => i.value === item.nameSize)[0]._id;
+    }
+    return '';
+  };
 
   const clasSize = (i) => {
     if (arrayFilter().some((item) => i.value === item.nameSize)) {
@@ -63,7 +68,7 @@ function Index(props) {
                   key={i._id}
                   className={`${choosers === i._id ? 'selected attrvalue' : 'selectable attrvalue'} ` + clasSize(i)}
                   onClick={() => {
-                    setSizes(i.value);
+                    setSizes({ _id: idSize(i), value: i.value });
                     setChoosers(i._id);
                   }}
                 >

@@ -28,7 +28,6 @@ function Voucher() {
     })();
   }, [dispatch]);
   const [voucherList, setVoucherList] = useState(dataVoucherList);
-  console.log(voucherList);
   return (
     <>
       <Loader showLoader={loading} />

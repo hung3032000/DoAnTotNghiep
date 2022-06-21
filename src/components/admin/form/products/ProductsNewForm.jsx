@@ -75,7 +75,7 @@ function ProductsNewForm(props) {
                           <TextFieldCus label="Tên sản phẩm" name="name" form={productsNewForm} />
                           <TextFieldCus label="Vật liệu" name="material" form={productsNewForm} />
                           <TextFieldCus label="Nguồn gốc" name="orgin" form={productsNewForm} />
-                          <TextFieldCus label="Giá" name="price" form={productsNewForm} />
+                          <TextFieldCus number={true} label="Giá" name="price" form={productsNewForm} />
                           <SelectField categoryOptions={categoriesC} name="subcategoryId" form={productsNewForm} />
                           <Grid item md={6} xs={12}>
                             <Controller

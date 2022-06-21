@@ -94,6 +94,7 @@ export default function Paypal() {
               totalPrice: 200,
               colorName: 'Black',
               saleId: 26,
+              sizeId: 1,
               sizeName: 'S',
             };
             let items = [];
@@ -103,6 +104,7 @@ export default function Paypal() {
               item.colorName = dataCart[i].color;
               item.sizeName = dataCart[i].size;
               item.quantity = dataCart[i].quantity;
+              item.sizeId = dataCart[i].sizeId;
               if (dataCart[i].product.saleId) {
                 b = dataCart[i].quantity * ((dataCart[i].product.price - (dataCart[i].product.price * dataCart[i].product.saleId.percentSale) / 100) / 20000);
                 item.saleId = dataCart[i].product.saleId._id;

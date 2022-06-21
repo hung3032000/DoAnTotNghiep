@@ -45,6 +45,10 @@ function CategoryChild() {
       }
     })();
   }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
+  const [data, setData] = useState(dataCategoryCList.subcategories);
+  useEffect(() => {
+    setData(dataCategoryCList.subcategories ? dataCategoryCList.subcategories.filter((service) => service.substatus === true) : dataCategoryCList.subcategories);
+  }, [dataCategoryCList.subcategories]);
 
   return (
     <div>
@@ -57,7 +61,7 @@ function CategoryChild() {
               <span className="title">{dataCategoryDetail.nameCategory}</span>
             </h1>
           </div>
-          <CateC data={dataCategoryCList.subcategories} />
+          <CateC data={data} />
         </div>
       </main>
     </div>

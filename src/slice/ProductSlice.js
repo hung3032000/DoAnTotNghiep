@@ -7,7 +7,6 @@ export const getProductDetail = createAsyncThunk('ProductDetail', async (id) => 
   return response;
 });
 
-
 export const addProductProductDetail = createAsyncThunk('addProductProductDetail', async (data) => {
   const response = await adminAPI.addProduct(data);
   return response;
@@ -31,14 +30,16 @@ export const deleteProductDetail = createAsyncThunk('deleteProductDetail', async
   const response = await adminAPI.deleteProduct(id);
   return response;
 });
-
-
-
+export const getRecommand = createAsyncThunk('getRecommand', async (values) => {
+  const response = await productApi.getRecommand(values);
+  return response;
+});
 
 const ListProductsSlice = createSlice({
   name: 'productId',
   initialState: {
     product: [],
+    recommend: [],
   },
   reducers: {},
   extraReducers: {
@@ -47,6 +48,9 @@ const ListProductsSlice = createSlice({
     },
     [updateProductDetail.fulfilled]: (state, action) => {
       state.product = action.payload;
+    },
+    [getRecommand.fulfilled]: (state, action) => {
+      state.recommend = action.payload;
     },
   },
 });

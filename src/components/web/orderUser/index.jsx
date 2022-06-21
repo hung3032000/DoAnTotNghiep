@@ -19,6 +19,7 @@ let PageSize = 5;
 
 const Index = function (props) {
   const { dataOrderList, label, orderComplete, orderCancel } = props;
+  console.log(dataOrderList);
   const [currentPage, setCurrentPage] = useState(1);
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;

@@ -25,7 +25,7 @@ function ProductInfo() {
   const size = useSelector((state) => state.productList.size);
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState('Chọn màu');
-  const [sizes, setSize] = useState();
+  const [sizes, setSize] = useState('');
   const [totalProductState, setTotalProductState] = useState();
 
   useEffect(() => {
@@ -45,13 +45,35 @@ function ProductInfo() {
       }
     })();
   }, [dispatch, productId]);
+  useEffect(() => {
+    (async () => {
+      const values = {
+        age: 18 + Math.floor(Math.random() * (65 - 18)),
+        gender: 'Female',
+        previousProduct: parseInt(productId),
+        price: product.price,
+        sale: product.saleId ? 'Yes' : 'No',
+      };
 
+      try {
+        setLoading(true);
+        console.log(values);
+        // const action = getProductDetail(productId);
+        // const resultAction = await dispatch(action);
+        // unwrapResult(resultAction);
+      } catch (error) {
+        console.log('Failed to fetch product', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [dispatch, product.price, product.saleId, productId]);
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         let allProduct = 0;
-        if (color === 'Chọn màu' && sizes === undefined) {
+        if (color === 'Chọn màu' && sizes.value === undefined) {
           for (let index = 0; index < size.length; index++) {
             const element = size[index];
             for (let index = 0; index < element.colors.length; index++) {
@@ -60,9 +82,9 @@ function ProductInfo() {
             }
           }
           setTotalProductState(allProduct);
-        } else if (color !== 'Chọn màu' && sizes !== undefined) {
+        } else if (color !== 'Chọn màu' && sizes.value !== undefined) {
           size.forEach((i) => {
-            if (sizes === i.nameSize) {
+            if (sizes.value === i.nameSize) {
               i.colors.forEach((i2) => {
                 if (color === i2.colorName) {
                   allProduct = i2.quantity;
@@ -78,7 +100,7 @@ function ProductInfo() {
         setLoading(false);
       }
     })();
-  }, [size, color, sizes]);
+  }, [size, color, sizes.value]);
   const thumnailUrl = product.imageMain ? product.imageMain : THUMNAIL_URL_PRODUCTINFO;
 
   let priceProductTotal = 0;
@@ -94,6 +116,7 @@ function ProductInfo() {
     setColor(data);
   };
   const handleSubmitSize = (data) => {
+
     setSize(data);
   };
 
@@ -103,7 +126,8 @@ function ProductInfo() {
       if (values) {
         const dataCart = {
           color: color,
-          size: sizes,
+          size: sizes.value,
+          sizeId: sizes._id,
           product,
           price: priceTotal(),
           quantity: 1,
@@ -116,7 +140,6 @@ function ProductInfo() {
       setLoading(false);
     }
   };
-
   return (
     <div>
       <Loader showLoader={loading} />
@@ -154,7 +177,7 @@ function ProductInfo() {
                         <div className="double-form-button">
                           <div className="left">
                             <Modal classNameModal={'form-button secondary'} label={'Thông tin món hàng'}>
-                              <Detailproduct product={product} color={size}/>
+                              <Detailproduct product={product} color={size} />
                             </Modal>
                           </div>
                           <div className="right">
@@ -170,7 +193,7 @@ function ProductInfo() {
                       <Colorproduct color={size} onSubmit={handleSubmit} />
                       <SizeProduct size={size} onSubmit={handleSubmitSize} color={color} />
                       <div className="product-add-to-cart">
-                        <AddToCart onSubmit={handleAddToCartSubmit} soldOut={totalProductState > 0 ? false : true}/>
+                        <AddToCart onSubmit={handleAddToCartSubmit} soldOut={totalProductState > 0 ? false : true} />
                       </div>
                     </div>
                   </div>

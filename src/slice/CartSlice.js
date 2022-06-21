@@ -11,7 +11,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const { dataCart } = state;
-      const { product, quantity, color, size, price } = action.payload;
+      const { product, quantity, color, size, price,sizeId } = action.payload;
       const fileIndex = (dataCart, id, colors,sizes) => {
         let result = -1;
         dataCart.forEach((productCart, index) => {
@@ -29,6 +29,7 @@ const cartSlice = createSlice({
         dataCart.unshift({
           color: color,
           size: size,
+          sizeId: sizeId,
           product,
           price: price,
           quantity: quantity,

@@ -31,7 +31,7 @@ function OrderListInfo(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  console.log(order);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const orderItems = order?.items;
@@ -60,7 +60,7 @@ function OrderListInfo(props) {
                     <TableCell align="right">Ngày tạo đơn</TableCell>
                     <TableCell align="right">Địa chỉ</TableCell>
                     <TableCell align="right">Số điện thoại</TableCell>
-
+                    <TableCell align="right">Phương thức thanh toán</TableCell>
                     <TableCell align="right">Trạng thái</TableCell>
                     <TableCell align="right">Tổng giá</TableCell>
                   </TableRow>
@@ -76,6 +76,8 @@ function OrderListInfo(props) {
                     <TableCell align="right">{moment(order?.createdAt).format('DD/MM/YYYY')}</TableCell>
                     <TableCell align="right">{order?.addressrecevie.address}</TableCell>
                     <TableCell align="right">{order?.addressrecevie.phonenumber}</TableCell>
+                    <TableCell align="right">{order?.paymentMethod}</TableCell>
+
                     <TableCell align="right">{order?.status}</TableCell>
                     <TableCell align="right">{formatPrice(order?.totalPrice)}</TableCell>
                   </TableRow>
@@ -93,8 +95,6 @@ function OrderListInfo(props) {
                                 <TableCell>Số lượng</TableCell>
                                 <TableCell align="right">Giá thành</TableCell>
                                 <TableCell align="right">Giảm giá</TableCell>
-                                {order?.isPaypal && <TableCell align="right">Thanh toán bằng paypal</TableCell>}
-
                                 <TableCell align="right">Tổng giá trị (VND)</TableCell>
                               </TableRow>
                             </TableHead>
@@ -109,8 +109,7 @@ function OrderListInfo(props) {
                                   <TableCell>{items.quantity}</TableCell>
                                   <TableCell align="right">{formatPrice(items.productId.price)}</TableCell>
                                   <TableCell align="right">{formatPrice(order.priceDiscount ? order.priceDiscount : 0)}</TableCell>
-                                  {order?.isPaypal && <TableCell align="right">Thành công</TableCell>}
-                                  <TableCell align="right">{formatPrice(order.totalPrice)}</TableCell>
+                                  {order?.isPaypal ? <TableCell align="right">{formatPrice(items.totalPrice*20000)}</TableCell> : <TableCell align="right">{formatPrice(items.totalPrice)}</TableCell>}
                                 </TableRow>
                               ))}
                             </TableBody>

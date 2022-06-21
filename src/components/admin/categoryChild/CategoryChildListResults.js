@@ -24,6 +24,7 @@ function CategoryChildListResults(props) {
   const handleOnEdit = async (values, data) => {
     try {
       setLoading(true);
+      values.categoryID = parseInt(values.categoryID);
       if (data) {
         values.data = data;
         const actionImage = updateImageAdmin(values);

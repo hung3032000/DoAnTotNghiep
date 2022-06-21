@@ -60,10 +60,10 @@ function ProductCard(props) {
     try {
       setLoading(true);
       values.data = data;
-      console.log(values);
       const action2 = updateMultipleImageProduct(values);
       const resultAction2 = await dispatch(action2);
       unwrapResult(resultAction2);
+      enqueueSnackbar('Thêm Thành công', { variant: 'success' });
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, { variant: 'error' });

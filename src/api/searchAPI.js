@@ -4,6 +4,10 @@ const searchAPI = {
     const url = '/search';
     return axiosClient.get(url, { params });
   },
+  getSearchByWord: (params) => {
+    const url = '/products/search/match';
+    return axiosClient.get(url, { params });
+  },
   getTopTrending: () => {
     const url = '/statistics/googleAnalytics';
     return axiosClient.get(url);

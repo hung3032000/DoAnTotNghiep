@@ -36,7 +36,6 @@ const voucherSlice = createSlice({
   initialState: {
     voucher: [],
     data: JSON.parse(localStorage.getItem(StorageKeys.VOUCHER)) || [],
-
   },
   reducers: {},
   extraReducers: {
@@ -49,9 +48,20 @@ const voucherSlice = createSlice({
     [getAllVoucherUser.fulfilled]: (state, action) => {
       state.voucher = action.payload;
     },
+    [deleteVoucher.fulfilled]: (state, action) => {
+
+      const newOrderList = state.voucher.filter(service => service._id !== parseInt(action.payload._id));
+      state.voucher = newOrderList;
+    },
+    [updateVoucher.fulfilled]: (state, action) => {
+      const newVoucherList = state.voucher.map((service) => (service._id === action.payload.coupon._id ? action.payload.coupon : service));
+      state.voucher = newVoucherList;
+    },
+    [addVoucher.fulfilled]: (state, action) => {
+      state.voucher.push(action.payload.coupon);
+    },
   },
 });
 
 const { reducer } = voucherSlice;
 export default reducer;
-
