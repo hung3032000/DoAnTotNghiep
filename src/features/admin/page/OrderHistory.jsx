@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Loader from 'components/fullPageLoading';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
 
 function OrderHistory() {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,8 @@ function OrderHistory() {
   const dataOrderCList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
   const [status, setStatus] = useState('Cancel');
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     (async () => {
       try {
@@ -23,19 +26,20 @@ function OrderHistory() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
 
   var filterSuggestions = dataOrderCList.filter(function (el) {
     return el.status === status;
   });
   // const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    setOrderList(filterSuggestions)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setOrderList(filterSuggestions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
   const [orderHistoryList, setOrderList] = useState(filterSuggestions);
   const count = { status: status, count: filterSuggestions.length };
@@ -47,7 +51,6 @@ function OrderHistory() {
         toolbar={<OrderListToolbar data={filterSuggestions} setStatus={setStatus} setOrderList={setOrderList} size={count} history={true} />}
         listResults={<OrderListResults dataOrderCList={orderHistoryList.length === 0 ? filterSuggestions : orderHistoryList} orderHistory={true} status={status} />}
       />
-
       ;
     </>
   );

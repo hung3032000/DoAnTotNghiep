@@ -7,11 +7,13 @@ import { useEffect } from 'react';
 import { getAllUser } from 'slice/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Loader from 'components/fullPageLoading';
+import { useSnackbar } from 'notistack';
 
 function UserList() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const dataUserList = useSelector((state) => state.user.userList);
+  const { enqueueSnackbar } = useSnackbar();
   const [userList, setUserList] = useState(dataUserList);
   useEffect(() => {
     (async () => {
@@ -22,11 +24,12 @@ function UserList() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   return (
     <>
       <Loader showLoader={loading} />

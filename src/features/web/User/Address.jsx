@@ -9,9 +9,11 @@ import { addAddress, deleteAddress, updateAddress, updateDefaultAddress } from '
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import UpdateAddress from 'components/web/form/UpdateAddress';
+import { useSnackbar } from 'notistack';
 
 const AccountOverView = function (props) {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const addresses = useSelector((state) => state.user.current.addresses);
   const handleAddressFormSubmit = async (values) => {
     try {
@@ -19,9 +21,10 @@ const AccountOverView = function (props) {
       const action = addAddress(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Cập nhập thành công', { variant: 'success' });
     } catch (error) {
       console.log('Failed to login:', error);
-      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      enqueueSnackbar('Cập nhập thất bại', { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -32,9 +35,10 @@ const AccountOverView = function (props) {
       const action = updateAddress(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Cập nhập thành công', { variant: 'success' });
     } catch (error) {
       console.log('Failed to login:', error);
-      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      enqueueSnackbar('Cập nhập thất bại', { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -56,9 +60,10 @@ const AccountOverView = function (props) {
       const action = updateDefaultAddress(data);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Cập nhập thành công', { variant: 'success' });
     } catch (error) {
-      console.log('Failed to login:', error);
-      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      console.log('Cập nhập thất bại:', error);
+      enqueueSnackbar('Cập nhập thất bại', { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -69,9 +74,10 @@ const AccountOverView = function (props) {
       const action = deleteAddress(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Xoá thành công', { variant: 'success' });
     } catch (error) {
       console.log('Failed to login:', error);
-      // enqueueSnackbar('Mật khẩu hoặc tài khoản không chính xác', { variant: 'error' });
+      enqueueSnackbar('Xoá thất bại', { variant: 'error' });
     } finally {
       setLoading(false);
     }

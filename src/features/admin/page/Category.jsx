@@ -6,10 +6,12 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import Loader from 'components/fullPageLoading';
 import { getListCategoryAdmin } from 'slice/CategorySlice';
+import { useSnackbar } from 'notistack';
 function CategoryList() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const dataCategoryList = useSelector((state) => state.categoryList.dataA);
+  const { enqueueSnackbar } = useSnackbar();
 
   //fetch data category
   useEffect(() => {
@@ -22,11 +24,12 @@ function CategoryList() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   const [categoryList, setCategoryList] = useState(dataCategoryList);
 
   return (

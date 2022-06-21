@@ -17,7 +17,6 @@ const Login = function () {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-
   const { enqueueSnackbar } = useSnackbar();
 
   const handleLoginFormSubmit = async (values) => {
@@ -26,6 +25,7 @@ const Login = function () {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Đăng nhập thành công', { variant: 'success' });
       history.push('/');
       window.location.reload();
     } catch (error) {
@@ -47,13 +47,11 @@ const Login = function () {
       history.push('/');
     } catch (error) {
       console.log(error);
-      enqueueSnackbar("Tài khoản đã bị vô hiệu hoá", { variant: 'error' });
-    }finally {
+      enqueueSnackbar('Tài khoản đã bị vô hiệu hoá', { variant: 'error' });
+    } finally {
       setLoading(false);
       window.location.reload();
-
     }
-
   };
   const responseGoogle = (response) => {
     try {
@@ -62,10 +60,9 @@ const Login = function () {
       enqueueSnackbar(response.error, { variant: 'error' });
     } catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       setLoading(false);
     }
-
   };
   return (
     <div>

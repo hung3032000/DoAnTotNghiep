@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import AddToCart from 'components/web/cart/AddToCart';
 import { addToCart } from 'slice/CartSlice';
 import { THUMNAIL_URL_PRODUCTINFO } from 'constants/index';
@@ -6,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import { formatPrice } from 'utils/common';
 import Loader from 'components/fullPageLoading';
-import { getProductDetail } from 'slice/ProductSlice';
+import { getProductDetail, getRecommand } from 'slice/ProductSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Modal from 'components/web/modal/modal';
 import SizeProduct from 'components/web/sizeProduct';
@@ -14,20 +15,25 @@ import Detailproduct from 'components/web/detailProduct';
 import Colorproduct from 'components/web/colorProduct';
 import { getListSize } from 'slice/ProductListSlice';
 import { Helmet } from 'react-helmet';
-
+import Suggestions from 'components/web/suggestions';
+import { useSnackbar } from 'notistack';
 function ProductInfo() {
   const dispatch = useDispatch();
   const actionAddToCart = (cart) => dispatch(addToCart(cart));
   const {
     params: { productId },
   } = useRouteMatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const product = useSelector((state) => state.product.product);
+  const recommend = useSelector((state) => state.product.recommend);
+  const userGender = useSelector((state) => state.user.current.gender);
   const size = useSelector((state) => state.productList.size);
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState('Chọn màu');
   const [sizes, setSize] = useState('');
   const [totalProductState, setTotalProductState] = useState();
-
+  const [up, setUp] = useState(true);
   useEffect(() => {
     (async () => {
       try {
@@ -40,6 +46,7 @@ function ProductInfo() {
         unwrapResult(resultActiongetListSizeAPI);
       } catch (error) {
         console.log('Failed to fetch product', error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
@@ -49,31 +56,32 @@ function ProductInfo() {
     (async () => {
       const values = {
         age: 18 + Math.floor(Math.random() * (65 - 18)),
-        gender: 'Female',
+        gender: userGender ? userGender : 'Female',
         previousProduct: parseInt(productId),
-        price: product.price,
+        price: product.price ? product.price : 100,
         sale: product.saleId ? 'Yes' : 'No',
       };
-
       try {
         setLoading(true);
-        console.log(values);
-        // const action = getProductDetail(productId);
-        // const resultAction = await dispatch(action);
-        // unwrapResult(resultAction);
+        const action = getRecommand(values);
+        const resultAction = await dispatch(action);
+        unwrapResult(resultAction);
       } catch (error) {
         console.log('Failed to fetch product', error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch, product.price, product.saleId, productId]);
+  }, [dispatch, productId]);
+
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         let allProduct = 0;
         if (color === 'Chọn màu' && sizes.value === undefined) {
+          setUp(true);
           for (let index = 0; index < size.length; index++) {
             const element = size[index];
             for (let index = 0; index < element.colors.length; index++) {
@@ -83,6 +91,7 @@ function ProductInfo() {
           }
           setTotalProductState(allProduct);
         } else if (color !== 'Chọn màu' && sizes.value !== undefined) {
+          setUp(false);
           size.forEach((i) => {
             if (sizes.value === i.nameSize) {
               i.colors.forEach((i2) => {
@@ -96,13 +105,13 @@ function ProductInfo() {
         }
       } catch (error) {
         console.log('Failed to fetch product', error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
   }, [size, color, sizes.value]);
   const thumnailUrl = product.imageMain ? product.imageMain : THUMNAIL_URL_PRODUCTINFO;
-
   let priceProductTotal = 0;
   const priceTotal = () => {
     if (product.saleId) {
@@ -116,10 +125,8 @@ function ProductInfo() {
     setColor(data);
   };
   const handleSubmitSize = (data) => {
-
     setSize(data);
   };
-
   const handleAddToCartSubmit = (values) => {
     try {
       setLoading(true);
@@ -193,7 +200,7 @@ function ProductInfo() {
                       <Colorproduct color={size} onSubmit={handleSubmit} />
                       <SizeProduct size={size} onSubmit={handleSubmitSize} color={color} />
                       <div className="product-add-to-cart">
-                        <AddToCart onSubmit={handleAddToCartSubmit} soldOut={totalProductState > 0 ? false : true} />
+                        <AddToCart onSubmit={handleAddToCartSubmit} soldOut={totalProductState === 0 || up ? true : false} />
                       </div>
                     </div>
                   </div>
@@ -206,6 +213,7 @@ function ProductInfo() {
                   </a>
                 ))}
               </div>
+              <Suggestions currentTableData={recommend.prediction} />
             </div>
           </div>
         </main>

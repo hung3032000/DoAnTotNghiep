@@ -3,7 +3,7 @@ import StorageKeys from 'constants/storage-keys';
 const getLocalToken = localStorage.getItem(StorageKeys.TOKEN);
 const axiosClient = axios.create({
   baseURL: 
-  'https://khoaluanecommerce.herokuapp.com',
+  'https://recommendationkltn.herokuapp.com',
 
   headers: {
     'Content-Type': 'application/json',

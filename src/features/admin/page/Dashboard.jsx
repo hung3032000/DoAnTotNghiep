@@ -4,6 +4,7 @@ import LatestOrders from 'components/admin/dashboard/LatestOrders';
 import LatestProducts from 'components/admin/dashboard/LatestProducts';
 import TotalCustomers from 'components/admin/dashboard/TotalCustomers';
 import Loader from 'components/fullPageLoading';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +15,7 @@ function Dashboard() {
   const topProductList = useSelector((state) => state.static.topProduct);
   const totalFieldList = useSelector((state) => state.static.totalField);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     (async () => {
@@ -32,11 +34,12 @@ function Dashboard() {
         unwrapResult(resultActionTopProduct);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   return (
     <>
       <Loader showLoader={loading} />
@@ -54,22 +57,22 @@ function Dashboard() {
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalCustomers data={totalFieldList.getTotalOrderCompleteDay} label="Đơn hoàn thành trong ngày"/>
+              <TotalCustomers data={totalFieldList.getTotalOrderCompleteDay} label="Đơn hoàn thành trong ngày" />
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalCustomers data={totalFieldList.totalUser} label="Tổng người dùng"/>
+              <TotalCustomers data={totalFieldList.totalUser} label="Tổng người dùng" />
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalCustomers data={totalFieldList.getTotalOrderWaitingShipping} label="Tổng đơn đang chờ"/>
+              <TotalCustomers data={totalFieldList.getTotalOrderWaitingShipping} label="Tổng đơn đang chờ" />
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalCustomers sx={{ height: '100%' }} data={totalFieldList.totalOrderByDay} label="Tổng đơn trong ngày"/>
+              <TotalCustomers sx={{ height: '100%' }} data={totalFieldList.totalOrderByDay} label="Tổng đơn trong ngày" />
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>
-              <LatestProducts sx={{ height: '100%' }} data={topProductList.listProduct} label="Sản phẩm bán chạy"/>
+              <LatestProducts sx={{ height: '100%' }} data={topProductList.listProduct} label="Sản phẩm bán chạy" />
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
-              <LatestOrders data={orderLastedList.orderlist} label="Đơn hàng mới nhất"/>
+              <LatestOrders data={orderLastedList.orderlist} label="Đơn hàng mới nhất" />
             </Grid>
           </Grid>
         </Container>

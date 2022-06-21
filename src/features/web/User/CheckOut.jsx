@@ -10,6 +10,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { emptyCart } from 'slice/CartSlice';
 import { Helmet } from 'react-helmet';
 import Loader from 'components/fullPageLoading';
+import { useSnackbar } from 'notistack';
 const CheckOut = function (props) {
   const history = useHistory();
   const priceFinal = useSelector((state) => state.voucher.data);
@@ -18,6 +19,8 @@ const CheckOut = function (props) {
   const cartTotal = useSelector(cartTotalSelector);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleCheckOutFormSubmit = async (values) => {
     try {
       setLoading(true);
@@ -67,10 +70,13 @@ const CheckOut = function (props) {
       dispatch(action2);
       const action3 = emptyCart();
       dispatch(action3);
+      enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+
       history.push('/order');
       window.location.reload();
     } catch (error) {
       console.log('Failed to login:', error);
+      enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -169,7 +175,7 @@ const CheckOut = function (props) {
 
                         <tr className="order-country-zone">
                           <th scope="row">Phí vận chuyển:</th>
-                          <td>$0.00</td>
+                          <td>0đ</td>
                         </tr>
                         <tr className="order-country-zone">
                           <th scope="row">Giảm giá</th>

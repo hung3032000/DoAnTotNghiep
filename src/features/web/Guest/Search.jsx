@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { unwrapResult } from '@reduxjs/toolkit';
 import ProductsList from 'components/web/product/ProductsList';
 import React, { useEffect, useState, useMemo } from 'react';
@@ -7,6 +8,7 @@ import { Helmet } from 'react-helmet';
 import Pagination from 'components/web/pagination/index';
 import { useLocation } from 'react-router';
 import { getSearchByWord } from 'slice/SearchSlice';
+import { useSnackbar } from 'notistack';
 
 let PageSize = 8;
 const Search = function () {
@@ -17,18 +19,19 @@ const Search = function () {
   const dataProductsList = useSelector((state) => state.search.dataSearch);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const { enqueueSnackbar } = useSnackbar();
 
   //useEffect
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
-        const action = getSearchByWord({stringSearch: searchFor});
+        const action = getSearchByWord({ stringSearch: searchFor });
         const resultAction = await dispatch(action);
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
@@ -38,7 +41,7 @@ const Search = function () {
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return (dataProductsList).slice(firstPageIndex, lastPageIndex);
+    return dataProductsList.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, dataProductsList]);
   return (
     <div>

@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Loader from 'components/fullPageLoading';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
 function OrderListComplete() {
   const [loading, setLoading] = useState(false);
   const dataOrderCList = useSelector((state) => state.order.dataComplete);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   
   useEffect(() => {
     (async () => {
@@ -23,11 +25,13 @@ function OrderListComplete() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   // const { enqueueSnackbar } = useSnackbar();
   const [orderList, setOrderList] = useState(dataOrderCList);
   return (

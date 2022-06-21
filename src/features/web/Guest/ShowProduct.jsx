@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { unwrapResult } from '@reduxjs/toolkit';
 import { categoryCDetail } from 'slice/CategoryChildSlice';
 import { getListProduct } from 'slice/ProductListSlice';
@@ -10,6 +11,7 @@ import Modal from 'components/web/modal/modal';
 import { Helmet } from 'react-helmet';
 import Pagination from 'components/web/pagination/index';
 import Filter from 'components/web/filter';
+import { useSnackbar } from 'notistack';
 let PageSize = 8;
 const ShowProduct = function () {
   const {
@@ -22,13 +24,14 @@ const ShowProduct = function () {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState('');
-
+  const dataProduct = dataProductsList.filter((service) => service.status === true);
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return (data !== '' ? data : dataProductsList).slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, data, dataProductsList]);
-  console.log(currentTableData);
+    return (data !== '' ? data : dataProduct).slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, data, dataProduct]);
+  const { enqueueSnackbar } = useSnackbar();
+
   //useEffect
   useEffect(() => {
     (async () => {
@@ -46,13 +49,15 @@ const ShowProduct = function () {
         unwrapResult(resultActionChild);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
   }, [catechildId, dispatch]);
   useEffect(() => {
-    setData(dataProductsList);
+    setData(dataProduct);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataProductsList]);
 
   return (
@@ -79,7 +84,7 @@ const ShowProduct = function () {
                 <div className="refine-buttons col-md-6 col-md-4 order-md-3">
                   <div className="filters-tabs">
                     <Modal classNameModal={'btn btn-link filters-tab'} label={'Lọc'}>
-                      <Filter data={data} setData={setData} productList={dataProductsList}/>
+                      <Filter data={data} setData={setData} productList={dataProduct} />
                     </Modal>
                   </div>
                 </div>
@@ -89,13 +94,7 @@ const ShowProduct = function () {
               <ul className="search-result-items tiles-container js-slv-product-grid row" data-columns>
                 <ProductsList data={currentTableData} />
               </ul>
-              <Pagination
-                className="pagination cursor"
-                currentPage={currentPage}
-                totalCount={data.length}
-                pageSize={PageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-              />
+              <Pagination className="pagination cursor" currentPage={currentPage} totalCount={data.length} pageSize={PageSize} onPageChange={(page) => setCurrentPage(page)} />
             </div>
           </div>
         </div>

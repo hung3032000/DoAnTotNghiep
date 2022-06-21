@@ -7,8 +7,10 @@ import Loader from 'components/fullPageLoading';
 import React, { useEffect, useState } from 'react';
 import { getListCategoryAdmin } from 'slice/CategorySlice';
 import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
+import { useSnackbar } from 'notistack';
 function CategoryChild() {
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const dataCategoryList = useSelector((state) => state.categoryList.dataA);
   const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
@@ -31,12 +33,12 @@ function CategoryChild() {
         unwrapResult(resultActionChild);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
-  
+  }, [dispatch, enqueueSnackbar]);
 
   const [subCategoryList, setSubCategoryList] = useState(dataCategoryCList);
 
@@ -46,7 +48,7 @@ function CategoryChild() {
       <Common
         title="Quản lý danh mục phụ"
         toolbar={<CategoryChildListToolbar data={dataCategoryCList} setSubCategoryList={setSubCategoryList} />}
-        listResults={<CategoryChildListResults dataCategoryCList={subCategoryList.length === 0 ? dataCategoryCList : subCategoryList} dataCategoryList={dataCategoryList}/>}
+        listResults={<CategoryChildListResults dataCategoryCList={subCategoryList.length === 0 ? dataCategoryCList : subCategoryList} dataCategoryList={dataCategoryList} />}
       />
     </>
   );

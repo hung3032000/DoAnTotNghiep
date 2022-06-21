@@ -9,9 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { unwrapResult } from '@reduxjs/toolkit';
 import OrderListInfo from 'components/admin/order/OrderListInfo';
-import { deleteOrderAdmin, getOrder 
-  ,paymentVNPAY
- } from 'slice/OrderSlice';
+import { deleteOrderAdmin, getOrder, paymentVNPAY } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
@@ -23,8 +21,11 @@ import Loader from 'components/fullPageLoading';
 import Pagination from 'components/web/pagination/index';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import { useSnackbar } from 'notistack';
 let PageSize = 5;
 const Order = function () {
+  const { enqueueSnackbar } = useSnackbar();
+
   const dataOrderList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -39,11 +40,12 @@ const Order = function () {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
@@ -58,11 +60,12 @@ const Order = function () {
       const action = deleteOrderAdmin(id);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+      enqueueSnackbar('Huỷ thành công', { variant: 'success' });
+
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };
@@ -77,9 +80,8 @@ const Order = function () {
       window.location.href = linkHref.vnpUrl;
     } catch (error) {
       console.log(error);
-      // enqueueSnackbar(error.message, { variant: 'error' });
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
-      // setTimeout(() => window.location.reload(), 1000);
       setLoading(false);
     }
   };

@@ -1,4 +1,5 @@
 import axiosClient from './axiosClient';
+import axiosSubClient from './axiosSubClient';
 const productApi = {
   getAll(params) {
     const url = '/products/paging';
@@ -18,7 +19,7 @@ const productApi = {
   },
   getRecommand(values) {
     const url = `/recomentdations`;
-    return axiosClient.post(url, values);
+    return axiosSubClient.post(url, values);
   },
 };
 export default productApi;

@@ -6,12 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import Loader from 'components/fullPageLoading';
+import { useSnackbar } from 'notistack';
 
 function CategoryChild() {
   const {
     params: { id },
   } = useRouteMatch();
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   // list category
   const dispatch = useDispatch();
@@ -26,11 +28,12 @@ function CategoryChild() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
+  }, [dispatch, enqueueSnackbar, id]);
   useEffect(() => {
     (async () => {
       try {
@@ -39,12 +42,13 @@ function CategoryChild() {
         const resultActionChild = dispatch(actionChild);
         unwrapResult(resultActionChild);
       } catch (error) {
+        enqueueSnackbar(error.message, { variant: 'error' });
         console.log(error);
       } finally {
         setLoading(false);
       }
     })();
-  }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, id]);
+  }, [dataCategoryCList.length, dataCategoryDetail.length, dispatch, enqueueSnackbar, id]);
   const [data, setData] = useState(dataCategoryCList.subcategories);
   useEffect(() => {
     setData(dataCategoryCList.subcategories ? dataCategoryCList.subcategories.filter((service) => service.substatus === true) : dataCategoryCList.subcategories);

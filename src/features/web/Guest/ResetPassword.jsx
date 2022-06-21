@@ -21,7 +21,7 @@ function ResetPassword() {
       const action = confirmResetPassword(values);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);
-      //   enqueueSnackbar('Cập nhập thông tin cá nhân thành công', { variant: 'success' });
+      enqueueSnackbar('Kiểm tra mail của bạn', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {

@@ -4,6 +4,7 @@ import TotalCustomers from 'components/admin/dashboard/TotalCustomers';
 import StatisticalResults from 'components/admin/statistical/StatisticalResults';
 import StatisticalToolbar from 'components/admin/statistical/StatisticalToolbar';
 import Loader from 'components/fullPageLoading';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderList, getProductList } from 'slice/StaticSlice';
@@ -15,6 +16,7 @@ function Statistical() {
   const [statistical, setStatistical] = useState([]);
   const [search, setSearch] = useState([]);
   const [status, setStatus] = useState('product');
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const dataProductList = useSelector((state) => state.static.productListStatic);
   const dataOrderList = useSelector((state) => state.static.orderListStatic);
@@ -30,11 +32,12 @@ function Statistical() {
         unwrapResult(resultActionGet);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
 
   useEffect(() => {
     if (status === 'product') {
@@ -44,8 +47,6 @@ function Statistical() {
       setStatistical(dataOrderList.listOrder);
     }
   }, [dataOrderList, dataProductList, status]);
-
-
 
   return (
     <>
@@ -76,7 +77,7 @@ function Statistical() {
         <Common
           title="Quản lý người dùng"
           toolbar={<StatisticalToolbar data={statistical} setStatistical={setStatistical} setStatus={setStatus} setSearch={setSearch} />}
-          listResults={<StatisticalResults status={status} search={search}  dataStatistical={statistical ? statistical : []} />}
+          listResults={<StatisticalResults status={status} search={search} dataStatistical={statistical ? statistical : []} />}
         />
       </Box>
     </>

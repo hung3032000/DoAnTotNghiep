@@ -14112,22 +14112,12 @@ address {
   margin-bottom: 0.625rem;
 }
 @media (min-width: 1200px) {
-  .col-mg-reset-4{
-    right: 50%
-  }
-
-  .col-mg-reset-7{
-    margin-top: -372px;
-  }
-  .col-mg-reset-8{
-    margin-left: 287px;
+  .img-product{
+    height: 350px;
   }
 }
 @media (min-width: 1920px) {
-  .col-mg-reset-7{
-    margin-top: -596px;
-  }
-  .col-mg-reset-8{
-    margin-left: 462.2px;
+  .img-product{
+    height: 550px;
   }
 }

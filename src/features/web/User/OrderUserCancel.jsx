@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from 'slice/OrderSlice';
 import OrderUser from "components/web/orderUser";
+import { useSnackbar } from 'notistack';
 
 
 const OrderUserCancel = function () {
   const dataOrderList = useSelector((state) => state.order.data);
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -21,11 +23,13 @@ const OrderUserCancel = function () {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
 
   return (
     <>

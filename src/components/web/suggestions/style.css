@@ -1,0 +1,16 @@
+.related-product {
+  position: relative;
+  overflow: hidden;
+  padding: 3rem 0;
+}
+
+@media (min-width: 1440px) {
+  .related-product {
+    padding-top: 10rem;
+  }
+}
+.related-product h2.related-product-header,
+.related-product h3:not(.product-name) {
+  text-align: center;
+  margin-bottom: 5rem;
+}

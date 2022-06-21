@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Loader from 'components/fullPageLoading';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
 
 function OrderList() {
   const [loading, setLoading] = useState(false);
   const dataOrderCList = useSelector((state) => state.order.data);
   const dispatch = useDispatch();
-  // const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     (async () => {
       try {
@@ -24,11 +25,12 @@ function OrderList() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   const [orderList, setOrderList] = useState(dataOrderCList);
 
   return (

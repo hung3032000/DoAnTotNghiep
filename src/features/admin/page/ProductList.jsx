@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import Loader from 'components/fullPageLoading';
 import { getListCategoryChildAdmin } from 'slice/CategoryChildSlice';
 import { getListProductAdmin } from 'slice/ProductListSlice';
+import { useSnackbar } from 'notistack';
 function ProductList() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function ProductList() {
   //fetch data category
   const dataCategoryCList = useSelector((state) => state.categoryChildList.dataA);
   const dataProductsList = useSelector((state) => state.productList.dataA);
+  const { enqueueSnackbar } = useSnackbar();
 
   //fetch data category
   useEffect(() => {
@@ -37,11 +39,12 @@ function ProductList() {
         unwrapResult(resultActionGetProducts);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   const [productsList, setProductsList] = useState(dataProductsList);
 
   return (

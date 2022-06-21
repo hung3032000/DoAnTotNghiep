@@ -8,8 +8,10 @@ import { useEffect } from 'react';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Loader from 'components/fullPageLoading';
 import { getAllVoucher } from 'slice/voucherSlice';
+import { useSnackbar } from 'notistack';
 function Voucher() {
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const dataVoucherList = useSelector((state) => state.voucher.voucher);
   //fetch data category
@@ -22,18 +24,22 @@ function Voucher() {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar(error.message, { variant: 'error' });
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   const [voucherList, setVoucherList] = useState(dataVoucherList);
   return (
     <>
       <Loader showLoader={loading} />
 
-      <Common title="Quản lý voucher" toolbar={<VoucherListToolbar data={dataVoucherList} setVoucherList={setVoucherList} />}
-       listResults={<VoucherListResults dataVoucherList={voucherList.length === 0 ? dataVoucherList : voucherList}/>} />
+      <Common
+        title="Quản lý voucher"
+        toolbar={<VoucherListToolbar data={dataVoucherList} setVoucherList={setVoucherList} />}
+        listResults={<VoucherListResults dataVoucherList={voucherList.length === 0 ? dataVoucherList : voucherList} />}
+      />
     </>
   );
 }

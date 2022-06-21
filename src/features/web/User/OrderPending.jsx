@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderCompleteUser } from 'slice/OrderSlice';
 import OrderUser from "components/web/orderUser";
+import { useSnackbar } from 'notistack';
 
 
 const OrderPending = function () {
   const dataOrderList = useSelector((state) => state.order.dataComplete);
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -21,11 +23,13 @@ const OrderPending = function () {
         unwrapResult(resultAction);
       } catch (error) {
         console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+
       } finally {
         setLoading(false);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar]);
   return (
     <>
       <Loader showLoader={loading} />
