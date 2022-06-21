@@ -13,6 +13,7 @@ import { deleteOrderAdmin, getOrder, paymentVNPAY } from 'slice/OrderSlice';
 import CustomerSp from 'components/web/customerSupport/CustomerSp';
 import NavUser from 'components/web/NavUserPage/NavUser';
 import moment from 'moment';
+import PaymentIcon from '@material-ui/icons/Payment';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPrice } from 'utils';
@@ -73,7 +74,6 @@ const Order = function () {
   const handleOnVNPAY = async (id) => {
     try {
       setLoading(true);
-      console.log(id);
       const action = paymentVNPAY(id);
       const resultAction = await dispatch(action);
       const linkHref = unwrapResult(resultAction);
@@ -150,16 +150,18 @@ const Order = function () {
                             >
                               <ClearIcon />
                             </IconButton>
-                            <IconButton
-                              className="mgr-10"
-                              color="secondary"
-                              aria-label="delete"
-                              onClick={() => {
-                                handleOnVNPAY(order._id);
-                              }}
-                            >
-                              VNPAY
-                            </IconButton>
+                            {order.paymentMethod === 'None' && (
+                              <IconButton
+                                className="mgr-10"
+                                color="primary"
+                                aria-label="delete"
+                                onClick={() => {
+                                  handleOnVNPAY(order._id);
+                                }}
+                              >
+                                <PaymentIcon/>
+                              </IconButton>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
