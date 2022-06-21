@@ -1,8 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-
-// CustomerSp.propTypes = {};
-
 function CustomerSp(props) {
   return (
     <div className="customer-support">
