@@ -4,7 +4,7 @@ import Products from '../product/Products';
 function Index(props) {
   const { currentTableData } = props;
 
-  const data = currentTableData.filter((item, index) => (item._id ? item : null));
+  const data = currentTableData?.filter((item, index) => (item._id ? item : null));
 
   return (
     <>
