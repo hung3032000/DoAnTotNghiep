@@ -18,7 +18,6 @@ function ResetPassword() {
     try {
       setLoading(true);
       values.token = token;
-      console.log(values);
       const action = confirmResetPassword(values);
       const resultAction = dispatch(action);
       unwrapResult(resultAction);

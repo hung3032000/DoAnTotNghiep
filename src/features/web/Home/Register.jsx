@@ -22,7 +22,7 @@ const Register = function (props) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       enqueueSnackbar('Đăng kí thành công', { variant: 'success' });
-      history.push('/myaccount');
+      history.push('/order');
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
