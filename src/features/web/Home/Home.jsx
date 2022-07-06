@@ -13,7 +13,7 @@ const Home = function (props) {
         <section aria-roledescription="carousel" className="home-carousel-container content-slot">
           <div className="swiper-container swiper-container-horizontal swiper-container-autoheight swiper-container-fade">
             <div className="swiper-wrapper" style={{ transitionDuration: '0ms' }}>
-              <Slide imageUrl="/image/Homepage_Carousel_Holiday_ForHer_Desktop.jpg" title="Bag For Test" />
+              <Slide imageUrl="/image/Homepage_Carousel_Holiday_ForHer_Desktop.jpg" title="Bag For You" />
             </div>
           </div>
         </section>

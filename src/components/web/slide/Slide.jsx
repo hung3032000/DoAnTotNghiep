@@ -21,7 +21,7 @@ function Slide(props) {
               <span style={{ color: '/#FFFFFF' }}>{title}</span>
             </div>
             <div className="cta-container">
-              <p className="form-button look-button">SHOP NOW</p>
+              <p className="form-button look-button">MUA NGAY</p>
             </div>
           </div>
         </a>
